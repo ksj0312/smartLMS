@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+  
+<configuration>
+
+	<settings>
+    	<setting name="cacheEnabled" value="false" /> 
+        <setting name="jdbcTypeForNull" value="NULL" /> 
+    </settings> 
+
+   <typeAliases>
+      <typeAlias type="com.smart.lms.vo.BoardVO" alias="boardDTO"></typeAlias>
+      <typeAlias type="com.smart.lms.vo.CalendarVO" alias="calDTO"></typeAlias>
+      <typeAlias type="com.smart.lms.vo.CommentVO" alias="commentDTO"></typeAlias>
+      <typeAlias type="com.smart.lms.vo.TaskVO" alias="taskDTO"></typeAlias>
+      <typeAlias type="com.smart.lms.vo.StuTaskVO" alias="stutaskDTO"></typeAlias>
+      <typeAlias type="com.smart.lms.vo.NoteVO" alias="noteDTO"></typeAlias>
+      
+      <typeAlias type="com.smart.lms.vo.ClassVO" alias="classDTO"></typeAlias>
+      <typeAlias type="com.smart.lms.vo.AttendClassVO" alias="attendDTO"></typeAlias>
+      <typeAlias type="com.smart.lms.vo.GradeVO" alias="gradeDTO"></typeAlias>
+      <typeAlias type="com.smart.lms.vo.TodateVO" alias="todateDTO"></typeAlias>
+      
+      <typeAlias type="com.smart.lms.vo.StudentVO" alias="studentDTO"></typeAlias>
+      <typeAlias type="com.smart.lms.vo.ProfessorVO" alias="professorDTO"></typeAlias>
+   </typeAliases>
+   
+   <mappers>
+      <mapper resource="mappings/board-mapping.xml" />
+      <mapper resource="mappings/eduinfo-mapping.xml" />
+      <mapper resource="mappings/member-mapping.xml" />
+   </mappers>
+   
+</configuration>
