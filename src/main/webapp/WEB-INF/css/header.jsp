@@ -46,7 +46,7 @@
 				<ul class="navbar-nav log2" style="padding-right:100px !important; font-size:small;" >
 					<li class="nav-item">
 						<a class="nav-link" href="adminLoginPage">ADMIN LOGIN</a>
-						<a class="nav-link" href="studentLogin">STUDENT LOGIN</a>
+						<a class="nav-link" href="studentLoginPage">STUDENT LOGIN</a>
 					</li>
 				</ul>
 			</c:otherwise>

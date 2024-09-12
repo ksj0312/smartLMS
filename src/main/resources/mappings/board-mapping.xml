@@ -3,9 +3,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="moardDAO">
+<mapper namespace="boardDAO">
 
-
-
+<insert id="sendNote" parameterType="com.smart.lms.vo.NoteVO"> 
+INSERT INTO NOTE(N_SENDER, N_RECIVER, N_TITLE, N_INFO, N_SEND_DATE) 
+VALUES(#{n_sender}, #{n_reciver}, #{n_title}, #{n_info}, SYSDATE()) 
+</insert>
+<select id="receivNote" resultType="noteDTO"> 
+select * from note where 1=1
+</select>
 
 </mapper>
