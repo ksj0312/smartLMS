@@ -44,6 +44,7 @@
 <%-- 	<input type="button" onclick="location.href='${pageContext.request.contextPath }/productList.ko';" value="상품목록보기" /> --%>
 	<form action="updateBoard" method="post" id="dataTransferForm" enctype="multipart/form-data">
 		<textarea name="b_info" id="ir1" rows="10" cols="100" style="width:766px; height:412px; display:none;">${board.b_info }</textarea>
+		<input style="display:none;" type="text" name="b_number" value="${board.b_number }" >
 <!-- 		썸네일 이미지 등록: <input type="file" name="pthumbnailimg" id="pthumbnailimg"> -->
 		<label for="b_title">제목:</label>
 		<input type="text" name="b_title" value="${board.b_title }" placeholder="공지사항 제목입력">
@@ -55,7 +56,7 @@
 		<input type="text" name="b_type" value="${board.b_type }" placeholder="타입 입력">
 		
 		<label for="b_writer">작성자:</label>
-		<input type="text" name="b_writer" value="${board.b_title }"  placeholder="타입 입력" readonly>
+		<input type="text" name="b_writer" value="${board.b_writer }"  placeholder="타입 입력" readonly>
 		
 		
 		

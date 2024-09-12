@@ -30,13 +30,12 @@ public class BoardController {
 	private BoardService boardService;
 	
 	
+	//게시판 목록
 	@RequestMapping("/getBoardList")
-	public ModelAndView getPrdList(BoardVO vo, ModelAndView mav) {
-
+	public ModelAndView getBoardList(BoardVO vo, ModelAndView mav) {
 		List<BoardVO> boardList = boardService.getBoardList(vo);
 		mav.addObject("boardList", boardList);
 		mav.setViewName("/board/board");
-
 		return mav;
 	}
 	
@@ -70,20 +69,22 @@ public class BoardController {
 	}
 	
 	//수정 누를 시 수정페이지로 이동
-		@RequestMapping("/updatePage")
-		public String updatePage(BoardVO vo, Model model) {
-			BoardVO board = boardService.getBoard(vo);
-			model.addAttribute("board", board);
-			return "/board/updateboard";
-		}
+	@RequestMapping("/updatePage")
+	public String updatePage(BoardVO vo, Model model) {
+		BoardVO board = boardService.getBoard(vo);
+		model.addAttribute("board", board);
+		return "/board/updateboard";
+	}
 	
 
 	//선택 목록 수정
 	@PostMapping("/updateBoard")
 	public String updateBoard(@ModelAttribute BoardVO vo) {
 		boardService.updateBoard(vo);
-		return "redirect:/getBoard";
-		}
+		return "redirect:/getBoard?b_number=" + vo.getB_number();
+	}
+	
+
 	
 	
 	

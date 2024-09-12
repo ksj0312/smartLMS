@@ -24,6 +24,7 @@
 						<td class="tdCenter">${board.b_number}</td>
 						<td>${board.b_title}</td>
 						<td class="tdCenter">${board.b_info}</td>
+<%-- 						<td class="tdCenter">${board.b_type}</td> --%>
 						<td class="tdCenter">${board.b_writer}</td>
 					</tr>
 				</c:forEach>
