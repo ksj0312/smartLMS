@@ -1,5 +1,7 @@
 package com.smart.lms.service;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +28,8 @@ public class MemberServiceImpl implements MemberService {
 		 StudentVO svo = memDAO.getStudent(vo);
 
 	      if (svo != null) {
-	         boolean isMatch = passwordEncoder.matches(vo.getPwd(), svo.getPwd());
+	  //       boolean isMatch = passwordEncoder.matches(vo.getPwd(), svo.getPwd());
+	         boolean isMatch = vo.getPwd().equals(svo.getPwd());
 	         if (isMatch) {
 	            return svo;
 	         }
@@ -57,6 +60,14 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public ProfessorVO getAdmin(ProfessorVO vo) {
 		return  memDAO.getAdmin(vo);
+	}
+
+	//학생 데이터 인서트
+	@Override
+	public void insertStudent(List<StudentVO> users) {
+		for(int i = 0; i < users.size(); i++) {
+			memDAO.insertStudent(users.get(i));
+		}
 	}
 	
 

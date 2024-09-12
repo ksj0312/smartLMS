@@ -1,5 +1,7 @@
 package com.smart.lms.service;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import com.smart.lms.vo.ProfessorVO;
@@ -14,5 +16,8 @@ public interface MemberService {
 	ProfessorVO adminLogin(ProfessorVO vo);
 
 	ProfessorVO getAdmin(ProfessorVO vo);
+
+	void insertStudent(List<StudentVO> users);
+
 
 }

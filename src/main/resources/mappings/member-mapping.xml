@@ -6,10 +6,23 @@
 <mapper namespace="memberDAO">
 
 
-	<select id="getStudent" resultType="studentDTO"> SELECT * FROM STUDENT WHERE ID = #{id} </select>
+	<select id="getStudent" resultType="studentDTO"> 
+	SELECT * FROM STUDENT WHERE ID = #{id} 
+	</select>
 
-	<select id="getAdmin" resultType="professorDTO"> SELECT * FROM PROFESSOR WHERE ID = #{id} </select>
+	<select id="getAdmin" resultType="professorDTO"> 
+	SELECT * FROM PROFESSOR WHERE ID = #{id}
+	 </select>
 
+	<insert id="insertStudent">
+		INSERT INTO STUDENT (ID, PWD, NAME, GENDER, BIRTH, TEL, ZIPCODE, ADDR, DETAIL_ADDR, EMAIL, DEPARTMENT, GRADE, ADMISSION_DATE, GRADUATION_DATE, JOIN_DATE, STATUS) 
+		VALUES (#{id}, #{pwd}, #{name}, #{gender}, #{birth}, #{tel}, #{zipcode}, #{addr}, #{detail_addr}, #{email}, #{department}, #{grade}, #{admission_date}, #{graduation_date}, SYSDATE(), #{status});
+	</insert>
+
+	<insert id="insertAdmin">
+		INSERT INTO professor (ID, PWD, NAME, GENDER, BIRTH, TEL, ZIPCODE, ADDR, DETAIL_ADDR, EMAIL, LESSON, JOIN_DATE, STATUS, INDATE) 
+		VALUES (#{id}, #{pwd}, #{name}, #{gender}, #{birth}, #{tel}, #{zipcode}, #{addr}, #{detail_addr}, #{email}, #{lesson}, SYSDATE(), #{status}, #{indate});
+	</insert>
 
 
 </mapper>

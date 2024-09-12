@@ -11,9 +11,10 @@
 	
 <div class="maindiv">
 
-<a href ="">엑셀 파일 업로드</a>
-<a href ="">엑셀 파일 업로드2</a>
-<a href ="">엑셀 파일 업로드3</a>
+<a href ="uploadPage">엑셀 파일 업로드</a>
+<br>
+<a href ="downloadPage">엑셀 파일 다운로드</a>
+<br>
 
 
 </div>
