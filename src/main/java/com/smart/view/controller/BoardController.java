@@ -49,7 +49,13 @@ public class BoardController {
 	@PostMapping(value = "/insertBoard")
 	public String insertBoard(@ModelAttribute BoardVO vo) throws IllegalStateException, IOException {
 		boardService.insertBoard(vo);
-		return "redirect:/getBoardList";
+		if(vo.getB_type().equals("게시판")) {
+			return "redirect:/getBoardList?b_type=게시판";
+		}else {
+			
+			return "redirect:/getBoardList?b_type=QNA";
+		}
+		
 	}
 	
 	//목록 누를시 상세 내용으로 이동

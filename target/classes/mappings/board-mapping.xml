@@ -9,8 +9,6 @@
 		SELECT * FROM BOARD WHERE B_TYPE = #{b_type}
 	</select>
 	
-
-	
 	<insert id="insertBoard">
       INSERT INTO BOARD(B_TARGET, B_TITLE, B_INFO, B_WRITER, B_TYPE) VALUES(#{b_target}, #{b_title}, #{b_info}, #{b_writer}, #{b_type})
    </insert>

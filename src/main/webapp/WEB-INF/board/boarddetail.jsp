@@ -46,7 +46,15 @@
 		
 		<script>
 		function del(val){
-			location.href = "deleteBoard?b_number="+val;
+			const result = confirm("정말로 이 게시글을 삭제하시겠습니까?");
+			 if (result) {
+			        alert("삭제가 완료되었습니다.");
+			        location.href = "deleteBoard?b_number=" + val;
+
+			    } else {
+			        // 취소 시 아무 작업도 하지 않음
+			        alert("삭제가 취소되었습니다.");
+			    }
 		}
 		
 		function update(val){
