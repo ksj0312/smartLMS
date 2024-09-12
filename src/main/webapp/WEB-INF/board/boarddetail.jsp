@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,7 +29,17 @@
 					</tr>
 			</tbody>
 		</table>
-		<a href="getBoardList">목록</a>
+		<c:choose>
+			<c:when test="${board.b_type eq '게시판'}">
+					<a href="getBoardList?b_type=게시판">목록</a>
+
+			</c:when>		
+			<c:when test="${board.b_type eq 'QNA'}">
+					<a href="getBoardList?b_type=QNA">목록</a>
+
+			</c:when>				
+		</c:choose>
+		
 		<a href="insertPage">추가</a>
 		<button onclick="update(${board.b_number})">수정</button>
 		

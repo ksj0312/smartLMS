@@ -27,7 +27,7 @@
 					</tr>
 			</tbody>
 		</table>
-		<a href="getBoardList">목록</a>
+		<a href="getBoardList?b_type=${board.b_type }">목록</a>
 		<a href="insertPage">추가</a>
 		
 		
