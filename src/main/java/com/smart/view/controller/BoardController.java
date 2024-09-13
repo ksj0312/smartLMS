@@ -18,6 +18,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -37,12 +38,7 @@ public class BoardController {
 	//엑셀 업로드 페이지 이동
     @GetMapping("/uploadPage")
     public String showUploadPage() {
-        return "/board/upload";  
-    }
-    //엑셀 다운로드 페이지 이동
-    @GetMapping("/downloadPage")
-    public String showDownloadPage() {
-        return "/board/download"; 
+        return "/board/excelPage";  
     }
     
     //엑셀 파일 다운로드
@@ -91,15 +87,17 @@ public class BoardController {
     
     //엑셀 파일 업로드 , 데이터 베이스에 저장
     @PostMapping("/upload/excel")
-    public String uploadExcelFile(@RequestParam("file") MultipartFile file) {
+    public String uploadExcelFile(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
         try {
             InputStream inputStream = file.getInputStream();
             Workbook workbook = WorkbookFactory.create(inputStream);
             Sheet sheet = workbook.getSheetAt(0);
 
             List<StudentVO> students = new ArrayList<>();
-            System.out.println();
+            System.out.println(sheet.getLastRowNum());
+            
             for (int i = 2; i <= sheet.getLastRowNum(); i++) {
+//            	for (int i = 2; i < sheet.getPhysicalNumberOfRows(); i++) {
                 Row row = sheet.getRow(i);
                 
                 String id = ExcelUtil.getCellValue(row.getCell(0));
@@ -151,12 +149,13 @@ public class BoardController {
             memService.insertStudent(students);
 
             workbook.close();
-            
-            return "redirect:/uploadPage?success=true";
+            redirectAttributes.addFlashAttribute("success", true);
+            return "redirect:/uploadPage";
         
         } catch (Exception e) {
             e.printStackTrace();
-            return "redirect:/uploadPage?error=true"; 
+            redirectAttributes.addFlashAttribute("success", false);
+            return "redirect:/uploadPage"; 
         }
     }
 

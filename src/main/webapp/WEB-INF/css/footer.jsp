@@ -6,8 +6,8 @@
 </head>
 <body>
 
-   <footer>
-      <div class="board_footer">
+   <footer class = footer>
+      <div class="footerdiv">
          <p class="footer1">
             <em>SMARTLMS,</em>
          </p>

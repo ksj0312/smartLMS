@@ -9,13 +9,10 @@
 
 
 	
-<div class="maindiv">
+<div class="divall">
 
-<a href ="uploadPage">엑셀 파일 업로드</a>
-<br>
-<a href ="downloadPage">엑셀 파일 다운로드</a>
-<br>
-
+<a href ="uploadPage">엑셀 파일 업로드</a><br>
+<a href ="adminPage">관리자 페이지 이동</a>
 
 </div>
 	
