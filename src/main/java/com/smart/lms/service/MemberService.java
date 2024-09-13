@@ -17,7 +17,9 @@ public interface MemberService {
 
 	ProfessorVO getAdmin(ProfessorVO vo);
 
-	void insertStudent(List<StudentVO> users);
+	void insertStudentTx(List<StudentVO> users) throws Exception;
+
+	void insertProfessorTx(List<ProfessorVO> professors) throws Exception;
 
 
 }

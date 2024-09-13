@@ -22,7 +22,8 @@
 	
 	<li><a href="adminPage" class = "atag2">관리자</a></li>
 	<li class="menu">계정관리></li>
-	<li><a href="uploadPage" class = "atag">- 엑셀 업로드</a></li>
+	<li><a href="uploadPageStu" class = "atag">- 학생용 엑셀 업로드</a></li>
+	<li><a href="uploadPagePro" class = "atag">- 교수용 엑셀 업로드</a></li>
 	<li class="menu">게시판관리></li>
 	<li><a href="" class = "atag">- 공지관리</a></li>
 	<li><a href="" class = "atag">- FAQ관리</a></li>

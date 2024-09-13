@@ -25,5 +25,10 @@ public class MemberDAO {
 	public void insertStudent(StudentVO users) {
 		 mybatis.insert("memberDAO.insertStudent", users);
 	}
+
+	public void insertProfessor(ProfessorVO users) {
+		 mybatis.insert("memberDAO.insertProfessor", users);
+		
+	}
 	
 }

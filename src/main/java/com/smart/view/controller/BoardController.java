@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.smart.lms.service.BoardService;
 import com.smart.lms.service.MemberService;
 import com.smart.lms.util.ExcelUtil;
+import com.smart.lms.vo.ProfessorVO;
 import com.smart.lms.vo.StudentVO;
 
 import org.apache.poi.ss.usermodel.*;
@@ -68,8 +69,7 @@ public class BoardController {
             header.createCell(10).setCellValue("학과");
             header.createCell(11).setCellValue("학년(ex: 1학년)");
             header.createCell(12).setCellValue("입학일(1999.01.01)");
-            header.createCell(13).setCellValue("졸업일(1999.01.01)");
-            header.createCell(14).setCellValue("상태(재학, 휴학, 퇴학, 졸업");
+            header.createCell(13).setCellValue("상태(재학, 휴학, 퇴학, 졸업");
 
             Row ex = sheet.createRow(1);
             ex.createCell(0).setCellValue("아이디, 비밀번호, 전화번호, 우편번호는 셀 형식을 텍스트 형식으로 맞춰주세요.");
@@ -101,7 +101,9 @@ public class BoardController {
             Sheet sheet = workbook.getSheetAt(0);
 
             List<StudentVO> students = new ArrayList<>();
-            System.out.println(sheet.getLastRowNum());
+            
+            Row firstRow = sheet.getRow(0); 
+            int lastCellNum = firstRow.getLastCellNum();
             
             for (int i = 2; i <= sheet.getLastRowNum(); i++) {
 //            	for (int i = 2; i < sheet.getPhysicalNumberOfRows(); i++) {
@@ -120,8 +122,7 @@ public class BoardController {
             	String department = ExcelUtil.getCellValue(row.getCell(10));
             	String grade = ExcelUtil.getCellValue(row.getCell(11));
             	Cell admission_dateCell  = row.getCell(12);
-            	Cell graduation_dateCell = row.getCell(13);
-            	String status = ExcelUtil.getCellValue(row.getCell(14));
+            	String status = ExcelUtil.getCellValue(row.getCell(13));
             	
                 Date admission_date = null;
                 Date graduation_date = null;
@@ -130,10 +131,6 @@ public class BoardController {
                     admission_date = new Date(admission_dateCell.getDateCellValue().getTime());
                 }
 
-                if (graduation_dateCell != null && graduation_dateCell.getCellType() == CellType.NUMERIC && DateUtil.isCellDateFormatted(graduation_dateCell)) {
-                    graduation_date = new Date(graduation_dateCell.getDateCellValue().getTime());
-                }
-                
                 StudentVO student = new StudentVO();
                 student.setId(id);
                 student.setPwd(pwd);
@@ -148,15 +145,18 @@ public class BoardController {
                 student.setDepartment(department);
                 student.setGrade(grade);
                 student.setAdmission_date(admission_date);
-                student.setGraduation_date(graduation_date);
                 student.setStatus(status);
 
                 students.add(student);
             }
-            memService.insertStudent(students);
+            
+            if(students.size() > 0 && lastCellNum == 14) {
+            	memService.insertStudentTx(students);
+            }
+            
+            redirectAttributes.addFlashAttribute("success", lastCellNum == 14);
 
             workbook.close();
-            redirectAttributes.addFlashAttribute("success", true);
             return "redirect:/uploadPageStu";
         
         } catch (Exception e) {
@@ -184,7 +184,7 @@ public class BoardController {
             header.createCell(8).setCellValue("상세주소");
             header.createCell(9).setCellValue("이메일");
             header.createCell(10).setCellValue("과목");
-            header.createCell(11).setCellValue("상태(재학, 휴학, 퇴학, 졸업");
+            header.createCell(11).setCellValue("상태(재직, 휴직, 은퇴)");
             header.createCell(12).setCellValue("입사일(1999.01.01)");
 
             Row ex = sheet.createRow(1);
@@ -196,7 +196,7 @@ public class BoardController {
             byte[] excelContent = outputStream.toByteArray();
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-            headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=students.xlsx");
+            headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=professors.xlsx");
 
             return ResponseEntity.ok()
                     .headers(headers)
@@ -208,7 +208,7 @@ public class BoardController {
         }
     }
     
-    //학생용 엑셀 파일 업로드 , 데이터 베이스에 저장
+    //교수용 엑셀 파일 업로드 , 데이터 베이스에 저장
     @PostMapping("/upload/excelPro")
     public String uploadExcelFile(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
         try {
@@ -216,13 +216,14 @@ public class BoardController {
             Workbook workbook = WorkbookFactory.create(inputStream);
             Sheet sheet = workbook.getSheetAt(0);
 
-            List<StudentVO> students = new ArrayList<>();
-            System.out.println(sheet.getLastRowNum());
+            List<ProfessorVO> professors = new ArrayList<>();
+            Row firstRow = sheet.getRow(0); 
+            int lastCellNum = firstRow.getLastCellNum();
             
             for (int i = 2; i <= sheet.getLastRowNum(); i++) {
 //            	for (int i = 2; i < sheet.getPhysicalNumberOfRows(); i++) {
                 Row row = sheet.getRow(i);
-                
+            
                 String id = ExcelUtil.getCellValue(row.getCell(0));
             	String pwd = ExcelUtil.getCellValue(row.getCell(1));
             	String name = ExcelUtil.getCellValue(row.getCell(2));
@@ -233,52 +234,51 @@ public class BoardController {
             	String addr = ExcelUtil.getCellValue(row.getCell(7));
             	String detail_addr = ExcelUtil.getCellValue(row.getCell(8));
             	String email = ExcelUtil.getCellValue(row.getCell(9));
-            	String department = ExcelUtil.getCellValue(row.getCell(10));
-            	String grade = ExcelUtil.getCellValue(row.getCell(11));
-            	Cell admission_dateCell  = row.getCell(12);
-            	Cell graduation_dateCell = row.getCell(13);
-            	String status = ExcelUtil.getCellValue(row.getCell(14));
+            	String lesson = ExcelUtil.getCellValue(row.getCell(10));
+            	String status = ExcelUtil.getCellValue(row.getCell(11));
+            	Cell indateCell = row.getCell(12);
             	
-                Date admission_date = null;
-                Date graduation_date = null;
+                Date indate = null;
 
-                if (admission_dateCell != null && admission_dateCell.getCellType() == CellType.NUMERIC && DateUtil.isCellDateFormatted(admission_dateCell)) {
-                    admission_date = new Date(admission_dateCell.getDateCellValue().getTime());
-                }
-
-                if (graduation_dateCell != null && graduation_dateCell.getCellType() == CellType.NUMERIC && DateUtil.isCellDateFormatted(graduation_dateCell)) {
-                    graduation_date = new Date(graduation_dateCell.getDateCellValue().getTime());
+                if (indateCell != null && indateCell.getCellType() == CellType.NUMERIC && DateUtil.isCellDateFormatted(indateCell)) {
+                	indate = new Date(indateCell.getDateCellValue().getTime());
                 }
                 
-                StudentVO student = new StudentVO();
-                student.setId(id);
-                student.setPwd(pwd);
-                student.setName(name);
-                student.setGender(gender);
-                student.setBirth(birth);
-                student.setTel(tel);
-                student.setZipcode(zipcode);
-                student.setAddr(addr);
-                student.setDetail_addr(detail_addr);
-                student.setEmail(email);
-                student.setDepartment(department);
-                student.setGrade(grade);
-                student.setAdmission_date(admission_date);
-                student.setGraduation_date(graduation_date);
-                student.setStatus(status);
+                ProfessorVO professor = new ProfessorVO();
+                
+                professor.setId(id);
+                professor.setPwd(pwd);
+                professor.setName(name);
+                professor.setGender(gender);
+                professor.setBirth(birth);
+                professor.setTel(tel);
+                professor.setZipcode(zipcode);
+                professor.setAddr(addr);
+                professor.setDetail_addr(detail_addr);
+                professor.setEmail(email);
+                professor.setLesson(lesson);
+                professor.setStatus(status);
+                professor.setIndate(indate);
+                System.out.println(professor.getIndate());
 
-                students.add(student);
+                professors.add(professor);
             }
-            memService.insertStudent(students);
+            System.out.println(professors);
+            
+            
+            if(professors.size() > 0 && lastCellNum == 13) {
+            	memService.insertProfessorTx(professors);
+            }
+            
+            redirectAttributes.addFlashAttribute("success", lastCellNum == 13);
 
             workbook.close();
-            redirectAttributes.addFlashAttribute("success", true);
-            return "redirect:/uploadPageStu";
+            return "redirect:/uploadPagePro";
         
         } catch (Exception e) {
             e.printStackTrace();
             redirectAttributes.addFlashAttribute("success", false);
-            return "redirect:/uploadPageStu"; 
+            return "redirect:/uploadPagePro"; 
         }
     }
 

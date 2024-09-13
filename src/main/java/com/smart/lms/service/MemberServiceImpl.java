@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.smart.lms.dao.MemberDAO;
 import com.smart.lms.vo.ProfessorVO;
@@ -29,7 +30,6 @@ public class MemberServiceImpl implements MemberService {
 
 	      if (svo != null) {
 	         boolean isMatch = passwordEncoder.matches(vo.getPwd(), svo.getPwd());
-//	         boolean isMatch = vo.getPwd().equals(svo.getPwd());
 	         if (isMatch) {
 	            return svo;
 	         }
@@ -49,7 +49,6 @@ public class MemberServiceImpl implements MemberService {
 		
 	      if (pvo != null) {
 	         boolean isMatch = passwordEncoder.matches(vo.getPwd(), pvo.getPwd());
-//	         boolean isMatch = vo.getPwd().equals(pvo.getPwd());
 	         if(isMatch){
 	            return pvo;
 	         }
@@ -64,11 +63,21 @@ public class MemberServiceImpl implements MemberService {
 	
 	//학생 데이터 인서트
 	@Override
-	public void insertStudent(List<StudentVO> users) {
+	public void insertStudentTx(List<StudentVO> users) throws Exception {
 		for(int i = 0; i < users.size(); i++) {
-			String encryptedPassword = passwordEncoder.encode(users.get(i).getPwd()); // 비밀번호 암호화
+			String encryptedPassword = passwordEncoder.encode(users.get(i).getPwd()); 
 			users.get(i).setPwd(encryptedPassword);
 			memDAO.insertStudent(users.get(i));
+		}
+	}
+	
+	//교수 데이터 인서트
+	@Override
+	public void insertProfessorTx(List<ProfessorVO> professors) throws Exception {
+		for(int i = 0; i < professors.size(); i++) {
+			String encryptedPassword = passwordEncoder.encode(professors.get(i).getPwd()); 
+			professors.get(i).setPwd(encryptedPassword);
+			memDAO.insertProfessor(professors.get(i));
 		}
 	}
 	
