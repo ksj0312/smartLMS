@@ -28,8 +28,8 @@ public class MemberServiceImpl implements MemberService {
 		 StudentVO svo = memDAO.getStudent(vo);
 
 	      if (svo != null) {
-	  //       boolean isMatch = passwordEncoder.matches(vo.getPwd(), svo.getPwd());
-	         boolean isMatch = vo.getPwd().equals(svo.getPwd());
+	         boolean isMatch = passwordEncoder.matches(vo.getPwd(), svo.getPwd());
+//	         boolean isMatch = vo.getPwd().equals(svo.getPwd());
 	         if (isMatch) {
 	            return svo;
 	         }
@@ -48,8 +48,8 @@ public class MemberServiceImpl implements MemberService {
 		ProfessorVO pvo = memDAO.getAdmin(vo);
 		
 	      if (pvo != null) {
-//	         boolean isMatch = passwordEncoder.matches(vo.getPwd(), pvo.getPwd());
-	         boolean isMatch = vo.getPwd().equals(pvo.getPwd());
+	         boolean isMatch = passwordEncoder.matches(vo.getPwd(), pvo.getPwd());
+//	         boolean isMatch = vo.getPwd().equals(pvo.getPwd());
 	         if(isMatch){
 	            return pvo;
 	         }
@@ -61,11 +61,13 @@ public class MemberServiceImpl implements MemberService {
 	public ProfessorVO getAdmin(ProfessorVO vo) {
 		return  memDAO.getAdmin(vo);
 	}
-
+	
 	//학생 데이터 인서트
 	@Override
 	public void insertStudent(List<StudentVO> users) {
 		for(int i = 0; i < users.size(); i++) {
+			String encryptedPassword = passwordEncoder.encode(users.get(i).getPwd()); // 비밀번호 암호화
+			users.get(i).setPwd(encryptedPassword);
 			memDAO.insertStudent(users.get(i));
 		}
 	}

@@ -6,29 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="${pageContext.request.contextPath }/resources/js/excelPage.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/excelPage.css">
 </head>
-
-<script type="text/javascript">
-    
-    $(document).ready(function() {
-      var msg = "${resMap.msg}";
-        if(msg != "") alert(msg);
-    });
-    
-    function _onSubmit(){
-        
-        if($("#file").val() == ""){
-            alert("파일을 업로드해주세요.");
-            $("#file").focus();
-            return false;
-        }
-        if(!confirm(gTxt("confirm.save"))){
-            return false;
-        }
-        return true;
-    }
-    
-</script>
 <body>
 <div class="bcl">
 <div class = divall>
@@ -45,7 +25,7 @@
 </c:choose>
     
 <div id="contAreaBox">
-    <form name="inputForm" method="post" onsubmit="return _onSubmit();" action="${pageContext.request.contextPath}/upload/excel" enctype="multipart/form-data" class="form-horizontal">
+    <form name="inputForm" method="post" onsubmit="return _onSubmit();" action="${pageContext.request.contextPath}/upload/excelStu" enctype="multipart/form-data" class="form-horizontal">
         <div class="panel">
             <div class="panel-body">
             <h4 class="mt0"><i class="fa fa-cube" aria-hidden="true"></i>학생 아이디 생성</h4>
@@ -74,7 +54,7 @@
         
         <div class="pull-right">
             <input type="submit" value="엑셀파일 업로드" class="btn btn btn-primary btn-lg" />
-			<a href="${pageContext.request.contextPath}/download/excel" class="btn btn btn-primary btn-lg">양식파일 다운로드</a>
+			<a href="${pageContext.request.contextPath}/download/excelStu" class="btn btn btn-primary btn-lg">양식파일 다운로드</a>
         </div>
     </form>
 </div>

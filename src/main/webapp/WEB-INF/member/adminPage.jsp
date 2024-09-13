@@ -10,6 +10,5 @@
 <body>
    <div class="divall">
 </div>
-
 </body>
 </html>
