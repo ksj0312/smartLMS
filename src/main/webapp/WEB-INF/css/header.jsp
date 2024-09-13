@@ -24,15 +24,21 @@
 </head>
 
 <body>
-		<nav class="navbar navbar-expand-sm justify-content-center">
 
-			<a href="/" class="nav-link"><small>home</small></a>
-			<ul class="navbar-nav">
-				<li class="nav-item"><a class="nav-link" href="notice">공지사항</a>
-				</li>
-				<li class="nav-item"><a class="nav-link" href="cal">학사일정</a></li>
-				<li class="nav-item"><a class="nav-link" href="">자료실</a></li>
-			</ul>
+<nav class="navbar navbar-expand-sm justify-content-center">
+
+  <a href="/"><small>home</small></a>
+  <ul class="navbar-nav">
+    <li class="nav-item">
+      <a class="nav-link" href="getBoardList?b_type=게시판">공지사항</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="cal">학사일정</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="getBoardList?b_type=QNA">Q&A</a>
+    </li>
+  </ul>
 
 			<c:choose>
 				<c:when test="${userName ne NULL}">
