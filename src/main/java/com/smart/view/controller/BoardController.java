@@ -130,7 +130,6 @@ public class BoardController {
             	String status = ExcelUtil.getCellValue(row.getCell(13));
             	
                 Date admission_date = null;
-                Date graduation_date = null;
 
                 if (admission_dateCell != null && admission_dateCell.getCellType() == CellType.NUMERIC && DateUtil.isCellDateFormatted(admission_dateCell)) {
                     admission_date = new Date(admission_dateCell.getDateCellValue().getTime());
@@ -191,6 +190,7 @@ public class BoardController {
             header.createCell(10).setCellValue("과목");
             header.createCell(11).setCellValue("상태(재직, 휴직, 은퇴)");
             header.createCell(12).setCellValue("입사일(1999.01.01)");
+            header.createCell(13).setCellValue("타입(관리자/교수)");
 
             Row ex = sheet.createRow(1);
             ex.createCell(0).setCellValue("아이디, 비밀번호, 전화번호, 우편번호는 셀 형식을 텍스트 형식으로 맞춰주세요.");
@@ -242,6 +242,7 @@ public class BoardController {
             	String lesson = ExcelUtil.getCellValue(row.getCell(10));
             	String status = ExcelUtil.getCellValue(row.getCell(11));
             	Cell indateCell = row.getCell(12);
+            	String type = ExcelUtil.getCellValue(row.getCell(13));
             	
                 Date indate = null;
 
@@ -264,6 +265,7 @@ public class BoardController {
                 professor.setLesson(lesson);
                 professor.setStatus(status);
                 professor.setIndate(indate);
+                professor.setType(type);
                 System.out.println(professor.getIndate());
 
                 professors.add(professor);
@@ -271,11 +273,11 @@ public class BoardController {
             System.out.println(professors);
             
             
-            if(professors.size() > 0 && lastCellNum == 13) {
+            if(professors.size() > 0 && lastCellNum == 14) {
             	memService.insertProfessorTx(professors);
             }
             
-            redirectAttributes.addFlashAttribute("success", lastCellNum == 13);
+            redirectAttributes.addFlashAttribute("success", lastCellNum == 14);
 
             workbook.close();
             return "redirect:/uploadPagePro";

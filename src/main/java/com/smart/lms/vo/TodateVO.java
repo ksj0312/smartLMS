@@ -1,11 +1,14 @@
 package com.smart.lms.vo;
 
-import java.sql.Timestamp;
+import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 public class TodateVO {
 	private int c_number;
 	private String id;
-	private Timestamp a_date;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date a_date;
 	private String a_status;
 	
 	public int getC_number() {
@@ -20,10 +23,10 @@ public class TodateVO {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public Timestamp getA_date() {
+	public Date getA_date() {
 		return a_date;
 	}
-	public void setA_date(Timestamp a_date) {
+	public void setA_date(Date a_date) {
 		this.a_date = a_date;
 	}
 	public String getA_status() {
@@ -37,6 +40,7 @@ public class TodateVO {
 	public String toString() {
 		return "TodateVO [c_number=" + c_number + ", id=" + id + ", a_date=" + a_date + ", a_status=" + a_status + "]";
 	}
+
 
 	
 }

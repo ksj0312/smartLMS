@@ -11,7 +11,7 @@ flex-grow:1;
 display:flex;
 }
 
- .divall {
+.divall {
      padding: 20px;
      margin-top : 70px;
      padding: 0 100px 0 300px;
@@ -95,3 +95,5 @@ li {
 /* 	opacity:70%; */
 	color: #f9c25c;
 }
+
+
