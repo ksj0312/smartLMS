@@ -20,6 +20,7 @@ public class ProfessorVO {
 	private String status;
 	private Date indate;
 	private Date outdate;
+	private String type;
 	
 	public String getId() {
 		return id;
@@ -117,13 +118,20 @@ public class ProfessorVO {
 	public void setOutdate(Date outdate) {
 		this.outdate = outdate;
 	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
 	
 	@Override
 	public String toString() {
 		return "ProfessorVO [id=" + id + ", pwd=" + pwd + ", name=" + name + ", gender=" + gender + ", birth=" + birth
 				+ ", tel=" + tel + ", zipcode=" + zipcode + ", addr=" + addr + ", detail_addr=" + detail_addr
 				+ ", email=" + email + ", lesson=" + lesson + ", join_date=" + join_date + ", modify_date="
-				+ modify_date + ", status=" + status + ", indate=" + indate + ", outdate=" + outdate + "]";
+				+ modify_date + ", status=" + status + ", indate=" + indate + ", outdate=" + outdate + ", type=" + type
+				+ "]";
 	}
 	
 	

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>교수 업로드</title>
 <script src="${pageContext.request.contextPath }/resources/js/excelPage.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/excelPage.css">
 </head>

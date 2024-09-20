@@ -87,6 +87,7 @@ public class MemberController {
 		         session.setAttribute("userId", memService.getAdmin(vo).getId());
 		         session.setAttribute("userName", memService.getAdmin(vo).getName());
 		         session.setAttribute("userStatus", memService.getAdmin(vo).getStatus());
+		         session.setAttribute("userType", memService.getAdmin(vo).getType());
 		         session.setAttribute("loginChk", "normal");
 		         
 		         return "redirect:/adminPage";
@@ -105,10 +106,10 @@ public class MemberController {
 	
 	
 	
-	
-	
-	
-		}
+		
+
+
+}
 		
 		
 
