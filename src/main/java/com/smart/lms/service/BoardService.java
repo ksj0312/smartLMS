@@ -2,11 +2,34 @@ package com.smart.lms.service;
 
 import java.util.List;
 
+import com.smart.lms.util.Pagination;
 import com.smart.lms.vo.NoteVO;
 
 public interface BoardService {
 	
-	void sendNote(NoteVO vo);
+//	void sendNoteTx(NoteVO vo);
+	void sendNoteTx(String n_sender, String n_reciver, String n_title, String n_info)throws Exception;
 
 	List<NoteVO> receivNote();
+
+	NoteVO detailNote(String n_number);
+
+	void updateNoteTx(String n_number)throws Exception;
+
+	void deleteNoteTx(String n_number)throws Exception;
+
+	List<NoteVO> searchNote(String search);
+
+	List<NoteVO> getNotesWithPagination(int start, int size, String userId);
+
+	int getTotalNoteCount(String userId);
+	
+	int getTotalSearchNoteCount(String search, String userId);
+
+	List<NoteVO> getSearchNotesWithPagination(int start, int size, String search, String userId);
+
+	
+//	List<NoteVO> getSearchNotesWithPagination(Pagination pg);
+
+
 }
