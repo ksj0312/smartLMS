@@ -13,10 +13,9 @@ public class Pagination {
 	private int range = 1; // 페이지 범위. 1 : 1~5 2: 6~10 ...
 	private int pageSize = 5; // 한 페이지 범위에 보여질 페이지 개수
 	private int startPage; // 각 페이지 범위의 시작 번호
-
-	// 검색
-	private String searchType = ""; // 검색타입 (글제목, 글쓴이 등등)
-	private String keyword = ""; // 키워드
+	
+	private String searchType; // 검색타입 (글제목, 글쓴이 등등)
+	private String keyword; // 키워드
 
 	private int endPage; // 각 페이지 범위 끝 번호
 
@@ -129,6 +128,15 @@ public class Pagination {
 	public void setNext(boolean next) {
 		this.next = next;
 	}
+	
+
+	public int getC_number() {
+		return c_number;
+	}
+
+	public void setC_number(int c_number) {
+		this.c_number = c_number;
+	}
 
 	public void pageInfo(int currPageNo, int range, int totalCnt) {
 		this.currPageNo = currPageNo;
@@ -159,14 +167,6 @@ public class Pagination {
 				+ ", pageCnt=" + pageCnt + ", startList=" + startList + ", range=" + range + ", pageSize=" + pageSize
 				+ ", startPage=" + startPage + ", searchType=" + searchType + ", keyword=" + keyword + ", endPage="
 				+ endPage + ", prev=" + prev + ", next=" + next + "]";
-	}
-
-	public int getC_number() {
-		return c_number;
-	}
-
-	public void setC_number(int c_number) {
-		this.c_number = c_number;
 	}
 
 
