@@ -1,8 +1,10 @@
 package com.smart.lms.util;
 
+import java.util.Date;
+
 public class Pagination {
 
-	private int currPageNo;/// 현재 페이지 번호
+	private int currPageNo = 1;/// 현재 페이지 번호
 	private int sizePerPage = 10; // 한 페이지당 보여질 리스트 개수
 	private int totalCnt; // 전체 목록 개수
 	private int pageCnt; // 전체 페이지 개수
@@ -11,17 +13,17 @@ public class Pagination {
 	private int range = 1; // 페이지 범위. 1 : 1~5 2: 6~10 ...
 	private int pageSize = 5; // 한 페이지 범위에 보여질 페이지 개수
 	private int startPage; // 각 페이지 범위의 시작 번호
-	private int c_number;
 	
-	// 검색
 	private String searchType; // 검색타입 (글제목, 글쓴이 등등)
 	private String keyword; // 키워드
-	
-	
+
 	private int endPage; // 각 페이지 범위 끝 번호
 
 	private boolean prev; // 이전 페이지 여부
 	private boolean next; // 다음 페이지 여부
+	
+	private int c_number;
+	private Date a_date;
 
 	public int getCurrPageNo() {
 		return currPageNo;
@@ -136,7 +138,6 @@ public class Pagination {
 		this.c_number = c_number;
 	}
 
-	// 핵심
 	public void pageInfo(int currPageNo, int range, int totalCnt) {
 		this.currPageNo = currPageNo;
 		this.range = range;
@@ -166,6 +167,15 @@ public class Pagination {
 				+ ", pageCnt=" + pageCnt + ", startList=" + startList + ", range=" + range + ", pageSize=" + pageSize
 				+ ", startPage=" + startPage + ", searchType=" + searchType + ", keyword=" + keyword + ", endPage="
 				+ endPage + ", prev=" + prev + ", next=" + next + "]";
+	}
+
+
+	public Date getA_date() {
+		return a_date;
+	}
+
+	public void setA_date(Date a_date2) {
+		this.a_date = a_date2;
 	}
 
 }

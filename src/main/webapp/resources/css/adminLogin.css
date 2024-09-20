@@ -87,37 +87,6 @@ and
 	font-size: 14px;
 }
 
-.naver-btn, .kakao-btn {
-	padding: 10px 10px;
-	font-size: 14px;
-	width: 328px;
-	height: 41px;
-}
-
-.naver-btn::before {
-	position: absolute;
-	left: 50px;
-	top: 55%;
-	transform: translateY(-50%);
-	content: "";
-	height: 24px;
-	width: 24px;
-	background: url(/resources/img/icon_naver_02.svg) no-repeat;
-	background-size: 24px 24px;
-}
-
-.kakao-btn::before {
-	position: absolute;
-	left: 50px;
-	top: 55%;
-	transform: translateY(-50%);
-	content: "";
-	height: 24px;
-	width: 24px;
-	background: url(/resources/img/icon_kakao_02.svg) no-repeat;
-	background-size: 24px 24px;
-}
-
 }
 @media screen and (max-width: 768px) {
 	.title {
@@ -131,12 +100,7 @@ and
 		padding: 8px 8px;
 		font-size: 13px;
 	}
-	.naver-btn, .kakao-btn {
-		padding: 8px 8px;
-		font-size: 13px;
-		width: inherit;
-		height: 35.5px;
-	}
+	
 }
 
 @media

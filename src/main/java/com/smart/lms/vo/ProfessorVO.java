@@ -1,13 +1,14 @@
 package com.smart.lms.vo;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 public class ProfessorVO {
 	private String id;
 	private String pwd;
 	private String name;
 	private String gender;
-	private Timestamp birth;
+	private String birth;
 	private String tel;
 	private String zipcode;
 	private String addr;
@@ -17,6 +18,9 @@ public class ProfessorVO {
 	private Timestamp join_date ;
 	private Timestamp modify_date ;
 	private String status;
+	private Date indate;
+	private Date outdate;
+	private String type;
 	
 	public String getId() {
 		return id;
@@ -42,10 +46,10 @@ public class ProfessorVO {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-	public Timestamp getBirth() {
+	public String getBirth() {
 		return birth;
 	}
-	public void setBirth(Timestamp birth) {
+	public void setBirth(String birth) {
 		this.birth = birth;
 	}
 	public String getTel() {
@@ -102,13 +106,36 @@ public class ProfessorVO {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	public Date getIndate() {
+		return indate;
+	}
+	public void setIndate(Date indate) {
+		this.indate = indate;
+	}
+	public Date getOutdate() {
+		return outdate;
+	}
+	public void setOutdate(Date outdate) {
+		this.outdate = outdate;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
 	
 	@Override
 	public String toString() {
 		return "ProfessorVO [id=" + id + ", pwd=" + pwd + ", name=" + name + ", gender=" + gender + ", birth=" + birth
 				+ ", tel=" + tel + ", zipcode=" + zipcode + ", addr=" + addr + ", detail_addr=" + detail_addr
 				+ ", email=" + email + ", lesson=" + lesson + ", join_date=" + join_date + ", modify_date="
-				+ modify_date + ", status=" + status + "]";
+				+ modify_date + ", status=" + status + ", indate=" + indate + ", outdate=" + outdate + ", type=" + type
+				+ "]";
 	}
-
+	
+	
+	
+	
+	
 }

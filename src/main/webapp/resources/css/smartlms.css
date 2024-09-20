@@ -1,11 +1,85 @@
 @charset "UTF-8";
 
-    html, body{
-    height: 100%
-    }
-    
-    .maindiv{
-    height: 800px;
-    }
+html, body {
+	height: 100%;
+}
 
- 
+footer {
+	height: 150px;
+	position: relative;
+	transform: translateY(20%);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: #f9f5f2;
+	color: #272727;
+}
+
+.divall {
+	min-height: 800px;
+}
+
+.nav-link {
+	color: #272727;
+	font-size: medium;
+}
+
+#searchNav {
+	-webkit-justify-content: flex-end;
+	justify-content: flex-end;
+	background-color: inherit !important;
+}
+
+#page-btn {
+	background-color: #f9f5f2 !important;
+	color: #272727 !important;
+	border-radius: 0;
+	width: 45px;
+	height: 38px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border: 1px solid #dee2e6;
+}
+
+.form-control:focus {
+	border-color: inherit !important;
+	background-color: inherit !important;
+	box-shadow: none !important;
+}
+
+.btn-success {
+	margin-right: 5px;
+}
+
+.btnstatus {
+	width: 115px;
+	height: 30px;
+	background-color: #bfbfbf !important;
+	border: none;
+	color: #f9f5f2 !important;
+	padding: 0;
+	border-radius: 0;
+}
+
+.page-link:focus {
+	box-shadow: none;
+}
+
+a[id^=page-btn] {
+	background-color: #f9f5f2 !important;
+	color: #272727 !important;
+	font-family: bolder !important;
+}
+
+li.page-item a.page-link.active {
+	background-color: #272727 !important;
+	color: #f9f5f2 !important;
+	font-family: bolder !important;
+}
+
+.page-link:hover, .page-link:active, #page-btn:hover, #page-btn:active {
+	background-color: #272727 !important;
+	color: #f9f5f2 !important;
+	font-family: bolder !important;
+}
