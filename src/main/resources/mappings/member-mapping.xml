@@ -23,6 +23,44 @@
 		INSERT INTO PROFESSOR (ID, PWD, NAME, GENDER, BIRTH, TEL, ZIPCODE, ADDR, DETAIL_ADDR, EMAIL, LESSON, JOIN_DATE, STATUS, INDATE) 
 		VALUES (#{id}, #{pwd}, #{name}, #{gender}, #{birth}, #{tel}, #{zipcode}, #{addr}, #{detail_addr}, #{email}, #{lesson}, SYSDATE(), #{status}, #{indate})
 	</insert>
+	
+	<select id="getUserInfo" resultType="studentDTO"> 
+	SELECT * FROM STUDENT WHERE ID = #{userId} 
+	</select>
+	
+	<update id="updateTel">
+    UPDATE STUDENT 
+    SET TEL = #{tel} 
+    WHERE TEL = #{pasttel} 
+	</update>
+	
+	<select id="changePwd" resultType="studentDTO"> 
+	SELECT * FROM STUDENT WHERE pwd = #{pwd} AND Id = #{id}
+	</select>
+	
+	<update id="changeNewPwd">
+	UPDATE STUDENT 
+    SET pwd = #{pwd} 
+    WHERE id = #{id} 
+	</update>
+	
+	<update id="updateMail">
+	UPDATE STUDENT 
+    SET email = #{email} 
+    WHERE id = #{userId} 
+	</update>
+	
+	<select id="getId" resultType="studentDTO">
+	select * from student where email = #{email}
+	</select>
+	
+	<select id="getClassList" resultType="myPageDTO">
+	select c.C_NUMBER , c.C_NAME , c.C_PROF_NAME , c.C_TIME , c.C_DAY , ac.ID , ac.NAME 
+    from class c 
+    join attend_class ac 
+    on c.C_NUMBER = ac.C_NUMBER 
+    where ac.ID = #{id}
+    </select>
 
 
 </mapper>

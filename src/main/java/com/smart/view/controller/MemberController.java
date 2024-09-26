@@ -1,6 +1,7 @@
 package com.smart.view.controller;
 
 import java.io.IOException;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -10,8 +11,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.smart.lms.service.MailSendService;
 import com.smart.lms.service.MemberService;
+import com.smart.lms.vo.MyPageVO;
 import com.smart.lms.vo.ProfessorVO;
 import com.smart.lms.vo.StudentVO;
 
@@ -21,6 +28,10 @@ public class MemberController {
 	
 	@Autowired
 	private MemberService memService;
+	
+	@Autowired
+	private MailSendService mailService;
+
 	
 	//로그아웃
 	@GetMapping("/logout")
@@ -104,11 +115,99 @@ public class MemberController {
 		return "member/adminPage";  
 	}
 	
+	@GetMapping("/myPage")
+	public String myPage(HttpSession session, Model model) {
+		String userId = (String) session.getAttribute("userId");
+		model.addAttribute("user",memService.getUserInfo(userId));
+		return "member/myPage";
+	}
 	
+	@PutMapping("/updateTel")
+	@ResponseBody
+	public void updateTel(HttpSession session, @RequestBody Map<String, String> data) {
+	    String tel = data.get("tel");
+	    String pasttel = data.get("pasttel");
+	    memService.updateTel(tel, pasttel);
+	    
+	    session.invalidate();
+	}
+
 	
-		
+	@GetMapping("/telCheck")
+	@ResponseBody
+	public String sendSMS(@RequestParam("tel") String tel) { // 휴대폰 문자보내기
+		int code = (int) ((Math.random() * (9999 - 1000 + 1)) + 1000);// 난수 생성
 
+		memService.certifiedPhoneNumber(tel, code);
+		return Integer.toString(code);
+	}
+	//현재비밀번호가 일치하는지
+	@PostMapping("/changePwd")
+	@ResponseBody
+	public boolean changePwd(HttpSession session, StudentVO vo) {
+//		String userId = (String) session.getAttribute("userId");
+		vo.setId((String) session.getAttribute("userId"));
+		System.out.println("vo" + vo);
+		boolean result = memService.changePwd(vo);
+		System.out.println("result" + result);
+		return result;
+	}
+	//비밀번호 변경
+	@PutMapping("/changeNewPwd")
+	@ResponseBody
+	public void changeNewPwd(HttpSession session, @RequestBody StudentVO vo) {
+//		String userId = (String) session.getAttribute("userId");
+		vo.setId((String) session.getAttribute("userId"));
+		System.out.println(vo);
+	    memService.changeNewPwd(vo);
+	    
+	    session.invalidate();
+	}
+	
+	//이메일인증 	
+	@GetMapping("/mailCheck")
+	@ResponseBody
+	public String mailCheck(@RequestParam String email) {
+		return mailService.joinEmail(email);
 
+}
+	@PutMapping("/updateMail")
+	@ResponseBody
+	public void updateMail(HttpSession session, @RequestBody Map<String, String> requestData) {
+	    String userId = (String) session.getAttribute("userId");
+
+	    String email = requestData.get("email");
+
+	    System.out.println("이메일: " + email);
+
+	    memService.updateMail(email, userId);
+	    
+	    session.invalidate();
+	}
+	
+	@GetMapping("/getId")
+	@ResponseBody
+	public StudentVO getId(@RequestParam("email") String email) {
+		StudentVO vo = memService.getId(email);
+		System.out.println(vo);
+		return vo;
+	}
+	
+	@PutMapping("/changeFindNewPwd")
+	@ResponseBody
+	public void changeFindNewPwd(HttpSession session, @RequestBody StudentVO vo) {
+		System.out.println(vo);
+	    memService.changeNewPwd(vo);
+	    
+	    session.invalidate();
+	}
+	
+	@GetMapping("/getClassList")
+	@ResponseBody
+	public MyPageVO getClassList(MyPageVO vo) {
+		memService.getClassList(vo);
+		return vo;
+	}
 }
 		
 		

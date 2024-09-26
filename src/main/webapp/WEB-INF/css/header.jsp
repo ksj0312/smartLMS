@@ -44,8 +44,9 @@
 				<c:when test="${userName ne NULL}">
 					<ul class="navbar-nav log2"
 						style="padding-right: 100px !important; font-size: small;">
-						<li class="nav-item"><a class="nav-link" href="userMypage"><span id="name">${userName} 님</span></a></li>
+						<li class="nav-item"><a class="nav-link" href="myPage"><span id="name">${userName} 님</span></a></li>
 						<li class="nav-item"><a class="nav-link" href="javascript: logout()">LOGOUT</a></li>
+						
 					</ul>
 				</c:when>
 				<c:otherwise>

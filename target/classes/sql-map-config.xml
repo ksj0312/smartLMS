@@ -25,6 +25,7 @@
       
       <typeAlias type="com.smart.lms.vo.StudentVO" alias="studentDTO"></typeAlias>
       <typeAlias type="com.smart.lms.vo.ProfessorVO" alias="professorDTO"></typeAlias>
+      <typeAlias type="com.smart.lms.vo.MyPageVO" alias="myPageDTO"></typeAlias>
    </typeAliases>
    
    <mappers>
