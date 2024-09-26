@@ -1,5 +1,9 @@
 package com.smart.lms.vo;
 
+import java.sql.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class AttendClassVO {
 	private int c_number;
 	private String id;
@@ -8,6 +12,11 @@ public class AttendClassVO {
 	private int tardy;
 	private int early;
 	private int absent;
+	
+	//출석부 
+	private String a_status;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date a_date;
 	
 	public int getC_number() {
 		return c_number;
@@ -52,11 +61,26 @@ public class AttendClassVO {
 		this.absent = absent;
 	}
 	
+	public String getA_status() {
+		return a_status;
+	}
+	public void setA_status(String a_status) {
+		this.a_status = a_status;
+	}
+	public Date getA_date() {
+		return a_date;
+	}
+	public void setA_date(Date a_date) {
+		this.a_date = a_date;
+	}
 	@Override
 	public String toString() {
 		return "AttendClassVO [c_number=" + c_number + ", id=" + id + ", name=" + name + ", attendance=" + attendance
-				+ ", tardy=" + tardy + ", early=" + early + ", absent=" + absent + "]";
+				+ ", tardy=" + tardy + ", early=" + early + ", absent=" + absent + ", a_status=" + a_status
+				+ ", a_date=" + a_date + "]";
 	}
+	
+	
 
 	
 	
