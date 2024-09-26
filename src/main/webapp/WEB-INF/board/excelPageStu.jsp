@@ -12,7 +12,7 @@
 <body>
 <div class="bcl">
 <div class = divall>
-<c:choose>
+<%-- <c:choose>
     <c:when test="${success == true}">
         <p style="color: green;">업로드에 성공하였습니다.</p>
     </c:when>
@@ -22,8 +22,8 @@
     <c:otherwise>
         <p></p>
     </c:otherwise>
-</c:choose>
-    
+</c:choose> --%>
+<input type="hidden" id="msg" value="${msg}" />    
 <div id="contAreaBox">
     <form name="inputForm" method="post" onsubmit="return _onSubmit();" action="${pageContext.request.contextPath}/upload/excelStu" enctype="multipart/form-data" class="form-horizontal">
         <div class="panel">

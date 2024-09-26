@@ -96,5 +96,96 @@ li {
 	color: #f9c25c;
 }
 
+/*모달 관련 */
+
+.modal fade {
+   display: none;
+}
+.modal-footer{
+    justify-content: center;
+}
+.modal-title {
+    margin-left: 0px;
+}
+#myModal {
+   display: none;
+   z-index: 9999;
+   background-color: rgba(0, 0, 0, .3);
+   left: 0;
+   top: 0;
+   width: 100%;
+   height: 100%;
+   position: fixed;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+}
+#myModal2 {
+   display: none;
+   z-index: 9999;
+   background-color: rgba(0, 0, 0, .3);
+   left: 0;
+   top: 0;
+   width: 100%;
+   height: 100%;
+   position: fixed;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+}
+
+#classInfo {
+   display: none;
+   z-index: 9999;
+   background-color: rgba(0, 0, 0, .3);
+   left: 0;
+   top: 0;
+   width: 100%;
+   height: 100%;
+   position: fixed;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+}
+#attInfo {
+   display: none;
+   z-index: 9999;
+   background-color: rgba(0, 0, 0, .3);
+   left: 0;
+   top: 0;
+   width: 100%;
+   height: 100%;
+   position: fixed;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+}
+
+.modal-content {
+   z-index: 9999;
+   width: 400px;
+   top: 50%;
+   position: fixed;
+   background-color: #fff;
+   left: 50%;
+   transform: translate(-50%, -50%);
+}
+.attmodal-content {
+   width: 800px;
+}
+
+.modal-body {
+   max-height: calc(100vh - 200px);
+   overflow-y: auto;
+   -ms-overflow-style: none;
+   scrollbar-width: none;
+}
+
+.modal-body::-webkit-scrollbar {
+   display: none;
+}
+
+
+
 
 

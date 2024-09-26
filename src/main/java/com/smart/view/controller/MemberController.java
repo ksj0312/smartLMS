@@ -169,8 +169,8 @@ public class MemberController {
 	@ResponseBody
 	public String mailCheck(@RequestParam String email) {
 		return mailService.joinEmail(email);
+	}
 
-}
 	@PutMapping("/updateMail")
 	@ResponseBody
 	public void updateMail(HttpSession session, @RequestBody Map<String, String> requestData) {

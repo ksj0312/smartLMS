@@ -1,10 +1,11 @@
 package com.smart.lms.service;
 
-import java.sql.Date;
 import java.util.List;
 
 import com.smart.lms.util.Pagination;
+import com.smart.lms.vo.AttendClassVO;
 import com.smart.lms.vo.ClassVO;
+import com.smart.lms.vo.GradeVO;
 import com.smart.lms.vo.ProfessorVO;
 import com.smart.lms.vo.StudentVO;
 import com.smart.lms.vo.TodateVO;
@@ -20,10 +21,6 @@ public interface EduinfoService {
 	public void insertAttendanceTx(List<TodateVO> toList) throws Exception;
 
 	public int updateAttendanceTx(TodateVO vo) throws Exception;
-
-	public List<TodateVO> getTodate(Pagination pg);
-
-	public int toCnt(Date date);
 
 	public void classInsertTx(ClassVO vo) throws Exception;
 
@@ -45,5 +42,23 @@ public interface EduinfoService {
 
 	public StudentVO stuInfo(String id);
 
+	public ProfessorVO proInfo(String id);
+
+	public List<AttendClassVO> attSearch(Pagination pg);
+
+	public List<AttendClassVO> attInfo(int c_number);
+
+	public List<AttendClassVO> attStuSearch(Pagination pg);
+
+	public List<GradeVO> gradeList(Pagination pg);
+
+
+	public void insertGradeTx(List<GradeVO> gList) throws Exception;
+
+
+
+	public int gradeUpdateTx(GradeVO vo) throws Exception;
+
+	public List<GradeVO> gradeSearch(Pagination pg);
 
 }

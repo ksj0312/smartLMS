@@ -3,7 +3,9 @@ package com.smart.view.controller;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -13,7 +15,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,7 +26,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.smart.lms.service.EduinfoService;
 import com.smart.lms.util.Pagination;
+import com.smart.lms.vo.AttendClassVO;
 import com.smart.lms.vo.ClassVO;
+import com.smart.lms.vo.GradeVO;
+import com.smart.lms.vo.ProfessorVO;
 import com.smart.lms.vo.StudentVO;
 import com.smart.lms.vo.TodateVO;
 
@@ -35,7 +39,7 @@ public class EduinfoController {
 	private EduinfoService eduinfoService;
 	
 	
-	//classList 받아오기
+	//출석부 -> classList 받아오기
 	@GetMapping("/classList")
 	public String classList(HttpSession session, Model model, ClassVO vo) {
 		vo.setC_id((String) session.getAttribute("userId"));
@@ -45,51 +49,35 @@ public class EduinfoController {
 		model.addAttribute("classListcnt", cList.size());
 		return "eduinfo/classList";
 	}
-	
-	//교수 출석부 페이지 이동
-	@GetMapping("/attendancePage")
-	public String attendance(@RequestParam(value = "c_number", required = false) int c_number,
-			 //@RequestParam("a_date") Date a_date, 
-			 HttpSession session) {
-		session.setAttribute("c_number", c_number);
-		// session.setAttribute("a_date", a_date);
-		return "redirect:/attendance";
-	}
-	
+
 	//출석페이지
-	@GetMapping("/attendance")
-	public String getUserList(@ModelAttribute Pagination pg, Model model, HttpSession session) {
-
-		int currPageNo = pg.getCurrPageNo();
-		int range = pg.getRange();
-		pg.setC_number((int)session.getAttribute("c_number"));
-
-		int totalCnt = eduinfoService.attendanceTotalCnt(pg);
-
-		pg.pageInfo(currPageNo, range, totalCnt);
-
-		model.addAttribute("pagination", pg);
+	@GetMapping("/todate")
+	public String getUserList(Pagination pg, Model model, HttpSession session) {
+	
 		model.addAttribute("attendanceList", eduinfoService.attendanceList(pg));
 		
-		
-		/*
-		 * int toCnt = eduinfoService.toCnt((Date) session.getAttribute("a_date"));
-		 * if(toCnt > 0) { model.addAttribute("todateList",
-		 * eduinfoService.getTodate(pg)); }
-		 */
-		 
-		
-		return "eduinfo/attendance";
+		return "eduinfo/todate";
+	}
+	
+	//출석페이지 검색 아작스
+	@GetMapping("/attendSearch")
+	@ResponseBody
+	public Map<String, Object> selectkind(Pagination pg) {
+		List<AttendClassVO> attList = eduinfoService.attSearch(pg);
+		Map<String, Object> aList = new HashMap<String, Object>();
+		int length = attList.size();
+		aList.put("attList", attList);
+		aList.put("length", length);
+		return aList;
 	}
 	
 	//출석부 테이블에 INSERT
 	@PostMapping("/insertAttendance")
-	public String insertAttendanceTx(TodateVO vo, HttpServletRequest request, RedirectAttributes redirectAttributes, HttpSession session) {
+	public String insertAttendanceTx(TodateVO vo, HttpServletRequest request, RedirectAttributes redirectAttributes) {
 		try {
 		 Enumeration<String> pname = request.getParameterNames();
 		 List<TodateVO> toList = new ArrayList<>();
 		 int c_number = vo.getC_number();
-		// Date a_date = (Date) session.getAttribute("a_date");
 		 Date a_date = vo.getA_date();
 		    
 		    while (pname.hasMoreElements()) { 
@@ -102,7 +90,7 @@ public class EduinfoController {
 		             
 		             if (id == null || status == null || a_date == null) {
 		                    redirectAttributes.addFlashAttribute("msg", "null");
-		                    return "redirect:/attendance";
+		                    return "redirect:/todate";
 		                }
 		             
 		             TodateVO tvo = new TodateVO();
@@ -116,12 +104,12 @@ public class EduinfoController {
 				eduinfoService.insertAttendanceTx(toList);
 				redirectAttributes.addFlashAttribute("msg", "success");
 				
-				return "redirect:/attendance";
+				return "redirect:/todate";
 				
 			} catch (Exception e) {
 				e.printStackTrace();
 				redirectAttributes.addFlashAttribute("msg", "fail");
-				return "redirect:/attendance";
+				return "redirect:/todate";
 			}
 	}
 	
@@ -167,35 +155,43 @@ public class EduinfoController {
 	}
 	
 	//관리자 강의 상세 페이지 & 수정 
-	@GetMapping("/classPage")
-	public String classPage(int c_number, Model model) {
+	@GetMapping("/classInfo")
+	public ResponseEntity<ClassVO> classInfo(int c_number) {
+		ClassVO vo = eduinfoService.classSelect(c_number);
 		
-		model.addAttribute("classSelect", eduinfoService.classSelect(c_number));
-		return "eduinfo/classSelect";
+		if (vo != null) {
+			return new ResponseEntity<>(vo, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 	}
-	
+		
 	//관리자 강의 정보 수정
 	@PutMapping("/classUpdate")
-	public String classUpdate(ClassVO vo, RedirectAttributes redirectAttributes) throws Exception {
-		int c_number = vo.getC_number();
+	@ResponseBody
+	public ResponseEntity<ClassVO> classUpdate(@RequestBody ClassVO vo) throws Exception {
 		int cnt = eduinfoService.classUpdateTx(vo);
 		if(cnt > 0 ) {
-			 redirectAttributes.addFlashAttribute("success", true);
-			 return "redirect:/classPage?c_number=" + c_number;
+			return new ResponseEntity<>(vo, HttpStatus.OK);
 		}else {
-			redirectAttributes.addFlashAttribute("success", false);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		return "redirect:/classAllList";
 	}
-	
-	//classList 받아오기 메소드 하나로 사용 -> 전체데이터 받아오고 화면단에서 id로 수정하기 or 메소드 새로 생성하기 
-	@GetMapping("/attendSelect")
-	public String attendSelect(HttpSession session, Model model, ClassVO vo) {
-		List<ClassVO> cList = new ArrayList<ClassVO>();
-		cList = eduinfoService.classList(vo);
-		model.addAttribute("classList" , cList );
-		model.addAttribute("classListcnt", cList.size());
-		return "eduinfo/attendSelect";
+
+	//classList 받아오기
+	@GetMapping("/attendance")
+	public String attendance(@ModelAttribute Pagination pg, Model model, HttpSession session) {
+		int currPageNo = pg.getCurrPageNo();
+		int range = pg.getRange();
+
+		int totalCnt = eduinfoService.classAllTotalCnt(pg);
+
+		pg.pageInfo(currPageNo, range, totalCnt);
+
+		model.addAttribute("pagination", pg);
+		model.addAttribute("classAllList", eduinfoService.classAllList(pg));
+		
+		return "eduinfo/attendance";
 	}
 	
 	//관리자 학생 리스트 불러오기 
@@ -220,7 +216,6 @@ public class EduinfoController {
 	public ResponseEntity<StudentVO> stuInfo(String id) {
 		
 		StudentVO vo = eduinfoService.stuInfo(id);
-		System.out.println(vo);
 		if (vo != null) {
 			return new ResponseEntity<>(vo, HttpStatus.OK);
 		} else {
@@ -244,5 +239,167 @@ public class EduinfoController {
 		
 		return "member/profList";
 	}
+	
+	//관리자 해당 교수 정보 불러오기 
+	@GetMapping("/proInfo")
+	public ResponseEntity<ProfessorVO> proInfo(String id) {
+		
+		ProfessorVO vo = eduinfoService.proInfo(id);
+		if (vo != null) {
+			return new ResponseEntity<>(vo, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+	
+	//관리자 수강학생 정보 불러오기 
+	@GetMapping("/attInfo")
+	@ResponseBody
+	public Map<String, Object> attInfo(@RequestParam("c_number") int c_number) {
+		
+		List<AttendClassVO> attList = eduinfoService.attInfo(c_number);
+		Map<String, Object> aList = new HashMap<String, Object>();
+		int length = attList.size();
+		aList.put("attList", attList);
+		aList.put("length", length);
+		return aList;
+	}
+	
+	//관리자 수강생 검색  
+		@GetMapping("/attStuSearch")
+		@ResponseBody
+		public Map<String, Object> attStuSearch(@ModelAttribute Pagination pg) {
+			List<AttendClassVO> attStuList = eduinfoService.attStuSearch(pg);
+			Map<String, Object> sList = new HashMap<String, Object>();
+			int length = attStuList.size();
+			sList.put("attStuList", attStuList);
+			sList.put("length", length);
+			return sList;
+		}
+		
+		//시험등록 -> classList 받아오기
+		@GetMapping("/testclassList")
+				public String testclassList(HttpSession session, Model model, ClassVO vo) {
+					vo.setC_id((String) session.getAttribute("userId"));
+					List<ClassVO> cList = new ArrayList<ClassVO>();
+					cList = eduinfoService.classList(vo);
+					model.addAttribute("classList" , cList );
+					model.addAttribute("classListcnt", cList.size());
+					return "eduinfo/testclassList";
+				}
+		
+		//시험 정보 등록 페이지 이동
+		@GetMapping("/testInsertPage")
+		public String testInsertPage(int c_number) {
+			return "eduinfo/testInsert";
+		}
+		
+		
+		//성적 등록 -> classList 받아오기
+		@GetMapping("/gradeclassList")
+		public String gradeclassList(HttpSession session, Model model, ClassVO vo) {
+			vo.setC_id((String) session.getAttribute("userId"));
+			List<ClassVO> cList = new ArrayList<ClassVO>();
+			cList = eduinfoService.classList(vo);
+			model.addAttribute("classList" , cList );
+			model.addAttribute("classListcnt", cList.size());
+			return "eduinfo/gclassList";
+		}
+		
+		//성적 등록 -> 시험 목록 선택 페이지 -> 성적 등록(수강생 목록 불러옴)
+		@GetMapping("/grade")
+		public String gradeStuList(Pagination pg, Model model) {
+			
+			model.addAttribute("gradeStuList", eduinfoService.attendanceList(pg));
+			
+			return "eduinfo/gradeInsert";
+		}
+				
+		//성적 테이블에 INSERT
+		@PostMapping("/insertGrade")
+		public String insertGradeTx(@ModelAttribute GradeVO vo, HttpServletRequest request, RedirectAttributes redirectAttributes) {
+			try {
+			 Enumeration<String> pname = request.getParameterNames();
+			 List<GradeVO> gList = new ArrayList<>();
+			 int c_number = vo.getC_number();
+			 int g_number = vo.getG_number();
+			 
+			    
+			    while (pname.hasMoreElements()) { 
+			        String paramName = pname.nextElement(); 
+			        String id = "";
+			        
+			        if (paramName.startsWith("id_")) {
+			             id = request.getParameter(paramName); 
+			             int level = Integer.parseInt(request.getParameter("level_" + id));
+			             
+			             if (id == null) {
+			                    redirectAttributes.addFlashAttribute("msg", "null");
+			                    return "redirect:/gradeInsert";
+			                }
+			             
+			             GradeVO gvo = new GradeVO();
+			             gvo.setId(id);
+			             gvo.setLevel(level);
+			             gvo.setC_number(c_number);
+			             gvo.setG_number(g_number);
+			             
+			             gList.add(gvo);
+			        }
+			    }
+					eduinfoService.insertGradeTx(gList);
+					redirectAttributes.addFlashAttribute("msg", "success");
+					
+					return "redirect:/gradeclassList2";
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+					redirectAttributes.addFlashAttribute("msg", "fail");
+					return "redirect:/gradeclassList";
+				}
+		}
+		
+		//교수 강의 리스트 -> 성적 조회/수정으로 연결 
+		@GetMapping("/gradeclassList2")
+		public String gradeclassList2(HttpSession session, Model model, ClassVO vo) {
+			vo.setC_id((String) session.getAttribute("userId"));
+			List<ClassVO> cList = new ArrayList<ClassVO>();
+			cList = eduinfoService.classList(vo);
+			model.addAttribute("classList" , cList );
+			model.addAttribute("classListcnt", cList.size());
+			return "eduinfo/gclassList2";
+		}
+		
+		//교수 성적 조회/수정 (수강생 목록 불러옴)
+		@GetMapping("/gradeList")
+		public String gradeList(@ModelAttribute Pagination pg, Model model) {
+			
+			model.addAttribute("gradeList", eduinfoService.gradeList(pg));
+			
+			return "eduinfo/gradeList";
+		}
+		
+		//관리자 성적 등급 수정
+		@PutMapping("/gradeUpdate")
+		@ResponseBody
+		public ResponseEntity<GradeVO> gradeUpdate(@RequestBody GradeVO vo) throws Exception {
+			int cnt = eduinfoService.gradeUpdateTx(vo);
+			if(cnt > 0 ) {
+				return new ResponseEntity<>(vo, HttpStatus.OK);
+			}else {
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			}
+		}
+		//관리자 성적 수강생 검색  
+		@GetMapping("/gradeSearch")
+		@ResponseBody
+		public Map<String, Object> gradeSearch(@ModelAttribute Pagination pg) {
+			List<GradeVO> gradeList = eduinfoService.gradeList(pg);
+			Map<String, Object> gList = new HashMap<String, Object>();
+			int length = gradeList.size();
+			gList.put("gradeList", gradeList);
+			gList.put("length", length);
+			return gList;
+		}
 	
 }

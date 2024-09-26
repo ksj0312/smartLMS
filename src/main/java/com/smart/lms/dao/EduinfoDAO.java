@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.smart.lms.util.Pagination;
+import com.smart.lms.vo.AttendClassVO;
 import com.smart.lms.vo.ClassVO;
+import com.smart.lms.vo.GradeVO;
 import com.smart.lms.vo.ProfessorVO;
 import com.smart.lms.vo.StudentVO;
 import com.smart.lms.vo.TodateVO;
@@ -25,6 +27,10 @@ public class EduinfoDAO {
 	public List<TodateVO> attendanceList(Pagination pg) {
 		return mybatis.selectList("eduinfoDAO.attendanceList", pg);
 	}
+	
+	public List<AttendClassVO> attSearch(Pagination pg) {
+		return mybatis.selectList("eduinfoDAO.attendanceList", pg);
+	}
 
 	public List<ClassVO> classList(ClassVO vo) {
 		return mybatis.selectList("eduinfoDAO.classList", vo);
@@ -36,10 +42,6 @@ public class EduinfoDAO {
 
 	public int updateAttendanceTx(TodateVO vo) {
 		return mybatis.update("eduinfoDAO.updateAttendanceTx", vo);
-	}
-
-	public List<TodateVO> getTodate(Pagination pg) {
-		return mybatis.selectList("eduinfoDAO.getTodate", pg);
 	}
 
 	public int toCnt(Date date) {
@@ -86,7 +88,42 @@ public class EduinfoDAO {
 		return mybatis.selectOne("eduinfoDAO.stuInfo", id);
 	}
 
+	public ProfessorVO proInfo(String id) {
+		return mybatis.selectOne("eduinfoDAO.proInfo", id);
+	}
+
+	public List<AttendClassVO> attInfo(int c_number) {
+		return mybatis.selectList("eduinfoDAO.attInfo", c_number);
+	}
+
+	public List<AttendClassVO> attStuSearch(Pagination pg) {
+		return mybatis.selectList("eduinfoDAO.attStuSearch", pg);
+	}
+
+	public void insertGradeTx(GradeVO gradeVO) {
+		mybatis.insert("eduinfoDAO.insertGradeTx", gradeVO);
+	}
+
+	public List<GradeVO> gradeList(Pagination pg) {
+		return mybatis.selectList("eduinfoDAO.gradeList", pg);
+	}
+
+	public void updateGradeTx(GradeVO gradeVO) {
+		mybatis.update("eduinfoDAO.updateGradeTx", gradeVO);
+		
+	}
+
+	public void testStatusUpTx(int g_number) {
+		mybatis.update("eduinfoDAO.testStatusUpTx", g_number);
+	}
 
 
+	public int gradeUpdateTx(GradeVO vo) {
+		return mybatis.update("eduinfoDAO.gradeUpdateTx", vo);
+	}
+
+	public List<GradeVO> gradeSearch(Pagination pg) {
+		return mybatis.selectList("eduinfoDAO.gradeSearch", pg);
+	}
 	 
 }
