@@ -15,7 +15,7 @@
                         <h4>학생 정보</h4>
                 </section>
                 <nav id="searchNav" class="navbar navbar-expand-sm navbar-dark">
-                        <form class="form-inline" action="attendance" method="get">
+                        <form class="form-inline" action="stuList" method="get">
                                 <select name="searchType" class="form-control mr-sm-2">
                                         <option value="name">이름</option>
                                         <option value="id">학번</option>
@@ -41,8 +41,8 @@
                                                 <td>${stu.name}</td>
                                                 <td>${stu.department}</td>
                                                 <td>${stu.grade}</td>
-                                                <td><button type="button" class="btn stuInfo" id="stuInfo"
-											data-toggle="modal" data-target="#myModal" value="${stu.id}">정보 보기</button></td>
+                                                <td><button type="button" class="btn" id="stuInfo"
+											data-toggle="modal" data-target="#myModal" value="${stu.id}" onclick="stuInfo('${stu.id}')">정보 보기</button></td>
                                                 </tr>
                                 </c:forEach>
                         </table>
@@ -81,5 +81,6 @@
                 </section>
         </div>
 </div>
+
 </body>
 </html>

@@ -32,17 +32,26 @@
                                         <th>강의번호</th>
                                         <th>강의명</th>
                                         <th>교수</th>
+                                        <th>상세보기</th>
                                      
                                 </tr>
                                 <c:forEach items="${classAllList}" var="cl">
-                                <tr class="tdCenter" data-href="classPage?c_number=${cl.c_number}">
+                                <tr class="tdCenter">
                                                 <td>${cl.c_number}</td>
                                                 <td>${cl.c_name}</td>
                                                 <td>${cl.c_prof_name}</td>
+                                                <td><button type="button" class="btn classInfo" id="classClick"
+											data-toggle="modal" data-target="#classInfo" value="${cl.c_number}">상세보기</button></td>
                                                 </tr>
                                 </c:forEach>
                         </table>
                 </section>
+                
+              	<div class="modal fade" id="classInfo" tabindex="-1" role="dialog"
+				aria-labelledby="myModalLabel" data-backdrop='static'
+				aria-hidden="true">
+				<%@ include file="classInfo.jsp" %>
+			</div>
                 <section class="contents-footer">
                         <div>
                                 <nav aria-label="Page navigation example" style="margin: auto;">
@@ -70,16 +79,6 @@
                 </section>
         </div>
 </div>
-<script>
-    // 모든 <tr> 요소에 클릭 이벤트 추가
-    document.addEventListener('DOMContentLoaded', function () {
-        var rows = document.querySelectorAll('.tdCenter');
-        rows.forEach(function (row) {
-            row.addEventListener('click', function () {
-                window.location.href = row.getAttribute('data-href');
-            });
-        });
-    });
-</script>
+
 </body>
 </html>

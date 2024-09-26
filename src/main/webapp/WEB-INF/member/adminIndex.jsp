@@ -21,7 +21,9 @@
 	<li><a href="adminPage" class = "atag2">${userName} 교수님</a></li>
 	<li class="menu">학생 관리></li>
 	<li><a href="classList" class = "atag" id="classList">- 출석 관리</a></li>
-	<li><a href="" class = "atag">- 성적 관리</a></li>
+	<li><a href="testclassList" class = "atag">- 시험 등록</a></li>
+	<li><a href="gradeclassList" class = "atag">- 성적 등록</a></li>
+	<li><a href="gradeclassList2" class = "atag">- 성적 조회/수정</a></li>
 	<li class="menu">과제 관리></li>
 	<li><a href="" class = "atag">- 과제 등록</a></li>
 	<li><a href="" class = "atag">- 과제 확인</a></li>
@@ -41,7 +43,7 @@
 	<li class="menu">강의 및 수강생 관리></li>
 	<li><a href="classInsertPage" class = "atag">- 강의 등록</a></li>
 	<li><a href="classAllList" class = "atag">- 강의 목록</a></li>
-	<li><a href="attendSelect" class = "atag">- 수강생 목록</a></li> <!-- 미완성 -->
+	<li><a href="attendance" class = "atag">- 수강생 목록</a></li>
 	<li><a href="stuList" class = "atag">- 학생 정보</a></li>
 	<li><a href="proList" class = "atag">- 교수 정보</a></li>
 	</ul>

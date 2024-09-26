@@ -55,6 +55,8 @@ import java.util.List;
 public class BoardController {
 	@Autowired
 	private BoardService boardService;
+	@Autowired
+	private MemberService memService;
 
 	@PostMapping("/sendnote")
 	@ResponseBody
@@ -130,8 +132,6 @@ public class BoardController {
 	return "board/note";
 	}
 	
-	@Autowired
-	private MemberService memService;
 	
 	//학생 엑셀 업로드 페이지 이동
     @GetMapping("/uploadPageStu")
@@ -249,14 +249,14 @@ public class BoardController {
             	memService.insertStudentTx(students);
             }
             
-            redirectAttributes.addFlashAttribute("success", lastCellNum == 14);
+            redirectAttributes.addFlashAttribute("msg", "success");
 
             workbook.close();
             return "redirect:/uploadPageStu";
         
         } catch (Exception e) {
             e.printStackTrace();
-            redirectAttributes.addFlashAttribute("success", false);
+            redirectAttributes.addFlashAttribute("msg", "fail");
             return "redirect:/uploadPageStu"; 
         }
     }
@@ -284,7 +284,7 @@ public class BoardController {
             header.createCell(13).setCellValue("타입(관리자/교수)");
 
             Row ex = sheet.createRow(1);
-            ex.createCell(0).setCellValue("아이디, 비밀번호, 전화번호, 우편번호는 셀 형식을 텍스트 형식으로 맞춰주세요.");
+            ex.createCell(0).setCellValue("아이디, 비밀번호, 전화번호, 우편번호는 셀 형식을 텍스트 형식으로 맞춰주세요. 비어있는 행은 삭제해주세요.");
             
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             workbook.write(outputStream);
@@ -317,7 +317,6 @@ public class BoardController {
             int lastCellNum = firstRow.getLastCellNum();
             
             for (int i = 2; i <= sheet.getLastRowNum(); i++) {
-//            	for (int i = 2; i < sheet.getPhysicalNumberOfRows(); i++) {
                 Row row = sheet.getRow(i);
             
                 String id = ExcelUtil.getCellValue(row.getCell(0));
@@ -368,14 +367,14 @@ public class BoardController {
             	memService.insertProfessorTx(professors);
             }
             
-            redirectAttributes.addFlashAttribute("success", lastCellNum == 14);
+            redirectAttributes.addFlashAttribute("msg", "success");
 
             workbook.close();
             return "redirect:/uploadPagePro";
         
         } catch (Exception e) {
             e.printStackTrace();
-            redirectAttributes.addFlashAttribute("success", false);
+            redirectAttributes.addFlashAttribute("msg", "fail");
             return "redirect:/uploadPagePro"; 
         }
     }

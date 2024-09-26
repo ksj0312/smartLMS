@@ -1,44 +1,45 @@
-                
-                //출석부 출결 상태 변경
-                 function updateAttendance(id, c_number){
-                   let a_status_radio = document.getElementsByName(`a_status_${id}`);
-                   let a_date = document.getElementById("a_date").value;
-                   let a_status = "";
-                   
-                    if (!a_date) {
-       				 alert("날짜를 선택하세요.");
-      				 return;
-   					}
-                   
-                   for (const radio of a_status_radio) {
-    				if (radio.checked) {
-        			a_status = radio.value;
-       				 break;
-    				}
-    				}
-        		        $.ajax({
-       				  	url : "/updateAttendance",
-        				data :JSON.stringify({  
-           					 "a_status": a_status,
-           					 "id": id,
-            			     "c_number": c_number,
-            			     "a_date": a_date
-        				}),
-        				type : "PUT",
-        				contentType: "application/json",
-        				success: function(data){
-        				
-        				 alert(`학번 ${id}의 출결 상태가 '${a_status}'로 수정되었습니다.`);
-        				 
-       					},error: function(){
-           				 alert("출결 상태 변경에 실패했습니다. 다시 시도해주세요.");
-         				}
-     					 });
-                 }
-
-
-					//url생성 함수
-					function getUrl(currPageNo, range, searchType, keyword) {
+function attInfo(c_number) {
+  	 $.ajax({
+       url: "attInfo", 
+       type: "GET", 
+       data: {c_number : c_number}, 
+       contentType: "application/json",
+       success: function(response) { 
+       console.log(response);
+       		$("#c_number").val(c_number);
+	       values = response.attList;
+	        $('#infoTable').empty(); 
+	        
+	       	$("#infoTable").append(
+	           `<tr>
+	                  <th>학번</th>
+	                  <th>이름</th>
+	                  <th>출석</th>
+	                  <th>지각</th>
+	                  <th>조퇴</th>
+	                  <th>결석</th>
+	             </tr>`
+	         );
+	         $.each(values, function(index, value){
+	            	$("#infoTable").append(
+	                    `
+	         			<tr id ="attList">
+	                      <td name="id_${value.id}" value="${value.id}">${value.id}</td>
+	                      <td name="name_${value.id}" value="${value.name}">${value.name}</td>
+	                      <td name="attendance_${value.id}" value="${value.attendance}">${value.attendance}</td>
+	                      <td name="tardy_${value.id}" value="${value.tardy}">${value.tardy}</td>
+	                      <td name="early_${value.id}" value="${value.early}">${value.early}</td>
+	                      <td name="absent_${value.id}" value="${value.absent}">${value.absent}</td>
+	                     </tr>`
+	  				);
+	 		 });
+       },
+       error: function(xhr, status, error) { 
+       		alert("수강생 정보 조회에 실패하였습니다. 다시 시도해주세요.");
+       }
+   });
+}   
+   function getUrl(currPageNo, range, searchType, keyword) {
  						 return `/attendance?currPageNo=${currPageNo}&range=${range}&searchType=${searchType}&keyword=${keyword}`;
 						}
 						
@@ -80,3 +81,4 @@
         
                                         location.href =  getUrl(currPageNo, range, searchType, keyword);
                                 }
+			

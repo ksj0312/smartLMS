@@ -20,8 +20,8 @@
 	</insert>
 
 	<insert id="insertProfessor">
-		INSERT INTO PROFESSOR (ID, PWD, NAME, GENDER, BIRTH, TEL, ZIPCODE, ADDR, DETAIL_ADDR, EMAIL, LESSON, JOIN_DATE, STATUS, INDATE) 
-		VALUES (#{id}, #{pwd}, #{name}, #{gender}, #{birth}, #{tel}, #{zipcode}, #{addr}, #{detail_addr}, #{email}, #{lesson}, SYSDATE(), #{status}, #{indate})
+		INSERT INTO PROFESSOR (ID, PWD, NAME, GENDER, BIRTH, TEL, ZIPCODE, ADDR, DETAIL_ADDR, EMAIL, LESSON, JOIN_DATE, STATUS, INDATE, TYPE) 
+		VALUES (#{id}, #{pwd}, #{name}, #{gender}, #{birth}, #{tel}, #{zipcode}, #{addr}, #{detail_addr}, #{email}, #{lesson}, SYSDATE(), #{status}, #{indate}, #{type})
 	</insert>
 
 

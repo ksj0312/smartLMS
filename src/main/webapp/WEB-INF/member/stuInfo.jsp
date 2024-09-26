@@ -28,8 +28,8 @@
 					</div>
 					
 					<div class="inputs">
-						<label for="name" class="labelp">이름 
-						<input type="text" id="name" class="form-control" name="name" value="" required>
+						<label for="stuname" class="labelp">이름 
+						<input type="text" id="stuname" class="form-control" name="name" value="" required>
 						</label>
 					</div>
 
@@ -42,6 +42,12 @@
 					<div class="inputs">
 						<label for="birth" class="labelp">생년월일 
 						<input type="text" id="birth" class="form-control" name="birth" value="" required>
+						</label>
+					</div>
+					
+					<div class="inputs">
+						<label for="tel" class="labelp">전화번호
+						<input type="text" id="tel" class="form-control" name="tel" value="" required>
 						</label>
 					</div>
 

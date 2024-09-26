@@ -1,6 +1,6 @@
 package com.smart.lms.util;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Pagination {
 
@@ -16,6 +16,7 @@ public class Pagination {
 	
 	private String searchType; // 검색타입 (글제목, 글쓴이 등등)
 	private String keyword; // 키워드
+	private Date searchDate; //날짜
 
 	private int endPage; // 각 페이지 범위 끝 번호
 
@@ -23,7 +24,7 @@ public class Pagination {
 	private boolean next; // 다음 페이지 여부
 	
 	private int c_number;
-	private Date a_date;
+	private int g_number;
 
 	public int getCurrPageNo() {
 		return currPageNo;
@@ -169,13 +170,20 @@ public class Pagination {
 				+ endPage + ", prev=" + prev + ", next=" + next + "]";
 	}
 
-
-	public Date getA_date() {
-		return a_date;
+	public Date getSearchDate() {
+		return searchDate;
 	}
 
-	public void setA_date(Date a_date2) {
-		this.a_date = a_date2;
+	public void setSearchDate(Date searchDate) {
+		this.searchDate = searchDate;
+	}
+
+	public int getG_number() {
+		return g_number;
+	}
+
+	public void setG_number(int g_number) {
+		this.g_number = g_number;
 	}
 
 }
