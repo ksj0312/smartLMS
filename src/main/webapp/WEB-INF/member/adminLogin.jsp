@@ -12,7 +12,7 @@
 <body>
 <div class="container">
         <div class="top">
-            <h3 class="title">로그인</h3>
+            <h3 class="title">교수 로그인</h3>
         </div>
         <%
             if (request.getSession().getAttribute("userError") == "로그인에러") {

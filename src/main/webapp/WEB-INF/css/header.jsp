@@ -25,9 +25,12 @@
 
 <body>
 
-<nav class="navbar navbar-expand-sm justify-content-center">
+<nav id="stNav" class="navbar navbar-expand-sm justify-content-center">
 
-  <a href="/"><small>home</small></a>
+  	<ul class="navbar-nav navlogo">
+		<li class="nav-item"><a href="/"><img class="nvlog" id="nvlog" src="/resources/img/logo.jpg" alt="smartlms" title="smartlms" style="height: 40px; padding-left:120px;"></a></li>
+	</ul>
+	<div class="smnav">
   <ul class="navbar-nav">
     <li class="nav-item">
       <a class="nav-link" href="getBoardList?b_type=게시판">공지사항</a>
@@ -39,25 +42,24 @@
       <a class="nav-link" href="getBoardList?b_type=QNA">Q&A</a>
     </li>
   </ul>
-
+</div>
+<ul class="navbar-nav navuser" style="width:200px !important; font-size:small;">
 			<c:choose>
 				<c:when test="${userName ne NULL}">
 					<ul class="navbar-nav log2"
 						style="padding-right: 100px !important; font-size: small;">
 						<li class="nav-item"><a class="nav-link" href="userMypage"><span id="name">${userName} 님</span></a></li>
-						<li class="nav-item"><a class="nav-link" href="javascript: logout()">LOGOUT</a></li>
+						<li class="nav-item"><a class="nav-link logOut" href="javascript: logout()">LOGOUT</a></li>
 					</ul>
 				</c:when>
 				<c:otherwise>
-					<ul class="navbar-nav log2"
-						style="padding-right: 100px !important; font-size: small;">
-						<li class="nav-item"><a class="nav-link" href="adminLoginPage"><small>ADMIN LOGIN</small></a></li>
-						<li><a class="nav-link" href="studentLoginPage"><small>STUDENT LOGIN </small></a></li>
+					<ul class="navbar-nav log2" style="padding-right: 100px !important; font-size: small;">
+						<li class="nav-item"><a class="nav-link" href="studentLoginPage"><small>login</small></a></li>
 					</ul>
 				</c:otherwise>
 			</c:choose>
+	</ul>
 		</nav>
-	
 </body>
 
 
