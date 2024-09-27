@@ -4,37 +4,27 @@ import java.util.List;
 
 import com.smart.lms.util.Pagination;
 import com.smart.lms.vo.BoardVO;
-import com.smart.lms.vo.NoteVO;
+import com.smart.lms.vo.CalendarVO;
 
 public interface BoardService {
 	
-	void sendNoteTx(String n_sender, String n_reciver, String n_title, String n_info)throws Exception;
+	List<BoardVO> getBoardList(Pagination pg);
 
-	List<NoteVO> receivNote();
+	void insertBoardTx(BoardVO vo);
 
-	NoteVO detailNote(String n_number);
+	BoardVO getBoard(int b_number);
 
-	void updateNoteTx(String n_number)throws Exception;
+	void deleteBoardTx(int b_number);
 
-	void deleteNoteTx(String n_number)throws Exception;
+	void updateBoardTx(BoardVO vo);
 
-	List<NoteVO> searchNote(String search);
+	CalendarVO getCal(CalendarVO vo);
 
-	List<NoteVO> getNotesWithPagination(int start, int size, String userId);
+	void insertCalTx(CalendarVO vo);
 
-	int getTotalNoteCount(String userId);
+	List<CalendarVO> getCalList(); //해당하는 리스트 내역 반환
 	
-	int getTotalSearchNoteCount(String search, String userId);
+	public int getBoardListTotalCnt(Pagination pg);  //해당하는 리스트 총갯수 반환
 
-	List<NoteVO> getSearchNotesWithPagination(int start, int size, String search, String userId);
-	
-	List<BoardVO> getBoardList(BoardVO vo);
 
-	void insertBoard(BoardVO vo);
-
-	BoardVO getBoard(BoardVO vo);
-
-	void deleteBoard(BoardVO vo);
-
-	void updateBoard(BoardVO vo);
 }
