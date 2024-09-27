@@ -2,8 +2,6 @@ package com.smart.lms.vo;
 
 import java.sql.Timestamp;
 
-import org.springframework.web.multipart.MultipartFile;
-
 public class TaskVO {
 	private int t_number;
 	private int c_number;
@@ -83,6 +81,7 @@ public class TaskVO {
 	public void setT_file3(String t_file3) {
 		this.t_file3 = t_file3;
 	}
+	
 	@Override
 	public String toString() {
 		return "TaskVO [t_number=" + t_number + ", c_number=" + c_number + ", id=" + id + ", title=" + title + ", info="

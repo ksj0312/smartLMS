@@ -4326,8 +4326,8 @@ nhn.husky.SE_EditingArea_WYSIWYG = jindo.$Class({
 	
 		// IE8 : 찾기/바꾸기에서 글자 일부에 스타일이 적용된 경우 찾기가 안되는 브라우저 버그로 인해 EmulateIE7 파일을 사용
 		// <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7">
-	//	this.sBlankPageURL = "smart_editor2_inputarea.html";
-	//	this.sBlankPageURL_EmulateIE7 = "smart_editor2_inputarea_ie8.html";
+		this.sBlankPageURL = "smart_editor2_inputarea.html";
+		this.sBlankPageURL_EmulateIE7 = "smart_editor2_inputarea_ie8.html";
 		this.aAddtionalEmulateIE7 = [];
 
 		this.htOptions = nhn.husky.SE2M_Configuration.SE_EditingAreaManager;	

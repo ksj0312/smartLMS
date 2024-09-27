@@ -6,10 +6,17 @@
 </head>
 <body>
 
-   <footer>
-      <div class="board_footer">
+   <footer class = footer>
+      <div class="footerdiv">
          <p class="footer1">
-            <em>SMARTLMS,</em>
+            	<c:choose>
+				<c:when test="${userName ne NULL}">
+           			 <em>SMARTLMS,<a class= "adminlink" > ◎</a></em>
+           		 </c:when>
+           		 <c:otherwise>
+          		    <em>SMARTLMS,<a class= "adminlink" href="adminLoginPage" > ◎</a></em>
+           		 </c:otherwise>
+            	</c:choose>
          </p>
          <p class="footer2">
          	20240910
