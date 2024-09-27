@@ -87,9 +87,10 @@ public class MemberController {
 		         session.setAttribute("userId", memService.getAdmin(vo).getId());
 		         session.setAttribute("userName", memService.getAdmin(vo).getName());
 		         session.setAttribute("userStatus", memService.getAdmin(vo).getStatus());
+		         session.setAttribute("userType", memService.getAdmin(vo).getType());
 		         session.setAttribute("loginChk", "normal");
 		         
-		         return "redirect:/";
+		         return "redirect:/adminPage";
 		         
 		      } else {
 		         session.setAttribute("userError", "로그인에러");
@@ -97,7 +98,16 @@ public class MemberController {
 		      }
 		   }
 	
-		}
+	//관리자(교수) 관리 페이지 이동
+	@GetMapping("/adminPage")
+	public String adminPage() {
+		return "member/adminPage";  
+	}
+	
+	
+		
+
+}
 		
 		
 

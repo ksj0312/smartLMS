@@ -9,6 +9,7 @@ public class CalendarVO {
 	private Timestamp cal_create_date;
 	private Timestamp cal_modify_date;
 	private String cal_writer;
+	private Timestamp cal_edate;
 	
 	public Timestamp getCal_date() {
 		return cal_date;
@@ -46,12 +47,20 @@ public class CalendarVO {
 	public void setCal_writer(String cal_writer) {
 		this.cal_writer = cal_writer;
 	}
+
+	public Timestamp getCal_edate() {
+		return cal_edate;
+	}
+	public void setCal_edate(Timestamp cal_edate) {
+		this.cal_edate = cal_edate;
+	}
 	@Override
 	public String toString() {
-		return "Calendar [cal_date=" + cal_date + ", cal_title=" + cal_title + ", cal_info=" + cal_info
+		return "CalendarVO [cal_date=" + cal_date + ", cal_title=" + cal_title + ", cal_info=" + cal_info
 				+ ", cal_create_date=" + cal_create_date + ", cal_modify_date=" + cal_modify_date + ", cal_writer="
-				+ cal_writer + "]";
+				+ cal_writer + ", cal_edate=" + cal_edate + "]";
 	}
+	
 	
 
 }

@@ -1,13 +1,14 @@
 package com.smart.lms.vo;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 public class StudentVO {
 	private String id;
 	private String pwd;
 	private String name;
 	private String gender;
-	private Timestamp birth;
+	private String birth;
 	private String tel;
 	private String zipcode;
 	private String addr;
@@ -15,7 +16,8 @@ public class StudentVO {
 	private String email;
 	private String department;
 	private String grade;
-	private Timestamp admission_date ;
+	private Date admission_date ;
+	private Date graduation_date ;
 	private Timestamp join_date ;
 	private Timestamp modify_date ;
 	private String status;
@@ -44,10 +46,10 @@ public class StudentVO {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-	public Timestamp getBirth() {
+	public String getBirth() {
 		return birth;
 	}
-	public void setBirth(Timestamp birth) {
+	public void setBirth(String birth) {
 		this.birth = birth;
 	}
 	public String getTel() {
@@ -92,10 +94,10 @@ public class StudentVO {
 	public void setGrade(String grade) {
 		this.grade = grade;
 	}
-	public Timestamp getAdmission_date() {
+	public Date getAdmission_date() {
 		return admission_date;
 	}
-	public void setAdmission_date(Timestamp admission_date) {
+	public void setAdmission_date(Date admission_date) {
 		this.admission_date = admission_date;
 	}
 	public Timestamp getJoin_date() {
@@ -117,13 +119,21 @@ public class StudentVO {
 		this.status = status;
 	}
 	
+	public Date getGraduation_date() {
+		return graduation_date;
+	}
+	public void setGraduation_date(Date graduation_date) {
+		this.graduation_date = graduation_date;
+	}
+	
 	@Override
 	public String toString() {
 		return "StudentVO [id=" + id + ", pwd=" + pwd + ", name=" + name + ", gender=" + gender + ", birth=" + birth
 				+ ", tel=" + tel + ", zipcode=" + zipcode + ", addr=" + addr + ", detail_addr=" + detail_addr
 				+ ", email=" + email + ", department=" + department + ", grade=" + grade + ", admission_date="
-				+ admission_date + ", join_date=" + join_date + ", modify_date=" + modify_date + ", status=" + status
-				+ "]";
+				+ admission_date + ", graduation_date=" + graduation_date + ", join_date=" + join_date
+				+ ", modify_date=" + modify_date + ", status=" + status + "]";
 	}
+
 
 }
