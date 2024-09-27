@@ -1,11 +1,228 @@
 @charset "UTF-8";
 
-    html, body{
-    height: 100%
-    }
-    
-    .maindiv{
-    height: 800px;
-    }
+@import
+   url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap');
+   
+* {
+   font-family: 'Noto Sans KR', sans-serif !important;
+   box-sizing: border-box !important;
+   font-weight: 500 !important;
+}
 
- 
+html, body {
+	height: 100%;
+}
+
+footer {
+	height: 150px;
+	position: relative;
+	transform: translateY(20%);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: #f9f5f2;
+	color: #272727;
+}
+
+.divall {
+	min-height: 800px;
+}
+
+.nav-link {
+	color: #272727;
+	font-size: medium;
+}
+
+#searchNav {
+	-webkit-justify-content: flex-end;
+	justify-content: flex-end;
+	background-color: inherit !important;
+}
+
+.datediv {
+   display: flex;
+   align-items: center;
+   justify-content: flex-end;
+}
+
+.pagebtn {
+   text-aline: center;
+   width: 30px;
+   height: 30px;
+   background-color: #f9f5f2;
+   border: none;
+   color: #272727;
+   padding: 0;
+   border-radius: 0;
+}
+
+.pagebtn:hover {
+   background-color: #272727 !important;
+   color: #f9f5f2 !important;
+   font-family: bolder !important;
+}
+
+.page-num-list {
+   margin: auto;
+   text-align: center;
+}
+
+#page-btn {
+	background-color: #f9f5f2 !important;
+	color: #272727 !important;
+	border-radius: 0;
+	width: 45px;
+	height: 38px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border: 1px solid #dee2e6;
+}
+
+.form-control:focus {
+	border-color: inherit !important;
+	background-color: inherit !important;
+	box-shadow: none !important;
+}
+
+.btn-success {
+	margin-right: 5px;
+}
+
+.btnstatus {
+	width: 115px;
+	height: 30px;
+	background-color: #bfbfbf !important;
+	border: none;
+	color: #f9f5f2 !important;
+	padding: 0;
+	border-radius: 0;
+}
+
+.page-link:focus {
+	box-shadow: none;
+}
+
+a[id^=page-btn] {
+	background-color: #f9f5f2 !important;
+	color: #272727 !important;
+	font-family: bolder !important;
+}
+
+li.page-item a.page-link.active {
+	background-color: #272727 !important;
+	color: #f9f5f2 !important;
+	font-family: bolder !important;
+}
+
+.page-link:hover, .page-link:active, #page-btn:hover, #page-btn:active {
+	background-color: #272727 !important;
+	color: #f9f5f2 !important;
+	font-family: bolder !important;
+}
+
+button:focus, .form-control:focus, .form-control:active, .btn-primary:focus,
+   .show>.btn-primary.dropdown-toggle:focus, .btn:focus {
+   outline: none;
+   border: none;
+   box-shadow: none;
+}
+
+.table td, .table th {
+   text-align: center;
+   color: #272727;
+}
+
+.table th {
+   font-weight: bolder;
+}
+
+/* 네비바  */
+#subNav #stNav {
+   z-index: 9998;
+}
+
+.navbar {
+   width: 100%;
+   height: 80px;
+   /*    background-color: #f9f5f2 !important; */
+}
+
+.logOut {
+   padding-left: 25px !important;
+}
+
+.usernim {
+   padding-right: 8px;
+   color: #272727 !important;
+}
+
+#name {
+   color: #c79c79;
+   font-weight: bold;
+   text-decoration: underline;
+   text-decoration-color: #c79c79;
+   /*    display: block; */
+   padding-right: 15px !important;
+}
+
+.nav-item {
+   list-style: none;
+   /*    padding: 0 8px; */
+   display: contents;
+}
+
+.navbar-nav {
+   margin: 0;
+   justify-content: center;
+   flex-grow: 1;
+   font-size: large;
+}
+
+.navbar-nav li.nav-item {
+   flex-grow: 1;
+}
+
+.navmenu {
+   margin: 0 1rem !important;
+}
+
+ul.navbar-nav.navlogo {
+   width: 200px !important;
+   text-align: left;
+}
+
+.nav-link2 {
+   display: contents;
+}
+
+.nav-link {
+   padding: .5rem .5rem;
+   display: contents;
+}
+
+/* 마우스 호버 시에 스타일 변경 */
+.nav-link:hover {
+   color: #c79c79 !important;
+   text-decoration: underline !important;
+}
+
+.nav-link, .navbar-brand {
+   color: #272727 !important;
+}
+
+.log2:hover {
+   color: #c79c79 !important;
+   text-decoration: underline !important;
+}
+
+.smnav {
+   padding: 0 50px;
+}
+
+.adminlink {
+        color: lightgray !important;
+        text-decoration: none !important;
+        font-size: x-small !important;
+        justify-content: flex-end;
+}

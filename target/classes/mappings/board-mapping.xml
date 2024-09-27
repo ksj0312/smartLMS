@@ -5,6 +5,65 @@
 
 <mapper namespace="boardDAO">
 
+	<insert id="sendNote">
+		INSERT INTO NOTE(N_SENDER, N_RECIVER, N_TITLE, N_INFO, N_SEND_DATE)
+		VALUES(#{n_sender}, #{n_reciver}, #{n_title}, #{n_info}, SYSDATE())
+	</insert>
+	<select id="receivNote" resultType="noteDTO">
+		select * from note
+	</select>
+
+	<select id="getSearchNotesWithPagination" parameterType="map"
+		resultType="noteDTO">
+		SELECT *
+		FROM note
+		WHERE (n_title LIKE CONCAT('%', #{search}, '%')
+		OR n_sender LIKE CONCAT('%', #{search}, '%'))
+		AND n_reciver = #{userId}
+		ORDER BY n_number DESC
+		LIMIT #{start}, #{size}
+
+	</select>
+
+
+	<select id="detailNote" resultType="noteDTO">
+		select * from note where n_number = #{n_number}
+	</select>
+
+	<select id="getNotesWithPagination" parameterType="map"
+		resultType="noteDTO">
+		SELECT * FROM note
+		where N_RECIVER = #{userId}
+		ORDER BY n_number DESC
+		LIMIT #{start}, #{size}
+	</select>
+
+	<select id="getTotalNoteCount" resultType="integer">
+		SELECT COUNT(*) FROM note where n_reciver = #{userId}
+	</select>
+
+	<select id="getSearchTotalNoteCount" resultType="integer">
+		SELECT COUNT(*)
+		FROM note
+		WHERE (n_title LIKE CONCAT('%', #{search}, '%')
+		OR n_sender LIKE CONCAT('%', #{search}, '%'))
+		AND n_reciver = #{userId}
+
+	</select>
+
+	<update id="updateNote">
+		UPDATE note
+		SET N_RECIVE_DATE = SYSDATE()
+		WHERE N_NUMBER = #{n_number}
+		AND N_RECIVE_DATE IS NULL
+	</update>
+
+	<delete id="deleteNote">
+		delete from note where n_number = #{n_number}
+	</delete>
+	
+	
+<!-- board mapping	 -->
 	<select id="getBoardList" parameterType="com.smart.lms.util.Pagination" resultType="BoardDTO">
 		SELECT * FROM BOARD WHERE B_TYPE = #{b_type}
 			<if test="keyword != null || keyword != ' '">
@@ -23,11 +82,12 @@
 			<if test="searchType == 'b_title'"> AND B_TITLE like CONCAT('%', #{keyword}, '%')</if>
 		</if>
 	</select>
-	
+
 	<insert id="insertBoard">
-      INSERT INTO BOARD(B_TARGET, B_TITLE, B_INFO, B_WRITER, B_TYPE, B_file1) VALUES(#{b_target}, #{b_title}, #{b_info}, #{b_writer}, #{b_type}, #{b_file1})
+      INSERT INTO BOARD(B_TARGET, B_TITLE, B_INFO, B_WRITER, B_TYPE, B_file1) 
+      VALUES(#{b_target}, #{b_title}, #{b_info}, #{b_writer}, #{b_type}, #{b_file1})
    </insert>
-	
+
 	<select id="getBoard" resultType="BoardDTO">
 		SELECT * FROM BOARD WHERE B_NUMBER = #{b_number}
 	</select>
@@ -49,11 +109,7 @@
 	</select>
 	
 	<insert id="insertCal">
-		INSERT INTO CALENDAR(CAL_DATE, CAL_TITLE, CAL_WRITER, CAL_EDATE, CAL_CREATE_DATE) VALUES(#{cal_date}, #{cal_title}, #{cal_writer}, #{cal_edate}, #{cal_create_date})
+		INSERT INTO CALENDAR(CAL_DATE, CAL_TITLE, CAL_WRITER, CAL_EDATE, CAL_CREATE_DATE) 
+		VALUES(#{cal_date}, #{cal_title}, #{cal_writer}, #{cal_edate}, #{cal_create_date})
 	</insert>
-   
-   
-   
-   
-
 </mapper>

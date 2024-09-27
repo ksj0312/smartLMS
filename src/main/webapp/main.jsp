@@ -7,21 +7,14 @@
 </head>
 <body>
 
+<div class="divall">
 
-	
 <div class="maindiv">
-
-<a href ="">엑셀 파일 업로드</a>
-<a href ="">엑셀 파일 업로드2</a>
-<a href ="">엑셀 파일 업로드3</a>
-
+<a href="/go">메일췤</a>
+<a href ="adminPage">관리자 페이지 이동</a>
 
 </div>
-	
-
-\
-
-
+	</div>
 </body>
 
 </html>

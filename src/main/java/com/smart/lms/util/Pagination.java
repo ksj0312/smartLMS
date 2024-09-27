@@ -1,5 +1,7 @@
 package com.smart.lms.util;
 
+import java.sql.Date;
+
 public class Pagination {
 
 	private int currPageNo = 1;/// 현재 페이지 번호
@@ -11,30 +13,24 @@ public class Pagination {
 	private int range = 1; // 페이지 범위. 1 : 1~5 2: 6~10 ...
 	private int pageSize = 5; // 한 페이지 범위에 보여질 페이지 개수
 	private int startPage; // 각 페이지 범위의 시작 번호
-
-	// 검색
+	
 	private String searchType; // 검색타입 (글제목, 글쓴이 등등)
 	private String keyword; // 키워드
+	private Date searchDate; //날짜
 
 	private int endPage; // 각 페이지 범위 끝 번호
 
 	private boolean prev; // 이전 페이지 여부
 	private boolean next; // 다음 페이지 여부
 	
+	private int c_number;
+	private int g_number;
+	
 	private String b_type;
-	
-	
 
 	
-
-	public String getB_type() {
-		return b_type;
-	}
-
-	public void setB_type(String b_type) {
-		this.b_type = b_type;
-	}
-
+	
+	
 	public int getCurrPageNo() {
 		return currPageNo;
 	}
@@ -138,8 +134,16 @@ public class Pagination {
 	public void setNext(boolean next) {
 		this.next = next;
 	}
+	
 
-	// 핵심
+	public int getC_number() {
+		return c_number;
+	}
+
+	public void setC_number(int c_number) {
+		this.c_number = c_number;
+	}
+
 	public void pageInfo(int currPageNo, int range, int totalCnt) {
 		this.currPageNo = currPageNo;
 		this.range = range;
@@ -168,9 +172,34 @@ public class Pagination {
 		return "Pagination [currPageNo=" + currPageNo + ", sizePerPage=" + sizePerPage + ", totalCnt=" + totalCnt
 				+ ", pageCnt=" + pageCnt + ", startList=" + startList + ", range=" + range + ", pageSize=" + pageSize
 				+ ", startPage=" + startPage + ", searchType=" + searchType + ", keyword=" + keyword + ", endPage="
-				+ endPage + ", prev=" + prev + ", next=" + next + ", b_type=" + b_type + "]";
+				+ endPage + ", prev=" + prev + ", next=" + next + "]";
 	}
 
+	public Date getSearchDate() {
+		return searchDate;
+	}
+
+	public void setSearchDate(Date searchDate) {
+		this.searchDate = searchDate;
+	}
+
+	public int getG_number() {
+		return g_number;
+	}
+
+	public void setG_number(int g_number) {
+		this.g_number = g_number;
+	}
+
+	public String getB_type() {
+		return b_type;
+	}
+
+	public void setB_type(String b_type) {
+		this.b_type = b_type;
+	}
+	
+	
 	
 
 }

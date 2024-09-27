@@ -36,6 +36,7 @@
 						<td class="tdCenter">${board.b_number}</td>
 						<td>${board.b_title}</td>
 						<td class="tdCenter">${board.b_info}</td>
+<%-- 						 <c:out value="${fn:length(board.b_info) > 20 ? board.b_info.substring(0, 20) + '...' : board.b_info}"/> --%>
 <%-- 						<td class="tdCenter">${board.b_type}</td> --%>
 						<td class="tdCenter">${board.b_writer}</td>
 					</tr>
@@ -72,7 +73,7 @@
                         </div>
                         <div id="paginationData" data-searchType="${pagination.searchType}" data-keyword="${pagination.keyword}"></div>
                 </section>
-<%-- 				<script src="${pageContext.request.contextPath }/resources/js/board.js"></script> --%>
+				<script src="${pageContext.request.contextPath }/resources/js/board.js"></script>
 		
 	
 	<br><br><br><br><br><br><br><br><br>
