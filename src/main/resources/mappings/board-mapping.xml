@@ -63,13 +63,18 @@
 	</delete>
 	
 	
+	
+	
 <!-- board mapping	 -->
 	<select id="getBoardList" parameterType="com.smart.lms.util.Pagination" resultType="BoardDTO">
-		SELECT * FROM BOARD WHERE B_TYPE = #{b_type}
+	
+		SELECT
+			ROW_NUMBER() OVER (ORDER BY B_NUMBER ASC ) AS B_ROWNUM, B.* 
+			FROM BOARD B WHERE B_TYPE = #{b_type}
 			<if test="keyword != null || keyword != ' '">
 			<if test="searchType == 'b_info'"> AND B_INFO like CONCAT('%', #{keyword}, '%') </if>
 			<if test="searchType == 'b_title'"> AND B_TITLE like CONCAT('%', #{keyword}, '%') </if>
-			ORDER BY B_NUMBER
+			ORDER BY B_NUMBER DESC
 			LIMIT #{sizePerPage} OFFSET #{startList}  
 		</if>
 
@@ -112,4 +117,9 @@
 		INSERT INTO CALENDAR(CAL_DATE, CAL_TITLE, CAL_WRITER, CAL_EDATE, CAL_CREATE_DATE) 
 		VALUES(#{cal_date}, #{cal_title}, #{cal_writer}, #{cal_edate}, #{cal_create_date})
 	</insert>
+	
+	
+	<delete id="deleteCal">
+      DELETE FROM CALENDAR WHERE CAL_NUMBER = #{cal_number} 
+   </delete>
 </mapper>

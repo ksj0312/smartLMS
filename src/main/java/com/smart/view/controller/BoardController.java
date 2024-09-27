@@ -566,5 +566,17 @@ public class BoardController {
   	    }
   	    return "redirect:/getCal";
   	}
+  	
+  	
+  	@DeleteMapping("/deleteCal")
+  	@ResponseBody
+  	public String deleteCal( CalendarVO vo) throws UnsupportedEncodingException,  Exception {
+  		System.out.println("calVO " + vo);
+  	    // 일정 삭제
+  	    boardService.deleteCal(vo);
+  	    // 삭제 후 목록으로 리디렉션
+  	    return "redirect:/getCal";
+  	}
 	
+
 }

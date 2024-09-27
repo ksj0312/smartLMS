@@ -108,9 +108,6 @@ public class BoardServiceImpl implements BoardService {
 	
 	@Override
 	public void insertCalTx(CalendarVO vo) {
-		System.out.println(vo);
-		System.out.println(vo.toString());
-		System.out.println();
 		boDAO.insertCal(vo);
 	}
 
@@ -122,5 +119,10 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public int getBoardListTotalCnt(Pagination pg) {
 		return boDAO.getBoardListTotalCnt(pg);
+	}
+	
+	@Override
+	public void deleteCal(CalendarVO vo) {
+		boDAO.deleteCal(vo);
 	}
 }

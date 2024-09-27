@@ -3,6 +3,7 @@ package com.smart.lms.vo;
 import java.sql.Timestamp;
 
 public class CalendarVO {
+	private int cal_number;
 	private Timestamp cal_date;
 	private String cal_title;
 	private String cal_info;
@@ -11,6 +12,15 @@ public class CalendarVO {
 	private String cal_writer;
 	private Timestamp cal_edate;
 	
+	
+	
+	
+	public int getCal_number() {
+		return cal_number;
+	}
+	public void setCal_number(int cal_number) {
+		this.cal_number = cal_number;
+	}
 	public Timestamp getCal_edate() {
 		return cal_edate;
 	}
@@ -55,10 +65,12 @@ public class CalendarVO {
 	}
 	@Override
 	public String toString() {
-		return "CalendarVO [cal_date=" + cal_date + ", cal_title=" + cal_title + ", cal_info=" + cal_info
-				+ ", cal_create_date=" + cal_create_date + ", cal_modify_date=" + cal_modify_date + ", cal_writer="
-				+ cal_writer + ", cal_edate=" + cal_edate + "]";
+		return "CalendarVO [cal_number=" + cal_number + ", cal_date=" + cal_date + ", cal_title=" + cal_title
+				+ ", cal_info=" + cal_info + ", cal_create_date=" + cal_create_date + ", cal_modify_date="
+				+ cal_modify_date + ", cal_writer=" + cal_writer + ", cal_edate=" + cal_edate + "]";
 	}
+	
+	
 	
 	
 

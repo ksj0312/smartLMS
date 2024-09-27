@@ -50,4 +50,6 @@ public interface BoardService {
 	
 	public int getBoardListTotalCnt(Pagination pg);  //�빐�떦�븯�뒗 由ъ뒪�듃 珥앷갗�닔 諛섑솚
 
+	void deleteCal(CalendarVO vo);
+
 }

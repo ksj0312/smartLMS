@@ -129,5 +129,9 @@ public class BoardDAO {
 		return mybatis.selectOne("boardDAO.getBoardListTotalCnt", pg);
 		
 	}
+	
+	 public void deleteCal(CalendarVO vo) {
+		    mybatis.delete("boardDAO.deleteCal", vo);
+	    }
 
 }
