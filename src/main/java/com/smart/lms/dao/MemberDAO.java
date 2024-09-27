@@ -1,7 +1,5 @@
 package com.smart.lms.dao;
 
-import java.util.List;
-
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -20,15 +18,6 @@ public class MemberDAO {
 
 	public ProfessorVO getAdmin(ProfessorVO vo) {
 		return  mybatis.selectOne("memberDAO.getAdmin", vo);
-	}
-
-	public void insertStudent(StudentVO users) {
-		 mybatis.insert("memberDAO.insertStudent", users);
-	}
-
-	public void insertProfessor(ProfessorVO users) {
-		 mybatis.insert("memberDAO.insertProfessor", users);
-		
 	}
 	
 }

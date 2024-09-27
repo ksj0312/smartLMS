@@ -11,6 +11,12 @@ public class CalendarVO {
 	private String cal_writer;
 	private Timestamp cal_edate;
 	
+	public Timestamp getCal_edate() {
+		return cal_edate;
+	}
+	public void setCal_edate(Timestamp cal_edate) {
+		this.cal_edate = cal_edate;
+	}
 	public Timestamp getCal_date() {
 		return cal_date;
 	}
@@ -46,13 +52,6 @@ public class CalendarVO {
 	}
 	public void setCal_writer(String cal_writer) {
 		this.cal_writer = cal_writer;
-	}
-
-	public Timestamp getCal_edate() {
-		return cal_edate;
-	}
-	public void setCal_edate(Timestamp cal_edate) {
-		this.cal_edate = cal_edate;
 	}
 	@Override
 	public String toString() {
