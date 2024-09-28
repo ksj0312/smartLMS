@@ -1,5 +1,5 @@
 @charset "UTF-8";
-
+/* 메인초록 : #042424 메인글씨색 #d2d2d2 포인트 글씨색 #e7b37e  */
 @import
    url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap');
    
@@ -20,12 +20,14 @@ footer {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	background-color: #f9f5f2;
-	color: #272727;
+	background-color: #042424;
+	color: #d2d2d2;
 }
 
 .divall {
 	min-height: 800px;
+}
+.maindiv{
 }
 
 .nav-link {
@@ -79,14 +81,32 @@ footer {
 	border: 1px solid #dee2e6;
 }
 
+/*  .form-control {
+ 	border: none;
+    border-bottom: solid;
+    border-bottom-color: #9e9e9e;
+    border-bottom-width: thin;
+ } */
+ .mr-sm-2 {
+ 	border: none;
+    border-bottom: solid;
+    border-bottom-color: #9e9e9e;
+    border-bottom-width: thin;
+    border-radius: 1.5px;
+ }
+
 .form-control:focus {
 	border-color: inherit !important;
 	background-color: inherit !important;
 	box-shadow: none !important;
+	color: #272727;
 }
 
 .btn-success {
-	margin-right: 5px;
+    background-color: #ececec !important;
+    border-color: #ececec !important;
+    margin-right: 5px;
+    color: #9e9e9e;
 }
 
 .btnstatus {
@@ -109,6 +129,10 @@ a[id^=page-btn] {
 	font-family: bolder !important;
 }
 
+a{
+	color: #272727 !important;
+}
+
 li.page-item a.page-link.active {
 	background-color: #272727 !important;
 	color: #f9f5f2 !important;
@@ -121,25 +145,62 @@ li.page-item a.page-link.active {
 	font-family: bolder !important;
 }
 
-button:focus, .form-control:focus, .form-control:active, .btn-primary:focus,
-   .show>.btn-primary.dropdown-toggle:focus, .btn:focus {
+button:focus, .form-control:focus, .form-control:active, .btn-primary:focus, .btn:focus {
    outline: none;
    border: none;
    box-shadow: none;
 }
 
 .table td, .table th {
-   text-align: center;
-   color: #272727;
+    color: #272727;
 }
 
 .table th {
    font-weight: bolder;
 }
+[type="radio"] {
+        accent-color: navy;
+      }
+      
+.subtn{
+    margin-left: 500px;
+    font-size: large;
+    border: none;
+    color: #ececec;
+    background-color: #0d1d45;
+    padding: .375rem .75rem;
+    border-radius: 0;
+}
+.upbut {
+	border: none;
+    color: #ececec;
+    background-color: #0d1d45;
+    width: -webkit-fill-available;
+}
+.classUpdate{
+	font-size: large;
+    border: none;
+    color: #ececec;
+    background-color: #0d1d45;
+    padding: .375rem .75rem;
+    border-radius: 0;
+}
 
+.input-group>.input-group-prepend>.input-group-text {
+    width: 120px;
+}
+
+.nodiv{
+	text-align: center
+}
+.insertForm{
+	width:800px !important;
+	margin: 0 auto;
+}
 /* 네비바  */
-#subNav #stNav {
+#stNav {
    z-index: 9998;
+   background-color: #042424;
 }
 
 .navbar {
@@ -148,27 +209,20 @@ button:focus, .form-control:focus, .form-control:active, .btn-primary:focus,
    /*    background-color: #f9f5f2 !important; */
 }
 
-.logOut {
-   padding-left: 25px !important;
-}
-
 .usernim {
    padding-right: 8px;
-   color: #272727 !important;
+   color: #e7b37e !important;
 }
 
 #name {
-   color: #c79c79;
+   color: #e7b37e;
    font-weight: bold;
-   text-decoration: underline;
-   text-decoration-color: #c79c79;
-   /*    display: block; */
+   text-decoration-color: #e7b37e;
    padding-right: 15px !important;
 }
 
 .nav-item {
    list-style: none;
-   /*    padding: 0 8px; */
    display: contents;
 }
 
@@ -199,21 +253,34 @@ ul.navbar-nav.navlogo {
 .nav-link {
    padding: .5rem .5rem;
    display: contents;
+       color: #d2d2d2 !important;
+}
+.note{
+	color : #fff;
+	margin-right : 8px;
+}
+.navsm{
+	font-size: small !important;
 }
 
 /* 마우스 호버 시에 스타일 변경 */
 .nav-link:hover {
-   color: #c79c79 !important;
-   text-decoration: underline !important;
+   color: #e7b37e !important;
 }
 
-.nav-link, .navbar-brand {
-   color: #272727 !important;
-}
+/* .nav-link, .navbar-brand { */
+/*    color: #0a67ab !important; */
+/* } */
 
 .log2:hover {
-   color: #c79c79 !important;
-   text-decoration: underline !important;
+   color: #e7b37e !important; 
+}
+.log2{
+	padding-right: 100px !important;
+}
+
+.logOut {
+   padding-left: 25px !important;
 }
 
 .smnav {

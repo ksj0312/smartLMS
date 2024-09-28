@@ -31,7 +31,6 @@
 <style>
 /* body 스타일 */
 html, body {
-	overflow: hidden;
 	font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
 	font-size: 14px;
 }

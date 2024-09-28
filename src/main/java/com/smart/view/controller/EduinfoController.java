@@ -53,7 +53,7 @@ public class EduinfoController {
 
 	//출석페이지
 	@GetMapping("/todate")
-	public String getUserList(Pagination pg, Model model, HttpSession session) {
+	public String getUserList( Pagination pg, Model model, HttpSession session) {
 	
 		model.addAttribute("attendanceList", eduinfoService.attendanceList(pg));
 		
@@ -90,7 +90,7 @@ public class EduinfoController {
 		             String status = request.getParameter("a_status_" + id);
 		             
 		             if (id == null || status == null || a_date == null) {
-		                    redirectAttributes.addFlashAttribute("msg", "null");
+		                    redirectAttributes.addFlashAttribute("msg", "fail");
 		                    return "redirect:/todate";
 		                }
 		             
@@ -105,12 +105,12 @@ public class EduinfoController {
 				eduinfoService.insertAttendanceTx(toList);
 				redirectAttributes.addFlashAttribute("msg", "success");
 				
-				return "redirect:/todate";
+				return "redirect:classList";
 				
 			} catch (Exception e) {
 				e.printStackTrace();
 				redirectAttributes.addFlashAttribute("msg", "fail");
-				return "redirect:/todate";
+				return "redirect:classList";
 			}
 	}
 	
@@ -217,6 +217,7 @@ public class EduinfoController {
 	public ResponseEntity<StudentVO> stuInfo(String id) {
 		
 		StudentVO vo = eduinfoService.stuInfo(id);
+		
 		if (vo != null) {
 			return new ResponseEntity<>(vo, HttpStatus.OK);
 		} else {

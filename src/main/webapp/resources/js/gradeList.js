@@ -67,7 +67,7 @@
                                                 <td>${value.name}</td>
                                                 <td><input type="text" name="level_${value.id}"  value="${value.level}" maxlength="3" required/></td>
                                                 <td><input type="text" name="grade_${value.id}"  id = "grade_${value.id}" value="${value.grade}" required/></td>
-                                                <td><button type="button" onclick="gradeUpdate('${value.g_number}', '${value.id}')">등급수정</button></td>
+                                                <td><button type="button" class="upbut" onclick="gradeUpdate('${value.g_number}', '${value.id}')">등급수정</button></td>
                                                 </tr>
                                       `
 				 			 );
