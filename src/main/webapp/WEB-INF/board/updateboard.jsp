@@ -37,7 +37,6 @@
 <div id="se2_sample" style="margin:10px 0;">
 	<form action="updateBoard" method="post" id="dataTransferForm" enctype="multipart/form-data">
 		<input style="display:none;" type="text" name="b_number" value="${board.b_number }" >
-<!-- 		썸네일 이미지 등록: <input type="file" name="pthumbnailimg" id="pthumbnailimg"> -->
 		<label for="b_title">제목:</label>
 		<input type="text" name="b_title" value="${board.b_title }" placeholder="공지사항 제목입력">
 		
@@ -50,16 +49,17 @@
 		<label for="b_writer">작성자:</label>
 		<input type="text" name="b_writer" value="${board.b_writer }"  placeholder="타입 입력" readonly>
 		
-		<textarea name="b_info" id="ir1" rows="10" cols="100" style="width:766px; height:412px; display:none;">${board.b_info }</textarea>
-		
-		
 		<input type="submit" onclick="submitContents(this);" value="수정하기" />
+		
+		<textarea name="b_info" id="ir1" rows="10" cols="100" style="width:766px; height:412px; display:none;">${board.b_info }</textarea>
+		첨부파일 등록: <input type="file" name="uploadFile" value="${board.b_file1 }">
+		
 	</form>
 </div>
 <script type="text/javascript">
     var contextPath = "${pageContext.request.contextPath}";
 </script>
-<script src="${pageContext.request.contextPath}/resources/js/board.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/smartedtior.js"></script>
 
 </body>
 </html>

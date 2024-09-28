@@ -130,6 +130,8 @@ html, body {
                   data: allEvent,
                 });
                 console.log("데이터 삽입 완료");
+                location.reload();
+
               }
             },
           }
@@ -162,6 +164,7 @@ html, body {
           var title = prompt('Event Title:');
           if (title) {
             calendar.addEvent({
+              number: cal_number,
               title: cal_title,
               start: arg.cal_date,
               end: arg.cal_edate,
@@ -187,6 +190,7 @@ html, body {
           const eventArray = [];
           eventData.forEach((res) => {
             eventArray.push({
+              number : res.cal_number,
               title: res.cal_title,
               start: res.cal_date,
               end: res.cal_edate,
@@ -201,8 +205,51 @@ html, body {
 //               googleCalendarId : 'ko.south_korea.official#holiday@group.v.calendar.google.com',
 //               backgroundColor: 'red',
             }
-        ]
+        ],
+        
+        eventContent: function(arg) {
+            // 이벤트 내용 요소 생성
+            let eventTitle = document.createElement('div');
+            eventTitle.innerHTML = arg.event.title;
+
+            // X 버튼 생성
+            let deleteBtn = document.createElement('span');
+            deleteBtn.innerHTML = ' ❌'; // X 아이콘
+            deleteBtn.style.cursor = 'pointer';
+            deleteBtn.style.float = 'right';
+            deleteBtn.style.transform = 'translateY(-18px)'; // 버튼을 1px 위로 이동
+            
+            // X 버튼 클릭 시 삭제 요청
+            deleteBtn.addEventListener('click', async function() {
+              if (confirm("일정을 삭제하시겠습니까?")) {
+            	const cal_number = arg.event.extendedProps.number; // cal_number 가져오기
+                
+                console.log("캘린더 넘버 ",cal_number);
+                console.log("이벤트? ",arg.event);
+
+
+
+                try {
+                  await axios({
+                	  method: 'DELETE',
+                      url: 'deleteCal?cal_number='+cal_number, // 쿼리 파라미터 추가
+                      responseType: "json"
+                  });
+                  console.log("일정 삭제 완료");
+                  arg.event.remove(); // 일정 삭제
+                } catch (error) {
+                  console.error("일정 삭제 실패", error);
+                }
+              }
+            });
+
+            // 이벤트 요소에 X 버튼 추가
+            let arrayOfDomNodes = [eventTitle, deleteBtn];
+            return { domNodes: arrayOfDomNodes };
+          }
       });
+      
+      
       
    // 모달창 이벤트
       $("#saveChanges").on("click", function () {

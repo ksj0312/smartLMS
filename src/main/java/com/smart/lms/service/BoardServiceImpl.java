@@ -9,6 +9,7 @@ import com.smart.lms.dao.BoardDAO;
 import com.smart.lms.util.Pagination;
 import com.smart.lms.vo.BoardVO;
 import com.smart.lms.vo.CalendarVO;
+import com.smart.lms.vo.CommentVO;
 import com.smart.lms.vo.NoteVO;
 
 @Service("boardService")
@@ -102,6 +103,11 @@ public class BoardServiceImpl implements BoardService {
 	}
 	
 	@Override
+	public void boardViewTx(int b_number) {
+		boDAO.boardView(b_number);
+	}
+	
+	@Override
 	public CalendarVO getCal(CalendarVO vo) {
 		return boDAO.getCal(vo);
 	}
@@ -123,4 +129,22 @@ public class BoardServiceImpl implements BoardService {
 	public int getBoardListTotalCnt(Pagination pg) {
 		return boDAO.getBoardListTotalCnt(pg);
 	}
+	
+	@Override
+	public void deleteCalTx(int cal_number) {
+		boDAO.deleteCal(cal_number);
+	}
+	
+	
+	@Override
+	public void insertCommentTx(CommentVO vo) {
+		boDAO.insertComment(vo);
+	}
+	
+	@Override
+	public List<CommentVO> getCommentList(int b_number) {
+		return boDAO.getCommentList(b_number);
+	}
+	
+	
 }

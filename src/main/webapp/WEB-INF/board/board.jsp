@@ -26,6 +26,7 @@
 					<th>제목</th>
 					<th>내용</th>
 					<th>작성자</th>
+					<th>조회수</th>
 				</tr>
 			</thead>
 			
@@ -39,6 +40,7 @@
 <%-- 						 <c:out value="${fn:length(board.b_info) > 20 ? board.b_info.substring(0, 20) + '...' : board.b_info}"/> --%>
 <%-- 						<td class="tdCenter">${board.b_type}</td> --%>
 						<td class="tdCenter">${board.b_writer}</td>
+						<td class="tdCenter">${board.b_view}</td>
 					</tr>
 				</c:forEach>
 			</tbody>

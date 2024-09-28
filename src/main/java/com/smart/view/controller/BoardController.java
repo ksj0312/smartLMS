@@ -48,6 +48,7 @@ import com.smart.lms.util.ExcelUtil;
 import com.smart.lms.util.Pagination;
 import com.smart.lms.vo.BoardVO;
 import com.smart.lms.vo.CalendarVO;
+import com.smart.lms.vo.CommentVO;
 import com.smart.lms.vo.NoteVO;
 import com.smart.lms.vo.ProfessorVO;
 import com.smart.lms.vo.StudentVO;
@@ -486,7 +487,17 @@ public class BoardController {
   	@GetMapping("/getBoard")
   	public String getBoard(BoardVO vo, Model model) {
   		BoardVO board = boardService.getBoard(vo.getB_number());
+  		//조회수 1씩 증가 로직
+  		boardService.boardViewTx(vo.getB_number());
+  		
+  		System.out.println(vo.getB_number());
+  		
+  		//댓글 조회
+  		List<CommentVO> commentList = boardService.getCommentList(vo.getB_number());
+  		System.out.println("댓글 목록: " + commentList);
   		model.addAttribute("board", board);
+  		model.addAttribute("commentList", commentList);
+
   		return "/board/boarddetail";
   	}
   	
@@ -518,6 +529,7 @@ public class BoardController {
   	public String updatePage(BoardVO vo, Model model) {
   		BoardVO board = boardService.getBoard(vo.getB_number());
   		model.addAttribute("board", board);
+  		System.out.println(board);
   		return "/board/updateboard";
   	}
   	
@@ -525,10 +537,29 @@ public class BoardController {
   	//선택 목록 수정
   	@PostMapping("/updateBoard")
   	public String updateBoard(@ModelAttribute BoardVO vo)  throws Exception {
+  		 // 파일 처리 로직
+  	    MultipartFile file = vo.getUploadFile();
+  	    if (file != null && !file.isEmpty()) {
+  	        // 파일 저장 경로 설정
+  	        String uploadPath = "c:/smart/smartlms/src/main/webapp/resources/upfile/"; // 저장할 경로 설정
+  	        String fileName = file.getOriginalFilename();
+  	        
+  	        // 파일을 해당 경로에 저장
+  	        File dest = new File(uploadPath + fileName);
+  	        file.transferTo(dest);
+  	        
+  	        // BoardVO에 파일 경로 설정
+  	        vo.setB_file1(uploadPath + fileName); // 파일 경로를 BoardVO의 b_file1에 설정
+
+  	        System.out.println("파일 저장 성공: " + fileName);
+  	    } else {
+  	        System.out.println("파일이 업로드되지 않았습니다.");
+  	    }
+  	    System.out.println(vo);
+  		
   		boardService.updateBoardTx(vo);
   		return "redirect:/getBoard?b_number=" + vo.getB_number();
   	}
-  	
   	
   	
   	//학사 일정 페이지 이동
@@ -543,6 +574,7 @@ public class BoardController {
   	 @ResponseBody
   	    public List<CalendarVO> getCalList() {
   	        List<CalendarVO> calList = boardService.getCalList();
+  	        System.out.println(calList);
   	        return calList; 
   	 }
   	
@@ -567,4 +599,34 @@ public class BoardController {
   	    return "redirect:/getCal";
   	}
 	
+  	//학사 일정 삭제
+  	@DeleteMapping("/deleteCal")
+  	@ResponseBody
+  	public String deleteCal(@RequestParam ("cal_number") int cal_number) throws UnsupportedEncodingException,  Exception {
+  	    // 일정 삭제
+  		System.out.println(cal_number);
+  	    boardService.deleteCalTx(cal_number);
+  	    return "redirect:/getCal";
+  	}
+  	
+  	//댓글 조회
+  	@GetMapping("/getCommentList")
+  	public List<CommentVO> getComList(int b_number){
+  		List<CommentVO> commentList = boardService.getCommentList(b_number);
+  		System.out.println("comList : " + commentList);
+  		return commentList;
+  	}
+  	
+  	//댓글 입력
+  	@PostMapping(value = "/insertComment")
+  	public String insertComment(CommentVO vo) throws IllegalStateException, IOException , Exception{
+
+  		boardService.insertCommentTx(vo);
+  		
+  		System.out.println("댓글 입력 : " + vo);
+  		
+  		return "redirect:/getBoard?b_number=" + vo.getB_number();
+  	}
+  	
+  	
 }

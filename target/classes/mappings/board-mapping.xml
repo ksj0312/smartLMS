@@ -6,8 +6,10 @@
 <mapper namespace="boardDAO">
 
 	<insert id="sendNote">
-		INSERT INTO NOTE(N_SENDER, N_RECIVER, N_TITLE, N_INFO, N_SEND_DATE)
-		VALUES(#{n_sender}, #{n_reciver}, #{n_title}, #{n_info}, SYSDATE())
+		INSERT INTO NOTE(N_SENDER, N_RECIVER, N_TITLE,
+		N_INFO, N_SEND_DATE)
+		VALUES(#{n_sender}, #{n_reciver}, #{n_title},
+		#{n_info}, SYSDATE())
 	</insert>
 	<select id="receivNote" resultType="noteDTO">
 		select * from note
@@ -17,9 +19,11 @@
 		resultType="noteDTO">
 		SELECT *
 		FROM note
-		WHERE (n_title LIKE CONCAT('%', #{search}, '%')
+		WHERE (n_title LIKE CONCAT('%', #{search},
+		'%')
 		OR n_sender LIKE CONCAT('%', #{search}, '%'))
-		AND n_reciver = #{userId}
+		AND n_reciver =
+		#{userId}
 		ORDER BY n_number DESC
 		LIMIT #{start}, #{size}
 
@@ -27,26 +31,30 @@
 
 
 	<select id="detailNote" resultType="noteDTO">
-		select * from note where n_number = #{n_number}
+		select * from note where
+		n_number = #{n_number}
 	</select>
 
 	<select id="getNotesWithPagination" parameterType="map"
 		resultType="noteDTO">
 		SELECT * FROM note
 		where N_RECIVER = #{userId}
-		ORDER BY n_number DESC
+		ORDER BY
+		n_number DESC
 		LIMIT #{start}, #{size}
 	</select>
 
 	<select id="getTotalNoteCount" resultType="integer">
-		SELECT COUNT(*) FROM note where n_reciver = #{userId}
+		SELECT COUNT(*) FROM
+		note where n_reciver = #{userId}
 	</select>
 
 	<select id="getSearchTotalNoteCount" resultType="integer">
 		SELECT COUNT(*)
 		FROM note
 		WHERE (n_title LIKE CONCAT('%', #{search}, '%')
-		OR n_sender LIKE CONCAT('%', #{search}, '%'))
+		OR n_sender
+		LIKE CONCAT('%', #{search}, '%'))
 		AND n_reciver = #{userId}
 
 	</select>
@@ -54,28 +62,29 @@
 	<update id="updateNote">
 		UPDATE note
 		SET N_RECIVE_DATE = SYSDATE()
-		WHERE N_NUMBER = #{n_number}
+		WHERE
+		N_NUMBER = #{n_number}
 		AND N_RECIVE_DATE IS NULL
 	</update>
 
 	<delete id="deleteNote">
 		delete from note where n_number = #{n_number}
 	</delete>
-	
-	
-<!-- board mapping	 -->
+
+
+	<!-- board mapping -->
 	<select id="getBoardList" parameterType="com.smart.lms.util.Pagination" resultType="BoardDTO">
-		SELECT * FROM BOARD WHERE B_TYPE = #{b_type}
-			<if test="keyword != null || keyword != ' '">
+		SELECT ROW_NUMBER() OVER (ORDER BY B_NUMBER ASC ) AS B_ROWNUM, B.*
+		FROM BOARD B WHERE B_TYPE = #{b_type}
+		<if test="keyword != null || keyword != ' '">
 			<if test="searchType == 'b_info'"> AND B_INFO like CONCAT('%', #{keyword}, '%') </if>
 			<if test="searchType == 'b_title'"> AND B_TITLE like CONCAT('%', #{keyword}, '%') </if>
-			ORDER BY B_NUMBER
-			LIMIT #{sizePerPage} OFFSET #{startList}  
+			ORDER BY B_NUMBER DESC LIMIT #{sizePerPage} OFFSET #{startList}
 		</if>
-
 	</select>
-	
-	<select id="getBoardListTotalCnt" parameterType="com.smart.lms.util.Pagination" resultType="integer">
+
+	<select id="getBoardListTotalCnt"
+		parameterType="com.smart.lms.util.Pagination" resultType="integer">
 		SELECT COUNT(*) FROM BOARD WHERE B_TYPE = #{b_type}
 		<if test="keyword != null">
 			<if test="searchType == 'b_info'"> AND B_INFO like CONCAT('%', #{keyword}, '%')</if>
@@ -84,32 +93,64 @@
 	</select>
 
 	<insert id="insertBoard">
-      INSERT INTO BOARD(B_TARGET, B_TITLE, B_INFO, B_WRITER, B_TYPE, B_file1) 
-      VALUES(#{b_target}, #{b_title}, #{b_info}, #{b_writer}, #{b_type}, #{b_file1})
-   </insert>
+		INSERT INTO BOARD(B_TARGET, B_TITLE, B_INFO, B_WRITER, B_TYPE, B_file1)
+		VALUES(#{b_target}, #{b_title}, #{b_info}, #{b_writer}, #{b_type},
+		#{b_file1})
+	</insert>
 
 	<select id="getBoard" resultType="BoardDTO">
-		SELECT * FROM BOARD WHERE B_NUMBER = #{b_number}
+		SELECT * FROM BOARD WHERE
+		B_NUMBER = #{b_number}
 	</select>
 
 	<delete id="deleteBoard">
-      DELETE FROM BOARD WHERE B_NUMBER = #{b_number}
-   </delete>
-   
-   <update id="updateBoard">
-      UPDATE BOARD SET B_TITLE = #{b_title}, B_INFO = #{b_info} WHERE B_NUMBER = #{b_number}
-   </update>
-   
-   <select id="getCalList" resultType="calDTO">
+		DELETE FROM BOARD WHERE B_NUMBER = #{b_number}
+	</delete>
+
+	<update id="updateBoard">
+		UPDATE BOARD SET B_TITLE = #{b_title}, B_INFO = #{b_info}, B_FILE1 = #{b_file1} WHERE B_NUMBER = #{b_number}
+	</update>
+
+	<update id="boardView">
+		UPDATE BOARD SET B_VIEW = B_VIEW + 1 WHERE B_NUMBER = #{b_number}
+	</update>
+	
+	
+
+<!-- 	calendar mapping -->
+
+	<select id="getCalList" resultType="calDTO">
 		SELECT * FROM Calendar
 	</select>
-   
-   <select id="getCal" resultType="calDTO">
-		SELECT * FROM Calendar WHERE CAL_DATE = #{cal_date}
+
+	<select id="getCal" resultType="calDTO">
+		SELECT * FROM Calendar WHERE
+		CAL_DATE = #{cal_date}
 	</select>
-	
+
 	<insert id="insertCal">
-		INSERT INTO CALENDAR(CAL_DATE, CAL_TITLE, CAL_WRITER, CAL_EDATE, CAL_CREATE_DATE) 
+		INSERT INTO CALENDAR(CAL_DATE, CAL_TITLE, CAL_WRITER,
+		CAL_EDATE, CAL_CREATE_DATE)
 		VALUES(#{cal_date}, #{cal_title}, #{cal_writer}, #{cal_edate}, #{cal_create_date})
 	</insert>
+
+	<delete id="deleteCal">
+		DELETE FROM CALENDAR WHERE CAL_NUMBER = #{cal_number}
+	</delete>
+	
+	
+	
+<!-- 	comment mapping -->
+
+	<insert id="insertComment">
+		INSERT INTO COMMENT(B_NUMBER, ID, CO_INFO)
+		VALUES(#{b_number}, #{id}, #{co_info})
+	</insert>
+	
+	<select id="getCommentList" resultType="commentDTO">
+		SELECT * FROM COMMENT WHERE B_NUMBER = #{b_number}
+	</select>
+	 
+
+		
 </mapper>

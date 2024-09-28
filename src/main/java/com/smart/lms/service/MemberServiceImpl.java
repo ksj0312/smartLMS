@@ -49,7 +49,8 @@ public class MemberServiceImpl implements MemberService {
 		ProfessorVO pvo = memDAO.getAdmin(vo);
 		
 	      if (pvo != null) {
-	         boolean isMatch = passwordEncoder.matches(vo.getPwd(), pvo.getPwd());
+	    	  boolean isMatch = passwordEncoder.matches(vo.getPwd(), pvo.getPwd());
+//	    	  boolean isMatch = vo.getPwd().equals(pvo.getPwd());
 	         if(isMatch){
 	            return pvo;
 	         }
