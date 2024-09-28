@@ -62,6 +62,13 @@
 		delete from note where n_number = #{n_number}
 	</delete>
 	
+	<select id="checkUser" resultType="StudentDTO">
+		select * from student where id = #{n_reciver}
+	</select>
+	
+	<select id="noteCount" resultType="integer">
+	select count(*) from note where N_RECIVER  = #{userId} and N_RECIVE_DATE is null;
+	</select>
 	
 <!-- board mapping	 -->
 	<select id="getBoardList" parameterType="com.smart.lms.util.Pagination" resultType="BoardDTO">

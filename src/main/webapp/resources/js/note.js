@@ -100,39 +100,63 @@ $(document).ready(function() {
 });
 
 
-    // "보내기" 버튼 클릭 시
-     function sendNote() {
-        // 폼 데이터 수집
-        var formData = {
-            n_sender: $('#n_sender').val(),
-            n_reciver: $('#n_reciver').val(),
-            n_title: $('#n_title').val(),
-            n_info: $('#n_info').val()
-        };
-
-        // 유효성 검사
-        if (!formData.n_reciver || !formData.n_title || !formData.n_info) {
-            alert('모든 필드를 입력해주세요.');
-            return;
+function checkUser(n_reciver, callback) {
+    $.ajax({
+        url: '/checkUser',
+        type: 'GET',
+        data: { 
+            n_reciver: n_reciver // 인수로 받은 수신자 ID
+        },
+        success: function(response) {
+            callback(response); // 응답을 콜백 함수로 전달
+        },
+        error: function(xhr, status, error) {
+            console.error('AJAX Error: ' + status + ' ' + error);
+            alert('사용자 확인 중 오류가 발생했습니다.');
         }
+    });
+}
 
-        // AJAX 요청
-        $.ajax({
-            url: '/sendnote',
-            type: 'POST',
-            data: formData,
-            success: function(response) {
-                console.log(response); // 서버에서 받은 응답 출력
-                alert('쪽지가 성공적으로 보내졌습니다!');
-                loadNoteList(); // 쪽지 목록 새로 고침 (이 함수가 있어야 합니다)
-                closeModal(); // 모달 닫기 (이 함수도 정의돼 있어야 함)
-            },
-            error: function(xhr, status, error) {
-                console.error('AJAX Error: ' + status + ' ' + error);
-                alert('쪽지 전송 중 오류가 발생했습니다.');
-            }
-        });
+    // "보내기" 버튼 클릭 시
+function sendNote() {
+    var formData = {
+        n_sender: $('#n_sender').val(),
+        n_reciver: $('#n_reciver').val(),
+        n_title: $('#n_title').val(),
+        n_info: $('#n_info').val()
+    };
+
+    if (!formData.n_reciver || !formData.n_title || !formData.n_info) {
+        alert('모든 필드를 입력해주세요.');
+        return;
     }
+
+    // 사용자 존재 여부 확인
+    checkUser(formData.n_reciver, function(userExist) {
+        if (userExist) {
+            $.ajax({
+                url: '/sendnote',
+                type: 'POST',
+                data: formData,
+                success: function(response) {
+                    console.log(response);
+                    alert('쪽지가 성공적으로 보내졌습니다!');
+                    loadNoteList();
+                    closeModal();
+                },
+                error: function(xhr, status, error) {
+                    console.error('AJAX Error: ' + status + ' ' + error);
+                    alert('쪽지 전송 중 오류가 발생했습니다.');
+                }
+            });
+        } else {
+            alert('받는사람 아이디가 존재하지 않습니다.');
+        }
+    });
+}
+
+
+    
 
 
 						// 동적으로 생성된 "보기" 버튼에 이벤트는 on으로 해라

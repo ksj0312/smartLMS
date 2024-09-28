@@ -8,6 +8,9 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.smart.lms.vo.BoardVO;
+import com.smart.lms.vo.NoteVO;
+import com.smart.lms.vo.StudentVO;
 import com.smart.lms.util.Pagination;
 import com.smart.lms.vo.BoardVO;
 import com.smart.lms.vo.CalendarVO;
@@ -128,6 +131,15 @@ public class BoardDAO {
 	public int getBoardListTotalCnt(Pagination pg) {
 		return mybatis.selectOne("boardDAO.getBoardListTotalCnt", pg);
 		
+	}
+
+	  public boolean checkUser(String n_reciver) {
+		    StudentVO student = mybatis.selectOne("boardDAO.checkUser", n_reciver);
+		    return student != null; // 유저가 존재하면 true, 없으면 false 반환
+		}
+
+	public int noteCount(String userId) {
+		return mybatis.selectOne("boardDAO.noteCount",userId);
 	}
 
 }
