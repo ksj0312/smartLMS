@@ -9,10 +9,17 @@
    <footer class = footer>
       <div class="footerdiv">
          <p class="footer1">
-            <em>SMARTLMS,</em>
+            	<c:choose>
+				<c:when test="${userName ne NULL}">
+           			 <em>SMARTLMS,<a class= "adminlink" > ◎</a></em>
+           		 </c:when>
+           		 <c:otherwise>
+          		    <em>SMARTLMS,<a class= "adminlink" href="adminpage" > ◎</a></em>
+           		 </c:otherwise>
+            	</c:choose>
          </p>
          <p class="footer2">
-         	20240910
+         	20240910 - 20240929
          </p>
          <p class="footer3">
             이 사이트는 교육용 사이트로 실제 사용하실 수 없습니다. 

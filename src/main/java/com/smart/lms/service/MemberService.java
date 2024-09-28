@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import com.smart.lms.vo.MyPageVO;
+import com.smart.lms.util.Pagination;
 import com.smart.lms.vo.ProfessorVO;
 import com.smart.lms.vo.StudentVO;
 
@@ -42,5 +43,6 @@ public interface MemberService {
 	MyPageVO myPageClassInfo(int c_number, String userId);
 
 	void updatePost(String zipcode, String addr, String detail_addr, String userId);
+
 
 }

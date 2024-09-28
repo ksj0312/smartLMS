@@ -25,30 +25,6 @@
 
 	</select>
 
-	<select id="getBoardList" resultType="BoardDTO">
-		SELECT * FROM BOARD WHERE
-		B_TYPE = #{b_type}
-	</select>
-
-	<insert id="insertBoard">
-		INSERT INTO BOARD(B_TARGET, B_TITLE, B_INFO, B_WRITER, B_TYPE,
-		B_CREATE_DATE) VALUES(#{b_target}, #{b_title}, #{b_info}, #{b_writer},
-		#{b_type}, SYSDATE())
-	</insert>
-
-	<select id="getBoard" resultType="BoardDTO">
-		SELECT * FROM BOARD WHERE
-		B_NUMBER = #{b_number}
-	</select>
-
-	<delete id="deleteBoard">
-		DELETE FROM BOARD WHERE B_NUMBER = #{b_number}
-	</delete>
-
-	<update id="updateBoard">
-		UPDATE BOARD SET B_TITLE = #{b_title}, B_INFO = #{b_info} WHERE B_NUMBER =
-		#{b_number}
-	</update>
 
 	<select id="detailNote" resultType="noteDTO">
 		select * from note where n_number = #{n_number}
@@ -93,4 +69,54 @@
 	<select id="noteCount" resultType="integer">
 	select count(*) from note where N_RECIVER  = #{userId} and N_RECIVE_DATE is null;
 	</select>
+	
+<!-- board mapping	 -->
+	<select id="getBoardList" parameterType="com.smart.lms.util.Pagination" resultType="BoardDTO">
+		SELECT * FROM BOARD WHERE B_TYPE = #{b_type}
+			<if test="keyword != null || keyword != ' '">
+			<if test="searchType == 'b_info'"> AND B_INFO like CONCAT('%', #{keyword}, '%') </if>
+			<if test="searchType == 'b_title'"> AND B_TITLE like CONCAT('%', #{keyword}, '%') </if>
+			ORDER BY B_NUMBER
+			LIMIT #{sizePerPage} OFFSET #{startList}  
+		</if>
+
+	</select>
+	
+	<select id="getBoardListTotalCnt" parameterType="com.smart.lms.util.Pagination" resultType="integer">
+		SELECT COUNT(*) FROM BOARD WHERE B_TYPE = #{b_type}
+		<if test="keyword != null">
+			<if test="searchType == 'b_info'"> AND B_INFO like CONCAT('%', #{keyword}, '%')</if>
+			<if test="searchType == 'b_title'"> AND B_TITLE like CONCAT('%', #{keyword}, '%')</if>
+		</if>
+	</select>
+
+	<insert id="insertBoard">
+      INSERT INTO BOARD(B_TARGET, B_TITLE, B_INFO, B_WRITER, B_TYPE, B_file1) 
+      VALUES(#{b_target}, #{b_title}, #{b_info}, #{b_writer}, #{b_type}, #{b_file1})
+   </insert>
+
+	<select id="getBoard" resultType="BoardDTO">
+		SELECT * FROM BOARD WHERE B_NUMBER = #{b_number}
+	</select>
+
+	<delete id="deleteBoard">
+      DELETE FROM BOARD WHERE B_NUMBER = #{b_number}
+   </delete>
+   
+   <update id="updateBoard">
+      UPDATE BOARD SET B_TITLE = #{b_title}, B_INFO = #{b_info} WHERE B_NUMBER = #{b_number}
+   </update>
+   
+   <select id="getCalList" resultType="calDTO">
+		SELECT * FROM Calendar
+	</select>
+   
+   <select id="getCal" resultType="calDTO">
+		SELECT * FROM Calendar WHERE CAL_DATE = #{cal_date}
+	</select>
+	
+	<insert id="insertCal">
+		INSERT INTO CALENDAR(CAL_DATE, CAL_TITLE, CAL_WRITER, CAL_EDATE, CAL_CREATE_DATE) 
+		VALUES(#{cal_date}, #{cal_title}, #{cal_writer}, #{cal_edate}, #{cal_create_date})
+	</insert>
 </mapper>

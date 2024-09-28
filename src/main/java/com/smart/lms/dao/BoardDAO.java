@@ -11,6 +11,10 @@ import org.springframework.stereotype.Repository;
 import com.smart.lms.vo.BoardVO;
 import com.smart.lms.vo.NoteVO;
 import com.smart.lms.vo.StudentVO;
+import com.smart.lms.util.Pagination;
+import com.smart.lms.vo.BoardVO;
+import com.smart.lms.vo.CalendarVO;
+import com.smart.lms.vo.NoteVO;
 @Repository
 public class BoardDAO {
 	
@@ -85,9 +89,12 @@ public class BoardDAO {
 			params.put("userId", userId);
 			return mybatis.selectList("boardDAO.getSearchNotesWithPagination", params);
 		}
+		
+		
+//		boardDAO-------
 
-	  public List<BoardVO> getBoardList(BoardVO vo) {
-			return mybatis.selectList("boardDAO.getBoardList", vo);
+		public List<BoardVO> getBoardList(Pagination pg) {
+			return mybatis.selectList("boardDAO.getBoardList", pg);
 		}
 
 	  public void insertBoard(BoardVO vo) {
@@ -95,18 +102,36 @@ public class BoardDAO {
 		}
 		
 		
-	  public BoardVO getBoard(BoardVO vo) {
-		     return mybatis.selectOne("boardDAO.getBoard", vo);
+	  public BoardVO getBoard(int b_number) {
+		     return mybatis.selectOne("boardDAO.getBoard", b_number);
 		}
 		
-	  public void deleteBoard(BoardVO vo) {
-		    mybatis.delete("boardDAO.deleteBoard", vo);
+	  public void deleteBoard(int b_number) {
+		    mybatis.delete("boardDAO.deleteBoard", b_number);
 	    }
 	   
 	  
 	  public void updateBoard(BoardVO vo) {
 		  	mybatis.update("boardDAO.updateBoard", vo);
 	   }
+	  
+	  public CalendarVO getCal(CalendarVO vo) {
+		     return mybatis.selectOne("boardDAO.getCal", vo);
+		}
+	  
+	  public void insertCal(CalendarVO vo) {
+		     mybatis.insert("boardDAO.insertCal", vo);
+		}
+
+	public List<CalendarVO> getCalList() {
+		return mybatis.selectList("boardDAO.getCalList");
+
+	}
+	
+	public int getBoardListTotalCnt(Pagination pg) {
+		return mybatis.selectOne("boardDAO.getBoardListTotalCnt", pg);
+		
+	}
 
 	  public boolean checkUser(String n_reciver) {
 		    StudentVO student = mybatis.selectOne("boardDAO.checkUser", n_reciver);

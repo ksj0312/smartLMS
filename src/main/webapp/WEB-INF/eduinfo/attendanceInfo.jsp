@@ -13,6 +13,8 @@
 		      
 		<div class="modal-header">
 			<h4 class="modal-title" id="myModalLabel">수강 학생 정보</h4>
+			<button type="button" class="btn" data-dismiss="modal">x</button>
+		</div>
 			    <nav id="searchNav" class="navbar navbar-expand-sm navbar-dark">
                          <form class="form-inline" name="searchForm" > 
                                 <select name="searchType" id="searchType" class="form-control mr-sm-2">
@@ -24,10 +26,7 @@
                                 <button class="btn btn-success" type="button" onclick="search()">검색</button>
                       </form> 
                 </nav>
-			<button type="button" class="btn" data-dismiss="modal">x</button>
-		</div>
 		<div class="modal-no"></div>
-		        
 			<div class="modal-body">
 			<div id="searchNo"></div>
 				<div id="select_pop_up">

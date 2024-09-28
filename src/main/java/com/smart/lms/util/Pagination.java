@@ -25,6 +25,8 @@ public class Pagination {
 	
 	private int c_number;
 	private int g_number;
+	
+	private String b_type;
 
 	public int getCurrPageNo() {
 		return currPageNo;
@@ -185,5 +187,16 @@ public class Pagination {
 	public void setG_number(int g_number) {
 		this.g_number = g_number;
 	}
+
+	public String getB_type() {
+		return b_type;
+	}
+
+	public void setB_type(String b_type) {
+		this.b_type = b_type;
+	}
+	
+	
+	
 
 }
