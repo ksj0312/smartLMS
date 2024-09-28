@@ -2,6 +2,8 @@ package com.smart.lms.vo;
 
 import java.sql.Timestamp;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class BoardVO {
 	private int b_number;
 	private String b_target;
@@ -15,6 +17,17 @@ public class BoardVO {
 	private String b_file1;
 	private String b_file2;
 	private String b_file3;
+	
+	private MultipartFile uploadFile;
+
+	
+	
+	public MultipartFile getUploadFile() {
+		return uploadFile;
+	}
+	public void setUploadFile(MultipartFile uploadFile) {
+		this.uploadFile = uploadFile;
+	}
 	public int getB_number() {
 		return b_number;
 	}

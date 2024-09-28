@@ -6,9 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.smart.lms.dao.BoardDAO;
-import com.smart.lms.util.Pagination;
-import com.smart.lms.vo.NoteVO;
 import com.smart.lms.vo.BoardVO;
+import com.smart.lms.vo.NoteVO;
+import com.smart.lms.vo.StudentVO;
+import com.smart.lms.util.Pagination;
+import com.smart.lms.vo.BoardVO;
+import com.smart.lms.vo.CalendarVO;
+import com.smart.lms.vo.NoteVO;
 
 @Service("boardService")
 public class BoardServiceImpl implements BoardService {
@@ -71,29 +75,67 @@ public class BoardServiceImpl implements BoardService {
 	public List<NoteVO> getSearchNotesWithPagination(int start, int size, String search, String userId) {
 		return boDAO.getSearchNotesWithPagination(start, size, search, userId);
 	}
+	
+	
+//	boardService-----------
 
 	@Override
-	public List<BoardVO> getBoardList(BoardVO vo) {
-		return boDAO.getBoardList(vo);
+	public List<BoardVO> getBoardList(Pagination pg) {
+		return boDAO.getBoardList(pg);
 	}
 
 	@Override
-	public void insertBoard(BoardVO vo) {
+	public void insertBoardTx(BoardVO vo) {
 		boDAO.insertBoard(vo);
 	}
 
 	@Override
-	public BoardVO getBoard(BoardVO vo) {
-		return boDAO.getBoard(vo);
+	public BoardVO getBoard(int b_number) {
+		return boDAO.getBoard(b_number);
 	}
 	
 	@Override
-	public void deleteBoard(BoardVO vo) {
-		boDAO.deleteBoard(vo);
+	public void deleteBoardTx(int b_number) {
+		boDAO.deleteBoard(b_number);
 	}
 	
 	@Override
-	public void updateBoard(BoardVO vo) {
+	public void updateBoardTx(BoardVO vo) {
 		boDAO.updateBoard(vo);
 	}
+
+	@Override
+	public boolean checkUser(String n_reciver) {
+	    boolean vo = boDAO.checkUser(n_reciver);
+	    return vo; // vo가 null이 아니면 true, null이면 false 반환
+	}
+
+	@Override
+	public int noteCount(String userId) {
+		return boDAO.noteCount(userId);
+	}
+
+	
+	@Override
+	public CalendarVO getCal(CalendarVO vo) {
+		return boDAO.getCal(vo);
+	}
+	
+	@Override
+	public void insertCalTx(CalendarVO vo) {
+		System.out.println(vo);
+		System.out.println(vo.toString());
+		System.out.println();
+		boDAO.insertCal(vo);
+	}
+	
+	   @Override
+	   public List<CalendarVO> getCalList() {
+	      return boDAO.getCalList();
+	   }
+	   
+	   @Override
+	   public int getBoardListTotalCnt(Pagination pg) {
+	      return boDAO.getBoardListTotalCnt(pg);
+	   }
 }

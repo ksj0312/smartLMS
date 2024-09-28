@@ -13,11 +13,12 @@
                 <section class="header-container">
                         <h4>성적 조회/수정</h4>
                         <br>
-    					<h5>강의 번호 <%= request.getParameter("c_number") %></h5>
-    					<h5>과제 번호 <%= request.getParameter("g_number") %></h5>
+    					<h5>강의 번호 : <%= request.getParameter("c_number") %></h5>
+    					<h5>시험 번호 : <%= request.getParameter("g_number") %></h5>
+    					<h5>시험 구분 : <%= request.getParameter("test_type") %></h5>
     					<br>
-                        <small style="color:red">※ 점수 수정 시 등급이 업데이트 됩니다. 점수 수정을 모두 완료한 후 등급 수정을 해주세요. </small>
-                        <br><br>
+                        <small style="color:red">※ 점수 수정 시 등급이 업데이트 됩니다. 반드시 점수 수정을 모두 완료한 후 등급 수정을 해주세요. </small>
+                        <br>
                 </section>
                 <nav id="searchNav" class="navbar navbar-expand-sm navbar-dark">
                          <form class="form-inline" name="searchForm" > 
@@ -49,11 +50,11 @@
                                                 <td>${stu.name}</td>
                                                 <td><input type="text" name="level_${stu.id}"  value="${stu.level}" maxlength="3" required/></td>
                                                 <td><input type="text" name="grade_${stu.id}"  id = "grade_${stu.id}" value="${stu.grade}" required/></td>
-                                                <td><button type="button" onclick="gradeUpdate('<%= request.getParameter("g_number") %>', '${stu.id}')">등급수정</button></td>
+                                                <td><button type="button" class="upbut" onclick="gradeUpdate('<%= request.getParameter("g_number") %>', '${stu.id}')">등급수정</button></td>
                                                 </tr>
                                 </c:forEach>
                         </table>
-                        <button type="submit">점수 수정</button>
+                        <button type="submit" class="subtn">점수 수정</button>
                         </form>
                 </section>
         </div>

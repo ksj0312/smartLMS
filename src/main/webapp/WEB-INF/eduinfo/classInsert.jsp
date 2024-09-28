@@ -12,11 +12,13 @@
 		<div class="bcl">
 			<div class="divall">
 				<section class="header-container">
-					<h3>강의 등록</h3>
+					<h4>강의 등록</h4>
+					<br><br>
 				</section>
 				
 <section class="container-flui">
   <form class="clInsert" action="classInsert" method="POST" >
+  <div class="insertForm">
     <div class="input-group mb-3">
       <div class="input-group-prepend">
         <span class="input-group-text">강의명</span>
@@ -77,8 +79,9 @@
       </div>
       <textarea class="form-control" rows="10" id="b_comment" name="c_info"></textarea>      
     </div>  
+    </div>
     <div id="footer">
-        <button id="classInsert" type="submit" class="btn btn-primary">등록하기</button>
+        <button id="classInsert" type="submit" class="btn btn-primary subtn" >등록하기</button>
     </div>
   </form>  
 </section>

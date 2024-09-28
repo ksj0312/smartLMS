@@ -4,46 +4,52 @@
 
 <html>
 <head>
-<script src="${pageContext.request.contextPath }/resources/js/test.js"></script>
-<%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/test.css"> --%>
+<script src="${pageContext.request.contextPath }/resources/js/testInsert.js"></script>
+<%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/testInsert.css"> --%>
 </head>
 <body>
 <div class="bcl">
         <div class="divall">
                 <section class="header-container">
-    					<h4>강의 번호 
-    					<%= request.getParameter("c_number") %>
-    					</h4>
-    					<br>
-                        <h4>시험 정보 등록</h4>
-                        <br>
+    					<h5>강의번호 : <%= request.getParameter("c_number") %> </h5>
+    					<h5>강의명 : <%= request.getParameter("c_name") %> </h5>
+    					<br><br>
                 </section>
-
+				
                 <section class="contents-container">
                   <form action="testInsert" method="POST">
-                  		<div class="inputs">
-						<label for="id" class="labelp">시험구분(중간,기말,과제)
-						<input type="text" id="test_type" class="form-control" name="test_type" value="" placeholder="시험구분(중간,기말,과제 등)">
-						</label>
+                  <div class="insertForm">
+                  	<div class="input-group mb-3">
+						<div class="input-group-prepend">
+							<span class="input-group-text">시험구분</span>
 						</div>
-						<div class="inputs">
-						<label for="id" class="labelp">시험일시
-						<input type="text" id="start_time" class="form-control" name="start_time" value="" placeholder="ex)2024.01.01 15:00">
-						</label>
+						<input type="text" class="form-control" name="test_type" id="test_type"
+							value="" placeholder="ex)1학기 중간고사, 2학기 기말고사">
+					</div>
+                  	<div class="input-group mb-3">
+						<div class="input-group-prepend">
+							<span class="input-group-text">시험일시</span>
 						</div>
-						<div class="inputs">
-						<label for="id" class="labelp">시험종료일시
-						<input type="text" id="end_time" class="form-control" name="end_time" value="" placeholder="ex)2024.01.01 16:00">
-						</label>
+						<input type="text" class="form-control" name="start_time" id="start_time"
+							value="" placeholder="ex)2024.01.01 15:00">
+					</div>
+                  	<div class="input-group mb-3">
+						<div class="input-group-prepend">
+							<span class="input-group-text">시험종료일시</span>
 						</div>
-						<div class="inputs">
-						<label for="id" class="labelp">시험시간
-						<input type="text" id="test_time" class="form-control" name="test_time" value="" placeholder="60분">
-						</label>
+						<input type="text" class="form-control" name="end_time" id="end_time"
+							value="" placeholder="ex)2024.01.01 16:00">
+					</div>
+                  	<div class="input-group mb-3">
+						<div class="input-group-prepend">
+							<span class="input-group-text">시험시간</span>
 						</div>
+						<input type="text" class="form-control" name="test_time" id="test_time"
+							value="" placeholder="ex)60분">
+					</div>
                   		<input type="number" name="c_number" value="<%= request.getParameter("c_number") %>" style="display:none;"/>
-                       
-                        <button type="submit">등록</button>
+                       </div>
+                        <button type="submit" class="subtn">등록하기</button>
                         </form>
                 </section>
         </div>
