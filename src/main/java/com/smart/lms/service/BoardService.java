@@ -50,5 +50,9 @@ public interface BoardService {
 	
 	public int getBoardListTotalCnt(Pagination pg);  
 
+	
+	//쪽지
+	boolean checkUser(String n_reciver);
 
+	int noteCount(String userId);
 }

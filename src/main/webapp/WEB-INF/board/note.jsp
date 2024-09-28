@@ -1,8 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%
-    // 세션에서 mem_id 가져오기
-    String userId = (String) session.getAttribute("userId");
-%>
+
 <script>
 var userId = '<%= userId %>';
 </script>
@@ -16,7 +13,7 @@ var userId = '<%= userId %>';
 <script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/note.js"></script>
 </head>
 <body>
-<button id="openModalBtn" class="openModalBtn">쪽지확인</button>
+<!-- <button id="openModalBtn" class="openModalBtn">쪽지확인</button> -->
 
 <!-- 모달창 처리 -->
 <div id="myModal" class="modal">
@@ -40,6 +37,7 @@ var userId = '<%= userId %>';
     <button type="button" id="sendBtn" class="sendBtn">보내기</button>
     <button type="button" class="openListBtn">목록으로 돌아가기</button>
 </form>
+
 
 </body>
 </html>
