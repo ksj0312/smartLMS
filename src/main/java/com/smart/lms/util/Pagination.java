@@ -28,9 +28,6 @@ public class Pagination {
 	
 	private String b_type;
 
-	
-	
-	
 	public int getCurrPageNo() {
 		return currPageNo;
 	}

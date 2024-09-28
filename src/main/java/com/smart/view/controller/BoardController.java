@@ -28,6 +28,7 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -43,6 +44,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.smart.lms.service.BoardService;
+import com.smart.lms.service.EduinfoService;
 import com.smart.lms.service.MemberService;
 import com.smart.lms.util.ExcelUtil;
 import com.smart.lms.util.Pagination;
@@ -53,13 +55,14 @@ import com.smart.lms.vo.ProfessorVO;
 import com.smart.lms.vo.StudentVO;
 
 
-
 @Controller
 public class BoardController {
 	@Autowired
 	private BoardService boardService;
 	@Autowired
 	private MemberService memService;
+	@Autowired
+	private EduinfoService eduinfoService;
 
 	@PostMapping("/sendnote")
 	@ResponseBody
@@ -105,10 +108,7 @@ public class BoardController {
 		 searchresult.put("totalCnt", totalCnt);
 		 searchresult.put("totalPages", totalPages);
 		 return searchresult;
-		 
 	}
-	
-
 	
 	//쪽지 보기
 	@GetMapping("/detailnote")
@@ -382,7 +382,32 @@ public class BoardController {
         }
     }
     
-    
+    //교수 리스트 받아오기
+//    @GetMapping("/professors")
+//    public String professorsInfo(@ModelAttribute Pagination pg, Model model) {
+//    	int currPageNo = pg.getCurrPageNo();
+//  		int range = pg.getRange();
+//
+//  		int totalCnt = eduinfoService.proAllCnt(pg);
+//
+//  		pg.pageInfo(currPageNo, range, totalCnt);
+//
+//  		model.addAttribute("pagination", pg);
+//  		model.addAttribute("proList2", eduinfoService.proList(pg));
+//    	return "/board/professorsInfo";
+//    }
+  	
+  	//관리자 해당 교수 정보 불러오기 
+//  	@GetMapping("/professor")
+//  	public ResponseEntity<ProfessorVO> professorInfo(String id) {
+//  		
+//  		ProfessorVO vo = eduinfoService.proInfo(id);
+//  		if (vo != null) {
+//  			return new ResponseEntity<>(vo, HttpStatus.OK);
+//  		} else {
+//  			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//  		}
+//  	}
     
 //    ---------board 컨트롤러
 

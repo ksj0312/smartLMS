@@ -30,7 +30,7 @@ public class MemberController {
 	}
 	
 	//학생 로그인 페이지 이동
-	@GetMapping("/studentLoginPage")
+	@GetMapping("/student")
 		public String studentLoginPage(Model model, HttpServletResponse response) {
 			model.addAttribute("state", "STATE_STRING");
 			response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
@@ -40,7 +40,7 @@ public class MemberController {
 		}
 	
 	//관리자(교수) 로그인 페이지 이동
-	@GetMapping("/adminLoginPage")
+	@GetMapping("/adminpage")
 	public String adminLoginPage(Model model, HttpServletResponse response) {
 		model.addAttribute("state", "STATE_STRING");
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
@@ -50,11 +50,12 @@ public class MemberController {
 	}
 	   
 	// 학생 로그인 
-	@PostMapping("/studentLogin")
+	@PostMapping("/student")
 		public String studentLogin(StudentVO vo, Model model, HttpSession session, HttpServletResponse response) {
 			
 		      vo = memService.studentLogin(vo);
-		      
+		    
+		    
 		      if (vo != null) {
 		         response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); 
 		         response.setHeader("Pragma", "no-cache"); 
@@ -63,7 +64,7 @@ public class MemberController {
 		         session.setAttribute("userId", memService.getStudent(vo).getId());
 		         session.setAttribute("userName", memService.getStudent(vo).getName());
 		         session.setAttribute("userStatus", memService.getStudent(vo).getStatus());
-		         session.setAttribute("loginChk", "normal");
+		         session.setAttribute("loginChk", "stu");
 		         
 		         return "redirect:/";
 		         
@@ -74,7 +75,7 @@ public class MemberController {
 		   }
 	
 	// 관리자(교수) 로그인 
-	@PostMapping("/adminLogin")
+	@PostMapping("/admin")
 		public String adminLogin(ProfessorVO vo, Model model, HttpSession session, HttpServletResponse response) {
 			
 			vo = memService.adminLogin(vo);
@@ -88,9 +89,9 @@ public class MemberController {
 		         session.setAttribute("userName", memService.getAdmin(vo).getName());
 		         session.setAttribute("userStatus", memService.getAdmin(vo).getStatus());
 		         session.setAttribute("userType", memService.getAdmin(vo).getType());
-		         session.setAttribute("loginChk", "normal");
+		         session.setAttribute("loginChk", "pro");
 		         
-		         return "redirect:/adminPage";
+		         return "redirect:/admin";
 		         
 		      } else {
 		         session.setAttribute("userError", "로그인에러");
@@ -99,7 +100,7 @@ public class MemberController {
 		   }
 	
 	//관리자(교수) 관리 페이지 이동
-	@GetMapping("/adminPage")
+	@GetMapping("/admin")
 	public String adminPage() {
 		return "member/adminPage";  
 	}
