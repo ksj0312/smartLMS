@@ -73,5 +73,22 @@ public class MemberDAO {
 	}
 
 
+	public MyPageVO myPageClassInfo(int c_number, String userId) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("c_number", c_number);
+		params.put("userId", userId);
+		return mybatis.selectOne("memberDAO.myPageClassInfo", params);
+	}
+
+	public void updatePost(String zipcode, String addr, String detail_addr, String userId) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("zipcode", zipcode);
+		params.put("addr", addr);
+		params.put("detail_addr", detail_addr);
+		params.put("userId", userId);
+		mybatis.update("memberDAO.updatePost", params);
+	}
+
+
 
 }

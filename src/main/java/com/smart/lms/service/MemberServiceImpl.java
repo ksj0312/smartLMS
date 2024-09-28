@@ -166,10 +166,21 @@ public class MemberServiceImpl implements MemberService {
 		return memDAO.getId(email);
 		
 	}
-
+	//마이페이지 수강목록
 	@Override
 	public List<MyPageVO> getClassList(MyPageVO vo) {
 		return memDAO.getClassList(vo);
+	}
+	//마이페이지 수강목록 상세보기
+
+	@Override
+	public MyPageVO myPageClassInfo(int c_number, String userId) {
+		return memDAO.myPageClassInfo(c_number, userId);
+	}
+
+	@Override
+	public void updatePost(String zipcode, String addr, String detail_addr, String userId) {
+		memDAO.updatePost(zipcode, addr, detail_addr, userId);
 	}
 
 	

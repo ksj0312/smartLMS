@@ -38,4 +38,9 @@ public interface MemberService {
 
 	List<MyPageVO> getClassList(MyPageVO vo);
 
+
+	MyPageVO myPageClassInfo(int c_number, String userId);
+
+	void updatePost(String zipcode, String addr, String detail_addr, String userId);
+
 }

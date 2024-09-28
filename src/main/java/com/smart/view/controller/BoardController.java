@@ -64,6 +64,15 @@ public class BoardController {
 	    boardService.sendNoteTx(n_sender, n_reciver, n_title, n_info);
 	    
 	}
+	
+	@GetMapping("/checkUser")
+	@ResponseBody
+	public boolean checkUser(@RequestParam("n_reciver") String n_reciver) {
+	    boolean userExists = boardService.checkUser(n_reciver); // boardService가 boolean 반환
+	    System.out.println("User exists: " + userExists);
+	    return userExists; // 유저가 존재하면 true, 없으면 false 반환
+	}
+
 
 	@GetMapping("/receivnote")
 	@ResponseBody
@@ -125,6 +134,16 @@ public class BoardController {
 		boardService.deleteNoteTx(n_number);
 		
 	}
+	
+//	@GetMapping("/noteCount")
+//	public String noteCount(HttpSession session, Model model) {
+//		String userId = (String) session.getAttribute("userId");
+//		model.addAttribute("noteCount", boardService.noteCount(userId));
+//		session.setAttribute("noteCount", boardService.noteCount(userId));
+//		System.out.println("111111");
+//		System.out.println(model);
+//		return "/";
+//	}
 	
 	
 	@GetMapping("/go")

@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.smart.lms.dao.BoardDAO;
-import com.smart.lms.util.Pagination;
-import com.smart.lms.vo.NoteVO;
 import com.smart.lms.vo.BoardVO;
+import com.smart.lms.vo.NoteVO;
+import com.smart.lms.vo.StudentVO;
 
 @Service("boardService")
 public class BoardServiceImpl implements BoardService {
@@ -96,4 +96,16 @@ public class BoardServiceImpl implements BoardService {
 	public void updateBoard(BoardVO vo) {
 		boDAO.updateBoard(vo);
 	}
+
+	@Override
+	public boolean checkUser(String n_reciver) {
+	    boolean vo = boDAO.checkUser(n_reciver);
+	    return vo; // vo가 null이 아니면 true, null이면 false 반환
+	}
+
+	@Override
+	public int noteCount(String userId) {
+		return boDAO.noteCount(userId);
+	}
+
 }

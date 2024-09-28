@@ -3,15 +3,14 @@ package com.smart.lms.dao;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.smart.lms.util.Pagination;
-import com.smart.lms.vo.NoteVO;
 import com.smart.lms.vo.BoardVO;
+import com.smart.lms.vo.NoteVO;
+import com.smart.lms.vo.StudentVO;
 @Repository
 public class BoardDAO {
 	
@@ -108,5 +107,14 @@ public class BoardDAO {
 	  public void updateBoard(BoardVO vo) {
 		  	mybatis.update("boardDAO.updateBoard", vo);
 	   }
+
+	  public boolean checkUser(String n_reciver) {
+		    StudentVO student = mybatis.selectOne("boardDAO.checkUser", n_reciver);
+		    return student != null; // 유저가 존재하면 true, 없으면 false 반환
+		}
+
+	public int noteCount(String userId) {
+		return mybatis.selectOne("boardDAO.noteCount",userId);
+	}
 
 }

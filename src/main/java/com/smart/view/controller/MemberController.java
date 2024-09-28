@@ -1,6 +1,7 @@
 package com.smart.view.controller;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
@@ -10,12 +11,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.smart.lms.service.BoardService;
 import com.smart.lms.service.MailSendService;
 import com.smart.lms.service.MemberService;
 import com.smart.lms.vo.MyPageVO;
@@ -31,6 +34,9 @@ public class MemberController {
 	
 	@Autowired
 	private MailSendService mailService;
+	
+	@Autowired
+	private BoardService boardService;
 
 	
 	//로그아웃
@@ -41,7 +47,7 @@ public class MemberController {
 	}
 	
 	//학생 로그인 페이지 이동
-	@GetMapping("/studentLoginPage")
+	@GetMapping("/student")
 		public String studentLoginPage(Model model, HttpServletResponse response) {
 			model.addAttribute("state", "STATE_STRING");
 			response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
@@ -61,8 +67,8 @@ public class MemberController {
 	}
 	   
 	// 학생 로그인 
-	@PostMapping("/studentLogin")
-		public String studentLogin(StudentVO vo, Model model, HttpSession session, HttpServletResponse response) {
+	@PostMapping("/student")
+		public String studentLogin(StudentVO vo, HttpSession session, HttpServletResponse response) {
 			
 		      vo = memService.studentLogin(vo);
 		      
@@ -70,12 +76,13 @@ public class MemberController {
 		         response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); 
 		         response.setHeader("Pragma", "no-cache"); 
 		         response.setDateHeader("Expires", 0); 
-		         
-		         session.setAttribute("userId", memService.getStudent(vo).getId());
+		         String id = memService.getStudent(vo).getId();
+		         session.setAttribute("userId", id);
 		         session.setAttribute("userName", memService.getStudent(vo).getName());
 		         session.setAttribute("userStatus", memService.getStudent(vo).getStatus());
-		         session.setAttribute("loginChk", "normal");
-		         
+		         session.setAttribute("loginChk", "stu");
+		         session.setAttribute("noteCount", boardService.noteCount(id));
+		         System.out.println(boardService.noteCount(id));
 		         return "redirect:/";
 		         
 		      } else {
@@ -115,11 +122,26 @@ public class MemberController {
 		return "member/adminPage";  
 	}
 	
-	@GetMapping("/myPage")
+	@GetMapping("/myPageMain")
 	public String myPage(HttpSession session, Model model) {
 		String userId = (String) session.getAttribute("userId");
 		model.addAttribute("user",memService.getUserInfo(userId));
-		return "member/myPage";
+		return "member/myPageMain";
+	}
+	
+	@GetMapping("/myPageInfo")
+	public String myPageInfo(HttpSession session, Model model) {
+		String userId = (String) session.getAttribute("userId");
+		model.addAttribute("user",memService.getUserInfo(userId));
+	return "member/myPageInfo";
+	}
+	
+	@GetMapping("/getClassList")
+	public String getClassList(@RequestParam("Id") String Id, MyPageVO vo, HttpSession session, Model model) {
+		vo.setId((String) session.getAttribute("userId"));
+		System.out.println(memService.getClassList(vo));
+		model.addAttribute("classList",memService.getClassList(vo));
+		return "member/myPageClass";
 	}
 	
 	@PutMapping("/updateTel")
@@ -185,6 +207,22 @@ public class MemberController {
 	    session.invalidate();
 	}
 	
+	@PutMapping("/updatePost")
+	@ResponseBody
+	public void updatePost(HttpSession session, @RequestBody Map<String, String> requestData) {
+	    String userId = (String) session.getAttribute("userId");
+
+	    String zipcode = requestData.get("zipcode");
+	    String addr = requestData.get("addr");
+	    String detail_addr = requestData.get("detail_addr");
+
+	    System.out.println(zipcode);
+
+	    memService.updatePost(zipcode, addr, detail_addr, userId);
+	    
+	    session.invalidate();
+	}
+	
 	@GetMapping("/getId")
 	@ResponseBody
 	public StudentVO getId(@RequestParam("email") String email) {
@@ -196,18 +234,20 @@ public class MemberController {
 	@PutMapping("/changeFindNewPwd")
 	@ResponseBody
 	public void changeFindNewPwd(HttpSession session, @RequestBody StudentVO vo) {
-		System.out.println(vo);
 	    memService.changeNewPwd(vo);
 	    
 	    session.invalidate();
 	}
 	
-	@GetMapping("/getClassList")
+	@GetMapping("/myPageClassInfo")
 	@ResponseBody
-	public MyPageVO getClassList(MyPageVO vo) {
-		memService.getClassList(vo);
+	public MyPageVO myPageClassInfo(HttpSession session, @RequestParam("c_number") int c_number) {
+		String userId = (String) session.getAttribute("userId");
+		MyPageVO vo = memService.myPageClassInfo(c_number, userId);
+		System.out.println(vo);
 		return vo;
 	}
+	
 }
 		
 		

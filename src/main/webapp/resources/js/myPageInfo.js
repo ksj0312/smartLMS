@@ -1,66 +1,3 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-
-<%
-    // 세션에서 mem_id 가져오기
-    String userId = (String) session.getAttribute("userId");
-    String userName = (String) session.getAttribute("userName");	
-%>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-<style>
-.tab {
-    display: none; /* 기본적으로 모든 탭 콘텐츠를 숨김 */
-}
-.tab.active {
-    display: block; /* 활성화된 탭 콘텐츠만 표시 */
-}
-
-
-</style>
-<script>
-function getClassList(){
-	$.ajax({
-		url: '/getClassList',
-		type: 'GET',
-		success: function(data){
-			
-		},
-		error: function(xhr, status, error){
-			
-		}
-	});
-}
-
-document.addEventListener("DOMContentLoaded", function() {
-    document.querySelectorAll('.tab-link').forEach(tab => {
-        tab.addEventListener('click', () => {
-            // 현재 활성화된 탭과 콘텐츠에서 active 클래스를 제거
-            const activeTab = document.querySelector('.tab-link.active');
-            const activeContent = document.querySelector('.tab.active');
-
-            if (activeTab) activeTab.classList.remove('active');
-            if (activeContent) activeContent.classList.remove('active');
-
-            // 클릭한 탭에 active 클래스 추가
-            tab.classList.add('active');
-
-            // data-tab 속성으로 연관된 콘텐츠를 활성화
-            const tabId = tab.getAttribute('data-tab');
-            document.getElementById(tabId).classList.add('active');
-			
-            // 수강과목 탭 클릭 시 getClassList() 호출
-            if (tabId == 'mypage_classList') {
-                getClassList();
-            }
-        });
-    });
-});
-</script>
-
-<script>
 // 인증번호 요청 함수
 var timer;
 var isRunning = false;
@@ -70,6 +7,7 @@ var check1 = false;
 var check2 = false;
 var check3 = false;
 var check4 = false;
+
 
 function telCheckBtn() {
     $('#tel-Check-Btn').click(function() {
@@ -120,6 +58,9 @@ function telPwdCheckBtn() {
         let changechk = $('.changechk');
 //         $('.tel-check-input').show();
         // 이미  문자가 전송되었는지 확인
+        if (!validatePhoneNumber(tel)) {
+            return; // 전화번호가 유효하지 않으면 함수 종료
+        }
         if (telSent) {
             alert('이미 문자가 전송되었습니다. 인증번호를 확인해주세요.');
             return; // 함수 종료하여 문자를 여러 번 보내는 것을 방지
@@ -327,190 +268,37 @@ $(document).ready(function() {
     compareCode2();
 });
 
-    </script>
-
+    var themeObj = {
+            bgColor: "#FFE7C7", //바탕 배경색
+            searchBgColor: "#FF8A11", //검색창 배경색
+            //contentBgColor: "", //본문 배경색(검색결과,결과없음,첫화면,검색서제스트)
+            pageBgColor: "#FBF5EA", //페이지 배경색
+            //textColor: "", //기본 글자색
+            queryTextColor: "#FFFFFF", //검색창 글자색
+            postcodeTextColor: "#FF8A11", //우편번호 글자색
+            emphTextColor: "#FB8E0B", //강조 글자색
+            outlineColor: "#F9F5F1" //테두리
+   };
+    function hideWarning(warningId) {
+        document.getElementById(warningId).style.display = "none";
+    }
     
-<div id="mypage_con">
-    <div class="mypage_con pd_box inner">
-        <div class="mypage_top">
-            <h1 class="mypage_title">
-            	<span class="find_my_name"></span>${user.name}님의 마이페이지
-            </h1>
+    function execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                 var postcode = data.zonecode;
+                var addr = data.userSelectedType === 'R' ? data.roadAddress : data.jibunAddress;
+                console.log("addr:" + addr);
+                $("#postcode").val(postcode);
+                $("#address").val(addr);
+           
+                hideWarning("warningAddr");
+            },     
+               theme: themeObj
+        }).open();
+        
+    }
 
-        </div>
-        <div class="mypage_bot">
-            <div class="mypage_left_con_box">
-                <ul class="mypage_tabs">
-                    <li id="my_home" class="tab-link add" data-tab="mypage_home">마이페이지 홈</li>
-                    <li class="tab-link" data-tab="mypage_myinfo">내 정보</li>                     
-                    <li class="tab-link" data-tab="mypage_classList">수강과목</li>                     
-                </ul>
-            </div>
-
-            <div class="mypage_right_con_box">
-
-
-                <!-- 마이페이지 내정보 시작 -->
-
-                <div id="mypage_myinfo" class="tab active">
-                    <div class="mycon_title">내 정보</div>
-
-                    <div class="myinfo_con_box">
-                        <form action="">       
-                                <div class="info_id_box myinfo_box">
-                                    <div class="existing_id_box existing_box">
-                                        <div class="info_box_title">아이디</div>
-                                        <input class="info_id_input" type="text" name="" value="${sessionScope.userId}" readonly>
-                                    </div>
-                                </div>
-                        </form>
-
-                        <form action="">       
-                            <div class="info_name_box myinfo_box">
-                                <div class="existing_name_box existing_box">
-                                    <div class="info_box_title">이름</div>
-                                    <input class="info_name_input" type="text" name="" value="${sessionScope.userName}" readonly>
-                                </div>
-                            </div>
-                        </form>
-                        <div class="existing_name_box existing_box">
-                                    <div class="info_box_title">주소</div>
-                                    <input class="info_name_input" type="text" name="" value="${user.addr}" readonly>
-                                </div>
-                                
-                                 <div class="existing_name_box existing_box">
-                                    <div class="info_box_title">성별</div>
-                                    <input class="info_name_input" type="text" name="" value="${user.gender}" readonly>
-                                </div>
-                                
-                                 <div class="existing_name_box existing_box">
-                                    <div class="info_box_title">생년월일</div>
-                                    <input class="info_name_input" type="text" name="" value="${user.birth}" readonly>
-                                </div>
-                                
-                                 <div class="existing_name_box existing_box">
-                                    <div class="info_box_title">이메일</div>
-                                    <input class="info_name_input" type="text" name="" value="${user.email}" readonly>
-                                </div>
-                                 <div>
-                                    <input class="" id="newEmail" name="email" type="text" placeholder="변경할 이메일을 입력해주세요">
-                                </div>
-                                <div>
-                                    <input class="mail-check-input" type="text" style="display:none;" placeholder="인증번호를 입력해주세요"><span id="timer2" ></span>
-                                    <span id="mail-check-warn" class="identify" style="display:none;"></span>	
-                                </div>
-                                   	<button type="button" id="mailCheck">이메일 인증</button>
-                                   	<button type="button" id="updateMail">변경하기</button>
-                                
-                                <div class="existing_name_box existing_box">
-                                    <div class="info_box_title">학년</div>
-                                    <input class="info_name_input" type="text" name="" value="${user.grade}" readonly>
-                                </div>
-                                
-                                <div class="existing_name_box existing_box">
-                                    <div class="info_box_title"></div>
-                                    <input class="info_name_input" type="text" name="" value="${user.status}" readonly>
-                                </div>
-						<!-- 휴대폰 변경 폼 -->
-                        <form action="updateTel">       
-                                <div class="info_phone_box myinfo_box">
-                                    <div class="existing_phone_box existing_box">
-                                        <div class="info_box_title">휴대폰</div>
-                                        <input class="info_phone_past" type="text" value="${user.tel}" readonly><br>
-                                        <div>
-                                        <input class="info_phone_input" type="text" id="tel" name="tel" placeholder="새 휴대폰 번호를 입력" style="display:none;">
-                                        <div>
-                                        <input class="tel-check-input" type="text" name="" style="display:none;" placeholder="인증번호를 입력"><span id="timer3" ></span>
-                                        </div>
-                                        </div>
-                                        <button type="button" class="change_phone">변경하기</button>
-                                    <button type="button" id="tel-Check-Btn" class="phone_need_veri_btn" style="display:none;">인증요청</button>
-                                        <button type="button" class="change_btn_tel" style="display:none;">변경하기</button>
-                                    </div>
-                                    <div class="change_phone_box">
-                                       <span id="tel-check-warn" class="identify" style="display:none;">* 휴대폰 인증번호를 입력해주세요</span>	
-                                        <button type="button" class="veri_confirm_btn" style="display:none;">인증확인</button>
-                                    </div>
-                                </div>
-                            </form>
-                            
-           <button type="button" class="change_my_pwd_btn">비밀번호 변경하기</button>
-	        <form action="changePwd">
-	            <div class="change_pwd_box">
-	                <div class="label_name" style="display:none;">현재 비밀번호</div>
-	                <input id="mem_pwd" name="pwd" type="password" placeholder="현재 비밀번호" style="display:none;" required/><span class="pwdchk"></span>
-	                <div>
-	                <button type="button" id="btnbtn" style="display:none;">비밀번호 확인</button>
-	                </div>
-	            </div>
-	             <div>
-	                <input class="change-pwd-phone tel" type="text" name="tel" placeholder="휴대폰 번호를 입력" style="display:none;">
-	             <div>
-	                                        <button type="button" class="chkpwdphone" style="display:none;">인증요청</button>
-	                                        <div>
-	                <input class="change-pwd-phone changechk" type="text" name="" style="display:none;" placeholder="인증번호를 입력"><span id="timer4" ></span>
-	                                        </div>
-	                                         <span id="tel-check-warn2" class="identify" style="display:none;">* 휴대폰 인증번호를 입력해주세요</span>	
-	             </div>
-	             </div>
-	            <div class="change_pwd_box">
-	                <div class="label_name" style="display:none;">변경할 비밀번호</div>
-	                <input id="mem_chpwd" name="mem_chpwd" type="password" placeholder="영문, 숫자, 특수기호 모두 조합" style="display:none;" required/>
-	            </div>
-	            <div class="change_pwd_box">
-	                <div class="label_name" style="display:none;">비밀번호 확인</div>
-	                <input id="mem_chpwdchk" class="mem_chpwdchk" name="mem_chpwdchk" type="password" placeholder="영문, 숫자, 특수기호 모두 조합" style="display:none;" required/><span class="pwdchk2"></span>
-	            </div>  
-	
-	            <div class="">
-	                <button type="button" class="change_pwd_confirm_btn" style="display:none;">변경하기</button>
-	            </div>
-	            <div>
-	                <button type="button" class="change_pwd_cancle_btn" style="display:none;">취소</button>
-	            </div>
-	        </form>
-                </div>
-            </div>
-            
-            <!-- 수강과목 -->
-            <div id="mypage_classList" class="tab">
-            <div class="container">
-  <h2>내 수강과목</h2>
-  <p>수강과목 및 성적을 확인할 수 있습니다..</p>            
-  <table class="table">
-    <thead>
-      <tr>
-        <th>강의번호</th>
-        <th>강의명</th>
-        <th>교수이름</th>
-        <th>강의시간</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>John</td>
-        <td>Doe</td>
-        <td>john@example.com</td>
-      </tr>
-      <tr>
-        <td>Mary</td>
-        <td>Moe</td>
-        <td>mary@example.com</td>
-      </tr>
-      <tr>
-        <td>July</td>
-        <td>Dooley</td>
-        <td>july@example.com</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-            </div>
-        </div>
-    </div>
-</div>
-
-    <script>
     $(document).ready(function() {
         function changePhone() {
         	if (!isCodeVerified) {
@@ -712,6 +500,32 @@ $(document).ready(function() {
         	}
         }
         
+        function updatePost(){
+        	let dataForm = {
+        			zipcode: $('#postcode').val(),
+        			addr: $('#address').val(),
+        			detail_addr: $('#detailaddress').val()
+        	}
+        	   if (!dataForm.zipcode || !dataForm.addr || !dataForm.detail_addr) {
+        	        alert('모든 필드를 입력해주세요.');
+        	        return;
+        	    }
+        	$.ajax({
+        		url: '/updatePost',
+        		method: 'PUT',
+        		contentType: 'application/json',
+                data: JSON.stringify(dataForm),
+        		success: function(data){
+        			alert("회원 정보가 변경되어 로그아웃되었습니다. 다시 로그인하세요.");
+        			window.location.href = 'studentLoginPage';
+        		},
+        		error: function(xhr, status, error){
+        			
+        		}
+        	});
+        		
+        }
+        
     
         $('#btnbtn').click(function(){
         	changePwd();
@@ -730,17 +544,18 @@ $(document).ready(function() {
         $('#updateMail').click(function(){
         	updateMail();
         });
-    });
-    </script>
-                    <script>
-                            //휴대폰변경하기 눌렀을때
-                            $('.change_phone').click(function(){
+        
+        $('#updatePost').click(function(){
+        	updatePost();
+        });
+        
+         $('.change_phone').click(function(){
                             	$('.info_phone_input').show();
                             	$('.change_phone').hide();
                             	$('#tel-Check-Btn').show();
                             });
-                            
-                            $('.change_my_pwd_btn').click(function(){
+        
+         $('.change_my_pwd_btn').click(function(){
                             	$('.label_name').show();
                             	$('#mem_pwd').show();
                             	$('#mem_chpwd').show();
@@ -750,21 +565,25 @@ $(document).ready(function() {
                             	$('.chkpwdphone').show();
                             	
                             });
+        
+        
+        
+    });
+                            //휴대폰변경하기 눌렀을때
+                           
+
 							
-                       
-                         	
-                    </script>
- 
-					<script>
 					function validatePhoneNumber(tel) {
 					    // 한국 전화번호 형식에 맞춘 정규식 (010, 011 등 시작)
 					    const phoneRegex = /^01([0|1|6|7|8|9])([0-9]{3,4})([0-9]{4})$/;
-
+						
 					    if (!phoneRegex.test(tel)) {
 					        alert("유효한 전화번호를 입력하세요.");
 					        return false;
 					    }
+					    else {
 					    return true;
+					    }
 					}
 					
 					function validatePassword(pwd) {
@@ -777,9 +596,3 @@ $(document).ready(function() {
 					    }
 					    return true;
 					}
-
-
-                    </script>
-                </div>
-                <!-- 마이페이지 내정보 끝 -->
-

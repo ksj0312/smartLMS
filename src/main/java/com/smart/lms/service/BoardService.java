@@ -37,4 +37,8 @@ public interface BoardService {
 	void deleteBoard(BoardVO vo);
 
 	void updateBoard(BoardVO vo);
+
+	boolean checkUser(String n_reciver);
+
+	int noteCount(String userId);
 }
