@@ -490,11 +490,8 @@ public class BoardController {
   		//조회수 1씩 증가 로직
   		boardService.boardViewTx(vo.getB_number());
   		
-  		System.out.println(vo.getB_number());
-  		
   		//댓글 조회
   		List<CommentVO> commentList = boardService.getCommentList(vo.getB_number());
-  		System.out.println("댓글 목록: " + commentList);
   		model.addAttribute("board", board);
   		model.addAttribute("commentList", commentList);
 
@@ -574,7 +571,7 @@ public class BoardController {
   	 @ResponseBody
   	    public List<CalendarVO> getCalList() {
   	        List<CalendarVO> calList = boardService.getCalList();
-  	        System.out.println(calList);
+//  	        System.out.println(calList);
   	        return calList; 
   	 }
   	

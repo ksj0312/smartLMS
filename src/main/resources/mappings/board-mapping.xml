@@ -130,8 +130,8 @@
 
 	<insert id="insertCal">
 		INSERT INTO CALENDAR(CAL_DATE, CAL_TITLE, CAL_WRITER,
-		CAL_EDATE, CAL_CREATE_DATE)
-		VALUES(#{cal_date}, #{cal_title}, #{cal_writer}, #{cal_edate}, #{cal_create_date})
+		CAL_EDATE, CAL_CREATE_DATE, CAL_COLOR)
+		VALUES(#{cal_date}, #{cal_title}, #{cal_writer}, #{cal_edate}, #{cal_create_date}, #{cal_color})
 	</insert>
 
 	<delete id="deleteCal">
