@@ -1,5 +1,8 @@
 package com.smart.view.controller;
 
+import java.security.Timestamp;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Enumeration;
@@ -449,7 +452,7 @@ public class EduinfoController {
 		@GetMapping("/taskList")
 		public String taskList(@RequestParam ("c_number") int c_number, Model model) {
 			model.addAttribute("taskList", eduinfoService.getTaskList(c_number));
-			return "eduinfo/gradeList";
+			return "eduinfo/taskList";
 		}
 		
 		//과제 등록 페이지 이동
@@ -463,6 +466,39 @@ public class EduinfoController {
 		public String taskInsert(TaskVO vo) {
 			eduinfoService.taskInsertTx(vo);
 			return "eduinfo/taskInsert";
+		}
+		
+		//과제등록 -> classList 받아오기
+		@GetMapping("/taskclassList")
+		public String taskclassList(@RequestParam ("status") String status,  HttpSession session, Model model, ClassVO vo) {
+			vo.setC_id((String) session.getAttribute("userId"));
+			List<ClassVO> cList = new ArrayList<ClassVO>();
+			cList = eduinfoService.classList(vo);
+			model.addAttribute("classList" , cList );
+			model.addAttribute("classListcnt", cList.size());
+			model.addAttribute("status" , status);
+			
+			return "eduinfo/taskclassList";
+		}
+		
+		//과제 목록 선택 페이지
+		@GetMapping("/taskSelect")
+		public String taskSelect(Model model, @RequestParam ("c_number") int c_number) {
+			List<TaskVO> taskList = new ArrayList<TaskVO>();
+			taskList = eduinfoService.getTaskList(c_number);
+			model.addAttribute("taskList", taskList);
+			model.addAttribute("taskListcnt", taskList.size());
+			return "eduinfo/taskList";
+		}
+		
+		
+		//과제를 제출한 학생 목록
+		@GetMapping("/stuTaskList")
+		public String stuTaskList(@RequestParam ("c_number") int c_number, @RequestParam ("t_number") int t_number, Model model) {
+			
+			
+			return null;
+			
 		}
 		
 	

@@ -125,28 +125,31 @@ public class BoardServiceImpl implements BoardService {
 	
 	@Override
 	public void insertCalTx(CalendarVO vo) {
-		System.out.println(vo);
-		System.out.println(vo.toString());
-		System.out.println();
 		boDAO.insertCal(vo);
 	}
 	
+	@Override
+	public int getBoardListTotalCnt(Pagination pg) {
+		return boDAO.getBoardListTotalCnt(pg);
+	}
+	
+//	@Override
+//	public void deleteCal(CalendarVO vo) {
+//		boDAO.deleteCal(vo);
+//	}
 	   @Override
 	   public List<CalendarVO> getCalList() {
 	      return boDAO.getCalList();
 	   }
-	   
-	   @Override
-	   public int getBoardListTotalCnt(Pagination pg) {
-	      return boDAO.getBoardListTotalCnt(pg);
-	   }
-	   
+
 	   @Override
 		public void deleteCalTx(int cal_number) {
 			boDAO.deleteCal(cal_number);
 		}
 		
 		
+	   
+	   // 댓글
 		@Override
 		public void insertCommentTx(CommentVO vo) {
 			boDAO.insertComment(vo);

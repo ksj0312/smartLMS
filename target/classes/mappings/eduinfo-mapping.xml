@@ -199,11 +199,16 @@
 	
 <!-- 	과제 -->
 	<select id="getTaskList" resultType="taskDTO">
-		SELECT * FROM TASK WHERE C_NUMBER = #{c_number} AND deadline > now()
+		SELECT * FROM TASK WHERE C_NUMBER = #{c_number}
 	</select>
 
 	<insert id="taskInsertTx">
 		INSERT INTO TASK (C_NUMBER, ID, TITLE, INFO, DEADLINE, T_FILE1 ) VALUES (#{c_number}, #{id}, #{title}, #{info}, #{deadline}, #{t_file1})
 	</insert>
+	
+	<select id="getTaskCheck" resultType="stutaskDTO">
+		SELECT * FROM STU_TASK WHERE T_NUMBER = #{t_number}
+	</select>
+	
 	
 </mapper>

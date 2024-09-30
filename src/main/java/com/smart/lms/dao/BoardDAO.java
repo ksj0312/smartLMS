@@ -136,7 +136,6 @@ public class BoardDAO {
 		
 	}
 	
-	
 	public void deleteCal(int cal_number) {
 	    mybatis.delete("boardDAO.deleteCal", cal_number);
     	}

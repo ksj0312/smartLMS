@@ -28,6 +28,7 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -521,23 +522,33 @@ public class BoardController {
            response.setContentType("application/octet-stream");
            response.setHeader("Content-Disposition", "attachment; filename=\"" + URLEncoder.encode(file.getName(), "UTF-8").replaceAll("\\+", "%20") + "\"");
            response.setContentLength((int) file.length());
-
-           try (FileInputStream fis = new FileInputStream(file); OutputStream os = response.getOutputStream()) {
-               byte[] buffer = new byte[1024];
-               int bytesRead;
-               while ((bytesRead = fis.read(buffer)) != -1) {
-                   os.write(buffer, 0, bytesRead);
-               }
-               os.flush();
-           } catch (IOException e) {
-               e.printStackTrace();
-               throw new IOException("파일 다운로드 중 오류가 발생했습니다.");
+       
+       try (FileInputStream fis = new FileInputStream(file); OutputStream os = response.getOutputStream()) {
+           byte[] buffer = new byte[1024];
+           int bytesRead;
+           while ((bytesRead = fis.read(buffer)) != -1) {
+               os.write(buffer, 0, bytesRead);
            }
-       } else {
-           response.sendError(HttpServletResponse.SC_NOT_FOUND, "파일을 찾을 수 없습니다.");
+           os.flush();
+       } catch (IOException e) {
+           e.printStackTrace();
+           throw new IOException("파일 다운로드 중 오류가 발생했습니다.");
        }
+   } else {
+       response.sendError(HttpServletResponse.SC_NOT_FOUND, "파일을 찾을 수 없습니다.");
    }
-   
+}
+
+  	@DeleteMapping("/deleteCal")
+  	@ResponseBody
+  	public String deleteCal( int cal_number) throws UnsupportedEncodingException,  Exception {
+  		System.out.println("cal_number " + cal_number);
+  	    // 일정 삭제
+  	    boardService.deleteCalTx(cal_number);
+  	    // 삭제 후 목록으로 리디렉션
+  	    return "redirect:/getCal";	
+  	}
+	
    //목록 누를시 상세 내용으로 이동
    @GetMapping("/getBoard")
    public String getBoard(BoardVO vo, Model model) {

@@ -53,6 +53,12 @@ html, body {
 .fc-daygrid-event {
     border-color: #fff !important;
 }
+
+#calendar {
+    width: 80%; /* 너비를 조정, 필요에 따라 변경 */
+    height: 400px; /* 높이를 조정, 필요에 따라 변경 */
+    margin: 0 auto; /* 중앙 정렬 */
+}
 </style>
 </head>
 <body>
@@ -100,7 +106,6 @@ html, body {
 	</div>
 
 <script>
-// (function(){
 $(function(){
     // 현재 시간 값 넣기
     document.getElementById('cal_create_date').value = new Date().toISOString().slice(0, -1);
@@ -287,10 +292,29 @@ $(function(){
     // 캘린더 렌더링
     calendar.render();
 });
-// })();
-</script>
+	</script>
 
-	
+<style>
+#stNav{
+	z-index:1;
+}
+.modal-content{
+	margin-top : 300px;
+}
+.event-container {
+  display: flex; /* Flexbox 사용 */
+  justify-content: space-between; /* 양쪽 끝으로 정렬 */
+  align-items: center; /* 수직 중앙 정렬 */
+}
+
+.delete-button {
+  font-size : smaller;
+  float : right; /* 제목과 버튼 사이의 간격 추가 */
+  border-radius : 5px;
+  transform: translateY(-1px); /* 버튼을 1px 위로 이동 */
+  
+}
+</style>
 
 </body>
 </html>
