@@ -50,6 +50,7 @@ import com.smart.lms.util.ExcelUtil;
 import com.smart.lms.util.Pagination;
 import com.smart.lms.vo.BoardVO;
 import com.smart.lms.vo.CalendarVO;
+import com.smart.lms.vo.CommentVO;
 import com.smart.lms.vo.NoteVO;
 import com.smart.lms.vo.ProfessorVO;
 import com.smart.lms.vo.StudentVO;
@@ -430,12 +431,34 @@ public class BoardController {
       int totalCnt = boardService.getBoardListTotalCnt(pg);
 
       pg.pageInfo(currPageNo, range, totalCnt);
-        List<BoardVO> boardList = boardService.getBoardList(pg);
+      List<BoardVO> boardList = boardService.getBoardList(pg);
 
       model.addAttribute("pagination", pg);
       model.addAttribute("getBoardList", boardService.getBoardListTotalCnt(pg));
       model.addAttribute("boardList", boardList);
       return "/board/board";
+   }
+   
+ //관리자 게시판 관리 목록
+   @GetMapping("/getBoardListAdmin")
+   public String getBoardListAdmin(@ModelAttribute Pagination pg, Model model, HttpSession session, @RequestParam(value = "b_type", defaultValue = "") String b_type) {
+      
+      int currPageNo = pg.getCurrPageNo();
+      int range = pg.getRange();
+      pg.setB_type(b_type);
+      
+      int totalCnt = boardService.getBoardListTotalCnt(pg);
+
+      pg.pageInfo(currPageNo, range, totalCnt);
+      List<BoardVO> boardList = boardService.getBoardList(pg);
+      
+      System.out.println("pg " + pg);
+      System.out.println("boardList " + boardList);
+        
+      model.addAttribute("pagination", pg);
+      model.addAttribute("getBoardList", boardService.getBoardListTotalCnt(pg));
+      model.addAttribute("boardList", boardList);
+      return "/board/boardAdmin";
    }
    
    //게시글 등록 페이지 이동
@@ -520,7 +543,14 @@ public class BoardController {
    @GetMapping("/getBoard")
    public String getBoard(BoardVO vo, Model model) {
       BoardVO board = boardService.getBoard(vo.getB_number());
-      model.addAttribute("board", board);
+      
+    //조회수 1씩 증가 로직
+		boardService.boardViewTx(vo.getB_number());
+		
+		//댓글 조회
+		List<CommentVO> commentList = boardService.getCommentList(vo.getB_number());
+		model.addAttribute("board", board);
+		model.addAttribute("commentList", commentList);
       return "/board/boarddetail";
    }
    
@@ -571,6 +601,12 @@ public class BoardController {
       return "/board/cal";
    }
    
+   //학사 일정 페이지 이동
+   @GetMapping("/calAdmin")
+   public String calAdmin() {
+	   return "/board/calAdmin";
+   }
+   
    
    //학사 일정 목록
     @GetMapping("/getCalList")
@@ -599,4 +635,23 @@ public class BoardController {
        }
        return "redirect:/getCal";
    }
+   
+   
+   //댓글 입력
+   @PostMapping(value = "/insertComment")
+   public String insertComment(CommentVO vo) throws IllegalStateException, IOException , Exception{
+       // 배열로 받은 각 CalendarVO 객체를 처리
+           boardService.insertCommentTx(vo);
+       return "redirect:/getBoard?b_number=" + vo.getB_number();
+   }
+   
+   //댓글 삭제
+   @DeleteMapping("/deleteComment")
+   public String deleteComment(@RequestParam ("b_number") int b_number,  int co_number) {
+	   boardService.deleteCommentTx(co_number);
+	   return "redirect:/getBoard?b_number=" + b_number;
+   }
+   
+   
+   
 }

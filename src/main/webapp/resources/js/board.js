@@ -58,7 +58,7 @@ function fn_prev(currPageNo, range, pageSize) {
 		}
     
     
-    //상세보기 스크립트
+    //게시판 상세보기 스크립트
     function board_del(val){
 			// 사용자에게 삭제 여부를 확인
 		    const result = confirm("정말로 이 게시글을 삭제하시겠습니까?");
@@ -92,6 +92,42 @@ function fn_prev(currPageNo, range, pageSize) {
 		function board_update(val){
 			location.href = "updatePage?b_number="+val;
 		}
+		
+		
+	function board_delComment(val) {
+    // name이 b_number인 요소를 가져오기
+    const b_number_elements = document.getElementsByName('b_number');
+    const b_number = b_number_elements.length > 0 ? b_number_elements[0].value : null; // 첫 번째 요소의 value를 가져옴
+
+    // 사용자에게 삭제 여부를 확인
+    const result = confirm("정말로 이 게시글을 삭제하시겠습니까?");
+    if (result) {
+        // DELETE 메서드로 서버에 요청 보내기
+        fetch(`/deleteComment?co_number=${val}&b_number=${b_number}`, {
+            method: 'DELETE',
+        })
+        .then(response => {
+            console.log(response);
+            if (response.redirected) {
+                window.location.href = response.url; // 리디렉션된 URL로 이동
+            } else if (response.ok) {
+                alert('삭제가 완료되었습니다.');
+                location.href = "getBoard?b_number=" + b_number; // 삭제 후 목록으로 이동
+            } else {
+                alert('삭제가 실패했습니다.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('서버 오류가 발생했습니다.');
+        });
+    } else {
+        alert("삭제가 취소되었습니다.");
+    }
+}
+
+		        
+
 	  //상세보기 스크립트 끝
 		
     

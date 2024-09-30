@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+	
+	    <%@ include file="../member/adminIndex.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,6 +30,10 @@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 <style>
+
+#calendar{
+	padding-left : 60px;	
+}
 /* body 스타일 */
 html, body {
 /* 	overflow: hidden; */
@@ -87,6 +92,7 @@ html, body {
 					              <option value="blue">파랑색</option>
 					              <option value="indigo">남색</option>
 					              <option value="purple">보라색</option>
+					              <option value="black">검정색</option>
 					            </select>
 				</div>
 				<div class="modal-footer">

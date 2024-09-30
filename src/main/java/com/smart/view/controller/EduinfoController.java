@@ -31,6 +31,7 @@ import com.smart.lms.vo.ClassVO;
 import com.smart.lms.vo.GradeVO;
 import com.smart.lms.vo.ProfessorVO;
 import com.smart.lms.vo.StudentVO;
+import com.smart.lms.vo.TaskVO;
 import com.smart.lms.vo.TestVO;
 import com.smart.lms.vo.TodateVO;
 
@@ -436,5 +437,33 @@ public class EduinfoController {
 			gList.put("length", length);
 			return gList;
 		}
+		
+		
+		//과제 페이지 이동
+		@GetMapping("/taskListPage")
+		public String taskListPage() {
+			return "/member/taskIndex";
+		}
+		
+		//마감일이 지나지않은 과제 목록
+		@GetMapping("/taskList")
+		public String taskList(@RequestParam ("c_number") int c_number, Model model) {
+			model.addAttribute("taskList", eduinfoService.getTaskList(c_number));
+			return "eduinfo/gradeList";
+		}
+		
+		//과제 등록 페이지 이동
+		@GetMapping("/taskInsertPage")
+			public String taskInsertPage() {
+				return "eduinfo/taskInsert";
+			}
+		
+		//과제 등록
+		@PostMapping("/taskInsert")
+		public String taskInsert(TaskVO vo) {
+			eduinfoService.taskInsertTx(vo);
+			return "eduinfo/taskInsert";
+		}
+		
 	
 }

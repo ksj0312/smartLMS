@@ -16,6 +16,7 @@ import com.smart.lms.vo.ClassVO;
 import com.smart.lms.vo.GradeVO;
 import com.smart.lms.vo.ProfessorVO;
 import com.smart.lms.vo.StudentVO;
+import com.smart.lms.vo.TaskVO;
 import com.smart.lms.vo.TestVO;
 import com.smart.lms.vo.TodateVO;
 
@@ -198,6 +199,19 @@ public class EduinfoServiceImpl implements EduinfoService {
    public List<GradeVO> gradeSearch(Pagination pg) {
       return eduDAO.gradeSearch(pg);
    }
+   
+   //과제 목록
+   @Override
+   public List<TaskVO> getTaskList(int c_number){
+	   return eduDAO.getTaskList(c_number);
+   }
+   
+   //과제 등록
+   @Override
+   public void taskInsertTx(TaskVO vo) {
+       eduDAO.taskInsertTx(vo);
+   }
+   
    }
    
    
