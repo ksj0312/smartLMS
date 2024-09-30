@@ -7,9 +7,6 @@
 }
 
 /* 모달 창 스타일 */
-<<<<<<< HEAD
-
-=======
 .modal {
     display: none;
     position: fixed;
@@ -36,7 +33,6 @@
 }
 
 /* 닫기 버튼 */
->>>>>>> d3cc21b0cc01db31040abe94a09e5f54a0206dad
 .close {
 	text-align: right;
     color: #666;
@@ -114,7 +110,7 @@ button:hover {
 
 .pagination button {
     padding: 5px 10px;
-    background-color: #042424b;
+    background-color: #042424;
     color: white;
     border-radius: 5px;
     border: none;
@@ -122,5 +118,5 @@ button:hover {
 
 .pagination .active {
     font-weight: bold;
-    background-color: #e74c3c;
+    background-color: #042424;
 }

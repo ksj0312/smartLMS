@@ -14,35 +14,47 @@
 		        
 			<div class="modal-body">
 					
-					<div class="inputs">
-						<label for="proname" class="labelp">이름 
-						<input type="text" id="proname" class="form-control" name="name" value="" readonly>
-						</label>
+					
+					<div class="input-group mb-3">
+						<div class="input-group-prepend">
+							<span class="input-group-text">이름</span>
+						</div>
+						<input type="text" class="form-control" name="name" id="proname"
+							value="" readonly>
 					</div>
 					
-					<div class="inputs">
-						<label for="lesson" class="labelp">과목
-						<input type="text" id="lesson" class="form-control" name="lesson" value="" readonly>
-						</label>
-					</div>
-
-					<div class="inputs">
-						<label for="gender" class="labelp">성별 
-						<input type="text" id="gender" class="form-control" name="gender" value="" readonly>
-						</label>
+					<div class="input-group mb-3">
+						<div class="input-group-prepend">
+							<span class="input-group-text">과목</span>
+						</div>
+						<input type="text" class="form-control" name="lesson" id="lesson"
+							value="" readonly>
 					</div>
 					
-					<div class="inputs">
-						<label for="birth" class="labelp">생년월일 
-						<input type="text" id="birth" class="form-control" name="birth" value="" readonly>
-						</label>
+					<div class="input-group mb-3">
+						<div class="input-group-prepend">
+							<span class="input-group-text">성별</span>
+						</div>
+						<input type="text" class="form-control" name="gender" id="gender"
+							value="" readonly>
 					</div>
 					
-					<div class="inputs">
-						<label for="email" class="labelp">이메일
-						<input type="text" id="email" class="form-control" name="email" value="" readonly>
-						</label>
+					<div class="input-group mb-3">
+						<div class="input-group-prepend">
+							<span class="input-group-text">생년월일</span>
+						</div>
+						<input type="text" class="form-control" name="birth" id="birth"
+							value="" readonly>
 					</div>
+					
+					<div class="input-group mb-3">
+						<div class="input-group-prepend">
+							<span class="input-group-text">이메일</span>
+						</div>
+						<input type="text" class="form-control" name="email" id="email"
+							value="" readonly>
+					</div>
+					
 					<br>
 				<div class="modal-footer">
 				<button type="button" class="btn xbtn" data-dismiss="modal">닫기</button>

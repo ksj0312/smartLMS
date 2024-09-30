@@ -10,9 +10,10 @@
 <body>
 <div class="bcl">
         <div class="divall">
-                <section class="header-container">
-                        <h4>교수진 소개</h4>
-                </section>
+<!--                 <section class="header-container"> -->
+<!--                         <h4>교수진 소개</h4> -->
+<!--                 </section> -->
+                <h4>교수진 소개</h4>
                 <nav id="searchNav" class="navbar navbar-expand-sm navbar-dark">
                         <form class="form-inline" action="professors" method="get">
                                 <select name="searchType" class="form-control mr-sm-2">
