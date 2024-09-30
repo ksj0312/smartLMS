@@ -44,12 +44,6 @@
                                 </div>
                             </div>
                         </form>
-
-								<div class="existing_name_box existing_box">
-                                    <div class="info_box_title">현재 상태</div>
-                                    <input class="info_name_input" type="text" name="" class="status" value="${user.status}" readonly>
-                                </div>
-
                         <div class="existing_name_box existing_box">
                                     <div class="info_box_title">현재 주소</div>
                                     <input class="info_name_input" type="text" name="" value="${user.zipcode}" readonly>
@@ -65,7 +59,7 @@
                <div class="addr-group">
                <div class="info_box_title">변경할 주소</div>
                   <input type="text" class="input" id="postcode" name="ZIPCODE" onclick="execDaumPostcode()" placeholder="&#42;&nbsp;우편번호" required readonly>
-                  <input type="button" class="button myPageInfoBtn" id="findpost" onclick="execDaumPostcode()" value="찾기">
+                  <button type="button" class="button myPageInfoBtn" id="findpost" onclick="execDaumPostcode()">찾기</button>
                   <div id="warningAddr">우편번호 찾기를 통해, 주소를 입력해주세요.</div>
                </div>
                <div class="detail-addr">
@@ -74,7 +68,7 @@
                <div>
                   <input type="text" class="input" id="detailaddress" name="DETAIL_ADDR" maxlength="100" autocomplete="off" placeholder="&nbsp;상세주소">
                </div>
-               <button class="myPageInfoBtn" type="button" id="updatePost">주소 변경</button>
+               <button type="button" id="updatePost">주소 변경</button>
          </div>
                                 
                                  <div class="existing_name_box existing_box">
@@ -98,18 +92,33 @@
                                     <input class="mail-check-input" type="text" style="display:none;" placeholder="인증번호를 입력해주세요"><span id="timer2" ></span>
                                     <span id="mail-check-warn" class="identify" style="display:none;"></span>	
                                 </div>
-                                   	<button class="myPageInfoBtn" type="button" id="mailCheck">이메일 인증</button>
-                                   	<button class="myPageInfoBtn" type="button" id="updateMail">변경하기</button>
+                                   	<button type="button" id="mailCheck">이메일 인증</button>
+                                   	<button type="button" id="updateMail">변경하기</button>
                                 
                                 <div class="existing_name_box existing_box">
-                                    <div class="info_box_title">학년</div>
-                                    <input class="info_name_input" type="text" name="" value="${user.grade}" readonly>
+                                    <div class="info_box_title">과목명</div>
+                                    <input class="info_name_input" type="text" name="" value="${user.lesson}" readonly>
                                 </div>
                                 
                                 <div class="existing_name_box existing_box">
-                                    <div class="info_box_title"></div>
+                                    <div class="info_box_title">가입일</div>
+                                    <input class="info_name_input" type="text" name="" value="${user.join_date}" readonly>
+                                </div>
+                                <div class="existing_name_box existing_box">
+                                    <div class="info_box_title">개인정보 수정일</div>
+                                    <input class="info_name_input" type="text" name="" value="${user.modify_date}" readonly>
+                                </div>
+                                
+                                 <div class="existing_name_box existing_box">
+                                    <div class="info_box_title">현재 상태</div>
                                     <input class="info_name_input" type="text" id="status" class="status" value="${user.status}" readonly>
                                 </div>
+                                
+                                <div class="existing_name_box existing_box">
+                                    <div class="info_box_title">입사일</div>
+                                    <input class="info_name_input" type="text" name="" value="${user.indate}" readonly>
+                                </div>
+                                
 						<!-- 휴대폰 변경 폼 -->
                         <form action="updateTel">       
                                 <div class="info_phone_box myinfo_box">
@@ -122,30 +131,30 @@
                                         <input class="tel-check-input" type="text" name="" style="display:none;" placeholder="인증번호를 입력"><span id="timer3" ></span>
                                         </div>
                                         </div>
-                                        <button type="button" class="change_phone myPageInfoBtn">변경하기</button>
+                                        <button type="button" class="change_phone">변경하기</button>
                                     <button type="button" id="tel-Check-Btn" class="phone_need_veri_btn" style="display:none;">인증요청</button>
-                                        <button class="myPageInfoBtn" type="button" class="change_btn_tel myPageInfoBtn" style="display:none;">변경하기</button>
+                                        <button type="button" class="change_btn_tel" style="display:none;">변경하기</button>
                                     </div>
                                     <div class="change_phone_box">
                                        <span id="tel-check-warn" class="identify" style="display:none;">* 휴대폰 인증번호를 입력해주세요</span>	
-                                        <button type="button" class="veri_confirm_btn myPageInfoBtn" style="display:none;">인증확인</button>
+                                        <button type="button" class="veri_confirm_btn" style="display:none;">인증확인</button>
                                     </div>
                                 </div>
                             </form>
                             
-           <button type="button" class="change_my_pwd_btn myPageInfoBtn">비밀번호 변경하기</button>
+           <button type="button" class="change_my_pwd_btn">비밀번호 변경하기</button>
 	        <form action="changePwd">
 	            <div class="change_pwd_box">
 	                <div class="label_name" style="display:none;">현재 비밀번호</div>
 	                <input id="mem_pwd" name="pwd" type="password" placeholder="현재 비밀번호" style="display:none;" required/><span class="pwdchk"></span>
 	                <div>
-	                <button class="myPageInfoBtn" type="button" id="btnbtn" style="display:none;">비밀번호 확인</button>
+	                <button type="button" id="btnbtn" style="display:none;">비밀번호 확인</button>
 	                </div>
 	            </div>
 	             <div>
 	                <input class="change-pwd-phone tel" type="text" name="tel" placeholder="휴대폰 번호를 입력" style="display:none;">
 	             <div>
-	                                        <button type="button" class="chkpwdphone myPageInfoBtn" style="display:none;">인증요청</button>
+	                                        <button type="button" class="chkpwdphone" style="display:none;">인증요청</button>
 	                                        <div>
 	                <input class="change-pwd-phone changechk" type="text" name="" style="display:none;" placeholder="인증번호를 입력"><span id="timer4" ></span>
 	                                        </div>
@@ -162,10 +171,10 @@
 	            </div>  
 	
 	            <div class="">
-	                <button type="button" class="change_pwd_confirm_btn myPageInfoBtn" style="display:none;">변경하기</button>
+	                <button type="button" class="change_pwd_confirm_btn" style="display:none;">변경하기</button>
 	            </div>
 	            <div>
-	                <button type="button" class="change_pwd_cancle_btn myPageInfoBtn" style="display:none;">취소</button>
+	                <button type="button" class="change_pwd_cancle_btn" style="display:none;">취소</button>
 	            </div>
 	        </form>
                 </div>

@@ -138,22 +138,11 @@ public class BoardController {
 		
 	}
 	
-//	@GetMapping("/noteCount")
-//	public String noteCount(HttpSession session, Model model) {
-//		String userId = (String) session.getAttribute("userId");
-//		model.addAttribute("noteCount", boardService.noteCount(userId));
-//		session.setAttribute("noteCount", boardService.noteCount(userId));
-//		System.out.println("111111");
-//		System.out.println(model);
-//		return "/";
-//	}
-	
 	
 	@GetMapping("/go")
 	public String go() {
 	return "board/note";
 	}
-	
 	
 	//학생 엑셀 업로드 페이지 이동
     @GetMapping("/uploadPageStu")
@@ -600,7 +589,6 @@ public class BoardController {
       model.addAttribute("cal", cal);
       return "/board/cal";
    }
-   
    
    //학사 일정 등록
    @PostMapping(value = "/insertCal")

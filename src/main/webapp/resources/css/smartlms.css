@@ -238,6 +238,10 @@ button:focus, .form-control:focus, .form-control:active, .btn-primary:focus, .bt
    box-shadow: none;
 }
 
+.btnfI{
+	background-color: #042424 !important;
+	color:#fff !important;
+}
 .table td, .table th {
     color: #272727;
     text-align: center;

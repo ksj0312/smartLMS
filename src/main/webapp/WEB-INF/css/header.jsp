@@ -96,7 +96,7 @@ var userId = '<%= userId %>';
          </c:when>
          <c:when test="${loginChk eq 'pro' }">
             <li class="nav-item">
-                <a class="nav-link" href=""> 
+                <a class="nav-link" href="adminMyPageInfo"> 
 <%--                 관리자 마이페이지 추가하기  --%>
                     <span id="name">${userName} 님</span>
                 </a>
@@ -125,8 +125,13 @@ var userId = '<%= userId %>';
    </nav> 
    
    <!-- 모달창 처리 -->
+<<<<<<< HEAD
 <div id="noteModal" class="modal">
     <div class="modal-content">
+=======
+<div id="myModal" class="modal">
+    <div class="modal-content note">
+>>>>>>> d3cc21b0cc01db31040abe94a09e5f54a0206dad
         <span class="close">&times;</span>
         <div class="searchdiv">
             <input type="text" id="searchInput" placeholder="검색어를 입력하세요">

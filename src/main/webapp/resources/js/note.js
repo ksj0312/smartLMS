@@ -44,8 +44,7 @@ $(document).ready(function() {
                     if(userId == note.n_reciver){
                         noteList.append(
                             '<li>' + 
-                            '번호: ' + note.n_number + 
-                            '<strong>보낸사람: ' + note.n_sender + '</strong>: ' + 
+                            '<strong>보낸사람: ' + note.n_sender+ '</strong> ' + 
                             '<br>제목: ' + note.n_title + 
             		<!--	'<button class="writeBtn">글쓰기</button>' + 	-->
                             '<button class="detailBtn1" data-number="' + note.n_number + '">보기</button>&nbsp;' +
@@ -188,6 +187,7 @@ function sendNote() {
 																			+ '<button class="responBtn" data-reciver="' + data.n_sender + '">답장</button>'
 																			+ '&nbsp;'
 																			+ '<button class="deleteBtn" data-delnum="' + data.n_number + '">삭제</button>'
+																			+ '&nbsp;'
 																			+ '<button class="openListBtn">목록</button>');
 															n_reciver
 																	.val(data.n_sender);
