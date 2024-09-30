@@ -39,7 +39,7 @@
                      <span class="input-group-text">강의명</span>
                   </div>
                   <input type="text" class="form-control" name="c_name" id="c_name"
-                     placeholder="강의명을 입력하세요." value="" required>
+                     value="" required readonly>
                </div>
                
                <div class="input-group mb-3">
@@ -47,7 +47,7 @@
                      <span class="input-group-text">교수 이름</span>
                   </div>
                   <input type="text" class="form-control innm" name="c_prof_name" id="c_prof_name"
-                     value="" >
+                     value="" readonly>
                </div>
                
                <div class="input-group mb-3">
@@ -55,7 +55,7 @@
                      <span class="input-group-text">개강일자</span>
                   </div>
                   <input type="date" class="form-control innm" name="c_start_date" id="c_start_date"
-                     value="">
+                     value="" readonly>
                </div>
                
                <div class="input-group mb-3">
@@ -63,7 +63,7 @@
                      <span class="input-group-text">종강일자</span>
                   </div>
                   <input type="date" class="form-control innm" name="c_end_date" id="c_end_date"
-                     value="">
+                     value="" readonly>
                </div>
                
                <div class="input-group mb-3">
@@ -71,7 +71,7 @@
                      <span class="input-group-text">인원수</span>
                   </div>
                   <input type="text" class="form-control innm" name="c_stu_count" id="c_stu_count"
-                     value="">
+                     value="" readonly>
                </div>
                
                
@@ -80,7 +80,7 @@
                      <span class="input-group-text">학기</span>
                   </div>
                   <input type="text" class="form-control innm" name="c_term" id="c_term"
-                     value="">
+                     value="" readonly>
                </div>
                
                <div class="input-group mb-3">
@@ -88,7 +88,7 @@
                      <span class="input-group-text">강의 소개</span>
                   </div>
                   <textarea class="form-control" rows="10" id="c_info"
-                     name="c_info"></textarea>
+                     name="c_info" readonly></textarea>
                </div>
                <table class="table" id="attMo">
                <tr>

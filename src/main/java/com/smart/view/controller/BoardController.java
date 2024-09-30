@@ -138,22 +138,11 @@ public class BoardController {
 		
 	}
 	
-//	@GetMapping("/noteCount")
-//	public String noteCount(HttpSession session, Model model) {
-//		String userId = (String) session.getAttribute("userId");
-//		model.addAttribute("noteCount", boardService.noteCount(userId));
-//		session.setAttribute("noteCount", boardService.noteCount(userId));
-//		System.out.println("111111");
-//		System.out.println(model);
-//		return "/";
-//	}
-	
 	
 	@GetMapping("/go")
 	public String go() {
 	return "board/note";
 	}
-	
 	
 	//학생 엑셀 업로드 페이지 이동
     @GetMapping("/uploadPageStu")
@@ -401,32 +390,6 @@ public class BoardController {
         }
     }
     
-    //교수 리스트 받아오기
-//    @GetMapping("/professors")
-//    public String professorsInfo(@ModelAttribute Pagination pg, Model model) {
-//    	int currPageNo = pg.getCurrPageNo();
-//  		int range = pg.getRange();
-//
-//  		int totalCnt = eduinfoService.proAllCnt(pg);
-//
-//  		pg.pageInfo(currPageNo, range, totalCnt);
-//
-//  		model.addAttribute("pagination", pg);
-//  		model.addAttribute("proList2", eduinfoService.proList(pg));
-//    	return "/board/professorsInfo";
-//    }
-  	
-  	//관리자 해당 교수 정보 불러오기 
-//  	@GetMapping("/professor")
-//  	public ResponseEntity<ProfessorVO> professorInfo(String id) {
-//  		
-//  		ProfessorVO vo = eduinfoService.proInfo(id);
-//  		if (vo != null) {
-//  			return new ResponseEntity<>(vo, HttpStatus.OK);
-//  		} else {
-//  			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//  		}
-//  	}
     
 //  ---------board 컨트롤러
 

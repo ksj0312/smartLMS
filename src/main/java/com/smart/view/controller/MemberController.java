@@ -124,6 +124,13 @@ public class MemberController {
 		return "member/adminPage";  
 	}
 	
+	@GetMapping("/adminMyPageInfo")
+	public String adminMyPageInfo(HttpSession session, Model model) {
+		String userId = (String) session.getAttribute("userId");
+		model.addAttribute("user", memService.getAdminInfo(userId));
+		return "member/adminMyPageInfo";
+	}
+	
 	@GetMapping("/myPageMain")
 	public String myPage(HttpSession session, Model model) {
 		String userId = (String) session.getAttribute("userId");
@@ -148,10 +155,10 @@ public class MemberController {
 	
 	@PutMapping("/updateTel")
 	@ResponseBody
-	public void updateTel(HttpSession session, @RequestBody Map<String, String> data) {
+	public void updateTel(HttpSession session, @RequestBody Map<String, String> data) throws Exception{
 	    String tel = data.get("tel");
 	    String pasttel = data.get("pasttel");
-	    memService.updateTel(tel, pasttel);
+	    memService.updateTelTx(tel, pasttel);
 	    
 	    session.invalidate();
 	}
@@ -176,14 +183,27 @@ public class MemberController {
 		System.out.println("result" + result);
 		return result;
 	}
+	
+	//현재비밀번호가 일치하는지
+	@PostMapping("/changeAdminPwd")
+	@ResponseBody
+	public boolean changeAdminPwd(HttpSession session, ProfessorVO vo) {
+//		String userId = (String) session.getAttribute("userId");
+		vo.setId((String) session.getAttribute("userId"));
+		System.out.println("vo" + vo);
+		boolean result = memService.changeAdminPwd(vo);
+		System.out.println("result" + result);
+		return result;
+	}
+	
 	//비밀번호 변경
 	@PutMapping("/changeNewPwd")
 	@ResponseBody
-	public void changeNewPwd(HttpSession session, @RequestBody StudentVO vo) {
+	public void changeNewPwd(HttpSession session, @RequestBody StudentVO vo)throws Exception {
 //		String userId = (String) session.getAttribute("userId");
 		vo.setId((String) session.getAttribute("userId"));
 		System.out.println(vo);
-	    memService.changeNewPwd(vo);
+	    memService.changeNewPwdTx(vo);
 	    
 	    session.invalidate();
 	}
@@ -197,21 +217,21 @@ public class MemberController {
 
 	@PutMapping("/updateMail")
 	@ResponseBody
-	public void updateMail(HttpSession session, @RequestBody Map<String, String> requestData) {
+	public void updateMail(HttpSession session, @RequestBody Map<String, String> requestData) throws Exception {
 	    String userId = (String) session.getAttribute("userId");
 
 	    String email = requestData.get("email");
 
 	    System.out.println("이메일: " + email);
 
-	    memService.updateMail(email, userId);
+	    memService.updateMailTx(email, userId);
 	    
 	    session.invalidate();
 	}
 	
 	@PutMapping("/updatePost")
 	@ResponseBody
-	public void updatePost(HttpSession session, @RequestBody Map<String, String> requestData) {
+	public void updatePost(HttpSession session, @RequestBody Map<String, String> requestData) throws Exception {
 	    String userId = (String) session.getAttribute("userId");
 
 	    String zipcode = requestData.get("zipcode");
@@ -220,7 +240,7 @@ public class MemberController {
 
 	    System.out.println(zipcode);
 
-	    memService.updatePost(zipcode, addr, detail_addr, userId);
+	    memService.updatePostTx(zipcode, addr, detail_addr, userId);
 	    
 	    session.invalidate();
 	}
@@ -235,8 +255,8 @@ public class MemberController {
 	
 	@PutMapping("/changeFindNewPwd")
 	@ResponseBody
-	public void changeFindNewPwd(HttpSession session, @RequestBody StudentVO vo) {
-	    memService.changeNewPwd(vo);
+	public void changeFindNewPwd(HttpSession session, @RequestBody StudentVO vo) throws Exception {
+	    memService.changeNewPwdTx(vo);
 	    
 	    session.invalidate();
 	}

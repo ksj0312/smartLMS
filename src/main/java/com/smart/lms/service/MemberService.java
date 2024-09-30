@@ -29,11 +29,11 @@ public interface MemberService {
 
 	void certifiedPhoneNumber(String tel, int code);
 
-	void updateTel(String tel, String pasttel);
+	void updateTelTx(String tel, String pasttel);
 
-	void changeNewPwd(StudentVO vo);
+	void changeNewPwdTx(StudentVO vo);
 
-	void updateMail(String email, String userId);
+	void updateMailTx(String email, String userId);
 
 	StudentVO getId(String email);
 
@@ -42,7 +42,11 @@ public interface MemberService {
 
 	MyPageVO myPageClassInfo(int c_number, String userId);
 
-	void updatePost(String zipcode, String addr, String detail_addr, String userId);
+	void updatePostTx(String zipcode, String addr, String detail_addr, String userId);
+
+	ProfessorVO getAdminInfo(String userId);
+
+	boolean changeAdminPwd(ProfessorVO vo);
 
 
 }

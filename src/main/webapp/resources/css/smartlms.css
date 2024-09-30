@@ -145,7 +145,6 @@ li.page-item a.page-link.active {
 	font-family: bolder !important;
 }
 
-<<<<<<< HEAD
 
 
 
@@ -266,13 +265,16 @@ li.page-item a.page-link.active {
 .modal-body::-webkit-scrollbar {
    display: none;
 }
-=======
 button:focus, .form-control:focus, .form-control:active, .btn-primary:focus, .btn:focus {
    outline: none;
    border: none;
    box-shadow: none;
 }
 
+.btnfI{
+	background-color: #042424 !important;
+	color:#fff !important;
+}
 .table td, .table th {
     color: #272727;
 }
@@ -415,4 +417,3 @@ ul.navbar-nav.navlogo {
         font-size: x-small !important;
         justify-content: flex-end;
 }
->>>>>>> ceb23711a029bf8b976535d3a3c87ad7e3effa3b
