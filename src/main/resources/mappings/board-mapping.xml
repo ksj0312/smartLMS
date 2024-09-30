@@ -81,13 +81,11 @@
 		where N_RECIVER = #{userId} and N_RECIVE_DATE is
 		null;
 	</select>
-<<<<<<< HEAD
-	
 	
 	
 <!-- board mapping	 -->
-	<select id="getBoardList" parameterType="com.smart.lms.util.Pagination" resultType="BoardDTO">
-	
+	<select id="getBoardList" 
+	parameterType="com.smart.lms.util.Pagination" resultType="BoardDTO">
 		SELECT
 			ROW_NUMBER() OVER (ORDER BY B_NUMBER ASC ) AS B_ROWNUM, B.* 
 			FROM BOARD B WHERE B_TYPE = #{b_type}
@@ -96,20 +94,7 @@
 			<if test="searchType == 'b_title'"> AND B_TITLE like CONCAT('%', #{keyword}, '%') </if>
 			ORDER BY B_NUMBER DESC
 			LIMIT #{sizePerPage} OFFSET #{startList}  
-=======
-
-	<!-- board mapping -->
-	<select id="getBoardList"
-		parameterType="com.smart.lms.util.Pagination" resultType="BoardDTO">
-		SELECT * FROM BOARD WHERE B_TYPE = #{b_type}
-		<if test="keyword != null || keyword != ' '">
-			<if test="searchType == 'b_info'"> AND B_INFO like CONCAT('%', #{keyword}, '%') </if>
-			<if test="searchType == 'b_title'"> AND B_TITLE like CONCAT('%', #{keyword}, '%') </if>
-			ORDER BY B_NUMBER
-			LIMIT #{sizePerPage} OFFSET #{startList}
->>>>>>> 1e4ea41f4c4b9fddf8a232cc2c07f9b807933856
-		</if>
-
+			</if>
 	</select>
 
 	<select id="getBoardListTotalCnt"
@@ -161,13 +146,10 @@
 		VALUES(#{cal_date},
 		#{cal_title}, #{cal_writer}, #{cal_edate}, #{cal_create_date})
 	</insert>
-<<<<<<< HEAD
-	
 	
 	<delete id="deleteCal">
       DELETE FROM CALENDAR WHERE CAL_NUMBER = #{cal_number} 
    </delete>
-=======
 
 
 	<!-- comment mapping -->
@@ -180,6 +162,4 @@
 	<delete id="deleteComment">
 		DELETE FROM COMMENT WHERE CO_NUMBER = #{co_number}
 	</delete>
-
->>>>>>> 1e4ea41f4c4b9fddf8a232cc2c07f9b807933856
 </mapper>

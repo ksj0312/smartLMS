@@ -69,5 +69,4 @@ public interface EduinfoService {
    public void taskInsertTx(TaskVO vo);
 
    public List<TaskVO> getTaskList(int c_number);
-
 }

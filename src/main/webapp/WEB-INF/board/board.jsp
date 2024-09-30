@@ -24,11 +24,7 @@
 				<tr>
 					<th>번호</th>
 					<th>제목</th>
-<<<<<<< HEAD
 <!-- 					<th>내용</th> -->
-=======
->>>>>>> 1e4ea41f4c4b9fddf8a232cc2c07f9b807933856
-					<th>작성자</th>
 					<th>조회수</th>
 				</tr>
 			</thead>
@@ -39,12 +35,9 @@
 					<tr onclick="sel_board(${board.b_number})" style="cursor: pointer;">
 						<td class="tdCenter">${board.b_rownum}</td>
 						<td>${board.b_title}</td>
-<<<<<<< HEAD
 <%-- 						<td class="tdCenter">${board.b_info}</td> --%>
 <%-- 						 <c:out value="${fn:length(board.b_info) > 20 ? board.b_info.substring(0, 20) + '...' : board.b_info}"/> --%>
 <%-- 						<td class="tdCenter">${board.b_type}</td> --%>
-=======
->>>>>>> 1e4ea41f4c4b9fddf8a232cc2c07f9b807933856
 						<td class="tdCenter">${board.b_writer}</td>
 						<td class="tdCenter">${board.b_view}</td>
 					</tr>

@@ -19,33 +19,40 @@
                 <section class="contents-container">
                   <form action="taskInsert" method="POST">
                   <div class="insertForm">
+<!--                   	<div class="input-group mb-3"> -->
+<!-- 						<div class="input-group-prepend"> -->
+<!-- 							<span class="input-group-text">강의 번호</span> -->
+<!-- 						</div> -->
+<!-- 						<input type="text" class="form-control" name="c_number" id="c_number" -->
+<%-- 							value="<%= request.getParameter("c_number") %>" placeholder=""> --%>
+<!-- 					</div> -->
                   	<div class="input-group mb-3">
 						<div class="input-group-prepend">
-							<span class="input-group-text">과제 구분</span>
+							<span class="input-group-text">작성자</span>
 						</div>
-						<input type="text" class="form-control" name="test_type" id="test_type"
-							value="" placeholder="ex)1학기 중간고사, 2학기 기말고사">
+						<input type="text" class="form-control" name="id" id="id"
+							value="<%= userId %>" placeholder="">
 					</div>
                   	<div class="input-group mb-3">
 						<div class="input-group-prepend">
-							<span class="input-group-text">과제 시작일</span>
+							<span class="input-group-text">제목</span>
 						</div>
-						<input type="text" class="form-control" name="start_time" id="start_time"
-							value="" placeholder="ex)2024.01.01 15:00">
+						<input type="text" class="form-control" name="title" id="title"
+							value="" placeholder="">
 					</div>
+<!--                   	<div class="input-group mb-3"> -->
+<!-- 						<div class="input-group-prepend"> -->
+<!-- 							<span class="input-group-text">과제 마감일</span> -->
+<!-- 						</div> -->
+<!-- 						<input type=datetime-local class="form-control" name="deadline" id="deadline" -->
+<!-- 							value="" placeholder="ex)2024.01.01 16:00"> -->
+<!-- 					</div> -->
                   	<div class="input-group mb-3">
 						<div class="input-group-prepend">
-							<span class="input-group-text">과제 마감일</span>
+							<span class="input-group-text">과제 내용</span>
 						</div>
-						<input type="text" class="form-control" name="end_time" id="end_time"
-							value="" placeholder="ex)2024.01.01 16:00">
-					</div>
-                  	<div class="input-group mb-3">
-						<div class="input-group-prepend">
-							<span class="input-group-text">시험시간</span>
-						</div>
-						<input type="text" class="form-control" name="test_time" id="test_time"
-							value="" placeholder="ex)60분">
+						<input type="text" class="form-control" name="info" id="info"
+							value="" placeholder="ex)">
 					</div>
                   		<input type="number" name="c_number" value="<%= request.getParameter("c_number") %>" style="display:none;"/>
                        </div>

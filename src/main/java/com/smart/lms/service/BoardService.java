@@ -52,29 +52,19 @@ public interface BoardService {
 	
 	public int getBoardListTotalCnt(Pagination pg);  
 
+	void deleteCalTx(int cal_number);
 	
 	//쪽지
 	boolean checkUser(String n_reciver);
 
-<<<<<<< HEAD
-	void deleteCal(CalendarVO vo);
+	int noteCount(String userId);
 
-=======
-<<<<<<< HEAD
-	List<CalendarVO> getCalList();
-
-	public int getBoardListTotalCnt(Pagination pg);
-
-	void deleteCalTx(int cal_number);
-
+	
+	//댓글
 	void insertCommentTx(CommentVO vo);
 
 	List<CommentVO> getCommentList(int b_number);
 
 	void deleteCommentTx(int co_number);
->>>>>>> 1e4ea41f4c4b9fddf8a232cc2c07f9b807933856
-	
-=======
->>>>>>> 4195acf0dfd2913634b1803f2eb9088933492048
-	int noteCount(String userId);
+
 }

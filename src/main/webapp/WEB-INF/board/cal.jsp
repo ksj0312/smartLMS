@@ -31,14 +31,7 @@
 <style>
 /* body 스타일 */
 html, body {
-<<<<<<< HEAD
-<<<<<<< HEAD
 /* 	overflow: hidden; */
-=======
->>>>>>> 89ec8a7ee3bc37d1412ca6b5c12ddde749bec0ec
-=======
-/* 	overflow: hidden; */
->>>>>>> 1e4ea41f4c4b9fddf8a232cc2c07f9b807933856
 	font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
 	font-size: 14px;
 }
@@ -113,7 +106,6 @@ html, body {
 	</div>
 
 <script>
-// (function(){
 $(function(){
     // 현재 시간 값 넣기
     document.getElementById('cal_create_date').value = new Date().toISOString().slice(0, -1);
@@ -135,131 +127,6 @@ $(function(){
                     $("#exampleModal").modal("show");
                 }
             },
-<<<<<<< HEAD
-          }
-        },
-        
-        // 해더에 표시할 툴바
-        headerToolbar: {
-          left: 'prev,next today,myCustomButton,mySaveButton',
-          center: 'title',
-          right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
-        },
-        initialView: 'dayGridMonth', // 초기 로드 될때 보이는 캘린더 화면(기본 설정: 달)
-        // initialDate: '2021-07-15', // 초기 날짜 설정 (설정하지 않으면 오늘 날짜가 보인다.)
-        navLinks: true, // 날짜를 선택하면 Day 캘린더나 Week 캘린더로 링크
-        editable: true, // 수정 가능?
-        selectable: true, // 달력 일자 드래그 설정가능
-        nowIndicator: true, // 현재 시간 마크
-        dayMaxEvents: true, // 이벤트가 오버되면 높이 제한 (+ 몇 개식으로 표현)
-        locale: 'ko', // 한국어 설정
-        eventAdd: function(obj) { // 이벤트가 추가되면 발생하는 이벤트
-          console.log(obj);
-        },
-        eventChange: function(obj) { // 이벤트가 수정되면 발생하는 이벤트
-          console.log(obj);
-        },
-        eventRemove: function(obj){ // 이벤트가 삭제되면 발생하는 이벤트
-          console.log(obj);
-        },
-        select: function(arg) { // 캘린더에서 드래그로 이벤트를 생성할 수 있다.
-          var title = prompt('Event Title:');
-          if (title) {
-            calendar.addEvent({
-              cal_number : cal_number,
-              title: cal_title,
-              start: arg.cal_date,
-              end: arg.cal_edate,
-              allDay: arg.allDay
-            })
-          }
-          calendar.unselect()
-        },
-        
-        
-      //데이터 가져오는 이벤트
-        eventSources:[
-          {
-            events: async function (info, successCallback, failureCallback) {
-          const eventResult = await axios({
-            method: "GET",
-            url: "getCalList",
-            responseType: "json",
-          });
-          const eventData = eventResult.data;
-          console.log(eventData);
-          //이벤트에 넣을 배열 선언하기
-          const eventArray = [];
-          eventData.forEach((res) => {
-            eventArray.push({
-            	 number : res.cal_number, // 이벤트 ID 추가
-                 title: res.cal_title,
-                 start: res.cal_date,
-                 end: res.cal_edate,
-//               backgroundColor: res.backgroundColor,
-            });
-          });
-          successCallback(eventArray);
-        
-        },
-          },
-            {
-//               googleCalendarId : 'ko.south_korea.official#holiday@group.v.calendar.google.com',
-//               backgroundColor: 'red',
-            }
-        ],
-        
-        eventContent: function(arg) {
-        	  // HTML 요소 생성
-        	  const button = document.createElement('button');
-        	  button.innerHTML = 'X';
-        	  button.classList.add('delete-button');
-        	  button.setAttribute('data-number', arg.event.number);
-
-        	  // 버튼 클릭 이벤트 처리
-        	  button.addEventListener('click', function() {
-        	    // 해당 이벤트의 제목, 시작 날짜, 종료 날짜
-        	    const number = arg.event.number;
-        	    const date = arg.event.start;
-        	    const edate = arg.event.end;
-        	    
-        	    console.log("number" , number);
-
-        	    // deleteCal 메서드 호출, 필요한 값을 모두 전달
-        	    deleteCal(number);
-        	  });
-
-        	  // 이벤트 제목과 버튼을 포함한 요소 생성
-        	  const container = document.createElement('div');
-        	  container.innerHTML = arg.event.title; // 제목 추가
-        	  container.appendChild(button); // 버튼 추가
-
-        	  return { domNodes: [container] }; // 반환
-        	}
-      });
-      
-      async function deleteCal(calNumber) {
-    	    console.log("삭제할 cal_number:", calNumber);
-    	    
-    	    try {
-    	        const response = await axios.delete("/deleteCal", {
-    	            data: {
-    	                cal_number: calNumber // cal_number로 삭제 요청
-    	            }
-    	        });
-    	        
-    	        console.log('Event deleted:', response.data);
-    	        // 추가 작업: UI 업데이트 등
-    	    } catch (error) {
-    	        console.error('Error deleting event:', error);
-    	    }
-    	}
-      
-      
-      
-   // 모달창 이벤트
-      $("#saveChanges").on("click", function () {
-=======
             mySaveButton: {
                 text: "저장하기",
                 click: async function() {
@@ -393,7 +260,6 @@ $(function(){
 
     // 모달창 이벤트
     $("#saveChanges").on("click", function() {
->>>>>>> 1e4ea41f4c4b9fddf8a232cc2c07f9b807933856
         var eventData = {
             title: $("#cal_title").val(),
             start: $("#cal_date").val(),
@@ -426,11 +292,15 @@ $(function(){
     // 캘린더 렌더링
     calendar.render();
 });
-// })();
-</script>
+	</script>
 
-<<<<<<< HEAD
 <style>
+#stNav{
+	z-index:1;
+}
+.modal-content{
+	margin-top : 300px;
+}
 .event-container {
   display: flex; /* Flexbox 사용 */
   justify-content: space-between; /* 양쪽 끝으로 정렬 */
@@ -445,9 +315,6 @@ $(function(){
   
 }
 </style>
-=======
-	
->>>>>>> 1e4ea41f4c4b9fddf8a232cc2c07f9b807933856
 
 </body>
 </html>

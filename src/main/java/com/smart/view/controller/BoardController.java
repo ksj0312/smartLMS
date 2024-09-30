@@ -28,6 +28,7 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -540,12 +541,12 @@ public class BoardController {
 
   	@DeleteMapping("/deleteCal")
   	@ResponseBody
-  	public String deleteCal( CalendarVO vo) throws UnsupportedEncodingException,  Exception {
-  		System.out.println("calVO " + vo);
+  	public String deleteCal( int cal_number) throws UnsupportedEncodingException,  Exception {
+  		System.out.println("cal_number " + cal_number);
   	    // 일정 삭제
-  	    boardService.deleteCal(vo);
+  	    boardService.deleteCalTx(cal_number);
   	    // 삭제 후 목록으로 리디렉션
-  	    return "redirect:/getCal";
+  	    return "redirect:/getCal";	
   	}
 	
    //목록 누를시 상세 내용으로 이동

@@ -136,12 +136,6 @@ public class BoardDAO {
 		
 	}
 	
-<<<<<<< HEAD
-	 public void deleteCal(CalendarVO vo) {
-		    mybatis.delete("boardDAO.deleteCal", vo);
-	    }
-=======
-	
 	public void deleteCal(int cal_number) {
 	    mybatis.delete("boardDAO.deleteCal", cal_number);
     	}
@@ -157,7 +151,6 @@ public class BoardDAO {
 	public void deleteComment(int co_number) {
 		mybatis.delete("boardDAO.deleteComment", co_number);
 	}
->>>>>>> 1e4ea41f4c4b9fddf8a232cc2c07f9b807933856
 
 	  public boolean checkUser(String n_reciver) {
 		    StudentVO student = mybatis.selectOne("boardDAO.checkUser", n_reciver);
