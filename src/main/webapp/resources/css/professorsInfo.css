@@ -1,0 +1,31 @@
+@charset "UTF-8";
+
+.modal-body{
+	margin : 0px 50px 30px 50px;
+	
+}
+
+.form-control:disabled, .form-control[readonly] {
+    background-color: #fff;
+    opacity: 1;
+}
+
+.contents-container {
+    width: 1000px;
+    margin : auto;
+    
+}
+
+.vibtn{
+	border: none;
+    color: #fff;
+    background-color: #042424;
+    width: 100px;
+}
+
+.vibtn:hover {
+   background-color: #fff;
+   color: #042424;
+   border: 1px solid;
+   border-color: #042424;
+}

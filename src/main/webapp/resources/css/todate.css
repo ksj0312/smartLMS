@@ -20,11 +20,11 @@ display: none; /* 화살표 없애기 for IE10, 11*/
 select option:checked,
 select option:hover {
 background: #ececec;
-color: #272727;
+color: #042424;
 }
 /* check, hover 스타일 설정 FireFox */
 select option:checked,
 select option:hover {
 box-shadow: 0 0 10px 100px #ececec inset;
-color: #272727;
+color: #042424;
 }

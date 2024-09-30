@@ -2,27 +2,26 @@
     pageEncoding="UTF-8"%>
 
 <script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/myPageClass.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/myPageClass.css">
 <%
     // 세션에서 mem_id 가져오기
     String userName = (String) session.getAttribute("userName");	
 %>
 
 
+
+
     
 <div id="mypage_con">
     <div class="mypage_con pd_box inner">
         <div class="mypage_top">
-            <h1 class="mypage_title">
-            	<span class="find_my_name"></span>${userName}님의 마이페이지
-            </h1>
 
         </div>
         <div class="mypage_bot">
             <!-- 수강과목 -->
 <div class="container">
-  <h2>수강목록</h2>
-  <p>수강목록</p>            
-  <table class="table table-striped">
+  <p>${userName}님의 수강목록</p>            
+  <table class="table">
     <thead>
       <tr>
         <th>강의번호</th>

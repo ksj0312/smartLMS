@@ -47,9 +47,16 @@ public interface BoardService {
 	CalendarVO getCal(CalendarVO vo);
 
 	void insertCalTx(CalendarVO vo);
+	
+	List<CalendarVO> getCalList(); 
+	
+	public int getBoardListTotalCnt(Pagination pg);  
 
+	
+	//쪽지
 	boolean checkUser(String n_reciver);
 
+<<<<<<< HEAD
 	List<CalendarVO> getCalList();
 
 	public int getBoardListTotalCnt(Pagination pg);
@@ -62,5 +69,7 @@ public interface BoardService {
 
 	void deleteCommentTx(int co_number);
 	
+=======
+>>>>>>> 4195acf0dfd2913634b1803f2eb9088933492048
 	int noteCount(String userId);
 }

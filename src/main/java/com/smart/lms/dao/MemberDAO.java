@@ -89,6 +89,10 @@ public class MemberDAO {
 		mybatis.update("memberDAO.updatePost", params);
 	}
 
+	public ProfessorVO getAdminInfo(String userId) {
+		return mybatis.selectOne("memberDAO.getAdminInfo", userId);
+	}
+
 
 
 }

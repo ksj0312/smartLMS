@@ -74,7 +74,6 @@ public class BoardServiceImpl implements BoardService {
 		return boDAO.getSearchNotesWithPagination(start, size, search, userId);
 	}
 	
-	
 //	boardService-----------
 
 	@Override
