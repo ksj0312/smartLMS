@@ -14,6 +14,7 @@
                 <section class="header-container">
     					<h5>강의번호 :<%= request.getParameter("c_number") %> </h5>
     					<h5>강의명 : <%= request.getParameter("c_name") %></h5> 
+    					<p style="color:red"> ※ 출결 수정은 반드시 출석 등록 완료 후 진행해주세요.</p>
                 </section>
                 <nav id="searchNav" class="navbar navbar-expand-sm navbar-dark">
                          <form class="form-inline" name="searchForm" > 

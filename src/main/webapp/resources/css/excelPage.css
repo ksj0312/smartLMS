@@ -1,10 +1,17 @@
 .exbtn{
-/*     margin-left: 500px; */
     font-size: large;
     border: none;
     color: #ececec !important;
-    background-color: #0d1d45;
+    background-color: #042424;
     padding: .375rem .75rem;
     border-radius: 0;
     text-decoration: none !important;
+}
+
+.exbtn:hover {
+   background-color: #fff;
+   color: #042424 !important;
+   border: 1px solid;
+   border-color: #042424;
+   
 }

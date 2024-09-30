@@ -125,7 +125,7 @@ var userId = '<%= userId %>';
    </nav> 
    
    <!-- 모달창 처리 -->
-<div id="myModal" class="modal">
+<div id="noteModal" class="modal">
     <div class="modal-content">
         <span class="close">&times;</span>
         <div class="searchdiv">

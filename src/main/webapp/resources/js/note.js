@@ -78,7 +78,7 @@ $(document).ready(function() {
                 $('#pagination').append(paginationHtml);
                 
                 // 모달 창 표시
-                $('#myModal').show();
+                $('#noteModal').show();
             },
             error: function(xhr, status, error) {
                 console.error('AJAX Error: ' + status + ' ' + error);
@@ -154,10 +154,6 @@ function sendNote() {
         }
     });
 }
-
-
-    
-
 
 						// 동적으로 생성된 "보기" 버튼에 이벤트는 on으로 해라
 						$('#noteList')
@@ -245,7 +241,7 @@ function sendNote() {
 										});
 						// 모달 창 닫기 함수
 						function closeModal() {
-							$('#myModal').hide(); // 모달 창 숨기기
+							$('#noteModal').hide(); // 모달 창 숨기기
 							$('#noteList').empty(); // <ul> 태그의 내용을 비움
 							$('#searchInput').val(''); // 검색 필드 초기화
 							$('#sendNoteForm').hide(); // 답장 폼 숨기기
@@ -286,15 +282,11 @@ function sendNote() {
 						});
 						
 						
-
    						$(document).on('click', '#sendBtn', function() {
     						sendNote(); // 동적으로 생성된 #sendBtn에 대해서도 작동
 							});
 
-						// '보기' 누르면 검색창 hide
-						//     $('#noteList').on('click', '.detailBtn1', function(){
-						//         $('.searchdiv').hide();
-						//     });
+			
 
 						// "목록" 버튼 클릭 시 쪽지 목록을 다시 로드
 						$('#noteList').on('click', '.openListBtn', function() {
@@ -309,10 +301,8 @@ function sendNote() {
 						
 						// 모달 창 바깥 클릭 시 닫기
 						$(window).click(function(event) {
-							if ($(event.target).is('#myModal')) {
-								//             $('#myModal').hide();
-								//             noteList.empty(); // 기존 검색 결과 삭제
-								//             $('#searchInput').val(''); // 검색 필드 초기화
+							if ($(event.target).is('#noteModal')) {
+				
 								closeModal();
 							
 							}
