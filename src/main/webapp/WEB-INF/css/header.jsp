@@ -36,17 +36,11 @@ var userId = '<%= userId %>';
 
 <nav id="stNav" class="navbar navbar-expand-sm justify-content-center">
 
-<<<<<<< HEAD
-  	<ul class="navbar-nav navlogo">
-		<li class="nav-item"><a href="/"><img class="nvlog" id="nvlog" src="/resources/img/logo1.png" alt="smartlms" title="smartlms" style="height: 40px; padding-left:120px;"></a></li>
-	</ul>
-	<div class="smnav">
-=======
+
      <ul class="navbar-nav navlogo">
       <li class="nav-item"><a href="/"><img class="nvlog" id="nvlog" src="/resources/img/logo1.png" alt="smartlms" title="smartlms" style="height: 60px; padding-left:120px;"></a></li>
    </ul>
    <div class="smnav">
->>>>>>> f790f55448fb73cddd3beb1cffd1949eca793367
   <ul class="navbar-nav">
     <li class="nav-item">
       <a class="nav-link" href="getBoardList?b_type=게시판">공지사항</a>
