@@ -11,7 +11,9 @@ import org.springframework.stereotype.Repository;
 import com.smart.lms.util.Pagination;
 import com.smart.lms.vo.BoardVO;
 import com.smart.lms.vo.CalendarVO;
+import com.smart.lms.vo.CommentVO;
 import com.smart.lms.vo.NoteVO;
+import com.smart.lms.vo.StudentVO;
 @Repository
 public class BoardDAO {
 	
@@ -112,6 +114,10 @@ public class BoardDAO {
 		  	mybatis.update("boardDAO.updateBoard", vo);
 	   }
 	  
+	  public void boardView(int b_number) {
+		  mybatis.update("boardDAO.boardView", b_number);
+	  }
+	  
 	  public CalendarVO getCal(CalendarVO vo) {
 		     return mybatis.selectOne("boardDAO.getCal", vo);
 		}
@@ -129,5 +135,32 @@ public class BoardDAO {
 		return mybatis.selectOne("boardDAO.getBoardListTotalCnt", pg);
 		
 	}
+	
+	
+	public void deleteCal(int cal_number) {
+	    mybatis.delete("boardDAO.deleteCal", cal_number);
+    	}
+	
+	public void insertComment(CommentVO vo) {
+	     mybatis.insert("boardDAO.insertComment", vo);
+		}
+	
+	public List<CommentVO> getCommentList(int b_number) {
+		return mybatis.selectList("boardDAO.getCommentList", b_number);
+		}
+
+	public void deleteComment(int co_number) {
+		mybatis.delete("boardDAO.deleteComment", co_number);
+	}
+
+	  public boolean checkUser(String n_reciver) {
+		    StudentVO student = mybatis.selectOne("boardDAO.checkUser", n_reciver);
+		    return student != null; // 유저가 존재하면 true, 없으면 false 반환
+		}
+
+	public int noteCount(String userId) {
+		return mybatis.selectOne("boardDAO.noteCount",userId);
+	}
+	
 
 }

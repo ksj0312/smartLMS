@@ -1,11 +1,14 @@
 package com.smart.lms.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.smart.lms.vo.MyPageVO;
 import com.smart.lms.vo.ProfessorVO;
 import com.smart.lms.vo.StudentVO;
 
@@ -30,5 +33,62 @@ public class MemberDAO {
 		 mybatis.insert("memberDAO.insertProfessor", users);
 		
 	}
-	
+
+	public StudentVO getUserInfo(String userId) {
+		return mybatis.selectOne("memberDAO.getUserInfo", userId);
+	}
+
+	public void updateTel(String tel, String pasttel) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("tel", tel);
+		params.put("pasttel", pasttel);
+		mybatis.update("memberDAO.updateTel", params);
+	}
+
+	public StudentVO changePwd(StudentVO vo) {
+		return mybatis.selectOne("memberDAO.changePwd", vo);
+		
+	}
+
+	public void changeNewPwd(StudentVO vo) {
+		mybatis.update("memberDAO.changeNewPwd", vo);
+		
+	}
+
+	public void updateMail(String email, String userId) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("email", email);
+		params.put("userId", userId);
+		mybatis.update("memberDAO.updateMail", params);
+		
+	}
+
+	public StudentVO getId(String email) {
+		return mybatis.selectOne("memberDAO.getId",email);
+		
+	}
+
+	public List<MyPageVO> getClassList(MyPageVO vo) {
+		return mybatis.selectList("memberDAO.getClassList", vo);
+	}
+
+
+	public MyPageVO myPageClassInfo(int c_number, String userId) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("c_number", c_number);
+		params.put("userId", userId);
+		return mybatis.selectOne("memberDAO.myPageClassInfo", params);
+	}
+
+	public void updatePost(String zipcode, String addr, String detail_addr, String userId) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("zipcode", zipcode);
+		params.put("addr", addr);
+		params.put("detail_addr", detail_addr);
+		params.put("userId", userId);
+		mybatis.update("memberDAO.updatePost", params);
+	}
+
+
+
 }

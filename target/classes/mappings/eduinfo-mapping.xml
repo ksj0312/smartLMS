@@ -62,7 +62,7 @@
 	<select id="classAllTotalCnt" parameterType="com.smart.lms.util.Pagination" resultType="integer">
 		SELECT COUNT(*) FROM CLASS WHERE C_STATUS = '진행'
 		<if test="keyword != null and keyword != ''">
-			<if test="searchType == 'name'"> AND NAME like CONCAT('%', #{keyword}, '%')</if>
+			<if test="searchType == 'name'"> AND C_PROF_NAME like CONCAT('%', #{keyword}, '%')</if>
 			<if test="searchType == 'c_name'"> AND C_NAME like CONCAT('%', #{keyword}, '%') </if>
 			<if test="searchType == 'c_info'"> AND C_INFO like CONCAT('%', #{keyword}, '%')</if>
 		</if>
@@ -196,5 +196,14 @@
 	<update id ="gradeUpdateTx">
 	  UPDATE GRADE SET GRADE = #{grade} WHERE G_NUMBER = #{g_number} AND ID = #{id}
 	</update>
+	
+<!-- 	과제 -->
+	<select id="getTaskList" resultType="taskDTO">
+		SELECT * FROM TASK WHERE C_NUMBER = #{c_number} AND deadline > now()
+	</select>
+
+	<insert id="taskInsertTx">
+		INSERT INTO TASK (C_NUMBER, ID, TITLE, INFO, DEADLINE, T_FILE1 ) VALUES (#{c_number}, #{id}, #{title}, #{info}, #{deadline}, #{t_file1})
+	</insert>
 	
 </mapper>

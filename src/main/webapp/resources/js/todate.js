@@ -54,7 +54,7 @@
 								                <input type="radio" name="a_status_${value.id}" value="결석" ${value.a_status === '결석' ? 'checked' : ''} />결석
 								                </td>
                                                 </td>
-                                                <td> <button type="button" onclick="updateAttendance('${value.id}', '${value.c_number}')"> 수정 </button> </td>
+                                                <td> <button type="button"  class="upbut" onclick="updateAttendance('${value.id}', '${value.c_number}')"> 수정 </button> </td>
                                                 </tr>
                                                 `
 				 			 );
