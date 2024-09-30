@@ -86,6 +86,9 @@
                c.C_STU_COUNT, c.C_TIME, c.C_INFO, c.C_TERM, c.C_DAY, c.C_ID, c.C_STATUS,
              ac.ID, ac.NAME;
     </select>
-
+    
+	<select id="getAdminInfo" resultType="professorDTO">
+	SELECT * FROM PROFESSOR WHERE ID = #{userId} 
+	</select>
 
 </mapper>

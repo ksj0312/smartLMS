@@ -7,6 +7,7 @@ var check1 = false;
 var check2 = false;
 var check3 = false;
 var check4 = false;
+var telSent = false;
 
 
 function telCheckBtn() {
@@ -269,8 +270,8 @@ $(document).ready(function() {
 });
 
     var themeObj = {
-            bgColor: "#FFE7C7", //바탕 배경색
-            searchBgColor: "#FF8A11", //검색창 배경색
+            bgColor: "#e8e4e4", //바탕 배경색
+            searchBgColor: "#042424", //검색창 배경색
             //contentBgColor: "", //본문 배경색(검색결과,결과없음,첫화면,검색서제스트)
             pageBgColor: "#FBF5EA", //페이지 배경색
             //textColor: "", //기본 글자색
@@ -352,41 +353,43 @@ $(document).ready(function() {
             }
         });
         //현재 비밀번호가 맞는지 가져오는 아작스
-        function changePwd(){
-        	var pwd = $('#mem_pwd').val();
-        	var pwdchk = $('.pwdchk');
-        	
-        	if (!validatePassword(pwd)) {
-                return; // 비밀번호가 유효하지 않으면 함수 종료
-            }
-        $.ajax({
-            url: '/changePwd',
-            type: 'POST',
-            data: {
-            	pwd: pwd
-            },
-            success: function(data) {
-            	console.log(pwd);
-                console.log(data);
-                if(data == true){
-                	pwdchk.html('*현재 비밀번호와 일치합니다.');
-                	pwdchk.css('color', 'green');
-                	pwdchk.css('display', 'inline');
-                	check1 = true;
-                $('.change_pwd_confirm_btn').show();
-                }else{
-                	pwdchk.html('*현재 비밀번호와 일치하지 않습니다.');
-                	pwdchk.css('color', 'red');
-                	pwdchk.css('display', 'inline');
-                	$('.change_pwd_confirm_btn').hide();
-                }
-
-            },
-            error: function(xhr, status, error) {
-               
-            }
-        });
-        }
+	        function changePwd(){
+	        	var pwd = $('#mem_pwd').val();
+	        	var pwdchk = $('.pwdchk');
+	        	var status = document.getElementById('status').value;
+	        	console.log(status);
+	        	
+	        	if (!validatePassword(pwd)) {
+	                return; // 비밀번호가 유효하지 않으면 함수 종료
+	            }
+	        $.ajax({
+	            url: status == "재학" || status == "휴학" || status == "퇴학" || status == "졸업" ? '/changePwd' : '/changeAdminPwd',
+	            type: 'POST',
+	            data: {
+	            	pwd: pwd
+	            },
+	            success: function(data) {
+	            	console.log(pwd);
+	                console.log(data);
+	                if(data == true){
+	                	pwdchk.html('*현재 비밀번호와 일치합니다.');
+	                	pwdchk.css('color', 'green');
+	                	pwdchk.css('display', 'inline');
+	                	check1 = true;
+	                $('.change_pwd_confirm_btn').show();
+	                }else{
+	                	pwdchk.html('*현재 비밀번호와 일치하지 않습니다.');
+	                	pwdchk.css('color', 'red');
+	                	pwdchk.css('display', 'inline');
+	                	$('.change_pwd_confirm_btn').hide();
+	                }
+	
+	            },
+	            error: function(xhr, status, error) {
+	               
+	            }
+	        });
+	        }
         
         function changeNewPwd(){
         	var changeNew = false;
