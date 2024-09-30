@@ -6,12 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.smart.lms.dao.BoardDAO;
-import com.smart.lms.vo.BoardVO;
-import com.smart.lms.vo.NoteVO;
-import com.smart.lms.vo.StudentVO;
 import com.smart.lms.util.Pagination;
 import com.smart.lms.vo.BoardVO;
 import com.smart.lms.vo.CalendarVO;
+import com.smart.lms.vo.CommentVO;
 import com.smart.lms.vo.NoteVO;
 
 @Service("boardService")
@@ -102,6 +100,11 @@ public class BoardServiceImpl implements BoardService {
 	public void updateBoardTx(BoardVO vo) {
 		boDAO.updateBoard(vo);
 	}
+	
+	@Override
+	public void boardViewTx(int b_number) {
+		boDAO.boardView(b_number);
+	}
 
 	@Override
 	public boolean checkUser(String n_reciver) {
@@ -137,4 +140,25 @@ public class BoardServiceImpl implements BoardService {
 	   public int getBoardListTotalCnt(Pagination pg) {
 	      return boDAO.getBoardListTotalCnt(pg);
 	   }
+	   
+	   @Override
+		public void deleteCalTx(int cal_number) {
+			boDAO.deleteCal(cal_number);
+		}
+		
+		
+		@Override
+		public void insertCommentTx(CommentVO vo) {
+			boDAO.insertComment(vo);
+		}
+		
+		@Override
+		public List<CommentVO> getCommentList(int b_number) {
+			return boDAO.getCommentList(b_number);
+		}
+		
+		@Override
+		public void deleteCommentTx(int co_number) {
+			boDAO.deleteComment(co_number);
+		}
 }

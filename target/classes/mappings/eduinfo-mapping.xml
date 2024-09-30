@@ -197,4 +197,13 @@
 	  UPDATE GRADE SET GRADE = #{grade} WHERE G_NUMBER = #{g_number} AND ID = #{id}
 	</update>
 	
+<!-- 	과제 -->
+	<select id="getTaskList" resultType="taskDTO">
+		SELECT * FROM TASK WHERE C_NUMBER = #{c_number} AND deadline > now()
+	</select>
+
+	<insert id="taskInsertTx">
+		INSERT INTO TASK (C_NUMBER, ID, TITLE, INFO, DEADLINE, T_FILE1 ) VALUES (#{c_number}, #{id}, #{title}, #{info}, #{deadline}, #{t_file1})
+	</insert>
+	
 </mapper>

@@ -23,7 +23,7 @@
 	<li><a href="gradeclassList2" class = "atag">- 성적 조회/수정</a></li>
 	<li class="menu">시험 관리></li>
 	<li><a href="testclassList" class = "atag">- 시험 등록</a></li>
-	<li><a href="" class = "atag">- 과제 등록</a></li>
+	<li><a href="taskInsertPage" class = "atag">- 과제 등록</a></li>
 	<li><a href="" class = "atag">- 과제 확인</a></li>
 	<li class="menu">공통 관리></li>
 	<li><a href="classInsertPage" class = "atag">- 강의 등록</a></li>
@@ -36,10 +36,16 @@
 	<li><a href="uploadPageStu" class = "atag">- 학생용 엑셀 업로드</a></li>
 	<li><a href="uploadPagePro" class = "atag">- 교수용 엑셀 업로드</a></li>
 	<li class="menu">게시판 관리></li>
+<<<<<<< HEAD
+	<li><a href="getBoardListAdmin?b_type=게시판" class = "atag">- 공지 관리</a></li>
+	<li><a href="getBoardListAdmin?b_type=QNA" class = "atag">- FAQ 관리</a></li>
+	<li><a href="calAdmin" class = "atag">- 학사일정 관리</a></li>
+=======
 	<li><a href="" class = "atag">- 공지 등록</a></li>
 	<li><a href="" class = "atag">- 공지 관리</a></li>
 	<li><a href="" class = "atag">- Q&A 관리</a></li>
 	<li><a href="" class = "atag">- 학사일정 관리</a></li>
+>>>>>>> 4195acf0dfd2913634b1803f2eb9088933492048
 	<li class="menu">강의 및 수강생 관리></li>
 	<li><a href="classInsertPage" class = "atag">- 강의 등록</a></li>
 	<li><a href="classAllList" class = "atag">- 강의 목록</a></li>

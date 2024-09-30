@@ -8,6 +8,7 @@ import com.smart.lms.vo.ClassVO;
 import com.smart.lms.vo.GradeVO;
 import com.smart.lms.vo.ProfessorVO;
 import com.smart.lms.vo.StudentVO;
+import com.smart.lms.vo.TaskVO;
 import com.smart.lms.vo.TestVO;
 import com.smart.lms.vo.TodateVO;
 
@@ -64,5 +65,9 @@ public interface EduinfoService {
    public int gradeUpdateTx(GradeVO vo) throws Exception;
 
    public List<GradeVO> gradeSearch(Pagination pg);
+
+   public void taskInsertTx(TaskVO vo);
+
+   public List<TaskVO> getTaskList(int c_number);
 
 }

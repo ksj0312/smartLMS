@@ -7,9 +7,7 @@
 }
 
 /* 모달 창 스타일 */
-<<<<<<< HEAD
 
-=======
 .modal {
     display: none;
     position: fixed;
@@ -36,7 +34,6 @@
 }
 
 /* 닫기 버튼 */
->>>>>>> d3cc21b0cc01db31040abe94a09e5f54a0206dad
 .close {
 	text-align: right;
     color: #666;
