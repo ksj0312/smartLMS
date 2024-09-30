@@ -31,7 +31,7 @@
 <style>
 /* body 스타일 */
 html, body {
-	overflow: hidden;
+/* 	overflow: hidden; */
 	font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
 	font-size: 14px;
 }
@@ -40,6 +40,12 @@ html, body {
 	padding-top: 1em;
 	padding-left: 1em;
 	padding-right: 1em;
+}
+
+#calendar {
+    width: 80%; /* 너비를 조정, 필요에 따라 변경 */
+    height: 400px; /* 높이를 조정, 필요에 따라 변경 */
+    margin: 0 auto; /* 중앙 정렬 */
 }
 </style>
 </head>
@@ -162,6 +168,7 @@ html, body {
           var title = prompt('Event Title:');
           if (title) {
             calendar.addEvent({
+              cal_number : cal_number,
               title: cal_title,
               start: arg.cal_date,
               end: arg.cal_edate,
@@ -187,9 +194,10 @@ html, body {
           const eventArray = [];
           eventData.forEach((res) => {
             eventArray.push({
-              title: res.cal_title,
-              start: res.cal_date,
-              end: res.cal_edate,
+            	 number : res.cal_number, // 이벤트 ID 추가
+                 title: res.cal_title,
+                 start: res.cal_date,
+                 end: res.cal_edate,
 //               backgroundColor: res.backgroundColor,
             });
           });
@@ -201,8 +209,55 @@ html, body {
 //               googleCalendarId : 'ko.south_korea.official#holiday@group.v.calendar.google.com',
 //               backgroundColor: 'red',
             }
-        ]
+        ],
+        
+        eventContent: function(arg) {
+        	  // HTML 요소 생성
+        	  const button = document.createElement('button');
+        	  button.innerHTML = 'X';
+        	  button.classList.add('delete-button');
+        	  button.setAttribute('data-number', arg.event.number);
+
+        	  // 버튼 클릭 이벤트 처리
+        	  button.addEventListener('click', function() {
+        	    // 해당 이벤트의 제목, 시작 날짜, 종료 날짜
+        	    const number = arg.event.number;
+        	    const date = arg.event.start;
+        	    const edate = arg.event.end;
+        	    
+        	    console.log("number" , number);
+
+        	    // deleteCal 메서드 호출, 필요한 값을 모두 전달
+        	    deleteCal(number);
+        	  });
+
+        	  // 이벤트 제목과 버튼을 포함한 요소 생성
+        	  const container = document.createElement('div');
+        	  container.innerHTML = arg.event.title; // 제목 추가
+        	  container.appendChild(button); // 버튼 추가
+
+        	  return { domNodes: [container] }; // 반환
+        	}
       });
+      
+      async function deleteCal(calNumber) {
+    	    console.log("삭제할 cal_number:", calNumber);
+    	    
+    	    try {
+    	        const response = await axios.delete("/deleteCal", {
+    	            data: {
+    	                cal_number: calNumber // cal_number로 삭제 요청
+    	            }
+    	        });
+    	        
+    	        console.log('Event deleted:', response.data);
+    	        // 추가 작업: UI 업데이트 등
+    	    } catch (error) {
+    	        console.error('Error deleting event:', error);
+    	    }
+    	}
+      
+      
       
    // 모달창 이벤트
       $("#saveChanges").on("click", function () {
@@ -235,6 +290,22 @@ html, body {
     });
 //   })();
 </script>
+
+<style>
+.event-container {
+  display: flex; /* Flexbox 사용 */
+  justify-content: space-between; /* 양쪽 끝으로 정렬 */
+  align-items: center; /* 수직 중앙 정렬 */
+}
+
+.delete-button {
+  font-size : smaller;
+  float : right; /* 제목과 버튼 사이의 간격 추가 */
+  border-radius : 5px;
+  transform: translateY(-1px); /* 버튼을 1px 위로 이동 */
+  
+}
+</style>
 
 </body>
 </html>
