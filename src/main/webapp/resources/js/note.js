@@ -44,8 +44,7 @@ $(document).ready(function() {
                     if(userId == note.n_reciver){
                         noteList.append(
                             '<li>' + 
-                            '번호: ' + note.n_number + 
-                            '<strong>보낸사람: ' + note.n_sender + '</strong>: ' + 
+                            '<strong>보낸사람: ' + note.n_sender+ '</strong> ' + 
                             '<br>제목: ' + note.n_title + 
             		<!--	'<button class="writeBtn">글쓰기</button>' + 	-->
                             '<button class="detailBtn1" data-number="' + note.n_number + '">보기</button>&nbsp;' +
@@ -78,7 +77,7 @@ $(document).ready(function() {
                 $('#pagination').append(paginationHtml);
                 
                 // 모달 창 표시
-                $('#myModal').show();
+                $('#noteModal').show();
             },
             error: function(xhr, status, error) {
                 console.error('AJAX Error: ' + status + ' ' + error);
@@ -100,40 +99,60 @@ $(document).ready(function() {
 });
 
 
-    // "보내기" 버튼 클릭 시
-     function sendNote() {
-        // 폼 데이터 수집
-        var formData = {
-            n_sender: $('#n_sender').val(),
-            n_reciver: $('#n_reciver').val(),
-            n_title: $('#n_title').val(),
-            n_info: $('#n_info').val()
-        };
-
-        // 유효성 검사
-        if (!formData.n_reciver || !formData.n_title || !formData.n_info) {
-            alert('모든 필드를 입력해주세요.');
-            return;
+function checkUser(n_reciver, callback) {
+    $.ajax({
+        url: '/checkUser',
+        type: 'GET',
+        data: { 
+            n_reciver: n_reciver // 인수로 받은 수신자 ID
+        },
+        success: function(response) {
+            callback(response); // 응답을 콜백 함수로 전달
+        },
+        error: function(xhr, status, error) {
+            console.error('AJAX Error: ' + status + ' ' + error);
+            alert('사용자 확인 중 오류가 발생했습니다.');
         }
+    });
+}
 
-        // AJAX 요청
-        $.ajax({
-            url: '/sendnote',
-            type: 'POST',
-            data: formData,
-            success: function(response) {
-                console.log(response); // 서버에서 받은 응답 출력
-                alert('쪽지가 성공적으로 보내졌습니다!');
-                loadNoteList(); // 쪽지 목록 새로 고침 (이 함수가 있어야 합니다)
-                closeModal(); // 모달 닫기 (이 함수도 정의돼 있어야 함)
-            },
-            error: function(xhr, status, error) {
-                console.error('AJAX Error: ' + status + ' ' + error);
-                alert('쪽지 전송 중 오류가 발생했습니다.');
-            }
-        });
+    // "보내기" 버튼 클릭 시
+function sendNote() {
+    var formData = {
+        n_sender: $('#n_sender').val(),
+        n_reciver: $('#n_reciver').val(),
+        n_title: $('#n_title').val(),
+        n_info: $('#n_info').val()
+    };
+
+    if (!formData.n_reciver || !formData.n_title || !formData.n_info) {
+        alert('모든 필드를 입력해주세요.');
+        return;
     }
 
+    // 사용자 존재 여부 확인
+    checkUser(formData.n_reciver, function(userExist) {
+        if (userExist) {
+            $.ajax({
+                url: '/sendnote',
+                type: 'POST',
+                data: formData,
+                success: function(response) {
+                    console.log(response);
+                    alert('쪽지가 성공적으로 보내졌습니다!');
+                    loadNoteList();
+                    closeModal();
+                },
+                error: function(xhr, status, error) {
+                    console.error('AJAX Error: ' + status + ' ' + error);
+                    alert('쪽지 전송 중 오류가 발생했습니다.');
+                }
+            });
+        } else {
+            alert('받는사람 아이디가 존재하지 않습니다.');
+        }
+    });
+}
 
 						// 동적으로 생성된 "보기" 버튼에 이벤트는 on으로 해라
 						$('#noteList')
@@ -168,6 +187,7 @@ $(document).ready(function() {
 																			+ '<button class="responBtn" data-reciver="' + data.n_sender + '">답장</button>'
 																			+ '&nbsp;'
 																			+ '<button class="deleteBtn" data-delnum="' + data.n_number + '">삭제</button>'
+																			+ '&nbsp;'
 																			+ '<button class="openListBtn">목록</button>');
 															n_reciver
 																	.val(data.n_sender);
@@ -221,7 +241,7 @@ $(document).ready(function() {
 										});
 						// 모달 창 닫기 함수
 						function closeModal() {
-							$('#myModal').hide(); // 모달 창 숨기기
+							$('#noteModal').hide(); // 모달 창 숨기기
 							$('#noteList').empty(); // <ul> 태그의 내용을 비움
 							$('#searchInput').val(''); // 검색 필드 초기화
 							$('#sendNoteForm').hide(); // 답장 폼 숨기기
@@ -262,15 +282,11 @@ $(document).ready(function() {
 						});
 						
 						
-
    						$(document).on('click', '#sendBtn', function() {
     						sendNote(); // 동적으로 생성된 #sendBtn에 대해서도 작동
 							});
 
-						// '보기' 누르면 검색창 hide
-						//     $('#noteList').on('click', '.detailBtn1', function(){
-						//         $('.searchdiv').hide();
-						//     });
+			
 
 						// "목록" 버튼 클릭 시 쪽지 목록을 다시 로드
 						$('#noteList').on('click', '.openListBtn', function() {
@@ -285,10 +301,8 @@ $(document).ready(function() {
 						
 						// 모달 창 바깥 클릭 시 닫기
 						$(window).click(function(event) {
-							if ($(event.target).is('#myModal')) {
-								//             $('#myModal').hide();
-								//             noteList.empty(); // 기존 검색 결과 삭제
-								//             $('#searchInput').val(''); // 검색 필드 초기화
+							if ($(event.target).is('#noteModal')) {
+				
 								closeModal();
 							
 							}

@@ -24,8 +24,12 @@
 				<tr>
 					<th>번호</th>
 					<th>제목</th>
+<<<<<<< HEAD
 					<th>내용</th>
 					<th>작성자</th>
+=======
+<!-- 					<th>내용</th> -->
+>>>>>>> f790f55448fb73cddd3beb1cffd1949eca793367
 					<th>조회수</th>
 				</tr>
 			</thead>
@@ -34,9 +38,9 @@
 			
 				<c:forEach items="${boardList}" var="board" varStatus="status">
 					<tr onclick="sel_board(${board.b_number})" style="cursor: pointer;">
-						<td class="tdCenter">${board.b_number}</td>
+						<td class="tdCenter">${board.b_rownum}</td>
 						<td>${board.b_title}</td>
-						<td class="tdCenter">${board.b_info}</td>
+<%-- 						<td class="tdCenter">${board.b_info}</td> --%>
 <%-- 						 <c:out value="${fn:length(board.b_info) > 20 ? board.b_info.substring(0, 20) + '...' : board.b_info}"/> --%>
 <%-- 						<td class="tdCenter">${board.b_type}</td> --%>
 						<td class="tdCenter">${board.b_writer}</td>

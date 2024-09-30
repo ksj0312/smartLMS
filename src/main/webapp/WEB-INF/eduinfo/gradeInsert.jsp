@@ -11,10 +11,11 @@
 <div class="bcl">
         <div class="divall">
                 <section class="header-container">
-    					<h4>강의 번호 <%= request.getParameter("c_number") %></h4>
-    					<h4>과제 번호 <%= request.getParameter("g_number") %></h4>
-    					<br>
                         <h4>성적 등록</h4>
+                        <br>
+    					<h5>강의 번호 : <%= request.getParameter("c_number") %></h5>
+    					<h5>시험 번호 : <%= request.getParameter("g_number") %></h5>
+    					<h5>시험 구분 : <%= request.getParameter("test_type") %></h5>
                         <br>
                 </section>
 
@@ -37,7 +38,7 @@
                                                 </tr>
                                 </c:forEach>
                         </table>
-                        <button type="submit">등록</button>
+                        <button type="submit" class="subtn">등록하기</button>
                         </form>
                 </section>
         </div>

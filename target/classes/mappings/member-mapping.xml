@@ -23,6 +23,72 @@
 		INSERT INTO PROFESSOR (ID, PWD, NAME, GENDER, BIRTH, TEL, ZIPCODE, ADDR, DETAIL_ADDR, EMAIL, LESSON, JOIN_DATE, STATUS, INDATE, TYPE) 
 		VALUES (#{id}, #{pwd}, #{name}, #{gender}, #{birth}, #{tel}, #{zipcode}, #{addr}, #{detail_addr}, #{email}, #{lesson}, SYSDATE(), #{status}, #{indate}, #{type})
 	</insert>
-
+	
+	<select id="getUserInfo" resultType="studentDTO"> 
+	SELECT * FROM STUDENT WHERE ID = #{userId} 
+	</select>
+	
+	<update id="updateTel">
+    UPDATE STUDENT 
+    SET TEL = #{tel} 
+    WHERE TEL = #{pasttel} 
+	</update>
+	
+	<select id="changePwd" resultType="studentDTO"> 
+	SELECT * FROM STUDENT WHERE pwd = #{pwd} AND Id = #{id}
+	</select>
+	
+	<update id="changeNewPwd">
+	UPDATE STUDENT 
+    SET pwd = #{pwd} 
+    WHERE id = #{id} 
+	</update>
+	
+	<update id="updateMail">
+	UPDATE STUDENT 
+    SET email = #{email} 
+    WHERE id = #{userId} 
+	</update>
+	
+	<update id="updatePost">
+	update student
+	set ZIPCODE = #{zipcode}, ADDR = #{addr}, DETAIL_ADDR = #{detail_addr} where ID = #{userId}
+	</update>
+	
+	<select id="getId" resultType="studentDTO">
+	select * from student where email = #{email}
+	</select>
+	
+	<select id="getClassList" resultType="myPageDTO">
+	select c.C_NUMBER , c.C_NAME , c.C_PROF_NAME , c.C_TIME , c.C_DAY , ac.ID , ac.NAME 
+    from class c 
+    join attend_class ac 
+    on c.C_NUMBER = ac.C_NUMBER 
+    where ac.ID = #{id}
+    </select>
+    
+    <select id="myPageClassInfo" resultType="myPageDTO">
+       SELECT c.C_NUMBER , c.C_NAME , c.C_CREATE_DATE , c.C_START_DATE , c.C_END_DATE , c.C_PROF_NAME 
+          , c.C_STU_COUNT , c.C_TIME , c.C_INFO , c.C_TERM , c.C_DAY , c.C_ID , c.C_STATUS 
+          , ac.ID , ac.NAME 
+          , COUNT(CASE WHEN t.A_STATUS = '출석' THEN A_STATUS END) 'ATTENDANCE'
+           , COUNT(CASE WHEN t.A_STATUS = '지각' THEN A_STATUS END) 'TARDY'
+           , COUNT(CASE WHEN t.A_STATUS = '조퇴' THEN A_STATUS END) 'EARLY'
+           , COUNT(CASE WHEN t.A_STATUS = '결석' THEN A_STATUS END) 'ABSENT'
+       FROM  class c 
+       JOIN attend_class ac 
+         ON c.C_NUMBER = ac.C_NUMBER
+       JOIN todate t 
+         ON ac.ID  = t.ID 
+        AND ac.C_NUMBER = t.C_NUMBER 
+      WHERE ac.ID = #{userId} and AC.C_NUMBER = #{c_number}
+     GROUP BY  c.C_NUMBER, c.C_NAME, c.C_CREATE_DATE, c.C_START_DATE, c.C_END_DATE, c.C_PROF_NAME,
+               c.C_STU_COUNT, c.C_TIME, c.C_INFO, c.C_TERM, c.C_DAY, c.C_ID, c.C_STATUS,
+             ac.ID, ac.NAME;
+    </select>
+    
+	<select id="getAdminInfo" resultType="professorDTO">
+	SELECT * FROM PROFESSOR WHERE ID = #{userId} 
+	</select>
 
 </mapper>

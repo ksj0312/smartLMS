@@ -1,5 +1,8 @@
 package com.smart.view.controller;
 
+import java.security.Timestamp;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Enumeration;
@@ -31,6 +34,7 @@ import com.smart.lms.vo.ClassVO;
 import com.smart.lms.vo.GradeVO;
 import com.smart.lms.vo.ProfessorVO;
 import com.smart.lms.vo.StudentVO;
+import com.smart.lms.vo.TaskVO;
 import com.smart.lms.vo.TestVO;
 import com.smart.lms.vo.TodateVO;
 
@@ -53,7 +57,7 @@ public class EduinfoController {
 
 	//출석페이지
 	@GetMapping("/todate")
-	public String getUserList(Pagination pg, Model model, HttpSession session) {
+	public String getUserList( Pagination pg, Model model, HttpSession session) {
 	
 		model.addAttribute("attendanceList", eduinfoService.attendanceList(pg));
 		
@@ -90,7 +94,7 @@ public class EduinfoController {
 		             String status = request.getParameter("a_status_" + id);
 		             
 		             if (id == null || status == null || a_date == null) {
-		                    redirectAttributes.addFlashAttribute("msg", "null");
+		                    redirectAttributes.addFlashAttribute("msg", "fail");
 		                    return "redirect:/todate";
 		                }
 		             
@@ -105,12 +109,12 @@ public class EduinfoController {
 				eduinfoService.insertAttendanceTx(toList);
 				redirectAttributes.addFlashAttribute("msg", "success");
 				
-				return "redirect:/todate";
+				return "redirect:classList";
 				
 			} catch (Exception e) {
 				e.printStackTrace();
 				redirectAttributes.addFlashAttribute("msg", "fail");
-				return "redirect:/todate";
+				return "redirect:classList";
 			}
 	}
 	
@@ -217,6 +221,7 @@ public class EduinfoController {
 	public ResponseEntity<StudentVO> stuInfo(String id) {
 		
 		StudentVO vo = eduinfoService.stuInfo(id);
+		
 		if (vo != null) {
 			return new ResponseEntity<>(vo, HttpStatus.OK);
 		} else {
@@ -435,5 +440,66 @@ public class EduinfoController {
 			gList.put("length", length);
 			return gList;
 		}
+		
+		
+		//과제 페이지 이동
+		@GetMapping("/taskListPage")
+		public String taskListPage() {
+			return "/member/taskIndex";
+		}
+		
+		//마감일이 지나지않은 과제 목록
+		@GetMapping("/taskList")
+		public String taskList(@RequestParam ("c_number") int c_number, Model model) {
+			model.addAttribute("taskList", eduinfoService.getTaskList(c_number));
+			return "eduinfo/taskList";
+		}
+		
+		//과제 등록 페이지 이동
+		@GetMapping("/taskInsertPage")
+			public String taskInsertPage() {
+				return "eduinfo/taskInsert";
+			}
+		
+		//과제 등록
+		@PostMapping("/taskInsert")
+		public String taskInsert(TaskVO vo) {
+			eduinfoService.taskInsertTx(vo);
+			return "eduinfo/taskInsert";
+		}
+		
+		//과제등록 -> classList 받아오기
+		@GetMapping("/taskclassList")
+		public String taskclassList(@RequestParam ("status") String status,  HttpSession session, Model model, ClassVO vo) {
+			vo.setC_id((String) session.getAttribute("userId"));
+			List<ClassVO> cList = new ArrayList<ClassVO>();
+			cList = eduinfoService.classList(vo);
+			model.addAttribute("classList" , cList );
+			model.addAttribute("classListcnt", cList.size());
+			model.addAttribute("status" , status);
+			
+			return "eduinfo/taskclassList";
+		}
+		
+		//과제 목록 선택 페이지
+		@GetMapping("/taskSelect")
+		public String taskSelect(Model model, @RequestParam ("c_number") int c_number) {
+			List<TaskVO> taskList = new ArrayList<TaskVO>();
+			taskList = eduinfoService.getTaskList(c_number);
+			model.addAttribute("taskList", taskList);
+			model.addAttribute("taskListcnt", taskList.size());
+			return "eduinfo/taskList";
+		}
+		
+		
+		//과제를 제출한 학생 목록
+		@GetMapping("/stuTaskList")
+		public String stuTaskList(@RequestParam ("c_number") int c_number, @RequestParam ("t_number") int t_number, Model model) {
+			
+			
+			return null;
+			
+		}
+		
 	
 }

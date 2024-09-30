@@ -12,25 +12,10 @@
 <div class="bcl">
         <div class="divall">
                 <section class="header-container">
-                <c:if test="${not empty attendanceList}">
-    					<h3>강의 번호 ${attendanceList[0].c_number}</h3>
-				</c:if>
-                        <h4>출석체크</h4>
+    					<h5>강의번호 :<%= request.getParameter("c_number") %> </h5>
+    					<h5>강의명 : <%= request.getParameter("c_name") %></h5> 
+    					<p style="color:red"> ※ 출결 수정은 반드시 출석 등록 완료 후 진행해주세요.</p>
                 </section>
-                <c:if test="${not empty msg}">
-               <c:choose>
-                		<c:when test="${msg eq 'success'}">
-                			<h5 style="color:blue">출석 정보가 저장되었습니다.</h5>
-                			</c:when>
-                		<c:when test="${msg eq 'fail'}">
-                			<h5  style="color:red">출석 등록에 실패하였습니다. 다시 시도해주세요.</h5>
-                		</c:when>
-                		<c:when test="${msg eq 'null'}">
-                			<h5  style="color:red">데이터가 유효하지 않습니다. 다시 시도해주세요.</h5>
-                		</c:when>
-                		<c:otherwise>${msg} </c:otherwise>
-                		</c:choose> 
-                </c:if>
                 <nav id="searchNav" class="navbar navbar-expand-sm navbar-dark">
                          <form class="form-inline" name="searchForm" > 
                                 <select name="searchType" id="searchType" class="form-control mr-sm-2">
@@ -38,9 +23,8 @@
                                         <option value="id">학번</option>
                                 </select> 
                                 <input class="form-control mr-sm-2" type="text" name="keyword" id="keyword" autocomplete="off" placeholder="검색어를 입력하세요.">
-<!-- 								<input type="date" name="searchDate" id="searchDate" style="margin: 10px;"> -->
 								<input type="date" name="searchDate" id="searchDate" value="${fn:substring(LocalDate.now().toString(), 0, 10)}" style="margin: 10px;">
-								<input type="text" name="c_number" id="c_number" style="display:none;" value="${attendanceList[0].c_number}">
+								<input type="text" name="c_number" id="c_number" style="display:none;" value="<%= request.getParameter("c_number") %> ">
                                 <button class="btn btn-success" type="button" onclick="search()">검색</button>
                       </form> 
                 </nav>
@@ -77,11 +61,11 @@
 													<input type="radio" name="a_status_${stu.id}" value="결석" ${stu.a_status == '결석' ? 'checked' : ''} />결석  
 												 </c:if>
                                                 </td>
-                                                <td> <button type="button" onclick="updateAttendance('${stu.id}', '${attendanceList[0].c_number}')"> 수정 </button> </td>
+                                                <td> <button type="button" class="upbut" onclick="updateAttendance('${stu.id}', '<%= request.getParameter("c_number") %> ')"> 수정 </button> </td>
                                                 </tr>
                                 </c:forEach>
                         </table>
-                        <button type="submit">등록</button>
+                        <button type="submit" class="subtn">등록하기</button>
                         </form>
                 </section>
         </div>

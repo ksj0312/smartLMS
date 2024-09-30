@@ -31,7 +31,7 @@
 <style>
 /* body 스타일 */
 html, body {
-	overflow: hidden;
+/* 	overflow: hidden; */
 	font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
 	font-size: 14px;
 }
@@ -40,10 +40,31 @@ html, body {
  	padding-top: 1em; 
  	padding-left: 1em; 
  	padding-right: 1em; 
+<<<<<<< HEAD
+=======
+}
+
+.fc-listWeek-button,
+.fc-timeGridDay-button,
+.fc-timeGridWeek-button, 
+.fc-dayGridMonth-button {
+ 	color : #000 !important; 
+    display: none !important; 
+}
+
+.fc-daygrid-event {
+    border-color: #fff !important;
+}
+
+#calendar {
+    width: 80%; /* 너비를 조정, 필요에 따라 변경 */
+    height: 400px; /* 높이를 조정, 필요에 따라 변경 */
+    margin: 0 auto; /* 중앙 정렬 */
+>>>>>>> f790f55448fb73cddd3beb1cffd1949eca793367
 }
 </style>
 </head>
-<body style="padding: 30px;">
+<body>
 	<!-- calendar 태그 -->
 	<div id='calendar-container'>
 		<div id='calendar'></div>
@@ -88,7 +109,6 @@ html, body {
 	</div>
 
 <script>
-// (function(){
 $(function(){
     // 현재 시간 값 넣기
     document.getElementById('cal_create_date').value = new Date().toISOString().slice(0, -1);
@@ -143,25 +163,25 @@ $(function(){
             right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
         },
         initialView: 'dayGridMonth',
-        navLinks: true,
+
+        navLinks: false,
         editable: true,
-        selectable: true,
-        nowIndicator: true,
-        dayMaxEvents: true,
+        selectable: false,
+        nowIndicator: false,
+        dayMaxEvents: false,
         locale: 'ko',
         
      // 특정 요일에 스타일 적용
         dayCellDidMount: function(arg) {
             var day = arg.date.getDay(); // 0: 일요일, 6: 토요일
             
-            if (day === 0) {
-                // 일요일 스타일: 빨간 글씨, 연한 빨강 배경
-                arg.el.style.backgroundColor = '#ffe6e6';  // 연한 빨강 배경색
-                arg.el.style.color = 'red';  // 빨간 글씨
-            } else if (day === 6) {
-                // 토요일 스타일: 연파랑 배경
-                arg.el.style.backgroundColor = '#e6f7ff';  // 연파랑 배경색
-            }
+//             if (day === 0) {
+//                 // 일요일 스타일: 빨간 글씨, 연한 빨강 배경
+//                 arg.el.style.backgroundColor = '#ffe6e6';  // 연한 빨강 배경색
+//             } else if (day === 6) {
+//                 // 토요일 스타일: 연파랑 배경
+//                 arg.el.style.backgroundColor = '#e6f7ff';  // 연파랑 배경색
+//             }
         },
         
         // 데이터 가져오는 이벤트
@@ -276,8 +296,29 @@ $(function(){
     // 캘린더 렌더링
     calendar.render();
 });
-// })();
 </script>
+
+<style>
+#stNav{
+	z-index:1;
+}
+.modal-content{
+	margin-top : 300px;
+}
+.event-container {
+  display: flex; /* Flexbox 사용 */
+  justify-content: space-between; /* 양쪽 끝으로 정렬 */
+  align-items: center; /* 수직 중앙 정렬 */
+}
+
+.delete-button {
+  font-size : smaller;
+  float : right; /* 제목과 버튼 사이의 간격 추가 */
+  border-radius : 5px;
+  transform: translateY(-1px); /* 버튼을 1px 위로 이동 */
+  
+}
+</style>
 
 	
 

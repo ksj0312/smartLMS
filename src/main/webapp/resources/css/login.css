@@ -1,0 +1,65 @@
+@charset "UTF-8";
+
+* {
+	font-family: "Noto Sans KR", sans-serif;
+}
+
+.form-control {
+	border: 1.5px solid #eee !important;
+	border-radius: 8px !important;
+	padding: 22px 12px !important;
+	color: #b8b8b8;
+	box-shadow: none !important;
+}
+
+.container {
+	margin-top: 90px;
+	width: 440px;
+	height: 700px;
+}
+
+.title {
+	text-align: center;
+	font-size: 24px;
+}
+
+.form-group, .join-btn {
+	margin: 25px 0;
+}
+
+.login-tit {
+	font-weight: 600;
+}
+
+#btn {
+	width: 100% !important;
+	font-weight: 700 !important;
+	background-color: #042424 !important;
+	color: #d2d2d2 !important;
+	border: none !important;
+	box-shadow: none !important;
+	border-radius: 4px;
+	padding: 12px 12px;
+}
+
+#btn:hover {
+	background-color: #f9f5f2 !important;
+	color: #042424 !important;
+}
+
+.join-btn {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.join-btn>a {
+	color: #e7b37e !important;
+	text-decoration: none;
+}
+
+.join-btn>.divider {
+	margin: 0 10px;
+	color: #e7b37e;
+}
+

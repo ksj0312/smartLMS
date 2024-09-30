@@ -13,6 +13,7 @@ import com.smart.lms.vo.BoardVO;
 import com.smart.lms.vo.CalendarVO;
 import com.smart.lms.vo.CommentVO;
 import com.smart.lms.vo.NoteVO;
+import com.smart.lms.vo.StudentVO;
 @Repository
 public class BoardDAO {
 	
@@ -146,4 +147,16 @@ public class BoardDAO {
 		return mybatis.selectList("boardDAO.getCommentList", b_number);
 		}
 
+	public void deleteComment(int co_number) {
+		mybatis.delete("boardDAO.deleteComment", co_number);
+	}
+
+	  public boolean checkUser(String n_reciver) {
+		    StudentVO student = mybatis.selectOne("boardDAO.checkUser", n_reciver);
+		    return student != null; // 유저가 존재하면 true, 없으면 false 반환
+		}
+
+	public int noteCount(String userId) {
+		return mybatis.selectOne("boardDAO.noteCount",userId);
+	}
 }

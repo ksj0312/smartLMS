@@ -9,30 +9,29 @@ import com.smart.lms.vo.CommentVO;
 import com.smart.lms.vo.NoteVO;
 
 public interface BoardService {
-	
-	void sendNoteTx(String n_sender, String n_reciver, String n_title, String n_info)throws Exception;
+
+	void sendNoteTx(String n_sender, String n_reciver, String n_title, String n_info) throws Exception;
 
 	List<NoteVO> receivNote();
 
 	NoteVO detailNote(String n_number);
 
-	void updateNoteTx(String n_number)throws Exception;
-
-	void deleteNoteTx(String n_number)throws Exception;
+	void updateNoteTx(String n_number) throws Exception;
+	
+	void deleteNoteTx(String n_number) throws Exception;
 
 	List<NoteVO> searchNote(String search);
 
 	List<NoteVO> getNotesWithPagination(int start, int size, String userId);
 
 	int getTotalNoteCount(String userId);
-	
+
 	int getTotalSearchNoteCount(String search, String userId);
 
 	List<NoteVO> getSearchNotesWithPagination(int start, int size, String search, String userId);
-	
-	
+
 //	boardService-------
-	
+
 	List<BoardVO> getBoardList(Pagination pg);
 
 	void insertBoardTx(BoardVO vo);
@@ -55,7 +54,17 @@ public interface BoardService {
 	
 	void deleteCalTx(int cal_number);
 	
+	//쪽지
+	boolean checkUser(String n_reciver);
+
+	int noteCount(String userId);
+
+	
+	//댓글
 	void insertCommentTx(CommentVO vo);
 
-	List<CommentVO> getCommentList(int b_number); 
+	List<CommentVO> getCommentList(int b_number);
+
+	void deleteCommentTx(int co_number);
+
 }

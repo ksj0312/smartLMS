@@ -17,12 +17,9 @@
 		<div class="modal-header">
 			        
 			<h4 class="modal-title" id="myModalLabel">강의 상세 정보</h4>
-			      
+			      <button type="button" class="btn" data-dismiss="modal">x</button>
 		</div>
 		<div class="modal-no"></div>
-		        
-		<!-- 	<form class="clInsert" action="classUpdate" method="POST">
-				<input type="hidden" name="_method" value="PUT"/> -->
 			      
 			<div class="modal-body">
 				<div id="update_pop_up">
@@ -124,9 +121,8 @@
 			</div>
 			      
 			<div class="modal-footer">
-				<!-- 		<button id="classUpdate" type="submit" class="btn btn-primary ">수정하기</button> -->
-						<button id="classUpdate" type="button" class="btn btn-primary classUpdate">수정하기</button>
-				<button type="button" class="btn" data-dismiss="modal" onclick="delimg()">취소</button>
+						<button id="classUpdate" type="button" class="classUpdate">수정하기</button>
+				<button type="button" class="btn xbtn" data-dismiss="modal">닫기</button>
 			</div>
 		    
 	</div>

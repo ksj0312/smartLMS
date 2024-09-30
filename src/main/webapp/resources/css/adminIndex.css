@@ -14,16 +14,17 @@ display:flex;
 .divall {
      padding: 20px;
      margin-top : 70px;
-     padding: 0 100px 0 300px;
+/*      padding: 0 100px 0 300px; */
  }
 
 * {box-sizing: border-box;}
+
 .idxbody {
 	width: 200px;
 	padding-left: 20px;
 	float: left;
 	display: flex;
-	background-color: #f9f5f2;
+	background-color: #fff;
 	color: #272727;
 	font-size: 15px;
 }
@@ -68,12 +69,12 @@ li {
 }
 .atag2{
 	text-decoration: none;
-	color: #272727;
-	font-size: large;
+    color: #042424 !important;
+    font-size: large;
+    font-weight: bolder !important;
 	
 }
 .atag2:hover {
-    color: #0056b3;
     text-decoration: none;
 }
 
@@ -92,8 +93,9 @@ li {
     height: 30px;
 }
 .menu{
-/* 	opacity:70%; */
-	color: #f9c25c;
+	color: #e7b37e;
+    font-size: large;
+    font-weight: bolder !important;
 }
 
 /*모달 관련 */
@@ -107,20 +109,8 @@ li {
 .modal-title {
     margin-left: 0px;
 }
-#myModal {
-   display: none;
-   z-index: 9999;
-   background-color: rgba(0, 0, 0, .3);
-   left: 0;
-   top: 0;
-   width: 100%;
-   height: 100%;
-   position: fixed;
-   top: 50%;
-   left: 50%;
-   transform: translate(-50%, -50%);
-}
-#myModal2 {
+
+#myModal ,#myModal2, #classInfo, #attInfo {
    display: none;
    z-index: 9999;
    background-color: rgba(0, 0, 0, .3);
@@ -134,32 +124,6 @@ li {
    transform: translate(-50%, -50%);
 }
 
-#classInfo {
-   display: none;
-   z-index: 9999;
-   background-color: rgba(0, 0, 0, .3);
-   left: 0;
-   top: 0;
-   width: 100%;
-   height: 100%;
-   position: fixed;
-   top: 50%;
-   left: 50%;
-   transform: translate(-50%, -50%);
-}
-#attInfo {
-   display: none;
-   z-index: 9999;
-   background-color: rgba(0, 0, 0, .3);
-   left: 0;
-   top: 0;
-   width: 100%;
-   height: 100%;
-   position: fixed;
-   top: 50%;
-   left: 50%;
-   transform: translate(-50%, -50%);
-}
 
 .modal-content {
    z-index: 9999;
@@ -184,6 +148,7 @@ li {
 .modal-body::-webkit-scrollbar {
    display: none;
 }
+
 
 
 

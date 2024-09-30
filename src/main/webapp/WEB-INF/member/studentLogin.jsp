@@ -7,7 +7,8 @@
 %>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/studentLogin.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/login.css">
+<script src="${pageContext.request.contextPath }/resources/js/findIdPwd.js"></script>
 
 <body>
 <div class="container">
@@ -29,7 +30,7 @@
             }
         %>
         
-        <form action="studentLogin" method="POST">
+        <form action="student" method="POST">
             <div class="content">
                 <div class="form-group">
                     <label for="id" class="login-tit">아이디&#42;</label>
@@ -41,12 +42,39 @@
                 </div>
                 <button type="submit" id="btn">로그인</button>
                 <small class="join-btn">
-                    <a href="findIdPw">아이디/비밀번호찾기</a>
-                    <span class="divider">|</span>
+                    <span class="divider"></span>
+                    <button type="button" class="btn pwdsearch" id="pwdclick"
+                                 data-toggle="modal" data-target="#pwdsearch" value="">아이디 찾기 | 비밀번호 찾기</button>
                 </small>
             </div>
     
         </form>
+
+		<div class="modal" id="pwdsearch" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop='static' aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel" style="margin:0 auto;">아이디 비밀번호 찾기</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="selection">
+                        <button class="btnfI" id="findIdBtn">아이디 찾기</button>
+                        <button class="btnfI" id="findPwdBtn">비밀번호 찾기</button>
+                    </div>
+                    <div id="formArea">
+                        <!-- 여기서 이메일 입력을 위한 폼이 추가될 예정입니다. -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn" data-dismiss="modal">취소</button>
+                </div>
+            </div>
+        </div>
     </div>
+</div>
+
+
+
 </body>
+
 </html>

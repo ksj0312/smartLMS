@@ -7,16 +7,25 @@
 </head>
 <body>
 
+
 <div class="divall">
 
 <div class="maindiv">
-<a href="/go">메일췤</a>
-<a href ="adminPage">관리자 페이지 이동</a>
-
 <%@ include file="WEB-INF/board/cal.jsp"%>  
 
+<a href="professors">교수 소개</a>
 </div>
 	</div>
+	
+	
 </body>
 
+	<style>
+		#calendar{
+			width : 30%;
+			heigth : 20%;
+			margin : 0 auto;
+			
+		}
+	</style>
 </html>
