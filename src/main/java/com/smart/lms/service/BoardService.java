@@ -46,10 +46,15 @@ public interface BoardService {
 
 	void insertCalTx(CalendarVO vo);
 
-	List<CalendarVO> getCalList(); //�빐�떦�븯�뒗 由ъ뒪�듃 �궡�뿭 諛섑솚
+	boolean checkUser(String n_reciver);
 	
-	public int getBoardListTotalCnt(Pagination pg);  //�빐�떦�븯�뒗 由ъ뒪�듃 珥앷갗�닔 諛섑솚
+	   
+	   List<CalendarVO> getCalList(); 
+	   
+	   public int getBoardListTotalCnt(Pagination pg);  
 
 	void deleteCal(CalendarVO vo);
 
+	
+	int noteCount(String userId);
 }

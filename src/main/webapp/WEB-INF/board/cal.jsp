@@ -31,7 +31,10 @@
 <style>
 /* body 스타일 */
 html, body {
+<<<<<<< HEAD
 /* 	overflow: hidden; */
+=======
+>>>>>>> 89ec8a7ee3bc37d1412ca6b5c12ddde749bec0ec
 	font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
 	font-size: 14px;
 }

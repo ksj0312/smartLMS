@@ -1,0 +1,10 @@
+.exbtn{
+/*     margin-left: 500px; */
+    font-size: large;
+    border: none;
+    color: #ececec !important;
+    background-color: #0d1d45;
+    padding: .375rem .75rem;
+    border-radius: 0;
+    text-decoration: none !important;
+}
