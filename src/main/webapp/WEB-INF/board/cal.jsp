@@ -40,8 +40,6 @@ html, body {
  	padding-top: 1em; 
  	padding-left: 1em; 
  	padding-right: 1em; 
-<<<<<<< HEAD
-=======
 }
 
 .fc-listWeek-button,
@@ -60,7 +58,6 @@ html, body {
     width: 80%; /* 너비를 조정, 필요에 따라 변경 */
     height: 400px; /* 높이를 조정, 필요에 따라 변경 */
     margin: 0 auto; /* 중앙 정렬 */
->>>>>>> f790f55448fb73cddd3beb1cffd1949eca793367
 }
 </style>
 </head>
@@ -163,7 +160,6 @@ $(function(){
             right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
         },
         initialView: 'dayGridMonth',
-
         navLinks: false,
         editable: true,
         selectable: false,
@@ -296,7 +292,7 @@ $(function(){
     // 캘린더 렌더링
     calendar.render();
 });
-</script>
+	</script>
 
 <style>
 #stNav{
@@ -319,8 +315,6 @@ $(function(){
   
 }
 </style>
-
-	
 
 </body>
 </html>

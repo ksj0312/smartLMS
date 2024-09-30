@@ -83,18 +83,18 @@
 	</select>
 	
 	
-	<!-- board mapping -->
-	<select id="getBoardList"
-		parameterType="com.smart.lms.util.Pagination" resultType="BoardDTO">
+<!-- board mapping	 -->
+	<select id="getBoardList" 
+	parameterType="com.smart.lms.util.Pagination" resultType="BoardDTO">
 		SELECT
-		ROW_NUMBER() OVER (ORDER BY B_NUMBER ASC ) AS B_ROWNUM, B.*
-		FROM BOARD B WHERE B_TYPE = #{b_type}
-		<if test="keyword != null || keyword != ' '">
+			ROW_NUMBER() OVER (ORDER BY B_NUMBER ASC ) AS B_ROWNUM, B.* 
+			FROM BOARD B WHERE B_TYPE = #{b_type}
+			<if test="keyword != null || keyword != ' '">
 			<if test="searchType == 'b_info'"> AND B_INFO like CONCAT('%', #{keyword}, '%') </if>
 			<if test="searchType == 'b_title'"> AND B_TITLE like CONCAT('%', #{keyword}, '%') </if>
 			ORDER BY B_NUMBER DESC
-			LIMIT #{sizePerPage} OFFSET #{startList}
-		</if>
+			LIMIT #{sizePerPage} OFFSET #{startList}  
+			</if>
 	</select>
 
 	<select id="getBoardListTotalCnt"
@@ -110,7 +110,8 @@
 		INSERT INTO BOARD(B_TARGET, B_TITLE, B_INFO,
 		B_WRITER, B_TYPE, B_file1)
 		VALUES(#{b_target}, #{b_title}, #{b_info},
-		#{b_writer}, #{b_type}, #{b_file1})
+		#{b_writer}, #{b_type},
+		#{b_file1})
 	</insert>
 
 	<select id="getBoard" resultType="BoardDTO">
@@ -123,18 +124,13 @@
 	</delete>
 
 	<update id="updateBoard">
-		UPDATE BOARD SET B_TITLE = #{b_title}, B_INFO = #{b_info},
-		B_FILE1 = #{b_file1} WHERE B_NUMBER = #{b_number}
-	</update>
-
-	<update id="boardView">
-		UPDATE BOARD SET B_VIEW = B_VIEW + 1 WHERE B_NUMBER =
+		UPDATE BOARD SET B_TITLE = #{b_title}, B_INFO =
+		#{b_info} WHERE B_NUMBER =
 		#{b_number}
 	</update>
 
-
-
-	<!-- calendar mapping -->
+	<update id="boardView"> UPDATE BOARD SET B_VIEW = B_VIEW + 1 WHERE B_NUMBER
+		= #{b_number} </update>
 
 	<select id="getCalList" resultType="calDTO">
 		SELECT * FROM Calendar
@@ -150,24 +146,11 @@
 		VALUES(#{cal_date},
 		#{cal_title}, #{cal_writer}, #{cal_edate}, #{cal_create_date})
 	</insert>
-
+	
 	<delete id="deleteCal">
-		DELETE FROM CALENDAR WHERE CAL_NUMBER = #{cal_number}
-	</delete>
+      DELETE FROM CALENDAR WHERE CAL_NUMBER = #{cal_number} 
+   </delete>
 
-
-
-	<!-- comment mapping -->
-
-	<insert id="insertComment">
-		INSERT INTO COMMENT(B_NUMBER, ID, CO_INFO)
-		VALUES(#{b_number}, #{id}, #{co_info})
-	</insert>
-
-	<select id="getCommentList" resultType="commentDTO">
-		SELECT * FROM COMMENT
-		WHERE B_NUMBER = #{b_number}
-	</select>
 
 	<!-- comment mapping -->
 	<insert id="insertComment"> INSERT INTO COMMENT(B_NUMBER, ID, CO_INFO)

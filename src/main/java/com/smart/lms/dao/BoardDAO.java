@@ -128,12 +128,13 @@ public class BoardDAO {
 
 	public List<CalendarVO> getCalList() {
 		return mybatis.selectList("boardDAO.getCalList");
-		}
+
+	}
 	
 	public int getBoardListTotalCnt(Pagination pg) {
 		return mybatis.selectOne("boardDAO.getBoardListTotalCnt", pg);
 		
-		}
+	}
 	
 	public void deleteCal(int cal_number) {
 	    mybatis.delete("boardDAO.deleteCal", cal_number);
@@ -159,4 +160,6 @@ public class BoardDAO {
 	public int noteCount(String userId) {
 		return mybatis.selectOne("boardDAO.noteCount",userId);
 	}
+	
+
 }

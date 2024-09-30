@@ -105,8 +105,6 @@ public class BoardServiceImpl implements BoardService {
 	public void boardViewTx(int b_number) {
 		boDAO.boardView(b_number);
 	}
-<<<<<<< HEAD
-=======
 
 	@Override
 	public boolean checkUser(String n_reciver) {
@@ -119,7 +117,6 @@ public class BoardServiceImpl implements BoardService {
 		return boDAO.noteCount(userId);
 	}
 
->>>>>>> f790f55448fb73cddd3beb1cffd1949eca793367
 	
 	@Override
 	public CalendarVO getCal(CalendarVO vo) {
@@ -136,25 +133,6 @@ public class BoardServiceImpl implements BoardService {
 		return boDAO.getBoardListTotalCnt(pg);
 	}
 	
-<<<<<<< HEAD
-	@Override
-	public void deleteCalTx(int cal_number) {
-		boDAO.deleteCal(cal_number);
-	}
-	
-	
-	@Override
-	public void insertCommentTx(CommentVO vo) {
-		boDAO.insertComment(vo);
-	}
-	
-	@Override
-	public List<CommentVO> getCommentList(int b_number) {
-		return boDAO.getCommentList(b_number);
-	}
-	
-	
-=======
 //	@Override
 //	public void deleteCal(CalendarVO vo) {
 //		boDAO.deleteCal(vo);
@@ -186,5 +164,4 @@ public class BoardServiceImpl implements BoardService {
 		public void deleteCommentTx(int co_number) {
 			boDAO.deleteComment(co_number);
 		}
->>>>>>> f790f55448fb73cddd3beb1cffd1949eca793367
 }

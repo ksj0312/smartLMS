@@ -18,6 +18,8 @@ public interface BoardService {
 
 	void updateNoteTx(String n_number) throws Exception;
 	
+	void boardViewTx(int b_number);
+
 	void deleteNoteTx(String n_number) throws Exception;
 
 	List<NoteVO> searchNote(String search);
@@ -39,19 +41,17 @@ public interface BoardService {
 	BoardVO getBoard(int b_number);
 
 	void deleteBoardTx(int b_number);
-	
+
 	void updateBoardTx(BoardVO vo);
-	
-	void boardViewTx(int b_number);
 
 	CalendarVO getCal(CalendarVO vo);
 
 	void insertCalTx(CalendarVO vo);
-
+	
 	List<CalendarVO> getCalList(); 
 	
-	public int getBoardListTotalCnt(Pagination pg); 
-	
+	public int getBoardListTotalCnt(Pagination pg);  
+
 	void deleteCalTx(int cal_number);
 	
 	//쪽지

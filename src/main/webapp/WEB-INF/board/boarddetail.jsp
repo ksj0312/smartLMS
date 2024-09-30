@@ -85,18 +85,11 @@
 			
 			<tbody>
 					<c:forEach items="${commentList}" var="comment">
-<<<<<<< HEAD
-						<td class="tdCenter">${comment.b_number}</td>
-						<td>${comment.id}</td>
-						<td class="tdCenter">${comment.co_info}</td>
-						<td><button onclick="board_del(${comment.co_number})">삭제</button></td>
-=======
 				<tr>
 						<td class="tdCenter">${comment.co_number}</td>
 						<td>${comment.id}</td>
 						<td class="tdCenter">${comment.co_info}</td>
 						<td><button onclick="board_delComment(${comment.co_number})">삭제</button></td>
->>>>>>> f790f55448fb73cddd3beb1cffd1949eca793367
 					</tr>
 				</c:forEach>
 						

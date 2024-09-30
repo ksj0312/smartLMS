@@ -3,11 +3,6 @@ package com.smart.lms.vo;
 import java.sql.Timestamp;
 
 public class CalendarVO {
-<<<<<<< HEAD
-	
-	private String cal_color;
-=======
->>>>>>> f790f55448fb73cddd3beb1cffd1949eca793367
 	private int cal_number;
 	private Timestamp cal_date;
 	private String cal_title;
@@ -20,15 +15,12 @@ public class CalendarVO {
 	
 	
 	
-<<<<<<< HEAD
-=======
 	public int getCal_number() {
 		return cal_number;
 	}
 	public void setCal_number(int cal_number) {
 		this.cal_number = cal_number;
 	}
->>>>>>> f790f55448fb73cddd3beb1cffd1949eca793367
 	public Timestamp getCal_edate() {
 		return cal_edate;
 	}
@@ -71,38 +63,15 @@ public class CalendarVO {
 	public void setCal_writer(String cal_writer) {
 		this.cal_writer = cal_writer;
 	}
-	public int getCal_number() {
-		return cal_number;
-	}
-	public void setCal_number(int cal_number) {
-		this.cal_number = cal_number;
-	}
-	public String getCal_color() {
-		return cal_color;
-	}
-	public void setCal_color(String cal_color) {
-		this.cal_color = cal_color;
-	}
 	@Override
 	public String toString() {
-<<<<<<< HEAD
-		return "CalendarVO [cal_color=" + cal_color + ", cal_number=" + cal_number + ", cal_date=" + cal_date
-				+ ", cal_title=" + cal_title + ", cal_info=" + cal_info + ", cal_create_date=" + cal_create_date
-				+ ", cal_modify_date=" + cal_modify_date + ", cal_writer=" + cal_writer + ", cal_edate=" + cal_edate
-				+ "]";
-=======
 		return "CalendarVO [cal_number=" + cal_number + ", cal_date=" + cal_date + ", cal_title=" + cal_title
 				+ ", cal_info=" + cal_info + ", cal_create_date=" + cal_create_date + ", cal_modify_date="
 				+ cal_modify_date + ", cal_writer=" + cal_writer + ", cal_edate=" + cal_edate + "]";
->>>>>>> f790f55448fb73cddd3beb1cffd1949eca793367
 	}
 	
 	
 	
 	
-<<<<<<< HEAD
-	
-=======
->>>>>>> f790f55448fb73cddd3beb1cffd1949eca793367
 
 }

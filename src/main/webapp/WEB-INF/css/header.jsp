@@ -36,7 +36,6 @@ var userId = '<%= userId %>';
 
 <nav id="stNav" class="navbar navbar-expand-sm justify-content-center">
 
-
      <ul class="navbar-nav navlogo">
       <li class="nav-item"><a href="/"><img class="nvlog" id="nvlog" src="/resources/img/logo1.png" alt="smartlms" title="smartlms" style="height: 60px; padding-left:120px;"></a></li>
    </ul>

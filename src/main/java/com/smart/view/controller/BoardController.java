@@ -421,61 +421,23 @@ public class BoardController {
 //  ---------board 컨트롤러
 
 //게시판 목록
-  	@GetMapping("/getBoardList")
-    public String getBoardList(@ModelAttribute Pagination pg, Model model, HttpSession session, @RequestParam(value = "b_type", defaultValue = "") String b_type) {
-       
-       int currPageNo = pg.getCurrPageNo();
-       int range = pg.getRange();
-       pg.setB_type(b_type);
-       
-       int totalCnt = boardService.getBoardListTotalCnt(pg);
+   @GetMapping("/getBoardList")
+   public String getBoardList(@ModelAttribute Pagination pg, Model model, HttpSession session, @RequestParam(value = "b_type", defaultValue = "") String b_type) {
+      
+      int currPageNo = pg.getCurrPageNo();
+      int range = pg.getRange();
+      pg.setB_type(b_type);
+      
+      int totalCnt = boardService.getBoardListTotalCnt(pg);
 
-       pg.pageInfo(currPageNo, range, totalCnt);
-       List<BoardVO> boardList = boardService.getBoardList(pg);
+      pg.pageInfo(currPageNo, range, totalCnt);
+      List<BoardVO> boardList = boardService.getBoardList(pg);
 
-       model.addAttribute("pagination", pg);
-       model.addAttribute("getBoardList", boardService.getBoardListTotalCnt(pg));
-       model.addAttribute("boardList", boardList);
-       return "/board/board";
-    }
-  	
-  	 //목록 누를시 상세 내용으로 이동
-    @GetMapping("/getBoard")
-    public String getBoard(BoardVO vo, Model model) {
-       BoardVO board = boardService.getBoard(vo.getB_number());
-       
-     //조회수 1씩 증가 로직
- 		boardService.boardViewTx(vo.getB_number());
- 		
- 		//댓글 조회
- 		List<CommentVO> commentList = boardService.getCommentList(vo.getB_number());
- 		model.addAttribute("board", board);
- 		model.addAttribute("commentList", commentList);
-       return "/board/boarddetail";
-    }
-  	
-  	
-  	 //선택 목록 삭제
-    @DeleteMapping("/deleteBoard")
-    public String deleteBoard(@RequestParam ("b_number") int b_number) throws UnsupportedEncodingException,  Exception {
-       BoardVO board = boardService.getBoard(b_number);
-        
-        // 삭제할 게시물이 존재하지 않으면 예외 처리
-        if (board == null) {
-            throw new IllegalArgumentException("해당 게시글이 존재하지 않습니다.");
-        }
-
-        // 게시물 삭제
-        boardService.deleteBoardTx(b_number);
-        
-        // 로그 출력
-        System.out.println("게시글 번호: " + b_number);
-        System.out.println("게시글 내용: " + board);
-        System.out.println("게시글이 삭제되었습니다.");
-        
-        // 삭제 후 목록으로 리디렉션
-        return "redirect:/getBoardList?b_type=" + URLEncoder.encode(board.getB_type(), StandardCharsets.UTF_8.toString());
-    }
+      model.addAttribute("pagination", pg);
+      model.addAttribute("getBoardList", boardService.getBoardListTotalCnt(pg));
+      model.addAttribute("boardList", boardList);
+      return "/board/board";
+   }
    
  //관리자 게시판 관리 목록
    @GetMapping("/getBoardListAdmin")
@@ -546,33 +508,6 @@ public class BoardController {
       
    }
    
- //선택 목록 수정
- 	@PostMapping("/updateBoard")
- 	public String updateBoard(@ModelAttribute BoardVO vo)  throws Exception {
- 		 // 파일 처리 로직
- 	    MultipartFile file = vo.getUploadFile();
- 	    if (file != null && !file.isEmpty()) {
- 	        // 파일 저장 경로 설정
- 	        String uploadPath = "c:/smart/smartlms/src/main/webapp/resources/upfile/"; // 저장할 경로 설정
- 	        String fileName = file.getOriginalFilename();
- 	        
- 	        // 파일을 해당 경로에 저장
- 	        File dest = new File(uploadPath + fileName);
- 	        file.transferTo(dest);
- 	        
- 	        // BoardVO에 파일 경로 설정
- 	        vo.setB_file1(uploadPath + fileName); // 파일 경로를 BoardVO의 b_file1에 설정
-
- 	        System.out.println("파일 저장 성공: " + fileName);
- 	    } else {
- 	        System.out.println("파일이 업로드되지 않았습니다.");
- 	    }
- 	    System.out.println(vo);
- 		
- 		boardService.updateBoardTx(vo);
- 		return "redirect:/getBoard?b_number=" + vo.getB_number();
- 	}
-   
    
    //파일 다운로드 로직
    @GetMapping("/downloadFile")
@@ -603,85 +538,112 @@ public class BoardController {
        response.sendError(HttpServletResponse.SC_NOT_FOUND, "파일을 찾을 수 없습니다.");
    }
 }
-   
-   
-   
-   
-   
-//   학사일정 로직-------------------------
 
-   @DeleteMapping("/deleteCal")
- 	@ResponseBody
- 	public String deleteCal( int cal_number) throws UnsupportedEncodingException,  Exception {
- 		System.out.println("cal_number " + cal_number);
- 	    // 일정 삭제
- 	    boardService.deleteCalTx(cal_number);
- 	    // 삭제 후 목록으로 리디렉션
- 	    return "redirect:/getCal";	
- 	}
-  	
-  	//수정 누를 시 수정페이지로 이동
-  	@GetMapping("/updatePage")
-  	public String updatePage(BoardVO vo, Model model) {
-  		BoardVO board = boardService.getBoard(vo.getB_number());
-  		model.addAttribute("board", board);
-  		System.out.println(board);
-  		return "/board/updateboard";
-  	}
-  	
-
-  	
-  	//학사 일정 페이지 이동
-  	@GetMapping("/calPage")
-  	public String calPage() {
-  		return "/board/cal";
-  	}
-  	
-  	
-  	//학사 일정 목록
-  	 @GetMapping("/getCalList")
-  	 @ResponseBody
-  	    public List<CalendarVO> getCalList() {
-  	        List<CalendarVO> calList = boardService.getCalList();
-//  	        System.out.println(calList);
-  	        return calList; 
-  	 }
-  	
-  	
-  	
-  	//학사 일정 상세 목록 가져오기
-  	@GetMapping("/getCal")
-  	public String getCal(CalendarVO vo, Model model) {
-  		CalendarVO cal = boardService.getCal(vo);
-  		model.addAttribute("cal", cal);
-  		return "/board/cal";
-  	}
-  	
-  	
-  	//학사 일정 등록
-  	@PostMapping(value = "/insertCal")
-  	public String insertCal(@RequestBody List<CalendarVO> voList) throws IllegalStateException, IOException , Exception{
-  	    // 배열로 받은 각 CalendarVO 객체를 처리
-  	    for (CalendarVO vo : voList) {
-  	        boardService.insertCalTx(vo);
-  	    }
-  	    return "redirect:/getCal";
+  	@DeleteMapping("/deleteCal")
+  	@ResponseBody
+  	public String deleteCal( int cal_number) throws UnsupportedEncodingException,  Exception {
+  		System.out.println("cal_number " + cal_number);
+  	    // 일정 삭제
+  	    boardService.deleteCalTx(cal_number);
+  	    // 삭제 후 목록으로 리디렉션
+  	    return "redirect:/getCal";	
   	}
 	
-  	//댓글 조회
-  	@GetMapping("/getCommentList")
-  	public List<CommentVO> getComList(int b_number){
-  		List<CommentVO> commentList = boardService.getCommentList(b_number);
-  		System.out.println("comList : " + commentList);
-  		return commentList;
-  	}
-  	
+   //목록 누를시 상세 내용으로 이동
+   @GetMapping("/getBoard")
+   public String getBoard(BoardVO vo, Model model) {
+      BoardVO board = boardService.getBoard(vo.getB_number());
+      
+    //조회수 1씩 증가 로직
+		boardService.boardViewTx(vo.getB_number());
+		
+		//댓글 조회
+		List<CommentVO> commentList = boardService.getCommentList(vo.getB_number());
+		model.addAttribute("board", board);
+		model.addAttribute("commentList", commentList);
+      return "/board/boarddetail";
+   }
    
+   
+   //선택 목록 삭제
+   @DeleteMapping("/deleteBoard")
+   public String deleteBoard(@RequestParam ("b_number") int b_number) throws UnsupportedEncodingException,  Exception {
+      BoardVO board = boardService.getBoard(b_number);
+       
+       // 삭제할 게시물이 존재하지 않으면 예외 처리
+       if (board == null) {
+           throw new IllegalArgumentException("해당 게시글이 존재하지 않습니다.");
+       }
+
+       // 게시물 삭제
+       boardService.deleteBoardTx(b_number);
+       
+       // 로그 출력
+       System.out.println("게시글 번호: " + b_number);
+       System.out.println("게시글 내용: " + board);
+       System.out.println("게시글이 삭제되었습니다.");
+       
+       // 삭제 후 목록으로 리디렉션
+       return "redirect:/getBoardList?b_type=" + URLEncoder.encode(board.getB_type(), StandardCharsets.UTF_8.toString());
+   }
+   
+   //수정 누를 시 수정페이지로 이동
+   @GetMapping("/updatePage")
+   public String updatePage(BoardVO vo, Model model) {
+      BoardVO board = boardService.getBoard(vo.getB_number());
+      model.addAttribute("board", board);
+      return "/board/updateboard";
+   }
+   
+
+   //선택 목록 수정
+   @PostMapping("/updateBoard")
+   public String updateBoard(@ModelAttribute BoardVO vo)  throws Exception {
+      boardService.updateBoardTx(vo);
+      return "redirect:/getBoard?b_number=" + vo.getB_number();
+   }
+   
+   
+   
+   //학사 일정 페이지 이동
+   @GetMapping("/calPage")
+   public String calPage() {
+      return "/board/cal";
+   }
    
    //학사 일정 페이지 이동
    @GetMapping("/calAdmin")
    public String calAdmin() {
 	   return "/board/calAdmin";
+   }
+   
+   
+   //학사 일정 목록
+    @GetMapping("/getCalList")
+    @ResponseBody
+       public List<CalendarVO> getCalList() {
+           List<CalendarVO> calList = boardService.getCalList();
+           return calList; 
+    }
+   
+   
+   
+   //학사 일정 상세 목록 가져오기
+   @GetMapping("/getCal")
+   public String getCal(CalendarVO vo, Model model) {
+      CalendarVO cal = boardService.getCal(vo);
+      model.addAttribute("cal", cal);
+      return "/board/cal";
+   }
+   
+   //학사 일정 등록
+   @PostMapping(value = "/insertCal")
+   public String insertCal(@RequestBody List<CalendarVO> voList) throws IllegalStateException, IOException , Exception{
+       // 배열로 받은 각 CalendarVO 객체를 처리
+       for (CalendarVO vo : voList) {
+           boardService.insertCalTx(vo);
+       }
+       return "redirect:/getCal";
    }
    
    
@@ -699,5 +661,7 @@ public class BoardController {
 	   boardService.deleteCommentTx(co_number);
 	   return "redirect:/getBoard?b_number=" + b_number;
    }
+   
+   
    
 }

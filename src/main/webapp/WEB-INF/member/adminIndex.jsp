@@ -36,17 +36,12 @@
 	<li><a href="uploadPageStu" class = "atag">- 학생용 엑셀 업로드</a></li>
 	<li><a href="uploadPagePro" class = "atag">- 교수용 엑셀 업로드</a></li>
 	<li class="menu">게시판 관리></li>
-<<<<<<< HEAD
-	<li><a href="insertPage?b_type=게시판" class = "atag">- 공지 관리</a></li>
-	<li><a href="insertPage?b_type=QNA" class = "atag">- FAQ 관리</a></li>
-=======
 	<li><a href="getBoardListAdmin?b_type=게시판" class = "atag">- 공지 관리</a></li>
 	<li><a href="getBoardListAdmin?b_type=QNA" class = "atag">- FAQ 관리</a></li>
 	<li><a href="calAdmin" class = "atag">- 학사일정 관리</a></li>
 	<li><a href="" class = "atag">- 공지 등록</a></li>
 	<li><a href="" class = "atag">- 공지 관리</a></li>
 	<li><a href="" class = "atag">- Q&A 관리</a></li>
->>>>>>> f790f55448fb73cddd3beb1cffd1949eca793367
 	<li><a href="" class = "atag">- 학사일정 관리</a></li>
 	<li class="menu">강의 및 수강생 관리></li>
 	<li><a href="classInsertPage" class = "atag">- 강의 등록</a></li>

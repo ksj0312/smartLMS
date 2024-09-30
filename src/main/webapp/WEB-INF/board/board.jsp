@@ -24,12 +24,7 @@
 				<tr>
 					<th>번호</th>
 					<th>제목</th>
-<<<<<<< HEAD
-					<th>내용</th>
-					<th>작성자</th>
-=======
 <!-- 					<th>내용</th> -->
->>>>>>> f790f55448fb73cddd3beb1cffd1949eca793367
 					<th>조회수</th>
 				</tr>
 			</thead>
