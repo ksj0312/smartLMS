@@ -45,14 +45,14 @@ public interface BoardService {
 	CalendarVO getCal(CalendarVO vo);
 
 	void insertCalTx(CalendarVO vo);
+	
+	List<CalendarVO> getCalList(); 
+	
+	public int getBoardListTotalCnt(Pagination pg);  
 
+	
+	//쪽지
 	boolean checkUser(String n_reciver);
-	
-	   
-	   List<CalendarVO> getCalList(); 
-	   
-	   public int getBoardListTotalCnt(Pagination pg);  
 
-	
 	int noteCount(String userId);
 }

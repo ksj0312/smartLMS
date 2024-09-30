@@ -31,6 +31,7 @@ import com.smart.lms.vo.ClassVO;
 import com.smart.lms.vo.GradeVO;
 import com.smart.lms.vo.ProfessorVO;
 import com.smart.lms.vo.StudentVO;
+import com.smart.lms.vo.TestVO;
 import com.smart.lms.vo.TodateVO;
 
 @Controller
@@ -295,6 +296,19 @@ public class EduinfoController {
 			return "eduinfo/testInsert";
 		}
 		
+		//시험 정보 INSERT
+		@PostMapping("/testInsert")
+		public String testInsertTx(@ModelAttribute TestVO vo, HttpServletRequest request, RedirectAttributes redirectAttributes,HttpSession session) throws Exception {
+			vo.setId((String) session.getAttribute("userId"));	
+			int cnt = eduinfoService.testInsertTx(vo);
+				if(cnt > 0) {
+					redirectAttributes.addFlashAttribute("msg", "success");
+					return "redirect:testclassList";
+				}else {
+					redirectAttributes.addFlashAttribute("msg", "fail");
+					return "redirect:testclassList";
+				}
+		}
 		
 		//성적 등록 -> classList 받아오기
 		@GetMapping("/gradeclassList")
@@ -305,6 +319,16 @@ public class EduinfoController {
 			model.addAttribute("classList" , cList );
 			model.addAttribute("classListcnt", cList.size());
 			return "eduinfo/gclassList";
+		}
+		
+		//성적 등록 -> 시험 목록 선택 페이지
+		@GetMapping("/testSelect")
+		public String testSelect(Model model, @ModelAttribute TestVO vo) {
+			List<TestVO> tList = new ArrayList<TestVO>();
+			tList = eduinfoService.testSelect(vo);
+			model.addAttribute("tList", tList);
+			model.addAttribute("testListcnt", tList.size());
+			return "eduinfo/testList";
 		}
 		
 		//성적 등록 -> 시험 목록 선택 페이지 -> 성적 등록(수강생 목록 불러옴)
@@ -369,6 +393,16 @@ public class EduinfoController {
 			model.addAttribute("classList" , cList );
 			model.addAttribute("classListcnt", cList.size());
 			return "eduinfo/gclassList2";
+		}
+		
+		//성적 조회/수정 -> 시험 목록 선택 페이지
+		@GetMapping("/gradeUpdatePage")
+		public String testSelectUpdate(Model model, @ModelAttribute TestVO vo) {
+			List<TestVO> tList = new ArrayList<TestVO>();
+			tList = eduinfoService.testSelectUp(vo);
+			model.addAttribute("tList", tList);
+			model.addAttribute("testListcnt", tList.size());
+			return "eduinfo/gradeUpdatePage";
 		}
 		
 		//교수 성적 조회/수정 (수강생 목록 불러옴)

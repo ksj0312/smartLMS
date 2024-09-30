@@ -390,6 +390,32 @@ public class BoardController {
         }
     }
     
+    //교수 리스트 받아오기
+    @GetMapping("/professors")
+    public String professorsInfo(@ModelAttribute Pagination pg, Model model) {
+    	int currPageNo = pg.getCurrPageNo();
+  		int range = pg.getRange();
+
+ 		int totalCnt = eduinfoService.proAllCnt(pg);
+
+  		pg.pageInfo(currPageNo, range, totalCnt);
+
+  		model.addAttribute("pagination", pg);
+  		model.addAttribute("proList2", eduinfoService.proList(pg));
+    	return "/board/professorsInfo";
+    }
+  	
+  	//관리자 해당 교수 정보 불러오기 
+  	@GetMapping("/professor")
+  	public ResponseEntity<ProfessorVO> professorInfo(String id) {
+  		
+  		ProfessorVO vo = eduinfoService.proInfo(id);
+  		if (vo != null) {
+  			return new ResponseEntity<>(vo, HttpStatus.OK);
+  		} else {
+  			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+  		}
+  	}
     
 //  ---------board 컨트롤러
 
@@ -419,6 +445,7 @@ public class BoardController {
        return "/board/insertboard";
    }
    
+   //상대경로로 수정하기 
    //게시글 등록 후 목록 페이지 이동
    @PostMapping(value = "/insertBoard")
    public String insertBoard(@ModelAttribute BoardVO vo) throws IllegalStateException, IOException, Exception {
@@ -562,7 +589,6 @@ public class BoardController {
       model.addAttribute("cal", cal);
       return "/board/cal";
    }
-   
    
    //학사 일정 등록
    @PostMapping(value = "/insertCal")

@@ -42,7 +42,7 @@ html, body {
 }
 </style>
 </head>
-<body style="padding: 30px;">
+<body>
 	<!-- calendar 태그 -->
 	<div id='calendar-container'>
 		<div id='calendar'></div>

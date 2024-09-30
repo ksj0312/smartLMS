@@ -7,35 +7,11 @@ function professor(id) {
        contentType: "application/json",
        success: function(response) { 
        
-             let date = new Date(response.indate); 
-					
-			 let inDate = date.getFullYear() + '-' +
-				('0' + (date.getMonth() + 1)).slice(-2) + '-' +
-				('0' + date.getDate()).slice(-2);
-				
-			if(response.outdate != null){
-			   let date2 = new Date(response.outdate); 
-					
-				 let outDate = date2.getFullYear() + '-' +
-				('0' + (date.getMonth() + 1)).slice(-2) + '-' +
-				('0' + date.getDate()).slice(-2); 
-				
-				 $("#outdate").val(outDate);
-			}
-				
-              $("#id").val(response.id);
               $("#proname").val(response.name);
               $("#gender").val(response.gender);
               $("#birth").val(response.birth);
-              $("#tel").val(response.tel);
-              $("#zipcode").val(response.zipcode);
-              $("#addr").val(response.addr);
-              $("#detail_addr").val(response.detail_addr);
               $("#email").val(response.email);
               $("#lesson").val(response.lesson);
-              $("#indate").val(inDate);
-              $("#status").val(response.status);
-              $("#type").val(response.type);
        },
        error: function(xhr, status, error) { 
        }

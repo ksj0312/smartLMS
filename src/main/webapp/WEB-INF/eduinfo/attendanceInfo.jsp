@@ -41,6 +41,7 @@
                                 </tr>
                         </table>
 			<div class="modal-footer">
+				<button type="button" class="btn xbtn" data-dismiss="modal">닫기</button>
 			</div>
 		    
 	</div>

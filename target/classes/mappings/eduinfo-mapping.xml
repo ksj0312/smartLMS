@@ -97,7 +97,7 @@
 	</select>
 	
 	<select id="proList" parameterType="com.smart.lms.util.Pagination" resultType="professorDTO">
-		SELECT * FROM PROFESSOR WHERE 1=1
+		SELECT * FROM PROFESSOR WHERE TYPE = '교수'
 		<if test="keyword != null and keyword != ''">
 			<if test="searchType == 'id'"> AND ID like CONCAT('%', #{keyword}, '%') </if>
 			<if test="searchType == 'name'"> AND NAME like CONCAT('%', #{keyword}, '%') </if>
@@ -107,7 +107,7 @@
 	</select>
 	
 	<select id="proAllCnt" parameterType="com.smart.lms.util.Pagination" resultType="integer">
-		SELECT COUNT(*) FROM PROFESSOR WHERE 1=1
+		SELECT COUNT(*) FROM PROFESSOR WHERE TYPE = '교수'
 		<if test="keyword != null and keyword != ''">
 			<if test="searchType == 'id'"> AND ID like CONCAT('%', #{keyword}, '%')</if>
 			<if test="searchType == 'name'"> AND NAME like CONCAT('%', #{keyword}, '%')</if>
