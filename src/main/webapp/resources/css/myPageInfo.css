@@ -1,0 +1,112 @@
+.tab {
+    display: none; /* 기본적으로 모든 탭 콘텐츠를 숨김 */
+}
+.tab.active {
+    display: block; /* 활성화된 탭 콘텐츠만 표시 */
+}
+
+#mypage_con {
+    margin: 20px auto;
+    padding: 20px;
+    max-width: 800px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.mypage_title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.mycon_title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+.myinfo_con_box {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.myinfo_box {
+    margin-bottom: 20px;
+}
+
+.info_box_title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+input[type="text"], input[type="password"] {
+    width: calc(100% - 10px);
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: #333;
+}
+
+input[type="text"][readonly], input[type="password"][readonly] {
+    background-color: #f0f0f0;
+    color: #999;
+}
+
+.myPageInfoBtn {
+    background-color: #042424;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.mypageInfoBtn:hover {
+	background-color: #fff;
+	color: #042424;
+	border-color: #042424 !important;
+	border: thin;
+}
+
+.addr-group {
+    margin-top: 10px;
+}
+
+.detail-addr {
+    margin-top: 5px;
+}
+
+#findpost, #updatePost, #mailCheck, #updateMail {
+    margin-top: 10px;
+}
+
+
+.info_name_input.status {
+    color: #ff5722;
+    font-weight: bold;
+}
+
+.identify {
+    color: red;
+    font-size: 12px;
+}
+
+#timer2, #timer3, #timer4 {
+    font-size: 12px;
+    color: #333;
+}
+
+#findpost {
+	margin-bottom: 5px;
+	margin-top: 0px;
+}

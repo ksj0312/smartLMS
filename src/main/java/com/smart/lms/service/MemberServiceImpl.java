@@ -43,8 +43,13 @@ public class MemberServiceImpl implements MemberService {
 		 StudentVO svo = memDAO.getStudent(vo);
 
 	      if (svo != null) {
+<<<<<<< HEAD
 	         boolean isMatch = passwordEncoder.matches(vo.getPwd(), svo.getPwd());
 	    	//  boolean isMatch = vo.getPwd().equals(svo.getPwd());
+=======
+//	         boolean isMatch = passwordEncoder.matches(vo.getPwd(), svo.getPwd());
+	    	  boolean isMatch = vo.getPwd().equals(svo.getPwd());
+>>>>>>> 1e4ea41f4c4b9fddf8a232cc2c07f9b807933856
 	         if (isMatch) {
 	            return svo;
 	         }
@@ -63,8 +68,13 @@ public class MemberServiceImpl implements MemberService {
 		ProfessorVO pvo = memDAO.getAdmin(vo);
 		
 	      if (pvo != null) {
+<<<<<<< HEAD
 //	    	    boolean isMatch = vo.getPwd().equals(pvo.getPwd());
 	         boolean isMatch = passwordEncoder.matches(vo.getPwd(), pvo.getPwd());
+=======
+	    	  boolean isMatch = vo.getPwd().equals(vo.getPwd());
+//	         boolean isMatch = passwordEncoder.matches(vo.getPwd(), pvo.getPwd());
+>>>>>>> 1e4ea41f4c4b9fddf8a232cc2c07f9b807933856
 	         if(isMatch){
 	            return pvo;
 	         }
@@ -127,13 +137,30 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public void updateTel(String tel, String pasttel) {
+	public void updateTelTx(String tel, String pasttel) {
 		memDAO.updateTel(tel,pasttel);
 	}
 
 	@Override
 	public boolean changePwd(StudentVO vo) {
 		 StudentVO svo = memDAO.getStudent(vo);
+		 boolean isMatch;
+		 System.out.println("svo이다" + svo);
+	    if (svo != null) {
+//	          isMatch = passwordEncoder.matches(vo.getPwd(), svo.getPwd());
+	    	isMatch = vo.getPwd().equals(svo.getPwd());
+	         if (isMatch) {
+	            return isMatch;
+	         }
+	         return isMatch;
+	      }
+//		System.out.println(memDAO.changePwd(pwd, userId));
+		return false;
+	}
+	
+	@Override
+	public boolean changeAdminPwd(ProfessorVO vo) {
+		ProfessorVO svo = memDAO.getAdmin(vo);
 		 boolean isMatch;
 	    if (svo != null) {
 //	          isMatch = passwordEncoder.matches(vo.getPwd(), svo.getPwd());
@@ -148,7 +175,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public void changeNewPwd(StudentVO vo) {
+	public void changeNewPwdTx(StudentVO vo) {
 			String encryptedPassword = passwordEncoder.encode(vo.getPwd()); 
 			vo.setPwd(encryptedPassword);
 			System.out.println(vo.getPwd());
@@ -157,7 +184,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public void updateMail(String email, String userId) {
+	public void updateMailTx(String email, String userId) {
 		memDAO.updateMail(email, userId);
 		
 	}
@@ -180,9 +207,15 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public void updatePost(String zipcode, String addr, String detail_addr, String userId) {
+	public void updatePostTx(String zipcode, String addr, String detail_addr, String userId) {
 		memDAO.updatePost(zipcode, addr, detail_addr, userId);
 	}
+
+	@Override
+	public ProfessorVO getAdminInfo(String userId) {
+		return memDAO.getAdminInfo(userId);
+	}
+
 
 	
 

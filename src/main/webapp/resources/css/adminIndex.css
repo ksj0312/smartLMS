@@ -14,7 +14,7 @@ display:flex;
 .divall {
      padding: 20px;
      margin-top : 70px;
-     padding: 0 100px 0 300px;
+/*      padding: 0 100px 0 300px; */
  }
 
 * {box-sizing: border-box;}

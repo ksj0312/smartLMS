@@ -122,7 +122,7 @@
 			      
 			<div class="modal-footer">
 						<button id="classUpdate" type="button" class="classUpdate">수정하기</button>
-				<button type="button" class="btn" data-dismiss="modal" onclick="delimg()">취소</button>
+				<button type="button" class="btn xbtn" data-dismiss="modal">닫기</button>
 			</div>
 		    
 	</div>

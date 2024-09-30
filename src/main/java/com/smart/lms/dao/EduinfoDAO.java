@@ -13,6 +13,7 @@ import com.smart.lms.vo.ClassVO;
 import com.smart.lms.vo.GradeVO;
 import com.smart.lms.vo.ProfessorVO;
 import com.smart.lms.vo.StudentVO;
+import com.smart.lms.vo.TaskVO;
 import com.smart.lms.vo.TestVO;
 import com.smart.lms.vo.TodateVO;
 
@@ -138,5 +139,15 @@ public class EduinfoDAO {
    public List<GradeVO> gradeSearch(Pagination pg) {
       return mybatis.selectList("eduinfoDAO.gradeSearch", pg);
    }
+   
+   public void taskInsertTx(TaskVO vo) {
+	       mybatis.insert("eduinfoDAO.taskInsertTx", vo);
+	      
+	   }
+
+   public List<TaskVO> getTaskList(int c_number) {
+	 return mybatis.selectList("eduinfoDAO.getTaskList", c_number);
+   }
+   
     
 }

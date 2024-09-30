@@ -28,7 +28,6 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -50,6 +49,7 @@ import com.smart.lms.util.ExcelUtil;
 import com.smart.lms.util.Pagination;
 import com.smart.lms.vo.BoardVO;
 import com.smart.lms.vo.CalendarVO;
+import com.smart.lms.vo.CommentVO;
 import com.smart.lms.vo.NoteVO;
 import com.smart.lms.vo.ProfessorVO;
 import com.smart.lms.vo.StudentVO;
@@ -138,22 +138,11 @@ public class BoardController {
 		
 	}
 	
-//	@GetMapping("/noteCount")
-//	public String noteCount(HttpSession session, Model model) {
-//		String userId = (String) session.getAttribute("userId");
-//		model.addAttribute("noteCount", boardService.noteCount(userId));
-//		session.setAttribute("noteCount", boardService.noteCount(userId));
-//		System.out.println("111111");
-//		System.out.println(model);
-//		return "/";
-//	}
-	
 	
 	@GetMapping("/go")
 	public String go() {
 	return "board/note";
 	}
-	
 	
 	//학생 엑셀 업로드 페이지 이동
     @GetMapping("/uploadPageStu")
@@ -402,31 +391,31 @@ public class BoardController {
     }
     
     //교수 리스트 받아오기
-//    @GetMapping("/professors")
-//    public String professorsInfo(@ModelAttribute Pagination pg, Model model) {
-//    	int currPageNo = pg.getCurrPageNo();
-//  		int range = pg.getRange();
-//
-//  		int totalCnt = eduinfoService.proAllCnt(pg);
-//
-//  		pg.pageInfo(currPageNo, range, totalCnt);
-//
-//  		model.addAttribute("pagination", pg);
-//  		model.addAttribute("proList2", eduinfoService.proList(pg));
-//    	return "/board/professorsInfo";
-//    }
+    @GetMapping("/professors")
+    public String professorsInfo(@ModelAttribute Pagination pg, Model model) {
+    	int currPageNo = pg.getCurrPageNo();
+  		int range = pg.getRange();
+
+ 		int totalCnt = eduinfoService.proAllCnt(pg);
+
+  		pg.pageInfo(currPageNo, range, totalCnt);
+
+  		model.addAttribute("pagination", pg);
+  		model.addAttribute("proList2", eduinfoService.proList(pg));
+    	return "/board/professorsInfo";
+    }
   	
   	//관리자 해당 교수 정보 불러오기 
-//  	@GetMapping("/professor")
-//  	public ResponseEntity<ProfessorVO> professorInfo(String id) {
-//  		
-//  		ProfessorVO vo = eduinfoService.proInfo(id);
-//  		if (vo != null) {
-//  			return new ResponseEntity<>(vo, HttpStatus.OK);
-//  		} else {
-//  			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//  		}
-//  	}
+  	@GetMapping("/professor")
+  	public ResponseEntity<ProfessorVO> professorInfo(String id) {
+  		
+  		ProfessorVO vo = eduinfoService.proInfo(id);
+  		if (vo != null) {
+  			return new ResponseEntity<>(vo, HttpStatus.OK);
+  		} else {
+  			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+  		}
+  	}
     
 //  ---------board 컨트롤러
 
@@ -441,12 +430,34 @@ public class BoardController {
       int totalCnt = boardService.getBoardListTotalCnt(pg);
 
       pg.pageInfo(currPageNo, range, totalCnt);
-        List<BoardVO> boardList = boardService.getBoardList(pg);
+      List<BoardVO> boardList = boardService.getBoardList(pg);
 
       model.addAttribute("pagination", pg);
       model.addAttribute("getBoardList", boardService.getBoardListTotalCnt(pg));
       model.addAttribute("boardList", boardList);
       return "/board/board";
+   }
+   
+ //관리자 게시판 관리 목록
+   @GetMapping("/getBoardListAdmin")
+   public String getBoardListAdmin(@ModelAttribute Pagination pg, Model model, HttpSession session, @RequestParam(value = "b_type", defaultValue = "") String b_type) {
+      
+      int currPageNo = pg.getCurrPageNo();
+      int range = pg.getRange();
+      pg.setB_type(b_type);
+      
+      int totalCnt = boardService.getBoardListTotalCnt(pg);
+
+      pg.pageInfo(currPageNo, range, totalCnt);
+      List<BoardVO> boardList = boardService.getBoardList(pg);
+      
+      System.out.println("pg " + pg);
+      System.out.println("boardList " + boardList);
+        
+      model.addAttribute("pagination", pg);
+      model.addAttribute("getBoardList", boardService.getBoardListTotalCnt(pg));
+      model.addAttribute("boardList", boardList);
+      return "/board/boardAdmin";
    }
    
    //게시글 등록 페이지 이동
@@ -456,6 +467,7 @@ public class BoardController {
        return "/board/insertboard";
    }
    
+   //상대경로로 수정하기 
    //게시글 등록 후 목록 페이지 이동
    @PostMapping(value = "/insertBoard")
    public String insertBoard(@ModelAttribute BoardVO vo) throws IllegalStateException, IOException, Exception {
@@ -540,7 +552,14 @@ public class BoardController {
    @GetMapping("/getBoard")
    public String getBoard(BoardVO vo, Model model) {
       BoardVO board = boardService.getBoard(vo.getB_number());
-      model.addAttribute("board", board);
+      
+    //조회수 1씩 증가 로직
+		boardService.boardViewTx(vo.getB_number());
+		
+		//댓글 조회
+		List<CommentVO> commentList = boardService.getCommentList(vo.getB_number());
+		model.addAttribute("board", board);
+		model.addAttribute("commentList", commentList);
       return "/board/boarddetail";
    }
    
@@ -591,6 +610,12 @@ public class BoardController {
       return "/board/cal";
    }
    
+   //학사 일정 페이지 이동
+   @GetMapping("/calAdmin")
+   public String calAdmin() {
+	   return "/board/calAdmin";
+   }
+   
    
    //학사 일정 목록
     @GetMapping("/getCalList")
@@ -610,7 +635,6 @@ public class BoardController {
       return "/board/cal";
    }
    
-   
    //학사 일정 등록
    @PostMapping(value = "/insertCal")
    public String insertCal(@RequestBody List<CalendarVO> voList) throws IllegalStateException, IOException , Exception{
@@ -620,4 +644,23 @@ public class BoardController {
        }
        return "redirect:/getCal";
    }
+   
+   
+   //댓글 입력
+   @PostMapping(value = "/insertComment")
+   public String insertComment(CommentVO vo) throws IllegalStateException, IOException , Exception{
+       // 배열로 받은 각 CalendarVO 객체를 처리
+           boardService.insertCommentTx(vo);
+       return "redirect:/getBoard?b_number=" + vo.getB_number();
+   }
+   
+   //댓글 삭제
+   @DeleteMapping("/deleteComment")
+   public String deleteComment(@RequestParam ("b_number") int b_number,  int co_number) {
+	   boardService.deleteCommentTx(co_number);
+	   return "redirect:/getBoard?b_number=" + b_number;
+   }
+   
+   
+   
 }

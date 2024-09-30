@@ -97,7 +97,7 @@
 	</select>
 	
 	<select id="proList" parameterType="com.smart.lms.util.Pagination" resultType="professorDTO">
-		SELECT * FROM PROFESSOR WHERE 1=1
+		SELECT * FROM PROFESSOR WHERE TYPE = '교수'
 		<if test="keyword != null and keyword != ''">
 			<if test="searchType == 'id'"> AND ID like CONCAT('%', #{keyword}, '%') </if>
 			<if test="searchType == 'name'"> AND NAME like CONCAT('%', #{keyword}, '%') </if>
@@ -107,7 +107,7 @@
 	</select>
 	
 	<select id="proAllCnt" parameterType="com.smart.lms.util.Pagination" resultType="integer">
-		SELECT COUNT(*) FROM PROFESSOR WHERE 1=1
+		SELECT COUNT(*) FROM PROFESSOR WHERE TYPE = '교수'
 		<if test="keyword != null and keyword != ''">
 			<if test="searchType == 'id'"> AND ID like CONCAT('%', #{keyword}, '%')</if>
 			<if test="searchType == 'name'"> AND NAME like CONCAT('%', #{keyword}, '%')</if>
@@ -196,5 +196,14 @@
 	<update id ="gradeUpdateTx">
 	  UPDATE GRADE SET GRADE = #{grade} WHERE G_NUMBER = #{g_number} AND ID = #{id}
 	</update>
+	
+<!-- 	과제 -->
+	<select id="getTaskList" resultType="taskDTO">
+		SELECT * FROM TASK WHERE C_NUMBER = #{c_number} AND deadline > now()
+	</select>
+
+	<insert id="taskInsertTx">
+		INSERT INTO TASK (C_NUMBER, ID, TITLE, INFO, DEADLINE, T_FILE1 ) VALUES (#{c_number}, #{id}, #{title}, #{info}, #{deadline}, #{t_file1})
+	</insert>
 	
 </mapper>
