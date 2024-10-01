@@ -9,6 +9,7 @@
 <%
     // 세션에서 mem_id 가져오기
     String userId = (String) session.getAttribute("userId");
+    String usertype = (String) session.getAttribute("userType");
 %>
 <script>
 var userId = '<%= userId %>';

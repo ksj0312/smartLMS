@@ -143,9 +143,10 @@ $(function(){
                             googleCalendarId: event.source ? event.source.id : null                       
                         }));
                         
-                        // 공휴일(googleCalendarId가 'holidaySource'인 이벤트)는 제외하고 저장할 이벤트 필터링
-                        var filteredEvents = allEvent.filter(event => event.googleCalendarId !== 'holidaySource');
-
+                     // 공휴일(googleCalendarId가 'holidaySource'이거나 null/undefined가 아닌 이벤트) 제외
+					var filteredEvents = allEvent.filter(event => 
+             			   event.googleCalendarId !== 'holidaySource' && cal_writer !== "관리자"
+            			);
                         if (filteredEvents.length === 0) {
                             alert("저장할 이벤트가 없습니다.");
                             return;

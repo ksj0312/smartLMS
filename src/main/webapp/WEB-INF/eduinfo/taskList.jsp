@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ include file="../member/adminIndex.jsp"%>
+    
+    
+    
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,6 +12,12 @@
 <title>강의 목록</title>
 </head>
 <body>
+<% if("교수".equals(usertype)){ %>
+        <%@ include file="../member/adminIndex.jsp"%>
+    <%}else{ %>
+   		<%@ include file="../member/taskIndex.jsp"%>
+    <%} %>
+    
 <div class="bcl">
         <div class="divall">
         <h4>과제 목록</h4>
@@ -30,7 +39,7 @@
 				        <th>종료 시간</th>
 				        </tr>
 					<c:forEach items="${taskList}" var="tl">
-					<tr onclick="location.href='grade?c_number=${tl.c_number}&t_number=${tl.t_number}" style="cursor:hand" >
+<%-- 					<tr onclick="location.href='grade?c_number=${tl.c_number}&t_number=${tl.t_number}" style="cursor:hand" > --%>
 						<td>${tl.c_number}</td>  
 						<td>${tl.id}</td>  
 						<td>${tl.title}</td>

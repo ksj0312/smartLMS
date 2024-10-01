@@ -40,7 +40,7 @@
 					<tr onclick="location.href='taskInsertPage?c_number=${cl.c_number}&c_name=${cl.c_name}'" style="cursor:hand">
 					<%}else if(status.equals("check")){
  						%> 
-					<tr onclick="location.href='taskSelect?c_number=${cl.c_number}&c_name=${cl.c_name}'" style="cursor:hand">
+					<tr onclick="location.href='taskSelectStu?c_number=${cl.c_number}&c_name=${cl.c_name}'" style="cursor:hand">
 					<% }%>
 					<td>${cl.c_number}</td>
 					<td>${cl.c_name}</td>
