@@ -86,7 +86,7 @@ html, body {
 						id="cal_create_date" /><br />
 					            배경색상 :
 					            <select id="cal_color">
-					              <option value="red">빨강색</option>
+					              <option value="gray">회색</option>
 					              <option value="orange">주황색</option>
 					              <option value="yellow">노랑색</option>
 					              <option value="green">초록색</option>
@@ -131,20 +131,35 @@ $(function(){
                 text: "저장하기",
                 click: async function() {
                     if (confirm("저장하시겠습니까?")) {
+                    	
+                    	
                         var allEvent = calendar.getEvents().map(event => ({
                             cal_title: event.title,
                             cal_date: event.start.toISOString(),
                             cal_edate: event.end ? event.end.toISOString() : null,
                             cal_writer: event.extendedProps.writer || "관리자",
                             cal_create_date: event.extendedProps.create_date || new Date().toISOString(),
-                            cal_color: event.backgroundColor
+                            cal_color: event.backgroundColor,
+                            googleCalendarId: event.source ? event.source.id : null                       
                         }));
                         
+                     // 공휴일(googleCalendarId가 'holidaySource'이거나 null/undefined가 아닌 이벤트) 제외
+					var filteredEvents = allEvent.filter(event => 
+             			   event.googleCalendarId !== 'holidaySource' && cal_writer !== "관리자"
+            			);
+                        if (filteredEvents.length === 0) {
+                            alert("저장할 이벤트가 없습니다.");
+                            return;
+                        }
+
+                        console.log("filteredEvents", filteredEvents);
+                        
                         console.log("allEvent", allEvent);
+                        	
                         const saveEvent = await axios({
                             method: "POST",
                             url: "insertCal",
-                            data: allEvent,
+                            data: filteredEvents,
                         });
                         
                         console.log("데이터 삽입 완료");
@@ -162,25 +177,11 @@ $(function(){
         initialView: 'dayGridMonth',
         navLinks: false,
         editable: true,
-        selectable: false,
-        nowIndicator: false,
-        dayMaxEvents: false,
+        selectable: true,
+        nowIndicator: true,
+        dayMaxEvents: true,
         locale: 'ko',
         
-     // 특정 요일에 스타일 적용
-        dayCellDidMount: function(arg) {
-            var day = arg.date.getDay(); // 0: 일요일, 6: 토요일
-            
-//             if (day === 0) {
-//                 // 일요일 스타일: 빨간 글씨, 연한 빨강 배경
-//                 arg.el.style.backgroundColor = '#ffe6e6';  // 연한 빨강 배경색
-//             } else if (day === 6) {
-//                 // 토요일 스타일: 연파랑 배경
-//                 arg.el.style.backgroundColor = '#e6f7ff';  // 연파랑 배경색
-//             }
-        },
-        
-        // 데이터 가져오는 이벤트
         eventSources: [
             {
                 events: async function(info, successCallback, failureCallback) {
@@ -191,46 +192,61 @@ $(function(){
                     });
 
                     const eventData = eventResult.data;
-                    console.log(eventData);
-
-                    // 중복 확인 후 이벤트에 넣을 배열 선언
-                    const existingEventIds = calendar.getEvents().map(e => e.id); // 기존 이벤트 ID 목록
+                    console.log("eventResult " ,eventResult);
+                    console.log("eventData " ,eventData);
 
                     const eventArray = [];
                     eventData.forEach((res) => {
-                        // 중복된 이벤트는 추가하지 않음
-                        if (!existingEventIds.includes(res.cal_number)) {
+                    console.log("url " , res.googleCalendarId);
+                    
+                    if (res.googleCalendarId !== 'holidaySource') {                    	
                             eventArray.push({
-                                id: res.cal_number, // 수정된 부분: 중복 방지를 위해 ID 추가
                                 number: res.cal_number,
                                 title: res.cal_title,
                                 start: res.cal_date,
                                 end: res.cal_edate,
                                 color: res.cal_color,
+                                url : res.url,
+                                googleCalendarId : res.googleCalendarId
                             });
-                        }
+                            }
                     });
+                    console.log("eventArray " ,eventArray);
                     successCallback(eventArray);
+
                 },
             },
+            
             {
-            	//공휴일 표시
+//             	공휴일 표시
                 googleCalendarId : 'ko.south_korea.official#holiday@group.v.calendar.google.com',
-                backgroundColor: 'red',
+                backgroundColor: 'transparent',
+                textColor : 'red',
+                id: 'holidaySource'
               }
+            
+            
+            
+            
         ],
+        
+        eventClick: function(info){
+	    	   //클릭시 구글캘린더 url로 가는것을 막는다.
+	    	   info.jsEvent.stopPropagation();
+	    	   info.jsEvent.preventDefault();
+	    },
 
         eventContent: function(arg) {
             let eventTitle = document.createElement('div');
             eventTitle.innerHTML = arg.event.title;
 
             // cal_number가 있는 경우에만 삭제 버튼을 생성
-            if (arg.event.extendedProps.number) {
+            if (arg.event.extendedProps.number > 0) {
                 let deleteBtn = document.createElement('span');
                 deleteBtn.innerHTML = ' ❌';
                 deleteBtn.style.cursor = 'pointer';
                 deleteBtn.style.float = 'right';
-//                 deleteBtn.style.transform = 'translateY(-18px)';
+//              deleteBtn.style.transform = 'translateY(-18px)';
 
                 deleteBtn.addEventListener('click', async function() {
                     if (confirm("일정을 삭제하시겠습니까?")) {

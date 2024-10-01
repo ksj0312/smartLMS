@@ -1,8 +1,10 @@
 package com.smart.view.controller;
 
-import java.security.Timestamp;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Enumeration;
@@ -11,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +28,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.smart.lms.service.EduinfoService;
@@ -33,6 +37,7 @@ import com.smart.lms.vo.AttendClassVO;
 import com.smart.lms.vo.ClassVO;
 import com.smart.lms.vo.GradeVO;
 import com.smart.lms.vo.ProfessorVO;
+import com.smart.lms.vo.StuTaskVO;
 import com.smart.lms.vo.StudentVO;
 import com.smart.lms.vo.TaskVO;
 import com.smart.lms.vo.TestVO;
@@ -327,9 +332,13 @@ public class EduinfoController {
 		
 		//성적 등록 -> 시험 목록 선택 페이지
 		@GetMapping("/testSelect")
-		public String testSelect(Model model, @ModelAttribute TestVO vo) {
+		public String testSelect(Model model, @ModelAttribute TestVO vo, @RequestParam ("c_number") int c_number) {
+			vo.setC_number(c_number);
+			
 			List<TestVO> tList = new ArrayList<TestVO>();
 			tList = eduinfoService.testSelect(vo);
+			System.out.println("tList " + tList);
+			
 			model.addAttribute("tList", tList);
 			model.addAttribute("testListcnt", tList.size());
 			return "eduinfo/testList";
@@ -444,7 +453,10 @@ public class EduinfoController {
 		
 		//과제 페이지 이동
 		@GetMapping("/taskListPage")
-		public String taskListPage() {
+		public String taskListPage(@RequestParam ("c_number") int c_number, Model model) {
+			
+			System.out.println("강의 번호 " + c_number);
+			model.addAttribute("c_number" , c_number);
 			return "/member/taskIndex";
 		}
 		
@@ -481,25 +493,113 @@ public class EduinfoController {
 			return "eduinfo/taskclassList";
 		}
 		
+		
+		//성적 등록 -> 시험 목록 선택 페이지
+				@GetMapping("/testSelectStu")
+				public String testSelectStu(@RequestParam ("c_number") int c_number,  Model model, @ModelAttribute TestVO vo, ClassVO vo1) {
+					vo.setC_number(c_number);
+					
+					List<TestVO> tList = eduinfoService.testSelect(vo);
+					
+					ClassVO classvo = eduinfoService.classSelect(c_number);
+					
+					model.addAttribute("tList", tList);
+					model.addAttribute("testListcnt", tList.size());
+					model.addAttribute("c_name", classvo.getC_name());
+					model.addAttribute("c_number", c_number);
+					
+					return "eduinfo/testList";
+				}
+		
 		//과제 목록 선택 페이지
-		@GetMapping("/taskSelect")
-		public String taskSelect(Model model, @RequestParam ("c_number") int c_number) {
-			List<TaskVO> taskList = new ArrayList<TaskVO>();
-			taskList = eduinfoService.getTaskList(c_number);
+		@GetMapping("/taskSelectStu")
+		public String taskSelect(Model model, @RequestParam ("c_number") int c_number, ClassVO vo) {
+			
+			List<TaskVO> taskList = eduinfoService.getTaskList(c_number);
+			
+			ClassVO classvo = eduinfoService.classSelect(c_number);			
+			
 			model.addAttribute("taskList", taskList);
 			model.addAttribute("taskListcnt", taskList.size());
+			model.addAttribute("c_name", classvo.getC_name());
+			model.addAttribute("c_number", c_number);
 			return "eduinfo/taskList";
 		}
 		
 		
 		//과제를 제출한 학생 목록
-		@GetMapping("/stuTaskList")
-		public String stuTaskList(@RequestParam ("c_number") int c_number, @RequestParam ("t_number") int t_number, Model model) {
+//		@GetMapping("/stuTaskList")
+//		public String stuTaskList(@RequestParam ("c_number") int c_number, @RequestParam ("t_number") int t_number, Model model) {
+//			
+//			
+//			return null;
+//			
+//		}
+		
+		//과제 게시판 들어가기
+		@GetMapping("/taskBoard")
+		public String taskBoard(@RequestParam ("t_number") int t_number,  HttpSession session, Model model, TaskVO vo, StuTaskVO vo1) {
+			vo.setId((String) session.getAttribute("userId"));
 			
 			
-			return null;
+			//과제 정보
+			TaskVO task = eduinfoService.getTask(t_number); 
+			System.out.println("task " + task );
 			
+			ClassVO classvo = eduinfoService.classSelect(task.getC_number());			
+
+			//학생이 제출한 과제
+			StuTaskVO stutask = eduinfoService.getStuTask(t_number, (String) session.getAttribute("userId"));
+			System.out.println("task " + task );
+			
+			model.addAttribute("stutask", stutask);
+			model.addAttribute("task" , task);
+			model.addAttribute("c_number", task.getC_number());
+			model.addAttribute("c_name", classvo.getC_name());
+
+			return "eduinfo/taskBoard";
 		}
 		
+		//학생 과제 등록페이지 이동
+		@GetMapping("/insertStuTaskPage")
+		public String insertStuTaskPage(@RequestParam ("c_number") int c_number, @RequestParam ("t_number") int t_number, Model model, HttpSession session) {
+			model.addAttribute("c_number", c_number);
+			model.addAttribute("t_number", t_number);
+			model.addAttribute("userId", (String) session.getAttribute("userId"));
+			return "eduinfo/stuTaskInsert";
+		}
+		
+		
+		//학생 과제 등록
+		@PostMapping("/insertStuTask")
+		public String insertStuTask(StuTaskVO vo, Model model) throws IllegalStateException, IOException {
+			System.out.println("insertVO " + vo);
+			
+			
+			// 파일 처리 로직
+		       MultipartFile file = vo.getUploadFile();
+		       if (file != null && !file.isEmpty()) {
+		           // 파일 저장 경로 설정
+		           String uploadPath = "c:/smart/smartlms/src/main/webapp/resources/upfile/"; // 저장할 경로 설정
+		           String fileName = file.getOriginalFilename();
+		           
+		           // 파일을 해당 경로에 저장
+		           File dest = new File(uploadPath + fileName);
+		           file.transferTo(dest);
+		           
+		           // StuTaskVO에 파일 경로 설정
+		           vo.setS_file1(uploadPath + fileName); // 파일 경로를 BoardVO의 b_file1에 설정
+
+		           System.out.println("파일 저장 성공: " + fileName);
+		       } else {
+		           System.out.println("파일이 업로드되지 않았습니다.");
+		       }
+			
+		       eduinfoService.insertStuTaskTx(vo);
+		       
+		       
+		       model.addAttribute("t_number", vo.getT_number());
+			return "redirect:/taskBoard";
+		}
 	
 }
