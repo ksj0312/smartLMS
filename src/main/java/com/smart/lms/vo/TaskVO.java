@@ -1,6 +1,10 @@
 package com.smart.lms.vo;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
+
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 public class TaskVO {
 	private int t_number;
@@ -10,11 +14,22 @@ public class TaskVO {
 	private String info;
 	private Timestamp create_date;
 	private Timestamp modify_date;
-	private Timestamp deadline;
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+	private Timestamp  deadline;
 	private String t_file1;
 	private String t_file2;
 	private String t_file3;
 	
+	private MultipartFile uploadFile;
+
+	
+	public MultipartFile getUploadFile() {
+		return uploadFile;
+	}
+	public void setUploadFile(MultipartFile uploadFile) {
+		this.uploadFile = uploadFile;
+	}
 	public int getT_number() {
 		return t_number;
 	}
@@ -57,10 +72,10 @@ public class TaskVO {
 	public void setModify_date(Timestamp modify_date) {
 		this.modify_date = modify_date;
 	}
-	public Timestamp getDeadline() {
+	public Timestamp  getDeadline() {
 		return deadline;
 	}
-	public void setDeadline(Timestamp deadline) {
+	public void setDeadline(Timestamp  deadline) {
 		this.deadline = deadline;
 	}
 	public String getT_file1() {

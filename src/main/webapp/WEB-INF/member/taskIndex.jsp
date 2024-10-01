@@ -10,6 +10,7 @@
 
 <% Integer c_number = (Integer) request.getAttribute("c_number"); %>
 <% String c_name = (String) request.getAttribute("c_name"); %>
+<% String id = (String)session.getAttribute("userId"); %>
 <%=c_number %>
 <%=c_name %>
 <div class="idxbody">

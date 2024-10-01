@@ -15,6 +15,7 @@ import com.smart.lms.vo.AttendClassVO;
 import com.smart.lms.vo.ClassVO;
 import com.smart.lms.vo.GradeVO;
 import com.smart.lms.vo.ProfessorVO;
+import com.smart.lms.vo.StuTaskVO;
 import com.smart.lms.vo.StudentVO;
 import com.smart.lms.vo.TaskVO;
 import com.smart.lms.vo.TestVO;
@@ -210,6 +211,31 @@ public class EduinfoServiceImpl implements EduinfoService {
    @Override
    public void taskInsertTx(TaskVO vo) {
        eduDAO.taskInsertTx(vo);
+   }
+   
+   //과제 정보
+   @Override
+   public TaskVO getTask(int t_number) {
+      return eduDAO.getTask(t_number);
+   }
+   
+   //학생 과제 제출 정보
+   @Override
+   public StuTaskVO getStuTask(int t_number, String id) {
+      return eduDAO.getStuTask(t_number, id);
+   }
+   
+   
+   //학생 과제 등록
+   @Override
+   public void insertStuTaskTx(StuTaskVO vo) {
+       eduDAO.insertStuTaskTx(vo);
+   }
+   
+ //과제를 제출한 학생들의 목록
+   @Override
+   public List<StuTaskVO> taskAllList(int t_number){
+	   return eduDAO.taskAllList(t_number);
    }
    
    }

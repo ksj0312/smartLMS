@@ -210,5 +210,39 @@
 		SELECT * FROM STU_TASK WHERE T_NUMBER = #{t_number}
 	</select>
 	
+	<select id="getTask" resultType="taskDTO">
+		SELECT * FROM TASK WHERE T_NUMBER = #{t_number}
+	</select>
+	
+	<select id="getStuTask" resultType="stutaskDTO">
+		SELECT * FROM STU_TASK WHERE T_NUMBER = #{t_number} AND ID = #{id}
+	</select>
+	
+	<insert id="insertStuTaskTx">
+		INSERT INTO STU_TASK (T_NUMBER, C_NUMBER, ID, ST_TITLE, ST_INFO, S_FILE1) VALUES (#{t_number}, #{c_number}, #{id}, #{st_title}, #{st_info}, #{s_file1})
+	</insert>
+	
+	
+<!-- 	해당 수강과목의 수강생들의 과제 제출 여부 보는 쿼리 -->
+	<select id="StuTaskOrNot" resultType="stutaskDTO">
+		  select ac.C_NUMBER , ac.ID , ac.NAME, st.ST_SUBMIT, st.T_NUMBER , st.ST_NUMBER 
+            from attend_class ac 
+            left outer join stu_task st 
+            on ac.C_NUMBER = st.C_NUMBER 
+            and ac.ID = st.ID 
+            where ac.C_NUMBER = #{c_number};
+	</select>
+	
+	<select id="taskAllList" resultType="stutaskDTO" >
+		SELECT * FROM STU_TASK WHERE T_NUMBER = #{t_number}
+	
+	</select>
+	
+	
+	
+	
+	
+	
+	
 	
 </mapper>

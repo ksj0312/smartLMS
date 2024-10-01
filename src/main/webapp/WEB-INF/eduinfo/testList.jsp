@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<%-- <script src="${pageContext.request.contextPath }/resources/js/testList.js"></script> --%>
+<script src="${pageContext.request.contextPath }/resources/js/testList.js"></script>
 <title>강의 목록</title>
 </head>
 <body>
@@ -18,6 +18,8 @@
     <%}else{ %>
    		<%@ include file="../member/taskIndex.jsp"%>
     <%} %>
+    <% String c_name = (String) request.getAttribute("c_name"); %>
+    
 <div class="bcl">
 		
         <div class="divall">
@@ -26,7 +28,7 @@
         <br>
             <section class="header-container">
     					<h5>강의번호 :<%= request.getParameter("c_number") %> </h5>
-    					<h5>강의명 : <%= request.getParameter("c_name") %> </h5> 
+    					<h5>강의명 : <%=c_name %> </h5> 
                 </section>
         <br><br>
         
@@ -41,10 +43,9 @@
 				        <th>종료 일시</th>
 				        </tr>
 					<c:forEach items="${tList}" var="tl">
-<%-- 					<tr onclick="location.href='grade?c_number=${tl.c_number}&g_number=${tl.g_number}&test_type=${tl.test_type}'" style="cursor:hand" > --%>
 						<td>${tl.c_number}</td>  
 						<td>${tl.g_number}</td>  
-<%-- 						<td>${tl.test_type}</td> --%>
+						<td>${tl.test_type}</td>  
 						<td>${tl.start_time}</td>
 						<td>${tl.end_time}</td>
 						</tr>

@@ -147,6 +147,9 @@ $(function(){
 					var filteredEvents = allEvent.filter(event => 
              			   event.googleCalendarId !== 'holidaySource' && cal_writer !== "관리자"
             			);
+                        // 공휴일(googleCalendarId가 'holidaySource'인 이벤트)는 제외하고 저장할 이벤트 필터링
+//                         var filteredEvents = allEvent.filter(event => event.googleCalendarId !== 'holidaySource');
+                        
                         if (filteredEvents.length === 0) {
                             alert("저장할 이벤트가 없습니다.");
                             return;

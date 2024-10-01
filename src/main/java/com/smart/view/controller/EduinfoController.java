@@ -1,8 +1,7 @@
 package com.smart.view.controller;
 
-import java.security.Timestamp;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Enumeration;
@@ -25,6 +24,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.smart.lms.service.EduinfoService;
@@ -33,6 +33,7 @@ import com.smart.lms.vo.AttendClassVO;
 import com.smart.lms.vo.ClassVO;
 import com.smart.lms.vo.GradeVO;
 import com.smart.lms.vo.ProfessorVO;
+import com.smart.lms.vo.StuTaskVO;
 import com.smart.lms.vo.StudentVO;
 import com.smart.lms.vo.TaskVO;
 import com.smart.lms.vo.TestVO;
@@ -470,8 +471,29 @@ public class EduinfoController {
 		
 		//과제 등록
 		@PostMapping("/taskInsert")
-		public String taskInsert(TaskVO vo) {
-			eduinfoService.taskInsertTx(vo);
+		public String taskInsert(TaskVO vo) throws IllegalStateException, IOException {
+				 
+				System.out.println(vo);
+			// 파일 처리 로직
+		       MultipartFile file = vo.getUploadFile();
+		       if (file != null && !file.isEmpty()) {
+		           // 파일 저장 경로 설정
+		           String uploadPath = "c:/smart/smartlms/src/main/webapp/resources/upfile/"; // 저장할 경로 설정
+		           String fileName = file.getOriginalFilename();
+		           
+		           // 파일을 해당 경로에 저장
+		           File dest = new File(uploadPath + fileName);
+		           file.transferTo(dest);
+		           
+		           // StuTaskVO에 파일 경로 설정
+		           vo.setT_file1(uploadPath + fileName); // 파일 경로를 BoardVO의 b_file1에 설정
+
+		           System.out.println("파일 저장 성공: " + fileName);
+		       } else {
+		           System.out.println("파일이 업로드되지 않았습니다.");
+		       }
+			
+		       	eduinfoService.taskInsertTx(vo);
 			return "eduinfo/taskInsert";
 		}
 		
@@ -498,7 +520,6 @@ public class EduinfoController {
 					
 					ClassVO classvo = eduinfoService.classSelect(c_number);
 					
-					System.out.println("classvo " + classvo);
 					model.addAttribute("tList", tList);
 					model.addAttribute("testListcnt", tList.size());
 					model.addAttribute("c_name", classvo.getC_name());
@@ -510,28 +531,120 @@ public class EduinfoController {
 		//과제 목록 선택 페이지
 		@GetMapping("/taskSelectStu")
 		public String taskSelect(Model model, @RequestParam ("c_number") int c_number, ClassVO vo) {
-			List<TaskVO> taskList = new ArrayList<TaskVO>();
-			taskList = eduinfoService.getTaskList(c_number);
+
+			List<TaskVO> taskList = eduinfoService.getTaskList(c_number);
 			
 			ClassVO classvo = eduinfoService.classSelect(c_number);			
 			
-			System.out.println("classvo " + classvo);
 			model.addAttribute("taskList", taskList);
 			model.addAttribute("taskListcnt", taskList.size());
 			model.addAttribute("c_name", classvo.getC_name());
 			model.addAttribute("c_number", c_number);
+			
 			return "eduinfo/taskList";
 		}
 		
 		
 		//과제를 제출한 학생 목록
-		@GetMapping("/stuTaskList")
-		public String stuTaskList(@RequestParam ("c_number") int c_number, @RequestParam ("t_number") int t_number, Model model) {
+//		@GetMapping("/stuTaskList")
+//		public String stuTaskList(@RequestParam ("c_number") int c_number, @RequestParam ("t_number") int t_number, Model model) {
+//			
+//			
+//			return null;
+//			
+//		}
+		
+		//과제 게시판 들어가기
+		@GetMapping("/taskBoard")
+		public String taskBoard(@RequestParam ("t_number") int t_number,  HttpSession session, Model model, TaskVO vo, StuTaskVO vo1) {
+			vo.setId((String) session.getAttribute("userId"));
 			
 			
-			return null;
+			//과제 정보
+			TaskVO task = eduinfoService.getTask(t_number); 
 			
+			ClassVO classvo = eduinfoService.classSelect(task.getC_number());			
+
+			//학생이 제출한 과제
+			StuTaskVO stutask = eduinfoService.getStuTask(t_number, (String) session.getAttribute("userId"));
+			
+			model.addAttribute("stutask", stutask);
+			model.addAttribute("task" , task);
+			model.addAttribute("c_number", task.getC_number());
+			model.addAttribute("c_name", classvo.getC_name());
+
+			return "eduinfo/taskBoard";
 		}
 		
+		//학생 과제 등록페이지 이동
+		@GetMapping("/insertStuTaskPage")
+		public String insertStuTaskPage(@RequestParam ("c_number") int c_number, @RequestParam ("t_number") int t_number, Model model, HttpSession session) {
+			model.addAttribute("c_number", c_number);
+			model.addAttribute("t_number", t_number);
+			model.addAttribute("userId", (String) session.getAttribute("userId"));
+			return "eduinfo/stuTaskInsert";
+		}
+		
+		
+		//학생 과제 등록
+		@PostMapping("/insertStuTask")
+		public String insertStuTask(StuTaskVO vo, Model model) throws IllegalStateException, IOException {
+			System.out.println("insertVO " + vo);
+			
+			
+			// 파일 처리 로직
+		       MultipartFile file = vo.getUploadFile();
+		       if (file != null && !file.isEmpty()) {
+		           // 파일 저장 경로 설정
+		           String uploadPath = "c:/smart/smartlms/src/main/webapp/resources/upfile/"; // 저장할 경로 설정
+		           String fileName = file.getOriginalFilename();
+		           
+		           // 파일을 해당 경로에 저장
+		           File dest = new File(uploadPath + fileName);
+		           file.transferTo(dest);
+		           
+		           // StuTaskVO에 파일 경로 설정
+		           vo.setS_file1(uploadPath + fileName); // 파일 경로를 BoardVO의 b_file1에 설정
+
+		           System.out.println("파일 저장 성공: " + fileName);
+		       } else {
+		           System.out.println("파일이 업로드되지 않았습니다.");
+		       }
+			
+		       eduinfoService.insertStuTaskTx(vo);
+		       
+		       
+		       model.addAttribute("t_number", vo.getT_number());
+			return "redirect:/taskBoard";
+		}
+		
+		
+		//과제 완료 여부 표시
+		@GetMapping("/checkTask")
+		@ResponseBody
+		public String checkTask(@RequestParam ("t_number") int t_number, HttpSession session) {
+			StuTaskVO stutask = eduinfoService.getStuTask(t_number, (String) session.getAttribute("userId"));
+			if (stutask == null) {
+		        return "미제출"; 
+		    }
+			return stutask.getSt_submit();
+
+		}
+		
+		//해당 과제를 제출한 학생들 리스트
+		@GetMapping("/taskAllList")
+		public String taskAllList(@RequestParam ("t_number") int t_number, StuTaskVO vo, Model model) {
+			List<StuTaskVO> stutaskList = eduinfoService.taskAllList(t_number);
+			System.out.println("stutaskList " + stutaskList);
+			
+			//강의 정보
+			ClassVO classvo = eduinfoService.classSelect(stutaskList.get(0).getC_number());			
+
+			model.addAttribute("stutaskList", stutaskList);
+			model.addAttribute("c_number", stutaskList.get(0).getC_number());
+			model.addAttribute("c_name", classvo.getC_name());
+			
+			return "eduinfo/taskAllList";
+		}
 	
 }
