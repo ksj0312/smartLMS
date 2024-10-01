@@ -22,10 +22,11 @@
 		
         <div class="divall">
         <h4>시험 목록</h4>
+        
         <br>
             <section class="header-container">
     					<h5>강의번호 :<%= request.getParameter("c_number") %> </h5>
-    					<h5>강의명 : <%= request.getParameter("c_name") %></h5> 
+    					<h5>강의명 : <%= request.getParameter("c_name") %> </h5> 
                 </section>
         <br><br>
         

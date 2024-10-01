@@ -490,28 +490,36 @@ public class EduinfoController {
 		
 		
 		//성적 등록 -> 시험 목록 선택 페이지
-//				@GetMapping("/testSelectStu")
-//				public String testSelectStu(@RequestParam ("c_number") int c_number,  Model model, @ModelAttribute TestVO vo) {
-//					System.out.println("vo " + vo);
-//					vo.setC_number(c_number);
-//					
-//					List<TestVO> tList = eduinfoService.testSelect(vo);
-//					System.out.println("tList " + tList);
-//					
-//					model.addAttribute("tList", tList);
-//					model.addAttribute("testListcnt", tList.size());
-//					return "eduinfo/testList";
-//				}
-//		
+				@GetMapping("/testSelectStu")
+				public String testSelectStu(@RequestParam ("c_number") int c_number,  Model model, @ModelAttribute TestVO vo, ClassVO vo1) {
+					vo.setC_number(c_number);
+					
+					List<TestVO> tList = eduinfoService.testSelect(vo);
+					
+					ClassVO classvo = eduinfoService.classSelect(c_number);
+					
+					System.out.println("classvo " + classvo);
+					model.addAttribute("tList", tList);
+					model.addAttribute("testListcnt", tList.size());
+					model.addAttribute("c_name", classvo.getC_name());
+					model.addAttribute("c_number", c_number);
+					
+					return "eduinfo/testList";
+				}
+		
 		//과제 목록 선택 페이지
 		@GetMapping("/taskSelectStu")
-		public String taskSelect(Model model, @RequestParam ("c_number") int c_number) {
+		public String taskSelect(Model model, @RequestParam ("c_number") int c_number, ClassVO vo) {
 			List<TaskVO> taskList = new ArrayList<TaskVO>();
 			taskList = eduinfoService.getTaskList(c_number);
 			
-			System.out.println("taskList " + taskList);
+			ClassVO classvo = eduinfoService.classSelect(c_number);			
+			
+			System.out.println("classvo " + classvo);
 			model.addAttribute("taskList", taskList);
 			model.addAttribute("taskListcnt", taskList.size());
+			model.addAttribute("c_name", classvo.getC_name());
+			model.addAttribute("c_number", c_number);
 			return "eduinfo/taskList";
 		}
 		
