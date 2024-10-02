@@ -6,60 +6,71 @@
 <mapper namespace="eduinfoDAO">
 
 	<select id="attendanceList" resultType="attendDTO">
-	 	SELECT AC.C_NUMBER, AC.ID, AC.NAME, T.A_STATUS, IFNULL(#{searchDate} , SYSDATE()) as A_DATE
-	 	  FROM ATTEND_CLASS AC
-	LEFT OUTER JOIN TODATE T
-	 	    ON AC.C_NUMBER = T.C_NUMBER
-	 	   AND AC.ID = T.ID
-	 	   AND T.A_DATE = DATE(IFNULL(#{searchDate} , SYSDATE())) 
-	 	 WHERE AC.C_NUMBER = #{c_number}
-	 	   <if test="keyword != null and keyword != ''">
-				<if test="searchType == 'id'"> AND AC.ID like CONCAT('%', #{keyword}, '%')</if>
-				<if test="searchType == 'name'"> AND AC.NAME like CONCAT('%', #{keyword}, '%')</if>
-				AND T.A_DATE = #{searchDate}
-			</if>
-		 ORDER BY ID 
+		SELECT AC.C_NUMBER, AC.ID, AC.NAME, T.A_STATUS, IFNULL(#{searchDate} ,
+		SYSDATE()) as A_DATE
+		FROM ATTEND_CLASS AC
+		LEFT OUTER JOIN TODATE T
+		ON AC.C_NUMBER = T.C_NUMBER
+		AND AC.ID = T.ID
+		AND T.A_DATE = DATE(IFNULL(#{searchDate} , SYSDATE()))
+		WHERE AC.C_NUMBER = #{c_number}
+		<if test="keyword != null and keyword != ''">
+			<if test="searchType == 'id'"> AND AC.ID like CONCAT('%', #{keyword}, '%')</if>
+			<if test="searchType == 'name'"> AND AC.NAME like CONCAT('%', #{keyword}, '%')</if>
+			AND T.A_DATE = #{searchDate}
+		</if>
+		ORDER BY ID
 	</select>
-	
-	<select id="toCnt" parameterType="com.smart.lms.util.Pagination" resultType="integer">
-		SELECT COUNT(*) FROM TODATE WHERE DATE(A_DATE) = DATE(#{date}) 
+
+	<select id="toCnt" parameterType="com.smart.lms.util.Pagination"
+		resultType="integer">
+		SELECT COUNT(*) FROM TODATE WHERE DATE(A_DATE) = DATE(#{date})
 		<if test="keyword != null and keyword != ''">
 			<if test="searchType == 'id'"> AND ID like CONCAT('%', #{keyword}, '%')</if>
 		</if>
 	</select>
-	
+
 	<select id="classList" resultType="classDTO">
-		SELECT * FROM CLASS WHERE C_ID = #{c_id}
+		SELECT * FROM CLASS WHERE C_ID
+		= #{c_id}
 	</select>
-	
-	<insert id = "insertAttendanceTx">
-		INSERT INTO TODATE (C_NUMBER, ID, A_DATE, A_STATUS) VALUES (#{c_number}, #{id}, #{a_date}, #{a_status})
-	</insert>
-	
-	<insert id="updateAttendanceTx" >
- 		INSERT INTO TODATE (C_NUMBER, ID, A_DATE, A_STATUS) VALUES (#{c_number}, #{id}, #{a_date}, #{a_status})
-			ON DUPLICATE KEY UPDATE
-	    	   A_STATUS = #{a_status}
+
+	<insert id="insertAttendanceTx">
+		INSERT INTO TODATE (C_NUMBER, ID, A_DATE, A_STATUS)
+		VALUES (#{c_number}, #{id}, #{a_date}, #{a_status})
 	</insert>
 
-	<insert id = "classInsertTx">
-		INSERT INTO CLASS (C_NAME, C_CREATE_DATE, C_START_DATE, C_END_DATE, C_ID, C_PROF_NAME, C_STU_COUNT, C_TIME, C_INFO, C_TERM , C_DAY, C_STATUS ) 
-		VALUES (#{c_name}, SYSDATE() , #{c_start_date}, #{c_end_date}, #{c_id} , #{c_prof_name}, #{c_stu_count}, #{c_time}, #{c_info}, #{c_term}, #{c_day}, '진행')
+	<insert id="updateAttendanceTx">
+		INSERT INTO TODATE (C_NUMBER, ID, A_DATE, A_STATUS) VALUES (#{c_number},
+		#{id}, #{a_date}, #{a_status})
+		ON DUPLICATE KEY UPDATE
+		A_STATUS = #{a_status}
 	</insert>
-	
-	
-	<select id="classAllList" parameterType="com.smart.lms.util.Pagination" resultType="classDTO">
+
+	<insert id="classInsertTx">
+		INSERT INTO CLASS (C_NAME, C_CREATE_DATE,
+		C_START_DATE, C_END_DATE, C_ID, C_PROF_NAME, C_STU_COUNT, C_TIME,
+		C_INFO, C_TERM , C_DAY, C_STATUS )
+		VALUES (#{c_name}, SYSDATE() , #{c_start_date}, #{c_end_date}, #{c_id} ,
+		#{c_prof_name}, #{c_stu_count}, #{c_time}, #{c_info}, #{c_term},
+		#{c_day}, '진행')
+	</insert>
+
+
+	<select id="classAllList"
+		parameterType="com.smart.lms.util.Pagination" resultType="classDTO">
 		SELECT * FROM CLASS WHERE C_STATUS = '진행'
 		<if test="keyword != null and keyword != ''">
 			<if test="searchType == 'name'"> AND C_PROF_NAME like CONCAT('%', #{keyword}, '%') </if>
 			<if test="searchType == 'c_name'"> AND C_NAME like CONCAT('%', #{keyword}, '%') </if>
 			<if test="searchType == 'c_info'"> AND C_INFO like CONCAT('%', #{keyword}, '%') </if>
 		</if>
-			ORDER BY C_NUMBER 
-			LIMIT #{sizePerPage} OFFSET #{startList}  
+		ORDER BY C_NUMBER
+		LIMIT #{sizePerPage} OFFSET #{startList}
 	</select>
-	
-	<select id="classAllTotalCnt" parameterType="com.smart.lms.util.Pagination" resultType="integer">
+
+	<select id="classAllTotalCnt"
+		parameterType="com.smart.lms.util.Pagination" resultType="integer">
 		SELECT COUNT(*) FROM CLASS WHERE C_STATUS = '진행'
 		<if test="keyword != null and keyword != ''">
 			<if test="searchType == 'name'"> AND C_PROF_NAME like CONCAT('%', #{keyword}, '%')</if>
@@ -67,182 +78,231 @@
 			<if test="searchType == 'c_info'"> AND C_INFO like CONCAT('%', #{keyword}, '%')</if>
 		</if>
 	</select>
-	
-	<select id= "classSelect" resultType="classDTO">
-		SELECT * FROM CLASS WHERE C_NUMBER = #{c_number} 
+
+	<select id="classSelect" resultType="classDTO">
+		SELECT * FROM CLASS WHERE
+		C_NUMBER = #{c_number}
 	</select>
-	
+
 	<update id="classUpdateTx">
-		UPDATE CLASS SET C_ID = #{c_id} , C_NAME = #{c_name}, C_START_DATE = #{c_start_date} , C_END_DATE = #{c_end_date} , C_PROF_NAME = #{c_prof_name}
-		, C_STU_COUNT = #{c_stu_count} , C_TIME = #{c_time} , C_INFO = #{c_info} , C_TERM = #{c_term} , C_DAY = #{c_day} , C_STATUS = #{c_status}
+		UPDATE CLASS SET C_ID = #{c_id} , C_NAME = #{c_name},
+		C_START_DATE = #{c_start_date} , C_END_DATE = #{c_end_date} ,
+		C_PROF_NAME = #{c_prof_name}
+		, C_STU_COUNT = #{c_stu_count} , C_TIME =
+		#{c_time} , C_INFO = #{c_info} , C_TERM = #{c_term} , C_DAY = #{c_day}
+		, C_STATUS = #{c_status}
 		WHERE C_NUMBER = #{c_number}
 	</update>
-	
-	<select id="studentList" parameterType="com.smart.lms.util.Pagination" resultType="studentDTO">
+
+	<select id="studentList"
+		parameterType="com.smart.lms.util.Pagination" resultType="studentDTO">
 		SELECT * FROM STUDENT WHERE 1=1
 		<if test="keyword != null and keyword != ''">
 			<if test="searchType == 'id'"> AND ID like CONCAT('%', #{keyword}, '%') </if>
 			<if test="searchType == 'name'"> AND NAME like CONCAT('%', #{keyword}, '%') </if>
 		</if>
-		ORDER BY ID 
-		LIMIT #{sizePerPage} OFFSET #{startList}  
+		ORDER BY ID
+		LIMIT #{sizePerPage} OFFSET #{startList}
 	</select>
-	
-	<select id="stuAllCnt" parameterType="com.smart.lms.util.Pagination" resultType="integer">
+
+	<select id="stuAllCnt"
+		parameterType="com.smart.lms.util.Pagination" resultType="integer">
 		SELECT COUNT(*) FROM STUDENT WHERE 1=1
 		<if test="keyword != null and keyword != ''">
 			<if test="searchType == 'id'"> AND ID like CONCAT('%', #{keyword}, '%')</if>
 			<if test="searchType == 'name'"> AND NAME like CONCAT('%', #{keyword}, '%')</if>
 		</if>
 	</select>
-	
-	<select id="proList" parameterType="com.smart.lms.util.Pagination" resultType="professorDTO">
+
+	<select id="proList"
+		parameterType="com.smart.lms.util.Pagination"
+		resultType="professorDTO">
 		SELECT * FROM PROFESSOR WHERE TYPE = '교수'
 		<if test="keyword != null and keyword != ''">
 			<if test="searchType == 'id'"> AND ID like CONCAT('%', #{keyword}, '%') </if>
 			<if test="searchType == 'name'"> AND NAME like CONCAT('%', #{keyword}, '%') </if>
 		</if>
-			ORDER BY ID 
-			LIMIT #{sizePerPage} OFFSET #{startList}  
+		ORDER BY ID
+		LIMIT #{sizePerPage} OFFSET #{startList}
 	</select>
-	
-	<select id="proAllCnt" parameterType="com.smart.lms.util.Pagination" resultType="integer">
+
+	<select id="proAllCnt"
+		parameterType="com.smart.lms.util.Pagination" resultType="integer">
 		SELECT COUNT(*) FROM PROFESSOR WHERE TYPE = '교수'
 		<if test="keyword != null and keyword != ''">
 			<if test="searchType == 'id'"> AND ID like CONCAT('%', #{keyword}, '%')</if>
 			<if test="searchType == 'name'"> AND NAME like CONCAT('%', #{keyword}, '%')</if>
 		</if>
 	</select>
-	
-	<select id="stuInfo"  resultType="StudentDTO">
-		SELECT * FROM STUDENT WHERE ID = #{id}
+
+	<select id="stuInfo" resultType="StudentDTO">
+		SELECT * FROM STUDENT WHERE ID =
+		#{id}
 	</select>
-	
-	<select id="proInfo"  resultType="professorDTO">
-		SELECT * FROM PROFESSOR WHERE ID = #{id}
+
+	<select id="proInfo" resultType="professorDTO">
+		SELECT * FROM PROFESSOR WHERE ID
+		= #{id}
 	</select>
-	
+
 	<select id="attInfo" resultType="attendDTO">
-		SELECT AC.C_NUMBER , AC.ID , AC.NAME
-     		 , COUNT(CASE WHEN T.A_STATUS = '출석' THEN A_STATUS END) 'ATTENDANCE'
-    	 	 , COUNT(CASE WHEN T.A_STATUS = '지각' THEN A_STATUS END) 'TARDY'
-     	 	 , COUNT(CASE WHEN T.A_STATUS = '조퇴' THEN A_STATUS END) 'EARLY'
-    		 , COUNT(CASE WHEN T.A_STATUS = '결석' THEN A_STATUS END) 'ABSENT'
-  		 FROM ATTEND_CLASS AC
-   LEFT OUTER JOIN TODATE T
-    	   ON AC.C_NUMBER = T.C_NUMBER
-          AND AC.ID = T.ID
-        WHERE AC.C_NUMBER = #{c_number}
-     GROUP BY AC.C_NUMBER, AC.ID, AC.NAME;
+		SELECT AC.C_NUMBER , AC.ID ,
+		AC.NAME
+		, COUNT(CASE WHEN T.A_STATUS = '출석' THEN A_STATUS END) 'ATTENDANCE'
+		, COUNT(CASE WHEN T.A_STATUS = '지각' THEN A_STATUS END) 'TARDY'
+		, COUNT(CASE WHEN T.A_STATUS = '조퇴' THEN A_STATUS END) 'EARLY'
+		, COUNT(CASE WHEN T.A_STATUS = '결석' THEN A_STATUS END) 'ABSENT'
+		FROM ATTEND_CLASS AC
+		LEFT OUTER JOIN TODATE T
+		ON AC.C_NUMBER = T.C_NUMBER
+		AND AC.ID = T.ID
+		WHERE AC.C_NUMBER = #{c_number}
+		GROUP BY AC.C_NUMBER, AC.ID, AC.NAME;
 	</select>
-	
-	<select id="attStuSearch" parameterType="com.smart.lms.util.Pagination" resultType="attendDTO">
+
+	<select id="attStuSearch"
+		parameterType="com.smart.lms.util.Pagination" resultType="attendDTO">
 		SELECT AC.C_NUMBER , AC.ID , AC.NAME
-     	     , COUNT(CASE WHEN T.A_STATUS = '출석' THEN A_STATUS END) 'ATTENDANCE'
-    	 	 , COUNT(CASE WHEN T.A_STATUS = '지각' THEN A_STATUS END) 'TARDY'
-     	 	 , COUNT(CASE WHEN T.A_STATUS = '조퇴' THEN A_STATUS END) 'EARLY'
-    		 , COUNT(CASE WHEN T.A_STATUS = '결석' THEN A_STATUS END) 'ABSENT'
-  		 FROM ATTEND_CLASS AC
-   LEFT OUTER JOIN TODATE T
-    	   ON AC.C_NUMBER = T.C_NUMBER
-          AND AC.ID = T.ID
-        WHERE AC.C_NUMBER = #{c_number}
-		      <if test="keyword != null and keyword != ''">
-				<if test="searchType == 'id'"> AND ID like CONCAT('%', #{keyword}, '%') </if>
-				<if test="searchType == 'name'"> AND NAME like CONCAT('%', #{keyword}, '%') </if>
-		      </if>
-     GROUP BY AC.C_NUMBER, AC.ID, AC.NAME;
+		, COUNT(CASE WHEN T.A_STATUS = '출석' THEN A_STATUS END) 'ATTENDANCE'
+		, COUNT(CASE WHEN T.A_STATUS = '지각' THEN A_STATUS END) 'TARDY'
+		, COUNT(CASE WHEN T.A_STATUS = '조퇴' THEN A_STATUS END) 'EARLY'
+		, COUNT(CASE WHEN T.A_STATUS = '결석' THEN A_STATUS END) 'ABSENT'
+		FROM ATTEND_CLASS AC
+		LEFT OUTER JOIN TODATE T
+		ON AC.C_NUMBER = T.C_NUMBER
+		AND AC.ID = T.ID
+		WHERE AC.C_NUMBER = #{c_number}
+		<if test="keyword != null and keyword != ''">
+			<if test="searchType == 'id'"> AND ID like CONCAT('%', #{keyword}, '%') </if>
+			<if test="searchType == 'name'"> AND NAME like CONCAT('%', #{keyword}, '%') </if>
+		</if>
+		GROUP BY AC.C_NUMBER, AC.ID, AC.NAME;
 	</select>
-	
-	<insert id="insertGradeTx" >
- 		INSERT INTO GRADE (G_NUMBER, C_NUMBER, ID, LEVEL, Grade) VALUES (#{g_number}, #{c_number}, #{id}, #{level}, #{grade})
-			ON DUPLICATE KEY UPDATE
-	      	   LEVEL = #{level}, GRADE = #{grade}
- 	</insert>
-	
-	<update id = "updateGradeTx">
-		UPDATE GRADE SET GRADE = #{grade} WHERE G_NUMBER = #{g_number} AND ID = #{id}
+
+	<insert id="insertGradeTx">
+		INSERT INTO GRADE (G_NUMBER, C_NUMBER, ID, LEVEL, Grade) VALUES
+		(#{g_number}, #{c_number}, #{id}, #{level}, #{grade})
+		ON DUPLICATE KEY UPDATE
+		LEVEL = #{level}, GRADE = #{grade}
+	</insert>
+
+	<update id="updateGradeTx">
+		UPDATE GRADE SET GRADE = #{grade} WHERE G_NUMBER =
+		#{g_number} AND ID = #{id}
 	</update>
-	
-	<select id="gradeList" parameterType="com.smart.lms.util.Pagination" resultType="gradeDTO">
-		SELECT g.G_NUMBER , g.C_NUMBER, g.ID, g.`level`, g.GRADE, ac.NAME 
-		  FROM GRADE g
-     LEFT JOIN ATTEND_CLASS ac 
-	   		ON g.ID = ac.ID 
-		 WHERE G_NUMBER = #{g_number}
-		 	<if test="keyword != null and keyword != ''">
+
+	<select id="gradeList"
+		parameterType="com.smart.lms.util.Pagination" resultType="gradeDTO">
+		SELECT g.G_NUMBER , g.C_NUMBER, g.ID, g.`level`, g.GRADE, ac.NAME
+		FROM GRADE g
+		LEFT JOIN ATTEND_CLASS ac
+		ON g.ID = ac.ID
+		WHERE G_NUMBER = #{g_number}
+		<if test="keyword != null and keyword != ''">
 			<if test="searchType == 'id'"> AND g.ID like CONCAT('%', #{keyword}, '%') </if>
 			<if test="searchType == 'name'"> AND ac.NAME like CONCAT('%', #{keyword}, '%') </if>
 		</if>
-	  GROUP BY g.G_NUMBER, g.C_NUMBER, g.ID, ac.NAME
+		GROUP BY g.G_NUMBER, g.C_NUMBER, g.ID, ac.NAME
 	</select>
 
 	<insert id="testInsertTx">
-		INSERT INTO TEST (C_NUMBER, ID, TEST_TYPE, START_TIME, END_TIME, TEST_TIME) VALUES (#{c_number}, #{id}, #{test_type}, #{start_time}, #{end_time}, #{test_time})
+		INSERT INTO TEST (C_NUMBER, ID, TEST_TYPE,
+		START_TIME, END_TIME, TEST_TIME) VALUES (#{c_number}, #{id},
+		#{test_type}, #{start_time}, #{end_time}, #{test_time})
 	</insert>
-	
+
 	<select id="testSelect" resultType="testDTO">
-		SELECT * FROM TEST WHERE C_NUMBER = #{c_number} AND STATUS = 0
+		SELECT * FROM TEST WHERE
+		C_NUMBER = #{c_number} AND STATUS = 0
 	</select>
-	
+
 	<select id="testSelectUp" resultType="testDTO">
-		SELECT * FROM TEST WHERE C_NUMBER = #{c_number} AND STATUS = 1
+		SELECT * FROM TEST WHERE
+		C_NUMBER = #{c_number} AND STATUS = 1
 	</select>
-	
-	<update id ="testStatusUpTx">
-	  UPDATE TEST SET STATUS = 1 WHERE G_NUMBER = #{g_number}
+
+	<update id="testStatusUpTx">
+		UPDATE TEST SET STATUS = 1 WHERE G_NUMBER = #{g_number}
 	</update>
-	
-	<update id ="gradeUpdateTx">
-	  UPDATE GRADE SET GRADE = #{grade} WHERE G_NUMBER = #{g_number} AND ID = #{id}
+
+	<update id="gradeUpdateTx">
+		UPDATE GRADE SET GRADE = #{grade} WHERE G_NUMBER = #{g_number} AND ID =
+		#{id}
 	</update>
-	
-<!-- 	과제 -->
+
+	<!-- 과제 -->
 	<select id="getTaskList" resultType="taskDTO">
-		SELECT * FROM TASK WHERE C_NUMBER = #{c_number}
+		SELECT * FROM TASK WHERE
+		C_NUMBER = #{c_number}
 	</select>
 
 	<insert id="taskInsertTx">
-		INSERT INTO TASK (C_NUMBER, ID, TITLE, INFO, DEADLINE, T_FILE1 ) VALUES (#{c_number}, #{id}, #{title}, #{info}, #{deadline}, #{t_file1})
+		INSERT INTO TASK (C_NUMBER, ID, TITLE, INFO,
+		DEADLINE, T_FILE1 ) VALUES (#{c_number}, #{id}, #{title}, #{info},
+		#{deadline}, #{t_file1})
 	</insert>
-	
+
 	<select id="getTaskCheck" resultType="stutaskDTO">
-		SELECT * FROM STU_TASK WHERE T_NUMBER = #{t_number}
+		SELECT * FROM STU_TASK
+		WHERE T_NUMBER = #{t_number}
 	</select>
-	
+
 	<select id="getTask" resultType="taskDTO">
-		SELECT * FROM TASK WHERE T_NUMBER = #{t_number}
+		SELECT * FROM TASK WHERE
+		T_NUMBER = #{t_number}
 	</select>
-	
+
 	<select id="getStuTask" resultType="stutaskDTO">
-		SELECT * FROM STU_TASK WHERE T_NUMBER = #{t_number} AND ID = #{id}
+		SELECT * FROM STU_TASK WHERE
+		T_NUMBER = #{t_number} AND ID = #{id}
 	</select>
-	
+
 	<insert id="insertStuTaskTx">
-		INSERT INTO STU_TASK (T_NUMBER, C_NUMBER, ID, ST_TITLE, ST_INFO, S_FILE1) VALUES (#{t_number}, #{c_number}, #{id}, #{st_title}, #{st_info}, #{s_file1})
+		INSERT INTO STU_TASK (T_NUMBER, C_NUMBER, ID,
+		ST_TITLE, ST_INFO, S_FILE1) VALUES (#{t_number}, #{c_number}, #{id},
+		#{st_title}, #{st_info}, #{s_file1})
 	</insert>
-	
-	
-<!-- 	해당 수강과목의 수강생들의 과제 제출 여부 보는 쿼리 -->
+
+
+	<!-- 해당 수강과목의 수강생들의 과제 제출 여부 보는 쿼리 -->
 	<select id="StuTaskOrNot" resultType="stutaskDTO">
-		  select ac.C_NUMBER , ac.ID , ac.NAME, st.ST_SUBMIT, st.T_NUMBER , st.ST_NUMBER 
-            from attend_class ac 
-            left outer join stu_task st 
-            on ac.C_NUMBER = st.C_NUMBER 
-            and ac.ID = st.ID 
-            where ac.C_NUMBER = #{c_number};
+		select ac.C_NUMBER , ac.ID , ac.NAME, st.ST_SUBMIT, st.T_NUMBER ,
+		st.ST_NUMBER
+		from attend_class ac
+		left outer join stu_task st
+		on ac.C_NUMBER = st.C_NUMBER
+		and ac.ID = st.ID
+		where ac.C_NUMBER = #{c_number};
 	</select>
-	
-	<select id="taskAllList" resultType="stutaskDTO" >
-		SELECT * FROM STU_TASK WHERE T_NUMBER = #{t_number}
-	
+
+	<select id="taskAllList" resultType="stutaskDTO">
+		select ac.C_NUMBER , ac.ID , AC.NAME, st.ST_SUBMIT, st.T_NUMBER ,
+		st.ST_NUMBER
+		from attend_class ac
+		left outer join stu_task st
+		on ac.C_NUMBER = st.C_NUMBER
+		and ac.ID = st.ID
+		AND (st.T_NUMBER = #{t_number} OR st.T_NUMBER IS null)
+		where ac.C_NUMBER = #{c_number}
+		order by ac.ID;
 	</select>
-	
-	
-	
-	
-	
-	
-	
-	
+
+	<select id="getThisStuTask" resultType="stutaskDTO">
+		SELECT * FROM STU_TASK
+		WHERE ST_NUMBER = #{st_number}
+	</select>
+
+	<update id="stuTaskUpdateTx">
+		UPDATE STU_TASK SET ST_TITLE = #{st_title}, ST_INFO =
+		#{st_info}, S_FILE1 = #{s_file1} WHERE ST_NUMBER = #{st_number}
+
+	</update>
+
+
+
+
+
+
+
+
 </mapper>

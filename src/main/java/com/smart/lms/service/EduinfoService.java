@@ -77,5 +77,11 @@ public interface EduinfoService {
 
    public void insertStuTaskTx(StuTaskVO vo);
 
-   public List<StuTaskVO> taskAllList(int t_number);
+   public List<StuTaskVO> taskAllList(int t_number, int c_number);
+
+   public StuTaskVO getThisStuTask(int st_number);
+
+   public void stuTaskUpdateTx(StuTaskVO vo);
+
+
 }

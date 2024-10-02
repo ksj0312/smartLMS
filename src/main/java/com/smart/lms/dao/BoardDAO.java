@@ -161,10 +161,5 @@ public class BoardDAO {
 	public int noteCount(String userId) {
 		return mybatis.selectOne("boardDAO.noteCount",userId);
 	}
-	
-	
-	public List<StuTaskVO> taskAllList(int t_number){
-		return mybatis.selectList("boardDAO.taskAllList", t_number);
-	}
 
 }

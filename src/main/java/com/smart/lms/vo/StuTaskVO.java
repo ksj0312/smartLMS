@@ -9,6 +9,7 @@ public class StuTaskVO {
 	private int t_number;
 	private int c_number;
 	private String id;
+	private String name;
 	private String st_status;
 	private String st_submit;
 	private int st_score;
@@ -21,10 +22,17 @@ public class StuTaskVO {
 	private String s_file2;
 	private String s_file3;
 	
+	
 	private MultipartFile uploadFile;
 	
 	
 	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
 	public String getSt_title() {
 		return st_title;
 	}

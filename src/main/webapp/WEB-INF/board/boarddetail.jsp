@@ -34,7 +34,7 @@
 					</tr>
 			</tbody>
 		</table>
-					<a href="downloadFile?filePath=${board.b_file1}">${board.b_file1}</a>
+					<a href="downloadFile?fileName=${board.b_file1}">${board.b_file1}</a>
 					
 					
 					

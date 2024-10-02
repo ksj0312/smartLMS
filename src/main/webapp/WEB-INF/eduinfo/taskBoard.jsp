@@ -13,20 +13,14 @@
 </head>
 <body>
 
-	<%
-	if ("교수".equals(usertype)) {
-	%>
-	<%@ include file="../member/adminIndex.jsp"%>
-	<%
-	} else {
-	%>
-	<%@ include file="../member/taskIndex.jsp"%>
-	<%
-	}
-	%>
-	<%
-	String c_name = (String) request.getAttribute("c_name");
-	%>
+	<% if("교수".equals(usertype) || "관리자".equals(usertype)){ %>
+        <%@ include file="../member/adminIndex.jsp"%>
+    <%}else{ %>
+   		<%@ include file="../member/taskIndex.jsp"%>
+    <%} %>
+    
+	<% Integer c_number = (Integer) request.getAttribute("c_number"); %>
+	<%String c_name = (String) request.getAttribute("c_name");%>
 
 	<div class="bcl">
 		<div class="divall">
@@ -34,7 +28,7 @@
 			<br>
 			<section class="header-container">
 				<h5>
-					강의번호 :<%=request.getParameter("c_number")%>
+					강의번호 <%=c_number%>
 				</h5>
 				<h5>
 					강의명 : <%=c_name%></h5>
@@ -68,21 +62,25 @@
 				<tr>
 					<th>강의 번호</th>
 					<th>작성자</th>
+					<th>과제 번호</th>
 					<th>과제 제목</th>
 					<th>과제 내용</th>
-					<th>종료 시간</th>
+					<th>파일</th>
 				</tr>
 				<tr>
 					<td>${stutask.c_number}</td>
 					<td>${stutask.id}</td>
 					<td>${stutask.t_number}</td>
-					<td>시간</td>
+					<td>${stutask.st_title }</td>
+					<td>${stutask.st_info }</td>
 					<td>
 					<a href="downloadFile?filePath=${stutask.s_file1}">${stutask.s_file1}</a></td>
 				</tr>
 			</table>
 				<button onclick="location.href='insertStuTaskPage?c_number=${task.c_number}&t_number=${task.t_number}'"
-					style="cursor: hand"></button>
+					style="cursor: hand">등록</button>
+					
+				<button onclick="location.href='stuTaskUpdatePage?st_number=${stutask.st_number}'">수정하기</button>
 
 
 
