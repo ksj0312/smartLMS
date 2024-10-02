@@ -76,4 +76,6 @@ public interface EduinfoService {
    public StuTaskVO getStuTask(int t_number, String id);
 
    public void insertStuTaskTx(StuTaskVO vo);
+
+   public List<StuTaskVO> taskAllList(int t_number);
 }

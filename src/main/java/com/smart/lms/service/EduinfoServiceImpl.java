@@ -232,8 +232,11 @@ public class EduinfoServiceImpl implements EduinfoService {
        eduDAO.insertStuTaskTx(vo);
    }
    
-   
-   
+ //과제를 제출한 학생들의 목록
+   @Override
+   public List<StuTaskVO> taskAllList(int t_number){
+	   return eduDAO.taskAllList(t_number);
+   }
    
    }
    

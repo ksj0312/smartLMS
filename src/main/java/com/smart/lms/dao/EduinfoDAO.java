@@ -166,4 +166,8 @@ public class EduinfoDAO {
   public void insertStuTaskTx(StuTaskVO vo) {
 	  	mybatis.insert("eduinfoDAO.insertStuTaskTx", vo);
   }
+
+  public List<StuTaskVO> taskAllList(int t_number) {
+	   return mybatis.selectList("eduinfoDAO.taskAllList", t_number);
+}
 }

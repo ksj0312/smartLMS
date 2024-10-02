@@ -18,6 +18,7 @@
     <%}else{ %>
    		<%@ include file="../member/taskIndex.jsp"%>
     <%} %>
+<% Integer c_number = (Integer) request.getAttribute("c_number"); %>
 <% String c_name = (String) request.getAttribute("c_name"); %>
     
 <div class="bcl">
@@ -25,7 +26,7 @@
         <h4>과제 목록</h4>
         <br>
             <section class="header-container">
-    					<h5>강의번호 :<%= request.getParameter("c_number") %> </h5>
+    					<h5>강의번호 :<%=c_number %> </h5>
     					<h5>강의명 : <%=c_name %></h5> 
                 </section>
         <br><br>
@@ -34,21 +35,32 @@
 				<c:when test="${taskListcnt > 0}">
 				     <table class="table">
 				        <tr>
-				        <th>t_number</th>
 				        <th>강의 번호</th>
 				        <th>작성자</th>
 				        <th>과제 제목</th>
 				        <th>과제 내용 </th>
 				        <th>종료 시간</th>
+				        <% if("학생".equals(usertype)){ %>			
+				        <th>완료 여부</th>
+				        <%} %>
+				        
 				        </tr>
 					<c:forEach items="${taskList}" var="tl">
+					
+					<%if("교수".equals(usertype) || "관리자".equals(usertype)){ %>
+					<tr onclick="location.href='taskAllList?c_number=${tl.c_number}&t_number=${tl.t_number}'" style="cursor:hand" >
+					<% }else{%>
 					<tr onclick="location.href='taskBoard?c_number=${tl.c_number}&t_number=${tl.t_number}'" style="cursor:hand" >
-						<td>${tl.t_number }</td>
+					<%} %>
 						<td>${tl.c_number}</td>  
 						<td>${tl.id}</td>  
 						<td>${tl.title}</td>
 						<td>${tl.info}</td>
 						<td>${tl.deadline}</td>
+						
+						<% if("학생".equals(usertype)){ %>						
+						<td id="taskStatus_${tl.t_number}"></td>
+						<%} %>
 						</tr>
 					</c:forEach>
 					</table>
@@ -61,5 +73,43 @@
 			</c:choose> 
 </div>
 </div>
+
+<script>
+$(document).ready(function() {
+    const taskList = [
+        <c:forEach items="${taskList}" var="task">
+            {
+                "t_number": "${task.t_number}"
+            },
+        </c:forEach>
+    ]; // JSON 배열 생성
+
+    taskList.forEach(task => {
+        const t_number = task.t_number; // 각 과제의 t_number
+
+        $.ajax({
+            url: '/checkTask',
+            type: 'GET',
+            data: { t_number: t_number, userId: userId }, // userId는 필요에 따라 설정
+            success: function(response) {
+                const statusId = '#taskStatus_' + t_number; // 고유한 ID로 선택
+                $(statusId).empty(); // 이전 상태 지우기
+                console.log(response);
+
+                // 공백을 제거하고 제출 여부 확인
+                if (response && response.trim() === '??') {
+                    $(statusId).append('<span class="check">✔️</span>'); // 체크 표시
+                } else {
+                    $(statusId).append('<span class="cross">❌</span>'); // X 표시
+                }
+            },
+            error: function() {
+                const statusId = '#taskStatus_' + t_number; // 고유한 ID로 선택
+                $(statusId).text('오류가 발생했습니다.');
+            }
+        });
+    });
+});
+</script>
 </body>
 </html>

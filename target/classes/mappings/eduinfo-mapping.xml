@@ -225,12 +225,17 @@
 	
 <!-- 	해당 수강과목의 수강생들의 과제 제출 여부 보는 쿼리 -->
 	<select id="StuTaskOrNot" resultType="stutaskDTO">
-<!-- 		  select ac.C_NUMBER , ac.ID , ac.NAME, st.ST_SUBMIT, st.T_NUMBER , st.ST_NUMBER  -->
-<!--             from attend_class ac  -->
-<!--             left outer join stu_task st  -->
-<!--             on ac.C_NUMBER = st.C_NUMBER  -->
-<!--             and ac.ID = st.ID  -->
-<!--             where ac.C_NUMBER = 1; -->
+		  select ac.C_NUMBER , ac.ID , ac.NAME, st.ST_SUBMIT, st.T_NUMBER , st.ST_NUMBER 
+            from attend_class ac 
+            left outer join stu_task st 
+            on ac.C_NUMBER = st.C_NUMBER 
+            and ac.ID = st.ID 
+            where ac.C_NUMBER = #{c_number};
+	</select>
+	
+	<select id="taskAllList" resultType="stutaskDTO" >
+		SELECT * FROM STU_TASK WHERE T_NUMBER = #{t_number}
+	
 	</select>
 	
 	
