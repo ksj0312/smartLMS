@@ -44,14 +44,21 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text">과제 마감일</span>
 						</div>
-						<input type=datetime-local class="form-control" name="deadline" id="deadline"
-							value="" placeholder="ex)2024.01.01 16:00">
+						<input type="datetime-local" class="form-control" name="deadline" id="deadline"
+							value="" placeholder="ex)2024.01.01 16:00" oninput="showValue()">
 					</div>
+					
+					<script>
+					function showValue() {
+					    const deadlineInput = document.getElementById('deadline');
+					    console.log(deadlineInput.value);
+					}
+					</script>
                   	<div class="input-group mb-3">
 						<div class="input-group-prepend">
 							<span class="input-group-text">과제 내용</span>
 						</div>
-						<input type="textarea" class="form-control" name="info" id="info"
+						<input type="text" class="form-control" name="info" id="info"
 							value="" placeholder="ex)">
 					</div>
 					<div class="input-group mb-3">

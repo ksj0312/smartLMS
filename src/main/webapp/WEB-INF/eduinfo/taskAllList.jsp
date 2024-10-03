@@ -13,7 +13,7 @@
 </head>
 <body>
 
-<% if("교수".equals(usertype)){ %>
+<% if("교수".equals(usertype) || "관리자".equals(usertype)){ %>
         <%@ include file="../member/adminIndex.jsp"%>
     <%}else{ %>
    		<%@ include file="../member/taskIndex.jsp"%>
@@ -32,34 +32,56 @@
                 </section>
         <br><br>
         
+        <c:if test="${not empty stutaskList}">
+        
 				     <table class="table">
 				        <tr>
 				        <th>과제 번호</th>
-				        <th>작성자</th>
-				        <th>과제 제목</th>
-				        <th>과제 내용 </th>
-				        <th>종료 시간</th>
+				        <th>학번</th>
+				        <th>이름</th>
+				        <th>과제 제출 현황 </th>
 <!-- 				        <th>완료 여부</th> -->
 				        
 				        </tr>
 					<c:forEach items="${stutaskList}" var="stl">
-					<tr onclick="location.href='taskBoard?c_number=${stl.c_number}&t_number=${stl.t_number}$id${stl.id}'" style="cursor:hand" >
+					<c:if test="${stl.st_submit eq '제출'}">
+					<tr onclick="location.href='taskBoard?c_number=${stl.c_number}&t_number=${stl.t_number}&id=${stl.id}'" style="cursor:hand" >
+					</c:if>
 						<td>${stl.c_number}</td>  
 						<td>${stl.id}</td>  
-						<td>111</td>
-						<td>${stl.st_submit}</td>
-						<td>${stl.s_file1}</td>
+						<td>${stl.name}</td>  
+						
+						<c:if test="${stl.st_submit eq '제출'}">
+							<td><img class="taskcheck" src="${pageContext.request.contextPath}/resources/img/check.png"> </td>
+							
+						</c:if>
+						
+						<c:if test="${stl.st_submit ne '제출'}">
+							<td><img class="taskcheck" src="${pageContext.request.contextPath}/resources/img/cancle.png"> </td>
+						</c:if>
+						
+<%-- 						<td>${stl.s_file1}</td> --%>
 						
 <%-- 						<td id="taskStatus_${tl.t_number}"></td> --%>
 						</tr>
 					</c:forEach>
 					</table>
+					
+					</c:if>
+					
+				<c:if test="${empty stutaskList}">
 				<div class="nodiv">
-				<h5>진행중인 과제 목록이 없습니다.</h5>
+				<h5>제출된 과제가 없습니다.</h5>
 				</div>
+				</c:if>
+				
 </div>
 </div>
-
+<style>
+	.taskcheck{
+		width : 30px;
+	}
+</style>
 
 </body>
 </html>

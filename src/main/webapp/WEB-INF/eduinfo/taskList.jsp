@@ -13,13 +13,14 @@
 </head>
 <body>
 
-<% if("교수".equals(usertype)){ %>
+<% if("교수".equals(usertype) || "관리자".equals(usertype)){ %>
         <%@ include file="../member/adminIndex.jsp"%>
     <%}else{ %>
    		<%@ include file="../member/taskIndex.jsp"%>
     <%} %>
 <% Integer c_number = (Integer) request.getAttribute("c_number"); %>
 <% String c_name = (String) request.getAttribute("c_name"); %>
+<% String id = (String) request.getAttribute("userId"); %>
     
 <div class="bcl">
         <div class="divall">
@@ -31,8 +32,6 @@
                 </section>
         <br><br>
         
-        <c:choose>
-				<c:when test="${taskListcnt > 0}">
 				     <table class="table">
 				        <tr>
 				        <th>강의 번호</th>
@@ -40,7 +39,7 @@
 				        <th>과제 제목</th>
 				        <th>과제 내용 </th>
 				        <th>종료 시간</th>
-				        <% if("학생".equals(usertype)){ %>			
+				        <% if(usertype == null){ %>			
 				        <th>완료 여부</th>
 				        <%} %>
 				        
@@ -50,27 +49,23 @@
 					<%if("교수".equals(usertype) || "관리자".equals(usertype)){ %>
 					<tr onclick="location.href='taskAllList?c_number=${tl.c_number}&t_number=${tl.t_number}'" style="cursor:hand" >
 					<% }else{%>
-					<tr onclick="location.href='taskBoard?c_number=${tl.c_number}&t_number=${tl.t_number}'" style="cursor:hand" >
+					<tr onclick="location.href='taskBoard?c_number=${tl.c_number}&t_number=${tl.t_number}&id=<%=id %>'" style="cursor:hand" >
 					<%} %>
 						<td>${tl.c_number}</td>  
 						<td>${tl.id}</td>  
 						<td>${tl.title}</td>
 						<td>${tl.info}</td>
-						<td>${tl.deadline}</td>
+						<td><fmt:formatDate value="${tl.deadline}" pattern="yyyy-MM-dd HH:mm"/></td>
 						
-						<% if("학생".equals(usertype)){ %>						
+						<% if(usertype == null){ %>						
 						<td id="taskStatus_${tl.t_number}"></td>
 						<%} %>
 						</tr>
 					</c:forEach>
 					</table>
-				</c:when>
-				<c:otherwise>
 				<div class="nodiv">
 				<h5>진행중인 과제 목록이 없습니다.</h5>
 				</div>
-				</c:otherwise> 
-			</c:choose> 
 </div>
 </div>
 
@@ -97,10 +92,12 @@ $(document).ready(function() {
                 console.log(response);
 
                 // 공백을 제거하고 제출 여부 확인
-                if (response && response.trim() === '??') {
+                if (response && response.trim() === 'yes') {
                     $(statusId).append('<span class="check">✔️</span>'); // 체크 표시
-                } else {
+                } else if (response && response.trim() === 'no') {
                     $(statusId).append('<span class="cross">❌</span>'); // X 표시
+                } else {
+                    $(statusId).text('알 수 없는 응답입니다.'); // 예상치 못한 응답 처리
                 }
             },
             error: function() {

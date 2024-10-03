@@ -478,16 +478,19 @@ public class BoardController {
        // 파일 처리 로직
        MultipartFile file = vo.getUploadFile();
        if (file != null && !file.isEmpty()) {
-           // 파일 저장 경로 설정
-           String uploadPath = "c:/smart/smartlms/src/main/webapp/resources/upfile/"; // 저장할 경로 설정
+    	// 파일 저장 경로 설정 (상대 경로)
+           String uploadPath = "/resources/upfile/"; // 상대 경로 설정
            String fileName = file.getOriginalFilename();
            
+           // 저장할 파일의 전체 경로
+           String fullPath = new File(uploadPath).getAbsolutePath() + File.separator + fileName;
+
            // 파일을 해당 경로에 저장
-           File dest = new File(uploadPath + fileName);
+           File dest = new File(fullPath);
            file.transferTo(dest);
            
-           // BoardVO에 파일 경로 설정
-           vo.setB_file1(uploadPath + fileName); // 파일 경로를 BoardVO의 b_file1에 설정
+           // BoardVO에 파일 경로 설정 (상대 경로 사용)
+           vo.setB_file1(fileName); // 파일 경로를 BoardVO의 b_file1에 설정
 
            System.out.println("파일 저장 성공: " + fileName);
        } else {
@@ -511,8 +514,12 @@ public class BoardController {
    
    //파일 다운로드 로직
    @GetMapping("/downloadFile")
-   public void downloadFile(@RequestParam("filePath") String filePath, HttpServletResponse response) throws IOException {
-       // URL 디코딩 (공백 및 특수문자를 처리하기 위해)
+   public void downloadFile(@RequestParam("fileName") String fileName, HttpServletResponse response) throws IOException {
+	// 파일 저장 경로 설정 (상대 경로)
+	    String uploadPath = "/resources/upfile/"; // 파일이 저장된 상대 경로
+	    String filePath = uploadPath + fileName; // 전체 파일 경로 생성
+	    
+	   // URL 디코딩 (공백 및 특수문자를 처리하기 위해)
        String decodedFilePath = java.net.URLDecoder.decode(filePath, "UTF-8");
        
        // 파일 객체 생성
@@ -551,12 +558,23 @@ public class BoardController {
 	
    //목록 누를시 상세 내용으로 이동
    @GetMapping("/getBoard")
-   public String getBoard(BoardVO vo, Model model) {
-      BoardVO board = boardService.getBoard(vo.getB_number());
+   public String getBoard(BoardVO vo, Model model, HttpSession session) {
       
-    //조회수 1씩 증가 로직
-		boardService.boardViewTx(vo.getB_number());
+      // 세션에서 조회한 게시물 번호 확인
+      List<Integer> viewedBoards = (List<Integer>) session.getAttribute("viewedBoards");
+      
+      // 조회수 1씩 증가 로직
+      if (viewedBoards == null) {
+          viewedBoards = new ArrayList<>();
+      }
+      
+      if (!viewedBoards.contains(vo.getB_number())) {
+          boardService.boardViewTx(vo.getB_number());
+          viewedBoards.add(vo.getB_number());
+          session.setAttribute("viewedBoards", viewedBoards);
+      }
 		
+      BoardVO board = boardService.getBoard(vo.getB_number());
 		//댓글 조회
 		List<CommentVO> commentList = boardService.getCommentList(vo.getB_number());
 		model.addAttribute("board", board);
