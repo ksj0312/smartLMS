@@ -10,11 +10,9 @@
 		SYSDATE()) as A_DATE
 		FROM ATTEND_CLASS AC
 		LEFT OUTER JOIN TODATE T
-		ON
-		AC.C_NUMBER = T.C_NUMBER
+		ON AC.C_NUMBER = T.C_NUMBER
 		AND AC.ID = T.ID
-		AND T.A_DATE =
-		DATE(IFNULL(#{searchDate} , SYSDATE()))
+		AND T.A_DATE = DATE(IFNULL(#{searchDate} , SYSDATE()))
 		WHERE AC.C_NUMBER = #{c_number}
 		<if test="keyword != null and keyword != ''">
 			<if test="searchType == 'id'"> AND AC.ID like CONCAT('%', #{keyword}, '%')</if>
@@ -43,11 +41,9 @@
 	</insert>
 
 	<insert id="updateAttendanceTx">
-		INSERT INTO TODATE (C_NUMBER, ID, A_DATE, A_STATUS)
-		VALUES (#{c_number},
+		INSERT INTO TODATE (C_NUMBER, ID, A_DATE, A_STATUS) VALUES (#{c_number},
 		#{id}, #{a_date}, #{a_status})
-		ON DUPLICATE KEY
-		UPDATE
+		ON DUPLICATE KEY UPDATE
 		A_STATUS = #{a_status}
 	</insert>
 
@@ -55,10 +51,8 @@
 		INSERT INTO CLASS (C_NAME, C_CREATE_DATE,
 		C_START_DATE, C_END_DATE, C_ID, C_PROF_NAME, C_STU_COUNT, C_TIME,
 		C_INFO, C_TERM , C_DAY, C_STATUS )
-		VALUES (#{c_name}, SYSDATE() ,
-		#{c_start_date}, #{c_end_date}, #{c_id} ,
-		#{c_prof_name},
-		#{c_stu_count}, #{c_time}, #{c_info}, #{c_term},
+		VALUES (#{c_name}, SYSDATE() , #{c_start_date}, #{c_end_date}, #{c_id} ,
+		#{c_prof_name}, #{c_stu_count}, #{c_time}, #{c_info}, #{c_term},
 		#{c_day}, '진행')
 	</insert>
 
@@ -154,41 +148,30 @@
 	<select id="attInfo" resultType="attendDTO">
 		SELECT AC.C_NUMBER , AC.ID ,
 		AC.NAME
-		, COUNT(CASE WHEN T.A_STATUS = '출석' THEN A_STATUS END)
-		'ATTENDANCE'
-		, COUNT(CASE WHEN T.A_STATUS = '지각' THEN A_STATUS END)
-		'TARDY'
+		, COUNT(CASE WHEN T.A_STATUS = '출석' THEN A_STATUS END) 'ATTENDANCE'
+		, COUNT(CASE WHEN T.A_STATUS = '지각' THEN A_STATUS END) 'TARDY'
 		, COUNT(CASE WHEN T.A_STATUS = '조퇴' THEN A_STATUS END) 'EARLY'
 		, COUNT(CASE WHEN T.A_STATUS = '결석' THEN A_STATUS END) 'ABSENT'
-		FROM
-		ATTEND_CLASS AC
+		FROM ATTEND_CLASS AC
 		LEFT OUTER JOIN TODATE T
 		ON AC.C_NUMBER = T.C_NUMBER
-		AND
-		AC.ID = T.ID
+		AND AC.ID = T.ID
 		WHERE AC.C_NUMBER = #{c_number}
-		GROUP BY AC.C_NUMBER,
-		AC.ID, AC.NAME;
+		GROUP BY AC.C_NUMBER, AC.ID, AC.NAME;
 	</select>
 
 	<select id="attStuSearch"
 		parameterType="com.smart.lms.util.Pagination" resultType="attendDTO">
 		SELECT AC.C_NUMBER , AC.ID , AC.NAME
-		, COUNT(CASE WHEN T.A_STATUS =
-		'출석' THEN A_STATUS END) 'ATTENDANCE'
-		, COUNT(CASE WHEN T.A_STATUS =
-		'지각' THEN A_STATUS END) 'TARDY'
-		, COUNT(CASE WHEN T.A_STATUS = '조퇴'
-		THEN A_STATUS END) 'EARLY'
-		, COUNT(CASE WHEN T.A_STATUS = '결석' THEN
-		A_STATUS END) 'ABSENT'
+		, COUNT(CASE WHEN T.A_STATUS = '출석' THEN A_STATUS END) 'ATTENDANCE'
+		, COUNT(CASE WHEN T.A_STATUS = '지각' THEN A_STATUS END) 'TARDY'
+		, COUNT(CASE WHEN T.A_STATUS = '조퇴' THEN A_STATUS END) 'EARLY'
+		, COUNT(CASE WHEN T.A_STATUS = '결석' THEN A_STATUS END) 'ABSENT'
 		FROM ATTEND_CLASS AC
 		LEFT OUTER JOIN TODATE T
-		ON
-		AC.C_NUMBER = T.C_NUMBER
+		ON AC.C_NUMBER = T.C_NUMBER
 		AND AC.ID = T.ID
-		WHERE AC.C_NUMBER =
-		#{c_number}
+		WHERE AC.C_NUMBER = #{c_number}
 		<if test="keyword != null and keyword != ''">
 			<if test="searchType == 'id'"> AND ID like CONCAT('%', #{keyword}, '%') </if>
 			<if test="searchType == 'name'"> AND NAME like CONCAT('%', #{keyword}, '%') </if>
@@ -197,11 +180,9 @@
 	</select>
 
 	<insert id="insertGradeTx">
-		INSERT INTO GRADE (G_NUMBER, C_NUMBER, ID, LEVEL,
-		Grade) VALUES
+		INSERT INTO GRADE (G_NUMBER, C_NUMBER, ID, LEVEL, Grade) VALUES
 		(#{g_number}, #{c_number}, #{id}, #{level}, #{grade})
-		ON
-		DUPLICATE KEY UPDATE
+		ON DUPLICATE KEY UPDATE
 		LEVEL = #{level}, GRADE = #{grade}
 	</insert>
 
@@ -213,12 +194,10 @@
 	<select id="gradeList"
 		parameterType="com.smart.lms.util.Pagination" resultType="gradeDTO">
 		SELECT g.G_NUMBER , g.C_NUMBER, g.ID, g.`level`, g.GRADE, ac.NAME
-		FROM
-		GRADE g
+		FROM GRADE g
 		LEFT JOIN ATTEND_CLASS ac
 		ON g.ID = ac.ID
-		WHERE G_NUMBER =
-		#{g_number}
+		WHERE G_NUMBER = #{g_number}
 		<if test="keyword != null and keyword != ''">
 			<if test="searchType == 'id'"> AND g.ID like CONCAT('%', #{keyword}, '%') </if>
 			<if test="searchType == 'name'"> AND ac.NAME like CONCAT('%', #{keyword}, '%') </if>
@@ -268,9 +247,7 @@
 	</select>
 
 
-
-
-	<!-- 과제ㅡㅡㅡㅡㅡㅡㅡㅡㅡ-->
+	<!-- 과제ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
 	<select id="getTaskList" resultType="taskDTO">
 		SELECT * FROM TASK WHERE
 		C_NUMBER = #{c_number}
@@ -312,8 +289,7 @@
 		from attend_class ac
 		left outer join stu_task st
 		on ac.C_NUMBER = st.C_NUMBER
-		and ac.ID =
-		st.ID
+		and ac.ID = st.ID
 		where ac.C_NUMBER = #{c_number};
 	</select>
 

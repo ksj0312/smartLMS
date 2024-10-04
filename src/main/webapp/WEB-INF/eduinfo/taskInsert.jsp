@@ -17,7 +17,7 @@
                 </section>
 				
                 <section class="contents-container">
-                  <form action="taskInsert" method="POST" enctype="multipart/form-data">
+                  <form action="/task" method="POST" enctype="multipart/form-data">
                   <div class="insertForm">
 <!--                   	<div class="input-group mb-3"> -->
 <!-- 						<div class="input-group-prepend"> -->
@@ -47,6 +47,7 @@
 						<input type="datetime-local" class="form-control" name="deadline" id="deadline"
 							value="" placeholder="ex)2024.01.01 16:00" oninput="showValue()">
 					</div>
+
                   	<div class="input-group mb-3">
 						<div class="input-group-prepend">
 							<span class="input-group-text">과제 내용</span>

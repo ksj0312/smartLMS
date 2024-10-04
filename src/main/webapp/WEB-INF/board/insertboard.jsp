@@ -38,7 +38,7 @@
 
 <div class="insert_tdiv">
 
-	<form action="insertBoard" method="post" id="dataTransferForm" enctype="multipart/form-data">
+	<form action="/board" method="post" id="dataTransferForm" enctype="multipart/form-data">
 	<div class="b_title_div">
 		<label for="b_title" class="b_title_label">제목</label>
 		<input type="text" class="b_title_input" name="b_title" placeholder="공지사항 제목입력">

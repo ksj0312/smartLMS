@@ -41,11 +41,11 @@
 
 <div class="insert_tdiv">
 
-	<form action="/board/board" method="POST" id="dataTransferForm" enctype="multipart/form-data">
+	<form action="/board" method="post" id="dataTransferForm" enctype="multipart/form-data">
 		<input type="hidden" name="_method" value="PUT"/>
 		
-	<div class="b_title_div">
 		<input style="display:none;" type="text" name="b_number" value="${board.b_number }" >
+	<div class="b_title_div">
 		<label for="b_title" class="b_title_label">제목</label>
 		<input type="text" class="b_title_input" name="b_title" id="b_title" value="${board.b_title }" placeholder="공지사항 제목입력">
 	</div>

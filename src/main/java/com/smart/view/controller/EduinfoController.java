@@ -321,7 +321,6 @@ public class EduinfoController {
 		@GetMapping("/gradeclassList")
 		public String gradeclassList(HttpSession session, Model model, ClassVO vo) {
 			vo.setC_id((String) session.getAttribute("userId"));
-			System.out.println("나야 1번");
 			List<ClassVO> cList = new ArrayList<ClassVO>();
 			cList = eduinfoService.classList(vo);
 			model.addAttribute("classList" , cList );
@@ -333,7 +332,6 @@ public class EduinfoController {
 		@GetMapping("/testSelectGrade")
 		public String testSelectGrade(Model model, @ModelAttribute TestVO vo, @RequestParam ("c_number") int c_number) {
 			vo.setC_number(c_number);
-			System.out.println("나야 2번");
 			List<TestVO> tList = new ArrayList<TestVO>();
 			tList = eduinfoService.testSelect(vo);
 			System.out.println("tList " + tList);
@@ -356,7 +354,7 @@ public class EduinfoController {
 			System.out.println("tList " + tList);
 			
 			ClassVO classvo = eduinfoService.classSelect(c_number);
-			
+
 			
 			model.addAttribute("tList", tList);
 			model.addAttribute("testListcnt", tList.size());
@@ -471,7 +469,7 @@ public class EduinfoController {
 		}
 		
 		//학생 성적 조회
-		@GetMapping("/gradeSelectStu")
+		@GetMapping("/student/grade")
 		public String gradeSelectStu (int c_number, String id, Model model) {
 				System.out.println("c_number " + c_number);
 				List<GradeVO> gradestuList= eduinfoService.gradeSelectStu(c_number ,id);
@@ -490,7 +488,7 @@ public class EduinfoController {
 		
 //---------------과제 컨트롤러  --------------------
 		//과제 페이지 이동
-		@GetMapping("/taskListPage")
+		@GetMapping("/task/page")
 		public String taskListPage(@RequestParam ("c_number") int c_number, Model model) {
 			ClassVO classvo = eduinfoService.classSelect(c_number);
 
@@ -500,20 +498,20 @@ public class EduinfoController {
 		}
 		
 		//마감일이 지나지않은 과제 목록
-		@GetMapping("/taskList")
+		@GetMapping("/task/list")
 		public String taskList(@RequestParam ("c_number") int c_number, Model model) {
 			model.addAttribute("taskList", eduinfoService.getTaskList(c_number));
 			return "eduinfo/taskList";
 		}
 		
 		//과제 등록 페이지 이동
-		@GetMapping("/taskInsertPage")
+		@GetMapping("/task")
 			public String taskInsertPage() {
 				return "eduinfo/taskInsert";
 			}
 		
 		//과제 등록
-		@PostMapping("/taskInsert")
+		@PostMapping("/task")
 		public String taskInsert(TaskVO vo) throws IllegalStateException, IOException {
 				 
 				
@@ -537,11 +535,11 @@ public class EduinfoController {
 		       }
 			
 		       	eduinfoService.taskInsertTx(vo);
-			return "redirect:/taskclassList?status=insert";
+			return "redirect:/task/class?status=insert";
 		}
 		
 		//과제등록 -> classList 받아오기
-		@GetMapping("/taskclassList")
+		@GetMapping("/task/class")
 		public String taskclassList(@RequestParam ("status") String status,  HttpSession session, Model model, ClassVO vo) {
 			vo.setC_id((String) session.getAttribute("userId"));
 			List<ClassVO> cList = new ArrayList<ClassVO>();
@@ -555,7 +553,7 @@ public class EduinfoController {
 		
 		
 		//마이페이지 시험 -> 시험 목록 페이지
-				@GetMapping("/testSelectStu")
+				@GetMapping("/student/test")
 				public String testSelectStu(@RequestParam ("c_number") int c_number,  Model model, @ModelAttribute TestVO vo, ClassVO vo1) {
 					vo.setC_number(c_number);
 					
@@ -572,7 +570,7 @@ public class EduinfoController {
 				}
 		
 		//과제 목록 선택 페이지
-		@GetMapping("/taskSelectStu")
+		@GetMapping("/student/task")
 		public String taskSelect(Model model, @RequestParam ("c_number") int c_number, ClassVO vo) {
 			List<TaskVO> taskList = eduinfoService.getTaskList(c_number);
 			
@@ -597,7 +595,7 @@ public class EduinfoController {
 //		}
 		
 		//과제 게시판 들어가기
-		@GetMapping("/taskBoard")
+		@GetMapping("/task/info")
 		public String taskBoard(@RequestParam ("t_number") int t_number, @RequestParam ("id") String id,   HttpSession session, Model model, TaskVO vo, StuTaskVO vo1) {
 			vo.setId((String) session.getAttribute("userId"));
 			String usertype = (String) session.getAttribute("userType");
@@ -629,7 +627,7 @@ public class EduinfoController {
 		}
 		
 		//학생 과제 등록페이지 이동
-		@GetMapping("/insertStuTaskPage")
+		@GetMapping("/student/task/page")
 		public String insertStuTaskPage(@RequestParam ("c_number") int c_number, @RequestParam ("t_number") int t_number, Model model, HttpSession session) {
 			model.addAttribute("c_number", c_number);
 			model.addAttribute("t_number", t_number);
@@ -639,7 +637,7 @@ public class EduinfoController {
 		
 		
 		//학생 과제 등록
-		@PostMapping("/insertStuTask")
+		@PostMapping("/student/task")
 		public String insertStuTask(StuTaskVO vo, Model model) throws IllegalStateException, IOException {
 			
 			
@@ -666,12 +664,12 @@ public class EduinfoController {
 		       
 		       
 		       model.addAttribute("t_number", vo.getT_number());
-			return "redirect:/taskBoard";
+			return "redirect:/task/info";
 		}
 		
 		
 		//과제 완료 여부 표시
-		@GetMapping("/checkTask")
+		@GetMapping("/task/check")
 		@ResponseBody
 		public String checkTask(@RequestParam ("t_number") int t_number, HttpSession session) {
 			StuTaskVO stutask = eduinfoService.getStuTask(t_number, (String) session.getAttribute("userId"));
@@ -683,7 +681,7 @@ public class EduinfoController {
 		}
 		
 		//해당 과제를 제출한 학생들 리스트
-		@GetMapping("/taskAllList")
+		@GetMapping("/task/students")
 		public String taskAllList(@RequestParam ("t_number") int t_number,int c_number, StuTaskVO vo, Model model) {
 		
 			List<StuTaskVO> stutaskList = eduinfoService.taskAllList(t_number, c_number);
@@ -701,7 +699,7 @@ public class EduinfoController {
 		
 		
 		//과제 게시글 수정 페이지
-		@GetMapping("/stuTaskUpdatePage")
+		@GetMapping("/student/task/page")
 		public String stuTaskUpdatePage(@RequestParam ("st_number") int st_number, Model model) {
 			
 			StuTaskVO stutask = eduinfoService.getThisStuTask(st_number);
@@ -713,14 +711,13 @@ public class EduinfoController {
 			model.addAttribute("c_number", stutask.getC_number());
 			model.addAttribute("c_name", classvo.getC_name());
 			model.addAttribute("id", stutask.getId());
-
 			
 			
 			return "eduinfo/stuTaskUpdate";
 		}
 		
 		//과제 게시글 수정
-		@PostMapping("/stuTaskUpdate")
+		@PutMapping("/student/task")
 		public String stuTaskUpdate(StuTaskVO vo, Model model) {
 			eduinfoService.stuTaskUpdateTx(vo);
 			
@@ -728,7 +725,7 @@ public class EduinfoController {
 			model.addAttribute("id", vo.getId());
 
 			
-			return "redirect:/taskBoard";
+			return "redirect:/task/info";
 		}
 	
 }

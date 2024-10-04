@@ -21,7 +21,7 @@
                 </section>
                 ${t_number }
                 <section class="contents-container">
-                  <form action="insertStuTask" method="POST" enctype="multipart/form-data">
+                  <form action="/student/task" method="POST" enctype="multipart/form-data">
                   <div class="insertForm">
                   	<div class="input-group mb-3">
 						<div class="input-group-prepend">

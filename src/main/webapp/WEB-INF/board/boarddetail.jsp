@@ -35,26 +35,26 @@
 					<span>파일이 첨부되지 않았습니다</span>
 				</c:if>
 				<c:if test="${board.b_file1 ne null }">
-					<a class="downtag" href="downloadFile?fileName=${board.b_file1}">${board.b_file1}</a>
+					<a class="downtag" href="/downloadFile?fileName=${board.b_file1}">${board.b_file1}</a>
 				</c:if>
         	</th>
         </tr>
     </table>
    
 						<button onclick="board_del(${board.b_number})">삭제</button>
-						
+
 						<c:choose>
 			<c:when test="${board.b_type eq '게시판'}">
-					<a href="getBoardList?b_type=게시판">목록</a>
+					<a href="/board?b_type=게시판">목록</a>
 
 			</c:when>		
 			<c:when test="${board.b_type eq 'QNA'}">
-					<a href="getBoardList?b_type=QNA">목록</a>
+					<a href="/board?b_type=QNA">목록</a>
 
 			</c:when>				
 		</c:choose>
 		
-				<a href="insertPage?b_type=${board.b_type }">추가</a>
+				<a href="/boardpage?b_type=${board.b_type }">추가</a>
 		<button onclick="board_update(${board.b_number})">수정</button>
 		
 		
@@ -91,7 +91,7 @@
 
 		
 				
-				<form action="insertComment" method="Post">
+				<form action="/comment" method="Post">
 					<input type="text" name="b_number" class="comment_hide" value="${board.b_number}">
 					
 					<input type="text" name="id" class="comment_hide" value="${userId}">
