@@ -59,6 +59,7 @@ public interface BoardService {
 
 	int noteCount(String userId);
 
+	List<BoardVO> myPageBoardList(Pagination pg);
 	
 	//댓글
 	void insertCommentTx(CommentVO vo);

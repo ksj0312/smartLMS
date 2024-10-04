@@ -34,7 +34,7 @@
                                         <th>수강생보기</th>
                                      
                                 </tr>
-                                <c:forEach items="${classAllList}" var="cl">
+                                <c:forEach items="${classAllList}" var="cl">	
                                 <tr class="tdCenter">
                                                 <td>${cl.c_number}</td>
                                                 <td>${cl.c_name}</td>

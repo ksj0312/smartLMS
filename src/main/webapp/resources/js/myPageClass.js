@@ -1,6 +1,6 @@
 function attInfo(c_number) {
     $.ajax({
-     url: "myPageClassInfo", 
+     url: "/myPageClassInfo", 
      type: "GET", 
      data: {c_number : c_number},  	
      contentType: "application/json",

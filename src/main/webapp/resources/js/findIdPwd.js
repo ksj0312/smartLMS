@@ -242,7 +242,7 @@ function telPwdCheckBtn() {
         }
 
         $.ajax({
-            url: "telCheck",
+            url: "/telCheck",
             type: 'GET',
             data: { 
             	tel: tel

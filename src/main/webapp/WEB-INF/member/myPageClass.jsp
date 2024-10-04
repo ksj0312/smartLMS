@@ -10,7 +10,16 @@
 
 
 
-
+<% 
+    if(userId == null) {
+%>
+    <script type="text/javascript">
+        alert("로그인이 필요한 페이지입니다.");
+        window.location.href = '/';
+    </script>
+<% 
+    } else { 
+%>
     
 <div id="mypage_con">
     <div class="mypage_con pd_box inner">
@@ -59,7 +68,7 @@
         </div>
     </div>
 
-
+<%} %>
 
 
 

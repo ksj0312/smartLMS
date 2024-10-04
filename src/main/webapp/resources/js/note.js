@@ -34,7 +34,6 @@ $(document).ready(function() {
                 console.log(data.totalPages);
                 console.log(data.notes.length);
                 
-                
                 $('.searchdiv').show();
                 $('#pagination').show();
 
@@ -59,7 +58,7 @@ $(document).ready(function() {
                 $('#pagination').empty();
                 var paginationHtml = '';
                 if (data.prev) {
-                    paginationHtml += '<button class="prevPageBtn">이전</button>';
+                    paginationHtml += '<button class="prevPageBtn ">이전</button>';
                 }
                 
                 // 페이지 번호 생성
@@ -67,7 +66,7 @@ $(document).ready(function() {
                     if (i === currentPage) {
                         paginationHtml += '<li class="active">' + i + '</li>';
                     } else {
-                        paginationHtml += '<li class="pageBtn" data-page="' + i + '">' + i + '</li>';
+                        paginationHtml += '<li class="page-link" data-page="' + i + '">' + i + '</li>';
                     }
                 }
                 
@@ -308,7 +307,7 @@ function sendNote() {
 							}
 						});
 						
-						$(document).on('click', '.pageBtn', function() {
+						$(document).on('click', '.page-link', function() {
 						    currentPage = $(this).data('page');
 						    loadNoteList(); // 선택한 페이지 데이터 로드
 						});
@@ -317,7 +316,7 @@ function sendNote() {
 							$('#n_reciver').prop('readonly', true)
 						});
 
-						$(document).on('click', '.pageBtn', function() {
+						$(document).on('click', '.page-link', function() {
 							currentPage = $(this).data('page');
 							loadNoteList(); // 선택한 페이지 데이터 로드
 						});

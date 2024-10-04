@@ -15,6 +15,8 @@
 <!-- <a href="/professors">교수 소개</a> -->
 
 <a href="professors">교수 소개</a>
+<a href="menual">메뉴얼</a>
+
 </div>
 	</div>
 	

@@ -7,7 +7,6 @@
 }
 
 /* 모달 창 스타일 */
-
 .modal {
     display: none;
     position: fixed;
@@ -63,7 +62,7 @@
     border-radius: 5px;
 }
 
-button {
+.notebtn {
     padding: 10px 15px;
     border: none;
     border-radius: 5px;
@@ -96,7 +95,7 @@ button:hover {
 #noteList li {
 	color: #042424;
     padding: 10px;
-    background-color: #f9f9f9;
+    background-color: #f9f9f9 !important;
     border: 1px solid #eee;
     margin-bottom: 10px;
     border-radius: 5px;
@@ -111,13 +110,26 @@ button:hover {
 
 .pagination button {
     padding: 5px 10px;
-    background-color: #042424b;
+    background-color: #042424;
     color: white;
-    border-radius: 5px;
+    border-radius: 0px !important;
     border: none;
 }
 
 .pagination .active {
-    font-weight: bold;
-    background-color: #e74c3c;
+      background-color: #042424;
+      color: #fff;
+         width: 35px;
+   height: 38px;
+   	  padding: 0.5rem 0.75rem;
+   	      position: relative;
+    display: block;
+    margin-left: -1px;
+    line-height: 1.25;
+	        
+}
+
+.page-link{
+	color:#042424;
+	cursor:pointer;
 }

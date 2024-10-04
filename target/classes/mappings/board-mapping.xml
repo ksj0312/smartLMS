@@ -84,6 +84,16 @@
 	
 	
 <!-- board mapping	 -->
+<select id="myPageBoardList" parameterType="com.smart.lms.util.Pagination" resultType="BoardDTO">
+    SELECT * FROM BOARD WHERE B_TYPE = #{b_type} AND b_Id = #{b_id}
+        <if test='keyword != null and keyword != ""'>
+            <if test='searchType == "b_info"'> AND B_INFO LIKE CONCAT('%', #{keyword}, '%') </if>
+            <if test='searchType == "b_title"'> AND B_TITLE LIKE CONCAT('%', #{keyword}, '%') </if>
+        </if>
+    ORDER BY B_NUMBER DESC
+    LIMIT #{sizePerPage} OFFSET #{startList}  
+</select>
+
 	<select id="getBoardList" 
 	parameterType="com.smart.lms.util.Pagination" resultType="BoardDTO">
 		SELECT

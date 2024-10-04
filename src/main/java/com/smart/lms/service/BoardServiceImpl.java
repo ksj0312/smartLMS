@@ -127,12 +127,6 @@ public class BoardServiceImpl implements BoardService {
 	public void insertCalTx(CalendarVO vo) {
 		boDAO.insertCal(vo);
 	}
-	
-	@Override
-	public int getBoardListTotalCnt(Pagination pg) {
-		return boDAO.getBoardListTotalCnt(pg);
-	}
-	
 //	@Override
 //	public void deleteCal(CalendarVO vo) {
 //		boDAO.deleteCal(vo);
@@ -143,12 +137,19 @@ public class BoardServiceImpl implements BoardService {
 	   }
 
 	   @Override
-		public void deleteCalTx(int cal_number) {
+	   public int getBoardListTotalCnt(Pagination pg) {
+	      return boDAO.getBoardListTotalCnt(pg);
+	   }
+
+	@Override
+	public List<BoardVO> myPageBoardList(Pagination pg) {
+		return boDAO.myPageBoardList(pg);
+	}
+	
+	public void deleteCalTx(int cal_number) {
 			boDAO.deleteCal(cal_number);
 		}
 		
-		
-	   
 	   // 댓글
 		@Override
 		public void insertCommentTx(CommentVO vo) {

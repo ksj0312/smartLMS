@@ -34,8 +34,8 @@ footer {
 }
 
 .nav-link {
-	color: #272727;
-	font-size: medium;
+	color: #272727 !important;
+	font-size: medium !important;
 }
 
 #searchNav {
@@ -319,19 +319,19 @@ button:focus, .form-control:focus, .form-control:active, .btn-primary:focus, .bt
 }
 
 .nav-item {
-   list-style: none;
+   list-style: none !important;
    display: contents;
 }
 
 .navbar-nav {
-   margin: 0;
-   justify-content: center;
-   flex-grow: 1;
-   font-size: large;
+   margin: 0 !important;
+   justify-content: center !important;
+   flex-grow: 1 !important;
+   font-size: large !important;
 }
 
 .navbar-nav li.nav-item {
-   flex-grow: 1;
+   flex-grow: 1 !important;
 }
 
 .navmenu {
@@ -340,7 +340,7 @@ button:focus, .form-control:focus, .form-control:active, .btn-primary:focus, .bt
 
 ul.navbar-nav.navlogo {
    width: 200px !important;
-   text-align: left;
+   text-align: left !important;
 }
 
 .nav-link2 {
@@ -381,7 +381,7 @@ ul.navbar-nav.navlogo {
 }
 
 .smnav {
-   padding: 0 50px;
+   padding: 0 50px !important;
 }
 
 .adminlink {
