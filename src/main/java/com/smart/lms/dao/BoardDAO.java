@@ -13,6 +13,7 @@ import com.smart.lms.vo.BoardVO;
 import com.smart.lms.vo.CalendarVO;
 import com.smart.lms.vo.CommentVO;
 import com.smart.lms.vo.NoteVO;
+import com.smart.lms.vo.StuTaskVO;
 import com.smart.lms.vo.StudentVO;
 @Repository
 public class BoardDAO {
@@ -160,6 +161,5 @@ public class BoardDAO {
 	public int noteCount(String userId) {
 		return mybatis.selectOne("boardDAO.noteCount",userId);
 	}
-	
 
 }

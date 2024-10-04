@@ -166,4 +166,19 @@ public class EduinfoDAO {
   public void insertStuTaskTx(StuTaskVO vo) {
 	  	mybatis.insert("eduinfoDAO.insertStuTaskTx", vo);
   }
+
+  public List<StuTaskVO> taskAllList(int t_number, int c_number) {
+	  Map<String, Object>params = new HashMap<>();
+		params.put("t_number", t_number);
+		params.put("c_number", c_number);
+	   return mybatis.selectList("eduinfoDAO.taskAllList", t_number);
+}
+
+  public StuTaskVO getThisStuTask(int st_number) {
+	   return mybatis.selectOne("eduinfoDAO.getThisStuTask",st_number);
+  }
+
+  public void stuTaskUpdateTx(StuTaskVO vo) {
+	  mybatis.update("eduinfoDAO.stuTaskUpdateTx", vo);
+  }  
 }
