@@ -180,5 +180,14 @@ public class EduinfoDAO {
 
   public void stuTaskUpdateTx(StuTaskVO vo) {
 	  mybatis.update("eduinfoDAO.stuTaskUpdateTx", vo);
+  }
+
+  public List<GradeVO> gradeSelectStu(int c_number, String id) {
+	  Map<String, Object>params = new HashMap<>();
+		params.put("c_number", c_number);
+		params.put("id", id);
+	  
+	  return mybatis.selectList("eduinfoDAO.gradeSelectStu", params);
+	
   }  
 }

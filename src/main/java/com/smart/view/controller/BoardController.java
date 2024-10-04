@@ -9,6 +9,7 @@ import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -37,6 +38,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -421,7 +423,7 @@ public class BoardController {
 //  ---------board 컨트롤러
 
 //게시판 목록
-   @GetMapping("/getBoardList")
+   @GetMapping("/board/list")
    public String getBoardList(@ModelAttribute Pagination pg, Model model, HttpSession session, @RequestParam(value = "b_type", defaultValue = "") String b_type) {
       
       int currPageNo = pg.getCurrPageNo();
@@ -440,7 +442,7 @@ public class BoardController {
    }
    
  //관리자 게시판 관리 목록
-   @GetMapping("/getBoardListAdmin")
+   @GetMapping("/board/adminlist")
    public String getBoardListAdmin(@ModelAttribute Pagination pg, Model model, HttpSession session, @RequestParam(value = "b_type", defaultValue = "") String b_type) {
       
       int currPageNo = pg.getCurrPageNo();
@@ -462,7 +464,7 @@ public class BoardController {
    }
    
    //게시글 등록 페이지 이동
-   @GetMapping("/insertPage")
+   @GetMapping("/board/listpage")
    public String insertPage(@RequestParam(value = "b_type", defaultValue = "") String b_type, Model model) {
        model.addAttribute("b_type", b_type); // 기본값을 빈 문자열로 설정
        return "/board/insertboard";
@@ -470,7 +472,7 @@ public class BoardController {
    
    //상대경로로 수정하기 
    //게시글 등록 후 목록 페이지 이동
-   @PostMapping(value = "/insertBoard")
+   @PostMapping(value = "/board/insertboard")
    public String insertBoard(@ModelAttribute BoardVO vo) throws IllegalStateException, IOException, Exception {
 
       System.out.println("VO " + vo);
@@ -503,10 +505,10 @@ public class BoardController {
       
       if(vo.getB_type().equals(btype)) {
  
-         return "redirect:/getBoardList?b_type=" + URLEncoder.encode(btype, StandardCharsets.UTF_8.toString());
+         return "redirect:/board/list?b_type=" + URLEncoder.encode(btype, StandardCharsets.UTF_8.toString());
       }else {
          
-         return "redirect:/getBoardList?b_type=QNA";
+         return "redirect:/board/list?b_type=QNA";
       }
       
    }
@@ -546,22 +548,14 @@ public class BoardController {
    }
 }
 
-  	@DeleteMapping("/deleteCal")
-  	@ResponseBody
-  	public String deleteCal( int cal_number) throws UnsupportedEncodingException,  Exception {
-  		System.out.println("cal_number " + cal_number);
-  	    // 일정 삭제
-  	    boardService.deleteCalTx(cal_number);
-  	    // 삭제 후 목록으로 리디렉션
-  	    return "redirect:/getCal";	
-  	}
 	
    //목록 누를시 상세 내용으로 이동
-   @GetMapping("/getBoard")
+   @GetMapping("/board/getBoard")
    public String getBoard(BoardVO vo, Model model, HttpSession session) {
       
       // 세션에서 조회한 게시물 번호 확인
       List<Integer> viewedBoards = (List<Integer>) session.getAttribute("viewedBoards");
+      
       
       // 조회수 1씩 증가 로직
       if (viewedBoards == null) {
@@ -577,8 +571,21 @@ public class BoardController {
       BoardVO board = boardService.getBoard(vo.getB_number());
 		//댓글 조회
 		List<CommentVO> commentList = boardService.getCommentList(vo.getB_number());
+		
+		//timestamp형식으로 가져오는 값 date형식으로 변환
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // YYYY-MM-DD 형식
+		String formattedDate = sdf.format(board.getB_create_date());
+		
+		for (CommentVO comment : commentList) {
+	        String formattedDate1 = sdf.format(comment.getCo_create_date());
+	        comment.setFormat_create_date(formattedDate1);  // 새 필드로 저장
+	    }
+		
+		
 		model.addAttribute("board", board);
 		model.addAttribute("commentList", commentList);
+		model.addAttribute("b_create_date", formattedDate);
+		
       return "/board/boarddetail";
    }
    
@@ -606,7 +613,7 @@ public class BoardController {
    }
    
    //수정 누를 시 수정페이지로 이동
-   @GetMapping("/updatePage")
+   @GetMapping("/board/updatePage")
    public String updatePage(BoardVO vo, Model model) {
       BoardVO board = boardService.getBoard(vo.getB_number());
       model.addAttribute("board", board);
@@ -615,7 +622,7 @@ public class BoardController {
    
 
    //선택 목록 수정
-   @PostMapping("/updateBoard")
+   @PutMapping("/board/board")
    public String updateBoard(@ModelAttribute BoardVO vo)  throws Exception {
       boardService.updateBoardTx(vo);
       return "redirect:/getBoard?b_number=" + vo.getB_number();
@@ -623,6 +630,8 @@ public class BoardController {
    
    
    
+   
+//   ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ학사 일정ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
    //학사 일정 페이지 이동
    @GetMapping("/calPage")
    public String calPage() {
@@ -664,11 +673,25 @@ public class BoardController {
        return "redirect:/getCal";
    }
    
+   //학사 일정 삭제
+ 	@DeleteMapping("/deleteCal")
+ 	@ResponseBody
+ 	public String deleteCal( int cal_number) throws UnsupportedEncodingException,  Exception {
+ 		System.out.println("cal_number " + cal_number);
+ 	    // 일정 삭제
+ 	    boardService.deleteCalTx(cal_number);
+ 	    // 삭제 후 목록으로 리디렉션
+ 	    return "redirect:/getCal";	
+ 	}
    
-   //댓글 입력
+   
+   //ㅡㅡㅡㅡㅡㅡㅡ댓글 입력ㅡㅡㅡㅡㅡㅡㅡㅡㅡ
    @PostMapping(value = "/insertComment")
    public String insertComment(CommentVO vo) throws IllegalStateException, IOException , Exception{
        // 배열로 받은 각 CalendarVO 객체를 처리
+	   System.out.println("vo " + vo);
+	  
+	   
            boardService.insertCommentTx(vo);
        return "redirect:/getBoard?b_number=" + vo.getB_number();
    }

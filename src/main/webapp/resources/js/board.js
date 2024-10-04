@@ -129,12 +129,5 @@ function fn_prev(currPageNo, range, pageSize) {
 		        
 
 	  //상세보기 스크립트 끝
-		
-    
-   
-                                
-                                
-                                
-                                
-
-                                
+	  
+	 

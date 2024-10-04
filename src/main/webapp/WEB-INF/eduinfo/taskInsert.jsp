@@ -47,13 +47,6 @@
 						<input type="datetime-local" class="form-control" name="deadline" id="deadline"
 							value="" placeholder="ex)2024.01.01 16:00" oninput="showValue()">
 					</div>
-					
-					<script>
-					function showValue() {
-					    const deadlineInput = document.getElementById('deadline');
-					    console.log(deadlineInput.value);
-					}
-					</script>
                   	<div class="input-group mb-3">
 						<div class="input-group-prepend">
 							<span class="input-group-text">과제 내용</span>

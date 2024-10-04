@@ -321,6 +321,7 @@ public class EduinfoController {
 		@GetMapping("/gradeclassList")
 		public String gradeclassList(HttpSession session, Model model, ClassVO vo) {
 			vo.setC_id((String) session.getAttribute("userId"));
+			System.out.println("나야 1번");
 			List<ClassVO> cList = new ArrayList<ClassVO>();
 			cList = eduinfoService.classList(vo);
 			model.addAttribute("classList" , cList );
@@ -329,6 +330,23 @@ public class EduinfoController {
 		}
 		
 		//성적 등록 -> 시험 목록 선택 페이지
+		@GetMapping("/testSelectGrade")
+		public String testSelectGrade(Model model, @ModelAttribute TestVO vo, @RequestParam ("c_number") int c_number) {
+			vo.setC_number(c_number);
+			System.out.println("나야 2번");
+			List<TestVO> tList = new ArrayList<TestVO>();
+			tList = eduinfoService.testSelect(vo);
+			System.out.println("tList " + tList);
+			
+			ClassVO classvo = eduinfoService.classSelect(c_number);
+
+			
+			model.addAttribute("tList", tList);
+			model.addAttribute("testListcnt", tList.size());
+			model.addAttribute("c_name", classvo.getC_name());
+			return "eduinfo/testclassList";
+		}
+		
 		@GetMapping("/testSelect")
 		public String testSelect(Model model, @ModelAttribute TestVO vo, @RequestParam ("c_number") int c_number) {
 			vo.setC_number(c_number);
@@ -338,7 +356,7 @@ public class EduinfoController {
 			System.out.println("tList " + tList);
 			
 			ClassVO classvo = eduinfoService.classSelect(c_number);
-
+			
 			
 			model.addAttribute("tList", tList);
 			model.addAttribute("testListcnt", tList.size());
@@ -452,7 +470,25 @@ public class EduinfoController {
 			return gList;
 		}
 		
+		//학생 성적 조회
+		@GetMapping("/gradeSelectStu")
+		public String gradeSelectStu (int c_number, String id, Model model) {
+				System.out.println("c_number " + c_number);
+				List<GradeVO> gradestuList= eduinfoService.gradeSelectStu(c_number ,id);
+				ClassVO classvo = eduinfoService.classSelect(c_number);
+				
+				model.addAttribute("gradestuList", gradestuList);
+				model.addAttribute("c_number" , c_number);
+				model.addAttribute("c_name", classvo.getC_name());
+				
+			return "/eduinfo/stuGradeList";
+		}
 		
+		
+		
+		
+		
+//---------------과제 컨트롤러  --------------------
 		//과제 페이지 이동
 		@GetMapping("/taskListPage")
 		public String taskListPage(@RequestParam ("c_number") int c_number, Model model) {
@@ -518,7 +554,7 @@ public class EduinfoController {
 		}
 		
 		
-		//성적 등록 -> 시험 목록 선택 페이지
+		//마이페이지 시험 -> 시험 목록 페이지
 				@GetMapping("/testSelectStu")
 				public String testSelectStu(@RequestParam ("c_number") int c_number,  Model model, @ModelAttribute TestVO vo, ClassVO vo1) {
 					vo.setC_number(c_number);

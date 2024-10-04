@@ -42,10 +42,7 @@ html, body {
  	padding-right: 1em; 
 }
 
-.fc-listWeek-button,
-.fc-timeGridDay-button,
-.fc-timeGridWeek-button, 
-.fc-dayGridMonth-button {
+.fc-button {
  	color : #000 !important; 
     display: none !important; 
 }
@@ -147,16 +144,12 @@ $(function(){
 					var filteredEvents = allEvent.filter(event => 
              			   event.googleCalendarId !== 'holidaySource' && cal_writer !== "관리자"
             			);
-                        // 공휴일(googleCalendarId가 'holidaySource'인 이벤트)는 제외하고 저장할 이벤트 필터링
-//                         var filteredEvents = allEvent.filter(event => event.googleCalendarId !== 'holidaySource');
                         
                         if (filteredEvents.length === 0) {
                             alert("저장할 이벤트가 없습니다.");
                             return;
                         }
 
-                        console.log("filteredEvents", filteredEvents);
-                        
                         console.log("allEvent", allEvent);
                         	
                         const saveEvent = await axios({
@@ -184,7 +177,7 @@ $(function(){
         nowIndicator: true,
         dayMaxEvents: true,
         locale: 'ko',
-        
+  
         eventSources: [
             {
                 events: async function(info, successCallback, failureCallback) {
@@ -227,9 +220,6 @@ $(function(){
                 textColor : 'red',
                 id: 'holidaySource'
               }
-            
-            
-            
             
         ],
         

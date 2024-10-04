@@ -23,7 +23,7 @@
 	<li class="menu">과제 관리></li>
 	<li><a href="testSelectStu?c_number=<%=c_number %>&c_name=<%=c_name %>" class = "atag" id="classList">- 시험</a></li>
 	<li><a href="taskSelectStu?c_number=<%=c_number %>&c_name=<%=c_name %>" class = "atag">- 과제</a></li>
-	<li><a href="gradeclassList2" class = "atag">- 성적</a></li>
+	<li><a href="gradeSelectStu?c_number=<%=c_number %>&id=<%=id %>" class = "atag">- 성적</a></li>
 	
 	</ul>
 	</div>

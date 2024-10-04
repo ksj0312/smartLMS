@@ -83,5 +83,7 @@ public interface EduinfoService {
 
    public void stuTaskUpdateTx(StuTaskVO vo);
 
+   public List<GradeVO> gradeSelectStu(int c_number, String id);
+
 
 }

@@ -54,6 +54,7 @@
 					</div>
                   		<input type="number" name="c_number" value="<%= request.getParameter("c_number") %>" style="display:none;"/>
                        </div>
+                       
                   	<div class="input-group mb-3">
 						<div class="input-group-prepend">
 							<span class="input-group-text">파일</span>

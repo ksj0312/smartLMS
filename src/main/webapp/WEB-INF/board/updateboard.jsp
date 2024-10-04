@@ -23,6 +23,8 @@
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/board.css">
+
 
 <!-- 20240503_ym 스타일추가 시작 -->
 <style type="text/css">
@@ -34,32 +36,40 @@
 <!-- 20240503_ym 스타일추가 종료 -->
 </head>
 <body>
-<div id="se2_sample" style="margin:10px 0;">
-	<form action="updateBoard" method="post" id="dataTransferForm" enctype="multipart/form-data">
+
+
+
+<div class="insert_tdiv">
+
+	<form action="/board/board" method="POST" id="dataTransferForm" enctype="multipart/form-data">
+		<input type="hidden" name="_method" value="PUT"/>
+		
+	<div class="b_title_div">
 		<input style="display:none;" type="text" name="b_number" value="${board.b_number }" >
-<!-- 		썸네일 이미지 등록: <input type="file" name="pthumbnailimg" id="pthumbnailimg"> -->
-		<label for="b_title">제목:</label>
-		<input type="text" name="b_title" value="${board.b_title }" placeholder="공지사항 제목입력">
+		<label for="b_title" class="b_title_label">제목</label>
+		<input type="text" class="b_title_input" name="b_title" id="b_title" value="${board.b_title }" placeholder="공지사항 제목입력">
+	</div>
 		
-		<label for="b_target">대상:</label>
-		<input type="text" name="b_target" value="${board.b_target }"  placeholder="대상 입력">
+		<input type="text" class="board_hide" name="b_type" id="b_type" placeholder="타입 입력" value="${b_type}" readonly>
 		
-		<label for="b_type">타입:</label>
-		<input type="text" name="b_type" value="${board.b_type }" placeholder="타입 입력">
+		<input type="text" class="board_hide" name="b_id" id="b_id" value="<%=userId %>" placeholder="타입 입력">
 		
-		<label for="b_writer">작성자:</label>
-		<input type="text" name="b_writer" value="${board.b_writer }"  placeholder="타입 입력" readonly>
+		<input type="text" class="board_hide" name="b_name" id="b_name" value="${userName }" placeholder="타입 입력">
 		
+	<div id="se2_sample">
 		<textarea name="b_info" id="ir1" rows="10" cols="100" style="width:766px; height:412px; display:none;">${board.b_info }</textarea>
-		
-		
-		<input type="submit" onclick="submitContents(this);" value="수정하기" />
+	</div>
+		<div class="b_bottom_div">
+		  <input class="b_file" type="file" name="uploadFile" id="uplodaFile">
+		<input class="b_insert_button" type="submit" onclick="submitContents(this);" value="수정" />
+		</div>
 	</form>
+
 </div>
 <script type="text/javascript">
     var contextPath = "${pageContext.request.contextPath}";
 </script>
-<script src="${pageContext.request.contextPath}/resources/js/board.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/smartedtior.js"></script>
 
 </body>
 </html>

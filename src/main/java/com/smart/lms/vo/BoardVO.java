@@ -7,10 +7,10 @@ import org.springframework.web.multipart.MultipartFile;
 public class BoardVO {
 	private int b_rownum;
 	private int b_number;
-	private String b_target;
 	private String b_title;
 	private String b_info;
-	private String b_writer;
+	private String b_id;
+	private String b_name;
 	private Timestamp b_create_date;
 	private Timestamp b_modify_date;
 	private int b_view;
@@ -36,12 +36,6 @@ public class BoardVO {
 	public void setB_number(int b_number) {
 		this.b_number = b_number;
 	}
-	public String getB_target() {
-		return b_target;
-	}
-	public void setB_target(String b_target) {
-		this.b_target = b_target;
-	}
 	public String getB_title() {
 		return b_title;
 	}
@@ -54,11 +48,17 @@ public class BoardVO {
 	public void setB_info(String b_info) {
 		this.b_info = b_info;
 	}
-	public String getB_writer() {
-		return b_writer;
+	public String getB_id() {
+		return b_id;
 	}
-	public void setB_writer(String b_writer) {
-		this.b_writer = b_writer;
+	public void setB_id(String b_id) {
+		this.b_id = b_id;
+	}
+	public String getB_name() {
+		return b_name;
+	}
+	public void setB_name(String b_name) {
+		this.b_name = b_name;
 	}
 	public Timestamp getB_create_date() {
 		return b_create_date;
@@ -111,14 +111,12 @@ public class BoardVO {
 	}
 	@Override
 	public String toString() {
-		return "BoardVO [b_rownum=" + b_rownum + ", b_number=" + b_number + ", b_target=" + b_target + ", b_title="
-				+ b_title + ", b_info=" + b_info + ", b_writer=" + b_writer + ", b_create_date=" + b_create_date
+		return "BoardVO [b_rownum=" + b_rownum + ", b_number=" + b_number + ", b_title=" + b_title + ", b_info="
+				+ b_info + ", b_id=" + b_id + ", b_name=" + b_name + ", b_create_date=" + b_create_date
 				+ ", b_modify_date=" + b_modify_date + ", b_view=" + b_view + ", b_type=" + b_type + ", b_file1="
 				+ b_file1 + ", b_file2=" + b_file2 + ", b_file3=" + b_file3 + ", uploadFile=" + uploadFile + "]";
 	}
-	 
-	
-	
+
 	
 
 
