@@ -7,13 +7,11 @@
 		<div class="modal-header">
 			        
 			<h4 class="modal-title" id="myModalLabel">교수 정보</h4>
-<!-- 			<button type="button" class="btn" data-dismiss="modal">x</button> -->
 			      
 		</div>
 		<div class="modal-no"></div>
 		        
 			<div class="modal-body">
-					
 					
 					<div class="input-group mb-3">
 						<div class="input-group-prepend">

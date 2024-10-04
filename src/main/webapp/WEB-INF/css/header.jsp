@@ -55,6 +55,7 @@ var userId = '<%= userId %>';
 <ul class="navbar-nav navuser" style="width:200px !important; font-size:small;">
 <c:choose>
     <c:when test="${userName ne NULL}">
+    <input type="text" id = "uid" value = "${userId}" style="display:none;"/>
       <ul class="navbar-nav log2" style="padding-right: 100px !important; font-size: small;">
             <c:choose>
                 <c:when test="${noteCount > 0}">
@@ -146,6 +147,6 @@ var userId = '<%= userId %>';
     <button type="button" id="sendBtn" class="sendBtn">보내기</button>
     <button type="button" class="openListBtn">목록으로 돌아가기</button>
 </form>
-        
+
 </body>
 </html>

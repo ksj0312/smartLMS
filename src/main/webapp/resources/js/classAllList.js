@@ -1,7 +1,7 @@
 $(document).on("click", ".classInfo", function () {
     var c_number = $(this).val();
   	 $.ajax({
-       url: "classInfo", 
+       url: "/admin/classinfo", 
        type: "GET", 
        data: {"c_number" : c_number}, 
        success: function(response) { 
@@ -44,7 +44,7 @@ $(document).on("click", ".classInfo", function () {
 
 					//url생성 함수
 					function getUrl(currPageNo, range, searchType, keyword) {
- 						 return `/classAllList?currPageNo=${currPageNo}&range=${range}&searchType=${searchType}&keyword=${keyword}`;
+ 						 return `/admin/classes?currPageNo=${currPageNo}&range=${range}&searchType=${searchType}&keyword=${keyword}`;
 						}
 						
                      //이전 버튼

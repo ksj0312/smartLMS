@@ -92,7 +92,12 @@
 			ORDER BY B_NUMBER
 			LIMIT #{sizePerPage} OFFSET #{startList}
 		</if>
-
+	</select>
+	
+	<select id="boardMain" resultType="BoardDTO">
+		SELECT * FROM BOARD WHERE B_TYPE = #{b_type}
+			ORDER BY B_NUMBER DESC
+			LIMIT 5 
 	</select>
 
 	<select id="getBoardListTotalCnt"

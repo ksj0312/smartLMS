@@ -64,4 +64,7 @@ public interface BoardService {
 	void deleteCommentTx(int co_number);
 	
 	int noteCount(String userId);
+	
+	//메인에서 공지사항 
+	List<BoardVO> boardMain(String b_type);
 }

@@ -8,10 +8,6 @@
     String userName = (String) session.getAttribute("userName");	
 %>
 
-
-
-
-    
 <div id="mypage_con">
     <div class="mypage_con pd_box inner">
         <div class="mypage_top">

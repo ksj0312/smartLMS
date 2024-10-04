@@ -211,7 +211,28 @@ public class EduinfoServiceImpl implements EduinfoService {
    public void taskInsertTx(TaskVO vo) {
        eduDAO.taskInsertTx(vo);
    }
-   
+   //시험 정보
+	@Override
+	public TestVO testInfo(String g_number) {
+		return eduDAO.testInfo(g_number);
+	}
+	
+	//시험 정보 수정
+	@Override
+	public int testUpdateTx(TestVO vo) throws Exception {
+		return eduDAO.testUpdateTx(vo);
+	}
+	//시험 총 갯수
+	@Override
+	public int testAllCnt(Pagination pg) {
+		return eduDAO.testAllCnt(pg);
+	}
+	//시험 전체 리스트 (진행,종료)
+	@Override
+	public List<TestVO> testAllSelect(Pagination pg) {
+		  return eduDAO.testAllSelect(pg);
+	}
+	   
    }
    
    

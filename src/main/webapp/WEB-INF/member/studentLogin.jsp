@@ -30,7 +30,7 @@
             }
         %>
         
-        <form action="student" method="POST">
+        <form action="/student" method="POST">
             <div class="content">
                 <div class="form-group">
                     <label for="id" class="login-tit">아이디&#42;</label>

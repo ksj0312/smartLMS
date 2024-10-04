@@ -146,13 +146,13 @@ public class BoardController {
 	}
 	
 	//학생 엑셀 업로드 페이지 이동
-    @GetMapping("/uploadPageStu")
+    @GetMapping("/excel/students")
     public String uploadPageStu() {
         return "/board/excelPageStu";  
     }
     
     //교수 엑셀 업로드 페이지 이동
-    @GetMapping("/uploadPagePro")
+    @GetMapping("/excel/professors")
     public String uploadPagePro() {
     	return "/board/excelPagePro";  
     }
@@ -165,10 +165,10 @@ public class BoardController {
 
             Row header = sheet.createRow(0);
             header.createCell(0).setCellValue("아이디" + " *중복불가");
-            header.createCell(1).setCellValue("비밀번호");
+            header.createCell(1).setCellValue("비밀번호" + "*영문자,특수문자,숫자 포함 8글자 이상");
             header.createCell(2).setCellValue("이름");
             header.createCell(3).setCellValue("성별(남/여)");
-            header.createCell(4).setCellValue("생일(1999.01.01)");
+            header.createCell(4).setCellValue("생일(1999-01-01)");
             header.createCell(5).setCellValue("전화번호(010-1111-1111)");
             header.createCell(6).setCellValue("우편번호");
             header.createCell(7).setCellValue("주소");
@@ -176,11 +176,11 @@ public class BoardController {
             header.createCell(9).setCellValue("이메일");
             header.createCell(10).setCellValue("학과");
             header.createCell(11).setCellValue("학년(ex: 1학년)");
-            header.createCell(12).setCellValue("입학일(1999.01.01)");
+            header.createCell(12).setCellValue("입학일(1999-01-01)");
             header.createCell(13).setCellValue("상태(재학, 휴학, 퇴학, 졸업");
 
             Row ex = sheet.createRow(1);
-            ex.createCell(0).setCellValue("아이디, 비밀번호, 전화번호, 우편번호는 셀 형식을 텍스트 형식으로 맞춰주세요.");
+            ex.createCell(0).setCellValue("아이디, 비밀번호, 전화번호, 우편번호는 셀 서식을 텍스트 형식으로, 입학일은 날짜로 지정해주세요. 비어있는 행은 삭제해주세요.");
             
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             workbook.write(outputStream);
@@ -264,12 +264,12 @@ public class BoardController {
             redirectAttributes.addFlashAttribute("msg", "success");
 
             workbook.close();
-            return "redirect:/uploadPageStu";
+            return "redirect:/excel/students";
         
         } catch (Exception e) {
             e.printStackTrace();
             redirectAttributes.addFlashAttribute("msg", "fail");
-            return "redirect:/uploadPageStu"; 
+            return "redirect:/excel/students"; 
         }
     }
     
@@ -281,10 +281,10 @@ public class BoardController {
         	
             Row header = sheet.createRow(0);
             header.createCell(0).setCellValue("아이디" + " *중복불가");
-            header.createCell(1).setCellValue("비밀번호");
+            header.createCell(1).setCellValue("비밀번호" + "*영문자,특수문자,숫자 포함 8글자 이상");
             header.createCell(2).setCellValue("이름");
             header.createCell(3).setCellValue("성별(남/여)");
-            header.createCell(4).setCellValue("생일(1999.01.01)");
+            header.createCell(4).setCellValue("생일(1999-01-01)");
             header.createCell(5).setCellValue("전화번호(010-1111-1111)");
             header.createCell(6).setCellValue("우편번호");
             header.createCell(7).setCellValue("주소");
@@ -292,11 +292,11 @@ public class BoardController {
             header.createCell(9).setCellValue("이메일");
             header.createCell(10).setCellValue("과목");
             header.createCell(11).setCellValue("상태(재직, 휴직, 은퇴)");
-            header.createCell(12).setCellValue("입사일(1999.01.01)");
+            header.createCell(12).setCellValue("입사일(1999-01-01)");
             header.createCell(13).setCellValue("타입(관리자/교수)");
 
             Row ex = sheet.createRow(1);
-            ex.createCell(0).setCellValue("아이디, 비밀번호, 전화번호, 우편번호는 셀 형식을 텍스트 형식으로 맞춰주세요. 비어있는 행은 삭제해주세요.");
+            ex.createCell(0).setCellValue("아이디, 비밀번호, 전화번호, 우편번호는 셀 서식을 텍스트 형식으로, 입사일은 셀 서식을 날짜로 지정해주세요. 비어있는 행은 삭제해주세요.");
             
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             workbook.write(outputStream);
@@ -382,12 +382,12 @@ public class BoardController {
             redirectAttributes.addFlashAttribute("msg", "success");
 
             workbook.close();
-            return "redirect:/uploadPagePro";
+            return "redirect:/excel/professors";
         
         } catch (Exception e) {
             e.printStackTrace();
             redirectAttributes.addFlashAttribute("msg", "fail");
-            return "redirect:/uploadPagePro"; 
+            return "redirect:/excel/professors"; 
         }
     }
     
@@ -417,6 +417,15 @@ public class BoardController {
   			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
   		}
   	}
+  	//메인에 공지사항 가져오기
+    @GetMapping("/board")
+    @ResponseBody
+    public Map<String, Object> boardMain( @RequestParam(value = "b_type", defaultValue = "") String b_type) {
+       List<BoardVO> boardList = boardService.boardMain(b_type);
+       Map<String, Object> bmap = new HashMap<String, Object>();
+       bmap.put("board", boardList);
+       return bmap;
+    }
     
 //  ---------board 컨트롤러
 
@@ -539,18 +548,29 @@ public class BoardController {
        }
    }
    
-   //목록 누를시 상세 내용으로 이동
+ //목록 누를시 상세 내용으로 이동
    @GetMapping("/getBoard")
-   public String getBoard(BoardVO vo, Model model) {
-      BoardVO board = boardService.getBoard(vo.getB_number());
+   public String getBoard(BoardVO vo, Model model, HttpSession session) {
       
-    //조회수 1씩 증가 로직
-		boardService.boardViewTx(vo.getB_number());
-		
-		//댓글 조회
-		List<CommentVO> commentList = boardService.getCommentList(vo.getB_number());
-		model.addAttribute("board", board);
-		model.addAttribute("commentList", commentList);
+      // 세션에서 조회한 게시물 번호 확인
+      List<Integer> viewedBoards = (List<Integer>) session.getAttribute("viewedBoards");
+      
+      // 조회수 1씩 증가 로직
+      if (viewedBoards == null) {
+          viewedBoards = new ArrayList<>();
+      }
+      
+      if (!viewedBoards.contains(vo.getB_number())) {
+          boardService.boardViewTx(vo.getB_number());
+          viewedBoards.add(vo.getB_number());
+          session.setAttribute("viewedBoards", viewedBoards);
+      }
+      
+      BoardVO board = boardService.getBoard(vo.getB_number());
+      //댓글 조회
+      List<CommentVO> commentList = boardService.getCommentList(vo.getB_number());
+      model.addAttribute("board", board);
+      model.addAttribute("commentList", commentList);
       return "/board/boarddetail";
    }
    

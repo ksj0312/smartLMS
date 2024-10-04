@@ -70,4 +70,12 @@ public interface EduinfoService {
 
    public List<TaskVO> getTaskList(int c_number);
 
+   public TestVO testInfo(String g_number);
+
+   public int testUpdateTx(TestVO vo) throws Exception;
+
+   public int testAllCnt(Pagination pg);
+
+   public List<TestVO> testAllSelect(Pagination pg);
+
 }

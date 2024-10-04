@@ -15,7 +15,7 @@
                         <h4>학생 정보</h4>
                 </section>
                 <nav id="searchNav" class="navbar navbar-expand-sm navbar-dark">
-                        <form class="form-inline" action="stuList" method="get">
+                        <form class="form-inline" action="/admin/students" method="get">
                                 <select name="searchType" class="form-control mr-sm-2">
                                         <option value="name">이름</option>
                                         <option value="id">학번</option>

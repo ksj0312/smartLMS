@@ -1,58 +1,78 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ include file="../member/adminIndex.jsp"%>
+    <%@page import="java.util.Date" %>
+    <%@page import="java.text.SimpleDateFormat" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>강의 목록</title>
-<script src="${pageContext.request.contextPath }/resources/js/classAllList.js"></script>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/classAllList.css">
 </head>
 <body>
 <div class="bcl">
         <div class="divall">
-                <section class="header-container">
-                        <h4>전체 강의 목록</h4>
+        <h4>시험 목록</h4>
+        <br>
+            <section class="header-container">
+    					<h5>강의번호 :<%= request.getParameter("c_number") %> </h5>
+    					<h5>강의명 : <%= request.getParameter("c_name") %></h5> 
                 </section>
-    			 <nav id="searchNav" class="navbar navbar-expand-sm navbar-dark">
-                        <form class="form-inline" action="/admin/classes" method="get">
+        <br><br>
+        
+              <nav id="searchNav" class="navbar navbar-expand-sm navbar-dark">
+                        <form class="form-inline" action="/professor/test/classlist/test" method="get">
                                 <select name="searchType" class="form-control mr-sm-2">
-                                        <option value="c_name">강의명</option>
-                                        <option value="name">교수</option>
-                                        <option value="c_info">강의소개</option>
+                                        <option value="g_number">시험번호</option>
+                                        <option value="test_type">시험구분</option>
                                 </select> <input class="form-control mr-sm-2" type="text" name="keyword"
                                         autocomplete="off" placeholder="검색어를 입력하세요.">
+                                <input type = "text" id= "c_number" name="c_number" value=" <%= request.getParameter("c_number") %>" style="display:none;"/>
+                                <input type = "text" id= "c_name" name="c_name" value=" <%= request.getParameter("c_name") %>" style="display:none;"/>
                                 <button class="btn btn-success" type="submit">검색</button>
                         </form>
                 </nav>
-                <section class="contents-container">
-                        <table class="table">
-                                <tr>
-                                        <th>강의번호</th>
-                                        <th>강의명</th>
-                                        <th>교수</th>
-                                        <th>상세보기</th>
-                                     
-                                </tr>
-                                <c:forEach items="${classAllList}" var="cl">
-                                <tr class="tdCenter">
-                                                <td>${cl.c_number}</td>
-                                                <td>${cl.c_name}</td>
-                                                <td>${cl.c_prof_name}</td>
-                                                <td><button type="button" class="btn classInfo" id="classClick"
-											data-toggle="modal" data-target="#classInfo" value="${cl.c_number}">상세보기</button></td>
-                                                </tr>
-                                </c:forEach>
-                        </table>
-                </section>
-                
-              	<div class="modal fade" id="classInfo" tabindex="-1" role="dialog"
+
+        <c:choose>
+				<c:when test="${testListcnt > 0}">
+				     <table class="table">
+				        <tr>
+				        <th>강의 번호</th>
+				        <th>시험 번호</th>
+				        <th>시험 구분</th>
+				        <th>시작 일시 </th>
+				        <th>종료 일시</th>
+				        <th>수정</th>
+				        </tr>
+					<c:forEach items="${tList}" var="tl">
+					<tr>
+<%-- 					<tr onclick="location.href='test?g_number=${tl.g_number}'" style="cursor:hand" > --%>
+						<td>${tl.c_number}</td>  
+						<td>${tl.g_number}</td>  
+						<td>${tl.test_type}</td>
+						<td><fmt:formatDate value="${tl.start_time}" pattern="yyyy-MM-dd HH:mm"/></td>
+						<td><fmt:formatDate value="${tl.end_time}" pattern="yyyy-MM-dd HH:mm"/></td>
+						<td>
+						<button type="button" class="btn" id="testInfo" data-toggle="modal" data-target="#testMo" value="${tl.g_number}" onclick="testInfo('${tl.g_number}')">정보 보기</button>
+						</td>
+						</tr>
+					</c:forEach>
+					</table>
+				</c:when>
+				<c:otherwise>
+				<div class="nodiv">
+				<h5>진행중인 시험 목록이 없습니다.</h5>
+				</div>
+				</c:otherwise> 
+			</c:choose> 
+			
+			  <div class="modal fade" id="testMo" tabindex="-1" role="dialog"
 				aria-labelledby="myModalLabel" data-backdrop='static'
 				aria-hidden="true">
-				<%@ include file="classInfo.jsp" %>
+				<%@ include file="testInfo.jsp"%>
 			</div>
-                <section class="contents-footer">
+			
+			                <section class="contents-footer">
                         <div>
                                 <nav aria-label="Page navigation example" style="margin: auto;">
                                         <ul class="pagination justify-content-center">
@@ -77,8 +97,8 @@
                         </div>
                         <div id="paginationData" data-searchType="${pagination.searchType}" data-keyword="${pagination.keyword}"></div>
                 </section>
-        </div>
 </div>
-
+</div>
 </body>
+<script src="${pageContext.request.contextPath }/resources/js/testList2.js"></script> 
 </html>

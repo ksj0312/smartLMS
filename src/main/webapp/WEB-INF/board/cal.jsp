@@ -42,6 +42,10 @@ html, body {
  	padding-right: 1em; 
 }
 
+.calmodal{
+   margin-top : 300px;
+}
+
 .fc-listWeek-button,
 .fc-timeGridDay-button,
 .fc-timeGridWeek-button, 
@@ -62,10 +66,10 @@ html, body {
 	</div>
 	<!-- 부트스트랩 modal 부분 -->
 	<!-- Modal -->
-	<div class="modal fade" id="exampleModal" tabindex="-1"
+	<div class="modal" id="exampleModal" tabindex="-1"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
-			<div class="modal-content">
+			<div class="modal-content calmodal">
 				<div class="modal-header">
 					<h5 class="modal-title" id="exampleModalLabel">일정 추가하기</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal"
@@ -98,7 +102,6 @@ html, body {
 			</div>
 		</div>
 	</div>
-
 <script>
 // (function(){
 $(function(){
@@ -111,7 +114,7 @@ $(function(){
     // full-calendar 생성하기
     var calendar = new FullCalendar.Calendar(calendarEl, {
     	googleCalendarApiKey: 'AIzaSyCulx2liTBopHvLm2YQUO2hPI8Wm47eB_s',
-        height: '700px', // calendar 높이 설정
+        height: '600px', // calendar 높이 설정
         expandRows: true, // 화면에 맞게 높이 재설정
         slotMinTime: '08:00', // Day 캘린더에서 시작 시간
         slotMaxTime: '20:00', // Day 캘린더에서 종료 시간

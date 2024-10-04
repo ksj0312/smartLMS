@@ -161,6 +161,10 @@ public class BoardDAO {
 	public int noteCount(String userId) {
 		return mybatis.selectOne("boardDAO.noteCount",userId);
 	}
+
+	public List<BoardVO> boardMain(String b_type) {
+		return mybatis.selectList("boardDAO.boardMain",b_type);
+	}
 	
 
 }

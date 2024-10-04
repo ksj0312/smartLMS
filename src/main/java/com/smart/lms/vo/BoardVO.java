@@ -20,8 +20,6 @@ public class BoardVO {
 	
 	private MultipartFile uploadFile;
 
-	
-	
 	public MultipartFile getUploadFile() {
 		return uploadFile;
 	}

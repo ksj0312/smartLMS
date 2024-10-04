@@ -65,13 +65,19 @@ public class MemberController {
 		response.setDateHeader("Expires", 0); 
 		return "member/adminLogin";  
 	}
+	
+	@GetMapping("/message")
+	public String message(HttpSession session) {
+		String id = (String)session.getAttribute("userId");
+		session.setAttribute("noteCount", boardService.noteCount(id));
+		return "redirect:/";
+	}
 	   
 	// 학생 로그인 
 	@PostMapping("/student")
 		public String studentLogin(StudentVO vo, HttpSession session, HttpServletResponse response) {
 			
 		      vo = memService.studentLogin(vo);
-		    
 		    
 		      if (vo != null) {
 		         response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); 
@@ -109,6 +115,8 @@ public class MemberController {
 		         session.setAttribute("userStatus", memService.getAdmin(vo).getStatus());
 		         session.setAttribute("userType", memService.getAdmin(vo).getType());
 		         session.setAttribute("loginChk", "pro");
+		         String id = (String)session.getAttribute("userId");
+		         session.setAttribute("noteCount", boardService.noteCount(id));
 		         
 		         return "redirect:/admin";
 		         

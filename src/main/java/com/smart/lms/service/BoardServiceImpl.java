@@ -161,4 +161,9 @@ public class BoardServiceImpl implements BoardService {
 		public void deleteCommentTx(int co_number) {
 			boDAO.deleteComment(co_number);
 		}
+
+		@Override
+		public List<BoardVO> boardMain(String b_type) {
+			 return boDAO.boardMain(b_type);
+		}
 }
