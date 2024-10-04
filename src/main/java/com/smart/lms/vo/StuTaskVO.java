@@ -2,21 +2,55 @@ package com.smart.lms.vo;
 
 import java.sql.Timestamp;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class StuTaskVO {
 	private int st_number;
 	private int t_number;
 	private int c_number;
 	private String id;
+	private String name;
 	private String st_status;
 	private String st_submit;
 	private int st_score;
 	private int st_total_score;
+	private String st_title;
+	private String st_info;
 	private Timestamp st_cteate_date;
 	private Timestamp st_modify_date;
-	private String t_file1;
-	private String t_file2;
-	private String t_file3;
+	private String s_file1;
+	private String s_file2;
+	private String s_file3;
 	
+	
+	private MultipartFile uploadFile;
+	
+	
+	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getSt_title() {
+		return st_title;
+	}
+	public void setSt_title(String st_title) {
+		this.st_title = st_title;
+	}
+	public String getSt_info() {
+		return st_info;
+	}
+	public void setSt_info(String st_info) {
+		this.st_info = st_info;
+	}
+	public MultipartFile getUploadFile() {
+		return uploadFile;
+	}
+	public void setUploadFile(MultipartFile uploadFile) {
+		this.uploadFile = uploadFile;
+	}
 	public int getSt_number() {
 		return st_number;
 	}
@@ -77,31 +111,32 @@ public class StuTaskVO {
 	public void setSt_modify_date(Timestamp st_modify_date) {
 		this.st_modify_date = st_modify_date;
 	}
-	public String getT_file1() {
-		return t_file1;
+	public String getS_file1() {
+		return s_file1;
 	}
-	public void setT_file1(String t_file1) {
-		this.t_file1 = t_file1;
+	public void setS_file1(String s_file1) {
+		this.s_file1 = s_file1;
 	}
-	public String getT_file2() {
-		return t_file2;
+	public String getS_file2() {
+		return s_file2;
 	}
-	public void setT_file2(String t_file2) {
-		this.t_file2 = t_file2;
+	public void setS_file2(String s_file2) {
+		this.s_file2 = s_file2;
 	}
-	public String getT_file3() {
-		return t_file3;
+	public String getS_file3() {
+		return s_file3;
 	}
-	public void setT_file3(String t_file3) {
-		this.t_file3 = t_file3;
+	public void setS_file3(String s_file3) {
+		this.s_file3 = s_file3;
 	}
-	
 	@Override
 	public String toString() {
 		return "StuTaskVO [st_number=" + st_number + ", t_number=" + t_number + ", c_number=" + c_number + ", id=" + id
 				+ ", st_status=" + st_status + ", st_submit=" + st_submit + ", st_score=" + st_score
 				+ ", st_total_score=" + st_total_score + ", st_cteate_date=" + st_cteate_date + ", st_modify_date="
-				+ st_modify_date + ", t_file1=" + t_file1 + ", t_file2=" + t_file2 + ", t_file3=" + t_file3 + "]";
+				+ st_modify_date + ", s_file1=" + s_file1 + ", s_file2=" + s_file2 + ", s_file3=" + s_file3
+				+ ", uploadFile=" + uploadFile + "]";
 	}
+	
 	
 }

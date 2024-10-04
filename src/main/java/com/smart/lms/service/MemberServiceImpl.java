@@ -44,7 +44,6 @@ public class MemberServiceImpl implements MemberService {
 
 	      if (svo != null) {
 	         boolean isMatch = passwordEncoder.matches(vo.getPwd(), svo.getPwd());
-//	    	  boolean isMatch = vo.getPwd().equals(svo.getPwd());
 	         if (isMatch) {
 	            return svo;
 	         }
@@ -63,7 +62,6 @@ public class MemberServiceImpl implements MemberService {
 		ProfessorVO pvo = memDAO.getAdmin(vo);
 		
 	      if (pvo != null) {
-//	    	  boolean isMatch = vo.getPwd().equals(vo.getPwd());
 	         boolean isMatch = passwordEncoder.matches(vo.getPwd(), pvo.getPwd());
 	         if(isMatch){
 	            return pvo;

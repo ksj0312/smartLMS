@@ -7,14 +7,28 @@
 </head>
 <body>
 
+
 <div class="divall">
 
 <div class="maindiv">
+<%@ include file="WEB-INF/board/cal.jsp"%>  
+<!-- <a href="/professors">교수 소개</a> -->
+
 <a href="professors">교수 소개</a>
 <a href="menual">메뉴얼</a>
 
 </div>
 	</div>
+	
+	
 </body>
 
+	<style>
+		#calendar{
+			width : 30%;
+			heigth : 20%;
+			margin : 0 auto;
+			
+		}
+	</style>
 </html>

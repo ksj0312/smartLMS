@@ -38,6 +38,7 @@
         <th>교수이름</th>
         <th>강의시간</th>
         <th>출결상태</th>
+        <th>시험, 과제</th>
       </tr>
     </thead>
     <tbody id="classTableBody">
@@ -50,6 +51,8 @@
 					<td> <button type="button" class="btn ModalBtn" id="myPageClassDetail" 
 					data-toggle="modal" data-target="#myPageModal" value="${item.c_number}" 
 					onclick="attInfo(${item.c_number})">상세정보</button></td>
+<!-- 					<td><button type="button" class="btn TaskBtn" onclick="">과제</button> </td> -->
+					<td><a class="btn TaskBtn" href="task/page?c_number=${item.c_number }">과제</a> </td>
 					</tr>
 					</c:forEach>
     </tbody>

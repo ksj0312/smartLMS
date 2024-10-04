@@ -15,7 +15,9 @@ import com.smart.lms.vo.AttendClassVO;
 import com.smart.lms.vo.ClassVO;
 import com.smart.lms.vo.GradeVO;
 import com.smart.lms.vo.ProfessorVO;
+import com.smart.lms.vo.StuTaskVO;
 import com.smart.lms.vo.StudentVO;
+import com.smart.lms.vo.TaskVO;
 import com.smart.lms.vo.TestVO;
 import com.smart.lms.vo.TodateVO;
 
@@ -198,6 +200,63 @@ public class EduinfoServiceImpl implements EduinfoService {
    public List<GradeVO> gradeSearch(Pagination pg) {
       return eduDAO.gradeSearch(pg);
    }
+   
+   //과제 목록
+   @Override
+   public List<TaskVO> getTaskList(int c_number){
+	   return eduDAO.getTaskList(c_number);
+   }
+   
+   //과제 등록
+   @Override
+   public void taskInsertTx(TaskVO vo) {
+       eduDAO.taskInsertTx(vo);
+   }
+   
+   //과제 정보
+   @Override
+   public TaskVO getTask(int t_number) {
+      return eduDAO.getTask(t_number);
+   }
+   
+   //학생 과제 제출 정보
+   @Override
+   public StuTaskVO getStuTask(int t_number, String id) {
+      return eduDAO.getStuTask(t_number, id);
+   }
+   
+   
+   //학생 과제 등록
+   @Override
+   public void insertStuTaskTx(StuTaskVO vo) {
+       eduDAO.insertStuTaskTx(vo);
+   }
+   
+ //과제를 제출한 학생들의 목록
+   @Override
+   public List<StuTaskVO> taskAllList(int t_number, int c_number){
+	   return eduDAO.taskAllList(t_number, c_number);
+   }
+   
+   //학생 제출 게시글 정보
+   @Override
+   public StuTaskVO getThisStuTask(int st_number) {
+	   return eduDAO.getThisStuTask(st_number);
+   }
+   
+ //학생 과제 등록
+   @Override
+   public void stuTaskUpdateTx(StuTaskVO vo) {
+       eduDAO.stuTaskUpdateTx(vo);
+   }
+   
+   
+   //학생 성적 조회
+   @Override
+   public List<GradeVO> gradeSelectStu(int c_number, String id) {
+	   return eduDAO.gradeSelectStu(c_number, id);
+   }
+   
    }
    
    

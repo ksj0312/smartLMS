@@ -9,6 +9,7 @@
 <%
     // 세션에서 mem_id 가져오기
     String userId = (String) session.getAttribute("userId");
+    String usertype = (String) session.getAttribute("userType");
 %>
 <script>
 var userId = '<%= userId %>';
@@ -42,13 +43,13 @@ var userId = '<%= userId %>';
    <div class="smnav">
   <ul class="navbar-nav">
     <li class="nav-item">
-      <a class="nav-link" href="getBoardList?b_type=게시판">공지사항</a>
+      <a class="nav-link" href="/board/list?b_type=게시판">공지사항</a>
     </li> &nbsp;
     <li class="nav-item">
       <a class="nav-link" href="calPage">학사일정</a>
     </li>&nbsp;
     <li class="nav-item">
-      <a class="nav-link" href="getBoardList?b_type=QNA">Q&A</a>
+      <a class="nav-link" href="/board/list?b_type=QNA">Q&A</a>
     </li>
   </ul>
 </div>
@@ -126,7 +127,7 @@ var userId = '<%= userId %>';
    
    <!-- 모달창 처리 -->
 <div id="noteModal" class="modal">
-    <div class="modal-content">
+    <div class="modal-content note">
         <span class="close">&times;</span>
         <div class="searchdiv">
             <input type="text" id="searchInput" placeholder="검색어를 입력하세요">

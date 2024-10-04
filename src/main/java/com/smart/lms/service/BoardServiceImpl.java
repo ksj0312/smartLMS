@@ -6,12 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.smart.lms.dao.BoardDAO;
-import com.smart.lms.vo.BoardVO;
-import com.smart.lms.vo.NoteVO;
-import com.smart.lms.vo.StudentVO;
 import com.smart.lms.util.Pagination;
 import com.smart.lms.vo.BoardVO;
 import com.smart.lms.vo.CalendarVO;
+import com.smart.lms.vo.CommentVO;
 import com.smart.lms.vo.NoteVO;
 
 @Service("boardService")
@@ -102,6 +100,11 @@ public class BoardServiceImpl implements BoardService {
 	public void updateBoardTx(BoardVO vo) {
 		boDAO.updateBoard(vo);
 	}
+	
+	@Override
+	public void boardViewTx(int b_number) {
+		boDAO.boardView(b_number);
+	}
 
 	@Override
 	public boolean checkUser(String n_reciver) {
@@ -122,17 +125,17 @@ public class BoardServiceImpl implements BoardService {
 	
 	@Override
 	public void insertCalTx(CalendarVO vo) {
-		System.out.println(vo);
-		System.out.println(vo.toString());
-		System.out.println();
 		boDAO.insertCal(vo);
 	}
-	
+//	@Override
+//	public void deleteCal(CalendarVO vo) {
+//		boDAO.deleteCal(vo);
+//	}
 	   @Override
 	   public List<CalendarVO> getCalList() {
 	      return boDAO.getCalList();
 	   }
-	   
+
 	   @Override
 	   public int getBoardListTotalCnt(Pagination pg) {
 	      return boDAO.getBoardListTotalCnt(pg);
@@ -142,4 +145,24 @@ public class BoardServiceImpl implements BoardService {
 	public List<BoardVO> myPageBoardList(Pagination pg) {
 		return boDAO.myPageBoardList(pg);
 	}
+	
+	public void deleteCalTx(int cal_number) {
+			boDAO.deleteCal(cal_number);
+		}
+		
+	   // 댓글
+		@Override
+		public void insertCommentTx(CommentVO vo) {
+			boDAO.insertComment(vo);
+		}
+		
+		@Override
+		public List<CommentVO> getCommentList(int b_number) {
+			return boDAO.getCommentList(b_number);
+		}
+		
+		@Override
+		public void deleteCommentTx(int co_number) {
+			boDAO.deleteComment(co_number);
+		}
 }

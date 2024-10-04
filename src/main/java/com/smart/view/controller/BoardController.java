@@ -9,6 +9,7 @@ import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -37,6 +38,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -50,6 +52,7 @@ import com.smart.lms.util.ExcelUtil;
 import com.smart.lms.util.Pagination;
 import com.smart.lms.vo.BoardVO;
 import com.smart.lms.vo.CalendarVO;
+import com.smart.lms.vo.CommentVO;
 import com.smart.lms.vo.NoteVO;
 import com.smart.lms.vo.ProfessorVO;
 import com.smart.lms.vo.StudentVO;
@@ -425,7 +428,7 @@ public class BoardController {
 //  ---------board 컨트롤러
 
 //게시판 목록
-   @GetMapping("/getBoardList")
+   @GetMapping("/board")
    public String getBoardList(@ModelAttribute Pagination pg, Model model, HttpSession session, @RequestParam(value = "b_type", defaultValue = "") String b_type) {
       int currPageNo = pg.getCurrPageNo();
       System.out.println(pg.getKeyword());
@@ -435,7 +438,7 @@ public class BoardController {
      
 
       pg.pageInfo(currPageNo, range, totalCnt);
-        List<BoardVO> boardList = boardService.getBoardList(pg);
+      List<BoardVO> boardList = boardService.getBoardList(pg);
 
       model.addAttribute("pagination", pg);
       model.addAttribute("getBoardList", boardService.getBoardListTotalCnt(pg));
@@ -462,9 +465,31 @@ public class BoardController {
       model.addAttribute("boardList", boardList);
       return "/board/myPageBoard";
    }
+      
+ //관리자 게시판 관리 목록
+   @GetMapping("/boardadmin")
+   public String getBoardListAdmin(@ModelAttribute Pagination pg, Model model, HttpSession session, @RequestParam(value = "b_type", defaultValue = "") String b_type) {
+      
+      int currPageNo = pg.getCurrPageNo();
+      int range = pg.getRange();
+      pg.setB_type(b_type);
+      
+      int totalCnt = boardService.getBoardListTotalCnt(pg);
+
+      pg.pageInfo(currPageNo, range, totalCnt);
+      List<BoardVO> boardList = boardService.getBoardList(pg);
+      
+      System.out.println("pg " + pg);
+      System.out.println("boardList " + boardList);
+        
+      model.addAttribute("pagination", pg);
+      model.addAttribute("getBoardList", boardService.getBoardListTotalCnt(pg));
+      model.addAttribute("boardList", boardList);
+      return "/board/boardAdmin";
+   }
    
    //게시글 등록 페이지 이동
-   @GetMapping("/insertPage")
+   @GetMapping("/boardpage")
    public String insertPage(@RequestParam(value = "b_type", defaultValue = "") String b_type, Model model) {
        model.addAttribute("b_type", b_type); // 기본값을 빈 문자열로 설정
        return "/board/insertboard";
@@ -472,7 +497,7 @@ public class BoardController {
    
    //상대경로로 수정하기 
    //게시글 등록 후 목록 페이지 이동
-   @PostMapping(value = "/insertBoard")
+   @PostMapping(value = "/board")
    public String insertBoard(@ModelAttribute BoardVO vo) throws IllegalStateException, IOException, Exception {
 
       System.out.println("VO " + vo);
@@ -480,16 +505,19 @@ public class BoardController {
        // 파일 처리 로직
        MultipartFile file = vo.getUploadFile();
        if (file != null && !file.isEmpty()) {
-           // 파일 저장 경로 설정
-           String uploadPath = "c:/smart/smartlms/src/main/webapp/resources/upfile/"; // 저장할 경로 설정
+    	// 파일 저장 경로 설정 (상대 경로)
+           String uploadPath = "/resources/upfile/"; // 상대 경로 설정
            String fileName = file.getOriginalFilename();
            
+           // 저장할 파일의 전체 경로
+           String fullPath = new File(uploadPath).getAbsolutePath() + File.separator + fileName;
+
            // 파일을 해당 경로에 저장
-           File dest = new File(uploadPath + fileName);
+           File dest = new File(fullPath);
            file.transferTo(dest);
            
-           // BoardVO에 파일 경로 설정
-           vo.setB_file1(uploadPath + fileName); // 파일 경로를 BoardVO의 b_file1에 설정
+           // BoardVO에 파일 경로 설정 (상대 경로 사용)
+           vo.setB_file1(fileName); // 파일 경로를 BoardVO의 b_file1에 설정
 
            System.out.println("파일 저장 성공: " + fileName);
        } else {
@@ -502,10 +530,10 @@ public class BoardController {
       
       if(vo.getB_type().equals(btype)) {
  
-         return "redirect:/getBoardList?b_type=" + URLEncoder.encode(btype, StandardCharsets.UTF_8.toString());
+         return "redirect:/board/list?b_type=" + URLEncoder.encode(btype, StandardCharsets.UTF_8.toString());
       }else {
          
-         return "redirect:/getBoardList?b_type=QNA";
+         return "redirect:/board/list?b_type=QNA";
       }
       
    }
@@ -513,8 +541,12 @@ public class BoardController {
    
    //파일 다운로드 로직
    @GetMapping("/downloadFile")
-   public void downloadFile(@RequestParam("filePath") String filePath, HttpServletResponse response) throws IOException {
-       // URL 디코딩 (공백 및 특수문자를 처리하기 위해)
+   public void downloadFile(@RequestParam("fileName") String fileName, HttpServletResponse response) throws IOException {
+	// 파일 저장 경로 설정 (상대 경로)
+	    String uploadPath = "/resources/upfile/"; // 파일이 저장된 상대 경로
+	    String filePath = uploadPath + fileName; // 전체 파일 경로 생성
+	    
+	   // URL 디코딩 (공백 및 특수문자를 처리하기 위해)
        String decodedFilePath = java.net.URLDecoder.decode(filePath, "UTF-8");
        
        // 파일 객체 생성
@@ -524,34 +556,68 @@ public class BoardController {
            response.setContentType("application/octet-stream");
            response.setHeader("Content-Disposition", "attachment; filename=\"" + URLEncoder.encode(file.getName(), "UTF-8").replaceAll("\\+", "%20") + "\"");
            response.setContentLength((int) file.length());
-
-           try (FileInputStream fis = new FileInputStream(file); OutputStream os = response.getOutputStream()) {
-               byte[] buffer = new byte[1024];
-               int bytesRead;
-               while ((bytesRead = fis.read(buffer)) != -1) {
-                   os.write(buffer, 0, bytesRead);
-               }
-               os.flush();
-           } catch (IOException e) {
-               e.printStackTrace();
-               throw new IOException("파일 다운로드 중 오류가 발생했습니다.");
+       
+       try (FileInputStream fis = new FileInputStream(file); OutputStream os = response.getOutputStream()) {
+           byte[] buffer = new byte[1024];
+           int bytesRead;
+           while ((bytesRead = fis.read(buffer)) != -1) {
+               os.write(buffer, 0, bytesRead);
            }
-       } else {
-           response.sendError(HttpServletResponse.SC_NOT_FOUND, "파일을 찾을 수 없습니다.");
+           os.flush();
+       } catch (IOException e) {
+           e.printStackTrace();
+           throw new IOException("파일 다운로드 중 오류가 발생했습니다.");
        }
+   } else {
+       response.sendError(HttpServletResponse.SC_NOT_FOUND, "파일을 찾을 수 없습니다.");
    }
-   
+}
+
+	
    //목록 누를시 상세 내용으로 이동
-   @GetMapping("/getBoard")
-   public String getBoard(BoardVO vo, Model model) {
+   //
+   @GetMapping("/boarddetail")
+   public String getBoard(BoardVO vo, Model model, HttpSession session) {
+      
+      // 세션에서 조회한 게시물 번호 확인
+      List<Integer> viewedBoards = (List<Integer>) session.getAttribute("viewedBoards");
+      
+      
+      // 조회수 1씩 증가 로직
+      if (viewedBoards == null) {
+          viewedBoards = new ArrayList<>();
+      }
+      
+      if (!viewedBoards.contains(vo.getB_number())) {
+          boardService.boardViewTx(vo.getB_number());
+          viewedBoards.add(vo.getB_number());
+          session.setAttribute("viewedBoards", viewedBoards);
+      }
+		
       BoardVO board = boardService.getBoard(vo.getB_number());
-      model.addAttribute("board", board);
+		//댓글 조회
+		List<CommentVO> commentList = boardService.getCommentList(vo.getB_number());
+		
+		//timestamp형식으로 가져오는 값 date형식으로 변환
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // YYYY-MM-DD 형식
+		String formattedDate = sdf.format(board.getB_create_date());
+		
+		for (CommentVO comment : commentList) {
+	        String formattedDate1 = sdf.format(comment.getCo_create_date());
+	        comment.setFormat_create_date(formattedDate1);  // 새 필드로 저장
+	    }
+		
+		
+		model.addAttribute("board", board);
+		model.addAttribute("commentList", commentList);
+		model.addAttribute("b_create_date", formattedDate);
+		
       return "/board/boarddetail";
    }
    
    
    //선택 목록 삭제
-   @DeleteMapping("/deleteBoard")
+   @DeleteMapping("/board")
    public String deleteBoard(@RequestParam ("b_number") int b_number) throws UnsupportedEncodingException,  Exception {
       BoardVO board = boardService.getBoard(b_number);
        
@@ -569,11 +635,11 @@ public class BoardController {
        System.out.println("게시글이 삭제되었습니다.");
        
        // 삭제 후 목록으로 리디렉션
-       return "redirect:/getBoardList?b_type=" + URLEncoder.encode(board.getB_type(), StandardCharsets.UTF_8.toString());
+       return "redirect:/board?b_type=" + URLEncoder.encode(board.getB_type(), StandardCharsets.UTF_8.toString());
    }
    
    //수정 누를 시 수정페이지로 이동
-   @GetMapping("/updatePage")
+   @GetMapping("/board/page")
    public String updatePage(BoardVO vo, Model model) {
       BoardVO board = boardService.getBoard(vo.getB_number());
       model.addAttribute("board", board);
@@ -582,23 +648,31 @@ public class BoardController {
    
 
    //선택 목록 수정
-   @PostMapping("/updateBoard")
+   @PutMapping("/board")
    public String updateBoard(@ModelAttribute BoardVO vo)  throws Exception {
       boardService.updateBoardTx(vo);
-      return "redirect:/getBoard?b_number=" + vo.getB_number();
+      return "redirect:/boarddetail?b_number=" + vo.getB_number();
    }
    
    
    
+   
+//   ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ학사 일정ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
    //학사 일정 페이지 이동
-   @GetMapping("/calPage")
+   @GetMapping("/calpage")
    public String calPage() {
       return "/board/cal";
    }
    
+   //학사 일정 페이지 이동
+   @GetMapping("/cal/admin")
+   public String calAdmin() {
+	   return "/board/calAdmin";
+   }
+   
    
    //학사 일정 목록
-    @GetMapping("/getCalList")
+    @GetMapping("/cal/list")
     @ResponseBody
        public List<CalendarVO> getCalList() {
            List<CalendarVO> calList = boardService.getCalList();
@@ -608,7 +682,7 @@ public class BoardController {
    
    
    //학사 일정 상세 목록 가져오기
-   @GetMapping("/getCal")
+   @GetMapping("/cal/info")
    public String getCal(CalendarVO vo, Model model) {
       CalendarVO cal = boardService.getCal(vo);
       model.addAttribute("cal", cal);
@@ -616,12 +690,45 @@ public class BoardController {
    }
    
    //학사 일정 등록
-   @PostMapping(value = "/insertCal")
+   @PostMapping(value = "/cal/list")
    public String insertCal(@RequestBody List<CalendarVO> voList) throws IllegalStateException, IOException , Exception{
        // 배열로 받은 각 CalendarVO 객체를 처리
        for (CalendarVO vo : voList) {
            boardService.insertCalTx(vo);
        }
-       return "redirect:/getCal";
+       return "redirect:/cal/info";
    }
+   
+   //학사 일정 삭제
+ 	@DeleteMapping("/cal")
+ 	@ResponseBody
+ 	public String deleteCal( int cal_number) throws UnsupportedEncodingException,  Exception {
+ 		System.out.println("cal_number " + cal_number);
+ 	    // 일정 삭제
+ 	    boardService.deleteCalTx(cal_number);
+ 	    // 삭제 후 목록으로 리디렉션
+ 	    return "redirect:/cal/list";	
+ 	}
+   
+   
+   //ㅡㅡㅡㅡㅡㅡㅡ댓글 입력ㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+   @PostMapping(value = "/comment")
+   public String insertComment(CommentVO vo) throws IllegalStateException, IOException , Exception{
+       // 배열로 받은 각 CalendarVO 객체를 처리
+	   System.out.println("vo " + vo);
+	  
+	   
+           boardService.insertCommentTx(vo);
+       return "redirect:/boarddetail?b_number=" + vo.getB_number();
+   }
+   
+   //댓글 삭제
+   @DeleteMapping("/comment")
+   public String deleteComment(@RequestParam ("b_number") int b_number,  int co_number) {
+	   boardService.deleteCommentTx(co_number);
+	   return "redirect:/boarddetail?b_number=" + b_number;
+   }
+   
+   
+   
 }

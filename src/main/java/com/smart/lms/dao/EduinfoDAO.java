@@ -1,7 +1,9 @@
 package com.smart.lms.dao;
 
 import java.sql.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +14,9 @@ import com.smart.lms.vo.AttendClassVO;
 import com.smart.lms.vo.ClassVO;
 import com.smart.lms.vo.GradeVO;
 import com.smart.lms.vo.ProfessorVO;
+import com.smart.lms.vo.StuTaskVO;
 import com.smart.lms.vo.StudentVO;
+import com.smart.lms.vo.TaskVO;
 import com.smart.lms.vo.TestVO;
 import com.smart.lms.vo.TodateVO;
 
@@ -138,5 +142,52 @@ public class EduinfoDAO {
    public List<GradeVO> gradeSearch(Pagination pg) {
       return mybatis.selectList("eduinfoDAO.gradeSearch", pg);
    }
-    
+   
+   public void taskInsertTx(TaskVO vo) {
+	       mybatis.insert("eduinfoDAO.taskInsertTx", vo);
+	      
+	   }
+
+   public List<TaskVO> getTaskList(int c_number) {
+	 return mybatis.selectList("eduinfoDAO.getTaskList", c_number);
+   }
+
+   public TaskVO getTask(int t_number) {
+     return  mybatis.selectOne("eduinfoDAO.getTask",t_number);
+   }
+
+   public StuTaskVO getStuTask(int t_number, String id) {
+	   Map<String, Object>params = new HashMap<>();
+		params.put("t_number", t_number);
+		params.put("id", id);
+	   return  mybatis.selectOne("eduinfoDAO.getStuTask", params);  
+   }
+
+  public void insertStuTaskTx(StuTaskVO vo) {
+	  	mybatis.insert("eduinfoDAO.insertStuTaskTx", vo);
+  }
+
+  public List<StuTaskVO> taskAllList(int t_number, int c_number) {
+	  Map<String, Object>params = new HashMap<>();
+		params.put("t_number", t_number);
+		params.put("c_number", c_number);
+	   return mybatis.selectList("eduinfoDAO.taskAllList", t_number);
+}
+
+  public StuTaskVO getThisStuTask(int st_number) {
+	   return mybatis.selectOne("eduinfoDAO.getThisStuTask",st_number);
+  }
+
+  public void stuTaskUpdateTx(StuTaskVO vo) {
+	  mybatis.update("eduinfoDAO.stuTaskUpdateTx", vo);
+  }
+
+  public List<GradeVO> gradeSelectStu(int c_number, String id) {
+	  Map<String, Object>params = new HashMap<>();
+		params.put("c_number", c_number);
+		params.put("id", id);
+	  
+	  return mybatis.selectList("eduinfoDAO.gradeSelectStu", params);
+	
+  }  
 }
