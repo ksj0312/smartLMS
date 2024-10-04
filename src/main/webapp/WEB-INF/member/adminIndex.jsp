@@ -7,6 +7,16 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/adminIndex.css">
 </head>
 <body>
+<% 
+    if(userId == null) {
+%>
+    <script type="text/javascript">
+        alert("로그인이 필요한 페이지입니다.");
+        window.location.href = '/';
+    </script>
+<% 
+    } else { 
+%>
 <div class="idxbody">
 	<div>
 <!-- 	<img class="idxlog" src="/resources/img/logo11.png" alt="smartLMS" title="smartLMS" style="height: 155px; cursor:pointer;" onclick="javascript:newin=window.open('about:blank'); newin.location.href='/';" ><br> -->
@@ -26,7 +36,7 @@
 	<li><a href="" class = "atag">- 과제 등록</a></li>
 	<li><a href="" class = "atag">- 과제 확인</a></li>
 	<li class="menu">공통 관리></li>
-	<li><a href="classInsertPage" class = "atag">- 강의 등록</a></li>
+	<li><a href="	" class = "atag">- 강의 등록</a></li>
 	<li><a href="classAllList" class = "atag">- 강의 목록</a></li>
 	<li><a href="attendance" class = "atag">- 수강생 목록</a></li>
 	<%  }else if(type.equals("관리자")){
@@ -52,5 +62,6 @@
 	<% } %>
 	</div>
 </div>
+<%} %>
 </body>
 </html>

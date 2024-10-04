@@ -3,6 +3,8 @@ package com.smart.lms.vo;
 import java.sql.Date;
 import java.sql.Timestamp;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class MyPageVO {
 	private int c_number;
 	private String c_name;

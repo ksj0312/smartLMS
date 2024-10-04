@@ -86,7 +86,7 @@ var userId = '<%= userId %>';
          <c:choose>
          <c:when test="${loginChk eq 'stu'}">
                    <li class="nav-item">
-                <a class="nav-link" href="myPageMain">
+                <a class="nav-link" href="/mypage">
                     <span id="name">${userName} 님</span>
                 </a>
             </li>
@@ -96,7 +96,7 @@ var userId = '<%= userId %>';
          </c:when>
          <c:when test="${loginChk eq 'pro' }">
             <li class="nav-item">
-                <a class="nav-link" href="adminMyPageInfo"> 
+                <a class="nav-link" href="/admin/info"> 
 <%--                 관리자 마이페이지 추가하기  --%>
                     <span id="name">${userName} 님</span>
                 </a>
@@ -125,17 +125,12 @@ var userId = '<%= userId %>';
    </nav> 
    
    <!-- 모달창 처리 -->
-<<<<<<< HEAD
 <div id="noteModal" class="modal">
     <div class="modal-content">
-=======
-<div id="myModal" class="modal">
-    <div class="modal-content note">
->>>>>>> d3cc21b0cc01db31040abe94a09e5f54a0206dad
         <span class="close">&times;</span>
         <div class="searchdiv">
             <input type="text" id="searchInput" placeholder="검색어를 입력하세요">
-            <button id="searchButton">검색</button><button class="writeBtn">글쓰기</button>
+            <button id="searchButton" class="notebtn">검색</button><button class="writeBtn notebtn">글쓰기</button>
         </div>
         <ul id="noteList"></ul>
         <div id="pagination" class="pagination"></div>
@@ -144,12 +139,34 @@ var userId = '<%= userId %>';
 
 
 <form id="sendNoteForm" style="display:none;">
-    <input type="text" id="n_sender" name="n_sender" value="${sessionScope.userId}" required readonly>
-    <input type="text" id="n_reciver" name="n_reciver" placeholder="받는 사람" required>
-    <input type="text" id="n_title" name="n_title" placeholder="제목" required>
-    <input type="text" id="n_info" name="n_info" placeholder="내용" required>
-    <button type="button" id="sendBtn" class="sendBtn">보내기</button>
-    <button type="button" class="openListBtn">목록으로 돌아가기</button>
+   			<div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                     <span class="input-group-text">받는사람</span>
+                  </div>
+                  <input type="text" class="form-control" name="n_reciver" id="n_reciver" required readonly>
+               </div>
+               <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                     <span class="input-group-text">제목</span>
+                  </div>
+                  <input type="text" class="form-control" name="n_title" id="n_title" required>
+               </div>
+               <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                     <span class="input-group-text">내용</span>
+                  </div>
+                  <textarea class="form-control" name="n_info" id="n_info" row="10" required></textarea>
+               </div>
+               <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                     <span class="input-group-text">보내는 사람</span>
+                  </div>
+                  <input type="text" class="form-control" name="n_sender" id="n_sender" value="${sessionScope.userId}" required readonly>
+               </div>
+    <div>
+    <button type="button" id="sendBtn" class="sendBtn notebtn">보내기</button>
+    <button type="button" class="openListBtn notebtn">목록으로 돌아가기</button>
+    </div>
 </form>
         
 </body>

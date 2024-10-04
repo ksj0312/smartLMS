@@ -71,6 +71,11 @@ public class BoardController {
 	    
 	}
 	
+	@GetMapping("/menual")
+	public String menual() {
+		return "board/menual";
+	}
+	
 	@GetMapping("/checkUser")
 	@ResponseBody
 	public boolean checkUser(@RequestParam("n_reciver") String n_reciver) {
@@ -422,12 +427,12 @@ public class BoardController {
 //게시판 목록
    @GetMapping("/getBoardList")
    public String getBoardList(@ModelAttribute Pagination pg, Model model, HttpSession session, @RequestParam(value = "b_type", defaultValue = "") String b_type) {
-      
       int currPageNo = pg.getCurrPageNo();
+      System.out.println(pg.getKeyword());
       int range = pg.getRange();
       pg.setB_type(b_type);
-      
       int totalCnt = boardService.getBoardListTotalCnt(pg);
+     
 
       pg.pageInfo(currPageNo, range, totalCnt);
         List<BoardVO> boardList = boardService.getBoardList(pg);
@@ -436,6 +441,26 @@ public class BoardController {
       model.addAttribute("getBoardList", boardService.getBoardListTotalCnt(pg));
       model.addAttribute("boardList", boardList);
       return "/board/board";
+   }
+   
+   @GetMapping("/mypage/board")
+   public String myPageBoardList(@ModelAttribute Pagination pg, Model model, HttpSession session, @RequestParam("b_type") String b_type, @RequestParam("b_id") String b_id) {
+      int currPageNo = pg.getCurrPageNo();
+      int range = pg.getRange();
+      int totalCnt = 0;
+      pg.setB_type(b_type);
+      pg.setB_id(b_id);
+      System.out.println(pg.getB_id());
+    	  totalCnt = boardService.getBoardListTotalCnt(pg);
+     
+
+      pg.pageInfo(currPageNo, range, totalCnt);
+        List<BoardVO> boardList = boardService.myPageBoardList(pg);
+
+      model.addAttribute("pagination", pg);
+      model.addAttribute("getBoardList", boardService.getBoardListTotalCnt(pg));
+      model.addAttribute("boardList", boardList);
+      return "/board/myPageBoard";
    }
    
    //게시글 등록 페이지 이동

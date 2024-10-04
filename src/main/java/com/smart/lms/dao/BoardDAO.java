@@ -142,4 +142,8 @@ public class BoardDAO {
 		return mybatis.selectOne("boardDAO.noteCount",userId);
 	}
 
+	public List<BoardVO> myPageBoardList(Pagination pg) {
+		return mybatis.selectList("boardDAO.myPageBoardList", pg);
+	}
+
 }

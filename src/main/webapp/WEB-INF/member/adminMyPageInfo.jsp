@@ -102,11 +102,11 @@
                                 
                                 <div class="existing_name_box existing_box">
                                     <div class="info_box_title">가입일</div>
-                                    <input class="info_name_input" type="text" name="" value="${user.join_date}" readonly>
+                                    <input class="info_name_input" type="text" name=""  value="<fmt:formatDate value='${user.join_date}' pattern='yyyy-MM-dd' />" readonly>
                                 </div>
                                 <div class="existing_name_box existing_box">
                                     <div class="info_box_title">개인정보 수정일</div>
-                                    <input class="info_name_input" type="text" name="" value="${user.modify_date}" readonly>
+                                    <input class="info_name_input" type="text" name=""  value="<fmt:formatDate value='${user.modify_date}' pattern='yyyy-MM-dd' />" readonly>
                                 </div>
                                 
                                  <div class="existing_name_box existing_box">
@@ -116,11 +116,11 @@
                                 
                                 <div class="existing_name_box existing_box">
                                     <div class="info_box_title">입사일</div>
-                                    <input class="info_name_input" type="text" name="" value="${user.indate}" readonly>
+                                    <input class="info_name_input" type="text" name=""  value="<fmt:formatDate value='${user.indate}' pattern='yyyy-MM-dd' />" readonly> readonly>
                                 </div>
                                 
 						<!-- 휴대폰 변경 폼 -->
-                        <form action="updateTel">       
+                        <form action="">       
                                 <div class="info_phone_box myinfo_box">
                                     <div class="existing_phone_box existing_box">
                                         <div class="info_box_title">휴대폰</div>
@@ -131,7 +131,7 @@
                                         <input class="tel-check-input" type="text" name="" style="display:none;" placeholder="인증번호를 입력"><span id="timer3" ></span>
                                         </div>
                                         </div>
-                                        <button type="button" class="change_phone">변경하기</button>
+                                        <button type="button" class="change_phone">휴대폰번호 변경하기</button>
                                     <button type="button" id="tel-Check-Btn" class="phone_need_veri_btn" style="display:none;">인증요청</button>
                                         <button type="button" class="change_btn_tel" style="display:none;">변경하기</button>
                                     </div>
@@ -143,7 +143,7 @@
                             </form>
                             
            <button type="button" class="change_my_pwd_btn">비밀번호 변경하기</button>
-	        <form action="changePwd">
+	        <form action="">
 	            <div class="change_pwd_box">
 	                <div class="label_name" style="display:none;">현재 비밀번호</div>
 	                <input id="mem_pwd" name="pwd" type="password" placeholder="현재 비밀번호" style="display:none;" required/><span class="pwdchk"></span>

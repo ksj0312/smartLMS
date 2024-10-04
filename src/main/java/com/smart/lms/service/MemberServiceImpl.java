@@ -43,8 +43,8 @@ public class MemberServiceImpl implements MemberService {
 		 StudentVO svo = memDAO.getStudent(vo);
 
 	      if (svo != null) {
-//	         boolean isMatch = passwordEncoder.matches(vo.getPwd(), svo.getPwd());
-	    	  boolean isMatch = vo.getPwd().equals(svo.getPwd());
+	         boolean isMatch = passwordEncoder.matches(vo.getPwd(), svo.getPwd());
+//	    	  boolean isMatch = vo.getPwd().equals(svo.getPwd());
 	         if (isMatch) {
 	            return svo;
 	         }
@@ -63,8 +63,8 @@ public class MemberServiceImpl implements MemberService {
 		ProfessorVO pvo = memDAO.getAdmin(vo);
 		
 	      if (pvo != null) {
-	    	  boolean isMatch = vo.getPwd().equals(vo.getPwd());
-//	         boolean isMatch = passwordEncoder.matches(vo.getPwd(), pvo.getPwd());
+//	    	  boolean isMatch = vo.getPwd().equals(vo.getPwd());
+	         boolean isMatch = passwordEncoder.matches(vo.getPwd(), pvo.getPwd());
 	         if(isMatch){
 	            return pvo;
 	         }
@@ -137,8 +137,8 @@ public class MemberServiceImpl implements MemberService {
 		 boolean isMatch;
 		 System.out.println("svo이다" + svo);
 	    if (svo != null) {
-//	          isMatch = passwordEncoder.matches(vo.getPwd(), svo.getPwd());
-	    	isMatch = vo.getPwd().equals(svo.getPwd());
+	          isMatch = passwordEncoder.matches(vo.getPwd(), svo.getPwd());
+//	    	isMatch = vo.getPwd().equals(svo.getPwd());
 	         if (isMatch) {
 	            return isMatch;
 	         }
@@ -153,8 +153,8 @@ public class MemberServiceImpl implements MemberService {
 		ProfessorVO svo = memDAO.getAdmin(vo);
 		 boolean isMatch;
 	    if (svo != null) {
-//	          isMatch = passwordEncoder.matches(vo.getPwd(), svo.getPwd());
-	    	isMatch = vo.getPwd().equals(svo.getPwd());
+	          isMatch = passwordEncoder.matches(vo.getPwd(), svo.getPwd());
+//	    	isMatch = vo.getPwd().equals(svo.getPwd());
 	         if (isMatch) {
 	            return isMatch;
 	         }

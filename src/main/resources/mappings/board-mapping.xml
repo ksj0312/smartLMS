@@ -71,16 +71,25 @@
 	</select>
 	
 <!-- board mapping	 -->
-	<select id="getBoardList" parameterType="com.smart.lms.util.Pagination" resultType="BoardDTO">
-		SELECT * FROM BOARD WHERE B_TYPE = #{b_type}
-			<if test="keyword != null || keyword != ' '">
-			<if test="searchType == 'b_info'"> AND B_INFO like CONCAT('%', #{keyword}, '%') </if>
-			<if test="searchType == 'b_title'"> AND B_TITLE like CONCAT('%', #{keyword}, '%') </if>
-			ORDER BY B_NUMBER
-			LIMIT #{sizePerPage} OFFSET #{startList}  
-		</if>
+<select id="getBoardList" parameterType="com.smart.lms.util.Pagination" resultType="BoardDTO">
+    SELECT * FROM BOARD WHERE B_TYPE = #{b_type}
+        <if test='keyword != null and keyword != ""'>
+            <if test='searchType == "b_info"'> AND B_INFO LIKE CONCAT('%', #{keyword}, '%') </if>
+            <if test='searchType == "b_title"'> AND B_TITLE LIKE CONCAT('%', #{keyword}, '%') </if>
+        </if>
+    ORDER BY B_NUMBER DESC
+    LIMIT #{sizePerPage} OFFSET #{startList}  
+</select>
+<select id="myPageBoardList" parameterType="com.smart.lms.util.Pagination" resultType="BoardDTO">
+    SELECT * FROM BOARD WHERE B_TYPE = #{b_type} AND b_Id = #{b_id}
+        <if test='keyword != null and keyword != ""'>
+            <if test='searchType == "b_info"'> AND B_INFO LIKE CONCAT('%', #{keyword}, '%') </if>
+            <if test='searchType == "b_title"'> AND B_TITLE LIKE CONCAT('%', #{keyword}, '%') </if>
+        </if>
+    ORDER BY B_NUMBER DESC
+    LIMIT #{sizePerPage} OFFSET #{startList}  
+</select>
 
-	</select>
 	
 	<select id="getBoardListTotalCnt" parameterType="com.smart.lms.util.Pagination" resultType="integer">
 		SELECT COUNT(*) FROM BOARD WHERE B_TYPE = #{b_type}

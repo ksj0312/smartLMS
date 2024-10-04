@@ -55,4 +55,6 @@ public interface BoardService {
 	boolean checkUser(String n_reciver);
 
 	int noteCount(String userId);
+
+	List<BoardVO> myPageBoardList(Pagination pg);
 }

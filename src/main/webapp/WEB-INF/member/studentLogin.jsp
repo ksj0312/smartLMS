@@ -47,7 +47,6 @@
                                  data-toggle="modal" data-target="#pwdsearch" value="">아이디 찾기 | 비밀번호 찾기</button>
                 </small>
             </div>
-    
         </form>
 
 		<div class="modal" id="pwdsearch" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop='static' aria-hidden="true">

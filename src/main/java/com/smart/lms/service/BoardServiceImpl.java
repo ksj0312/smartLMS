@@ -137,4 +137,9 @@ public class BoardServiceImpl implements BoardService {
 	   public int getBoardListTotalCnt(Pagination pg) {
 	      return boDAO.getBoardListTotalCnt(pg);
 	   }
+
+	@Override
+	public List<BoardVO> myPageBoardList(Pagination pg) {
+		return boDAO.myPageBoardList(pg);
+	}
 }
