@@ -19,13 +19,7 @@
                 <section class="contents-container">
                   <form action="/task" method="POST" enctype="multipart/form-data">
                   <div class="insertForm">
-<!--                   	<div class="input-group mb-3"> -->
-<!-- 						<div class="input-group-prepend"> -->
-<!-- 							<span class="input-group-text">강의 번호</span> -->
-<!-- 						</div> -->
-<!-- 						<input type="text" class="form-control" name="c_number" id="c_number" -->
-<%-- 							value="<%= request.getParameter("c_number") %>" placeholder=""> --%>
-<!-- 					</div> -->
+
                   	<div class="input-group mb-3">
 						<div class="input-group-prepend">
 							<span class="input-group-text">작성자</span>
