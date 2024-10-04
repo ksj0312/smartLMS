@@ -12,7 +12,6 @@
 <%	String status = (String)request.getAttribute("status");
  %>
  
-  <%= status %>
 <div class="bcl">
 	
         <div class="divall">

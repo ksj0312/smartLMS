@@ -699,7 +699,7 @@ public class EduinfoController {
 		
 		
 		//과제 게시글 수정 페이지
-		@GetMapping("/student/task/page")
+		@GetMapping("/student/taskpage")
 		public String stuTaskUpdatePage(@RequestParam ("st_number") int st_number, Model model) {
 			
 			StuTaskVO stutask = eduinfoService.getThisStuTask(st_number);

@@ -80,7 +80,7 @@
 				<button onclick="location.href='/student/task/page?c_number=${task.c_number}&t_number=${task.t_number}'"
 					style="cursor: hand">등록</button>
 					
-				<button onclick="location.href='/student/task/page?st_number=${stutask.st_number}'">수정하기</button>
+				<button onclick="location.href='/student/taskpage?st_number=${stutask.st_number}'">수정하기</button>
 
 
 
