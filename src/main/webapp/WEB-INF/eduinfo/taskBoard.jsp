@@ -38,7 +38,7 @@
 
 			<table class="table">
 				<tr
-					onclick="location.href='taskBoard?c_number=${tl.c_number}&t_number=${tl.t_number}'"
+					onclick="location.href='/task/info?c_number=${tl.c_number}&t_number=${tl.t_number}'"
 					style="cursor: hand">
 
 					<th>강의 번호</th>
@@ -74,13 +74,13 @@
 					<td>${stutask.st_title }</td>
 					<td>${stutask.st_info }</td>
 					<td>
-					<a href="downloadFile?filePath=${stutask.s_file1}">${stutask.s_file1}</a></td>
+					<a href="/downloadFile?filePath=${stutask.s_file1}">${stutask.s_file1}</a></td>
 				</tr>
 			</table>
-				<button onclick="location.href='insertStuTaskPage?c_number=${task.c_number}&t_number=${task.t_number}'"
+				<button onclick="location.href='/student/task/page?c_number=${task.c_number}&t_number=${task.t_number}'"
 					style="cursor: hand">등록</button>
 					
-				<button onclick="location.href='stuTaskUpdatePage?st_number=${stutask.st_number}'">수정하기</button>
+				<button onclick="location.href='/student/task/page?st_number=${stutask.st_number}'">수정하기</button>
 
 
 

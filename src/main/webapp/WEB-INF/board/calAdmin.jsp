@@ -144,7 +144,7 @@ $(function(){
                         console.log("allEvent", allEvent);
                         const saveEvent = await axios({
                             method: "POST",
-                            url: "insertCal",
+                            url: "/cal/list",
                             data: allEvent,
                         });
                         
@@ -187,7 +187,7 @@ $(function(){
                 events: async function(info, successCallback, failureCallback) {
                     const eventResult = await axios({
                         method: "GET",
-                        url: "getCalList",
+                        url: "/cal/list",
                         responseType: "json",
                     });
 
@@ -240,7 +240,7 @@ $(function(){
                         try {
                             await axios({
                                 method: 'DELETE',
-                                url: 'deleteCal?cal_number=' + cal_number,
+                                url: '/cal?cal_number=' + cal_number,
                                 responseType: "json"
                             });
                             console.log("일정 삭제 완료");

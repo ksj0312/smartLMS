@@ -250,6 +250,13 @@ public class EduinfoServiceImpl implements EduinfoService {
        eduDAO.stuTaskUpdateTx(vo);
    }
    
+   
+   //학생 성적 조회
+   @Override
+   public List<GradeVO> gradeSelectStu(int c_number, String id) {
+	   return eduDAO.gradeSelectStu(c_number, id);
+   }
+   
    }
    
    

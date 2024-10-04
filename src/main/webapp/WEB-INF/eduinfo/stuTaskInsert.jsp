@@ -21,7 +21,7 @@
                 </section>
                 ${t_number }
                 <section class="contents-container">
-                  <form action="insertStuTask" method="POST" enctype="multipart/form-data">
+                  <form action="/student/task" method="POST" enctype="multipart/form-data">
                   <div class="insertForm">
                   	<div class="input-group mb-3">
 						<div class="input-group-prepend">
@@ -54,6 +54,7 @@
 					</div>
                   		<input type="number" name="c_number" value="<%= request.getParameter("c_number") %>" style="display:none;"/>
                        </div>
+                       
                   	<div class="input-group mb-3">
 						<div class="input-group-prepend">
 							<span class="input-group-text">파일</span>

@@ -9,7 +9,7 @@
 </head>
 <body>
 		  <nav id="searchNav" class="navbar navbar-expand-sm navbar-dark">
-                        <form class="form-inline" action="getBoardList" method="get">
+                        <form class="form-inline" action="/board" method="get">
                                 <select name="searchType" class="form-control mr-sm-2">
                                         <option value="b_info">내용</option>
                                         <option value="b_title">제목</option>
@@ -24,7 +24,7 @@
 				<tr>
 					<th>번호</th>
 					<th>제목</th>
-<!-- 					<th>내용</th> -->
+					<th>작성자</th>
 					<th>조회수</th>
 				</tr>
 			</thead>
@@ -34,11 +34,8 @@
 				<c:forEach items="${boardList}" var="board" varStatus="status">
 					<tr onclick="sel_board(${board.b_number})" style="cursor: pointer;">
 						<td class="tdCenter">${board.b_rownum}</td>
-						<td>${board.b_title}</td>
-<%-- 						<td class="tdCenter">${board.b_info}</td> --%>
-<%-- 						 <c:out value="${fn:length(board.b_info) > 20 ? board.b_info.substring(0, 20) + '...' : board.b_info}"/> --%>
-<%-- 						<td class="tdCenter">${board.b_type}</td> --%>
-						<td class="tdCenter">${board.b_writer}</td>
+						<td class="tdCenter">${board.b_title}</td>
+						<td class="tdCenter">${board.b_name}</td>
 						<td class="tdCenter">${board.b_view}</td>
 					</tr>
 				</c:forEach>

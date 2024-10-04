@@ -5,7 +5,7 @@ function fn_prev(currPageNo, range, pageSize) {
 	var currPageNo = (range - 1) * pageSize;
     var range = range - 1;
     
-    var url = "/getBoardList";    //여기에 페이지 이동하는 매핑 url 
+    var url = "/board";    //여기에 페이지 이동하는 매핑 url 
     url = url + "?currPageNo=" + currPageNo;
     url = url + "&range=" + range;
     url = url + "&searchType=" + searchType;
@@ -24,7 +24,7 @@ function fn_prev(currPageNo, range, pageSize) {
     var searchType = document.getElementById('paginationData').getAttribute('data-searchType');
     var keyword = document.getElementById('paginationData').getAttribute('data-keyword');
     
-    var url = "/getBoardList";   //여기에 페이지 이동하는 매핑 url 
+    var url = "/board";   //여기에 페이지 이동하는 매핑 url 
     console.log(currPageNo);
         								
     url = url + "?currPageNo=" + currPageNo;
@@ -45,7 +45,7 @@ function fn_prev(currPageNo, range, pageSize) {
     var currPageNo = (range * pageSize) + 1;
     var range = parseInt(range) + 1;
         
-    var url = "/getBoardList";  //여기에 페이지 이동하는 매핑 url 
+    var url = "/board";  //여기에 페이지 이동하는 매핑 url 
     url = url + "?currPageNo=" + currPageNo;
     url = url + "&range=" + range;
     url = url + "&searchType=" + searchType;
@@ -54,7 +54,7 @@ function fn_prev(currPageNo, range, pageSize) {
     }
     
     function sel_board(val){
-			location.href = "getBoard?b_number="+val;
+			location.href = "/boarddetail?b_number="+val;
 		}
     
     
@@ -64,7 +64,7 @@ function fn_prev(currPageNo, range, pageSize) {
 		    const result = confirm("정말로 이 게시글을 삭제하시겠습니까?");
 		    if (result) {
 		        // DELETE 메서드로 서버에 요청 보내기
-		        fetch("/deleteBoard?b_number=" + val, {
+		        fetch("/board?b_number=" + val, {
 		            method: 'DELETE',
 		        })
 		        .then(response => {
@@ -73,7 +73,7 @@ function fn_prev(currPageNo, range, pageSize) {
 		                window.location.href = response.url;  // 리디렉션된 URL로 이동
 		            } else if (response.ok) {
 		                alert('삭제가 완료되었습니다.');
-		                location.href = "getBoardList?b_type=게시판"; // 삭제 후 목록으로 이동
+		                location.href = "/board?b_type=게시판"; // 삭제 후 목록으로 이동
 		            } else {
 		                alert('삭제가 실패했습니다.');
 		            }
@@ -90,7 +90,7 @@ function fn_prev(currPageNo, range, pageSize) {
 		}
 			
 		function board_update(val){
-			location.href = "updatePage?b_number="+val;
+			location.href = "/board?b_number="+val;
 		}
 		
 		
@@ -103,7 +103,7 @@ function fn_prev(currPageNo, range, pageSize) {
     const result = confirm("정말로 이 게시글을 삭제하시겠습니까?");
     if (result) {
         // DELETE 메서드로 서버에 요청 보내기
-        fetch(`/deleteComment?co_number=${val}&b_number=${b_number}`, {
+        fetch(`/comment?co_number=${val}&b_number=${b_number}`, {
             method: 'DELETE',
         })
         .then(response => {
@@ -112,7 +112,7 @@ function fn_prev(currPageNo, range, pageSize) {
                 window.location.href = response.url; // 리디렉션된 URL로 이동
             } else if (response.ok) {
                 alert('삭제가 완료되었습니다.');
-                location.href = "getBoard?b_number=" + b_number; // 삭제 후 목록으로 이동
+                location.href = "/boarddetail?b_number=" + b_number; // 삭제 후 목록으로 이동
             } else {
                 alert('삭제가 실패했습니다.');
             }
@@ -129,12 +129,5 @@ function fn_prev(currPageNo, range, pageSize) {
 		        
 
 	  //상세보기 스크립트 끝
-		
-    
-   
-                                
-                                
-                                
-                                
-
-                                
+	  
+	 

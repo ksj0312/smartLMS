@@ -47,9 +47,9 @@
 					<c:forEach items="${taskList}" var="tl">
 					
 					<%if("교수".equals(usertype) || "관리자".equals(usertype)){ %>
-					<tr onclick="location.href='taskAllList?c_number=${tl.c_number}&t_number=${tl.t_number}'" style="cursor:hand" >
+					<tr onclick="location.href='/task/students?c_number=${tl.c_number}&t_number=${tl.t_number}'" style="cursor:hand" >
 					<% }else{%>
-					<tr onclick="location.href='taskBoard?c_number=${tl.c_number}&t_number=${tl.t_number}&id=<%=id %>'" style="cursor:hand" >
+					<tr onclick="location.href='/task/info?c_number=${tl.c_number}&t_number=${tl.t_number}&id=<%=id %>'" style="cursor:hand" >
 					<%} %>
 						<td>${tl.c_number}</td>  
 						<td>${tl.id}</td>  
@@ -83,7 +83,7 @@ $(document).ready(function() {
         const t_number = task.t_number; // 각 과제의 t_number
 
         $.ajax({
-            url: '/checkTask',
+            url: '/task/check',
             type: 'GET',
             data: { t_number: t_number, userId: userId }, // userId는 필요에 따라 설정
             success: function(response) {

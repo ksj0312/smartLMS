@@ -45,7 +45,7 @@
 				        </tr>
 					<c:forEach items="${stutaskList}" var="stl">
 					<c:if test="${stl.st_submit eq '제출'}">
-					<tr onclick="location.href='taskBoard?c_number=${stl.c_number}&t_number=${stl.t_number}&id=${stl.id}'" style="cursor:hand" >
+					<tr onclick="location.href='/task/info?c_number=${stl.c_number}&t_number=${stl.t_number}&id=${stl.id}'" style="cursor:hand" >
 					</c:if>
 						<td>${stl.c_number}</td>  
 						<td>${stl.id}</td>  

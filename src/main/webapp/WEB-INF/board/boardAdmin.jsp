@@ -16,7 +16,7 @@
                         <h4>공지사항 목록</h4>
                 </section>
     			 <nav id="searchNav" class="navbar navbar-expand-sm navbar-dark">
-                        <form class="form-inline" action="getBoardListAdmin" method="get">
+                        <form class="form-inline" action="/boardadmin" method="get">
                                 <select name="searchType" class="form-control mr-sm-2">
                                         <option value="b_info">내용</option>
                                         <option value="b_title">제목</option>

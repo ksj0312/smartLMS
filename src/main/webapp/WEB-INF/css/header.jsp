@@ -43,13 +43,13 @@ var userId = '<%= userId %>';
    <div class="smnav">
   <ul class="navbar-nav">
     <li class="nav-item">
-      <a class="nav-link" href="getBoardList?b_type=게시판">공지사항</a>
+      <a class="nav-link" href="/board/list?b_type=게시판">공지사항</a>
     </li> &nbsp;
     <li class="nav-item">
       <a class="nav-link" href="calPage">학사일정</a>
     </li>&nbsp;
     <li class="nav-item">
-      <a class="nav-link" href="getBoardList?b_type=QNA">Q&A</a>
+      <a class="nav-link" href="/board/list?b_type=QNA">Q&A</a>
     </li>
   </ul>
 </div>

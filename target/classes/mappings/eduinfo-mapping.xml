@@ -216,21 +216,38 @@
 		C_NUMBER = #{c_number} AND STATUS = 0
 	</select>
 
+	<select id="stuTestSelect" resultType="testDTO">
+		SELECT * FROM TEST WHERE
+		C_NUMBER = #{c_number} AND ID = #{ID} AND STATUS = 0
+	</select>
+
 	<select id="testSelectUp" resultType="testDTO">
 		SELECT * FROM TEST WHERE
 		C_NUMBER = #{c_number} AND STATUS = 1
 	</select>
 
 	<update id="testStatusUpTx">
-		UPDATE TEST SET STATUS = 1 WHERE G_NUMBER = #{g_number}
+		UPDATE TEST SET STATUS = 1 WHERE G_NUMBER =
+		#{g_number}
 	</update>
 
 	<update id="gradeUpdateTx">
-		UPDATE GRADE SET GRADE = #{grade} WHERE G_NUMBER = #{g_number} AND ID =
+		UPDATE GRADE SET GRADE = #{grade} WHERE G_NUMBER =
+		#{g_number} AND ID =
 		#{id}
 	</update>
 
-	<!-- 과제 -->
+
+	<select id="gradeSelectStu" resultType="gradeDTO">
+		select g.*, t.TEST_TYPE
+		from grade g
+		join test t
+		on g.G_NUMBER = t.G_NUMBER
+		where t.STATUS = 1 and g.C_NUMBER = #{c_number} and g.id = #{id};
+	</select>
+
+
+	<!-- 과제ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
 	<select id="getTaskList" resultType="taskDTO">
 		SELECT * FROM TASK WHERE
 		C_NUMBER = #{c_number}
@@ -266,7 +283,8 @@
 
 	<!-- 해당 수강과목의 수강생들의 과제 제출 여부 보는 쿼리 -->
 	<select id="StuTaskOrNot" resultType="stutaskDTO">
-		select ac.C_NUMBER , ac.ID , ac.NAME, st.ST_SUBMIT, st.T_NUMBER ,
+		select ac.C_NUMBER , ac.ID
+		, ac.NAME, st.ST_SUBMIT, st.T_NUMBER ,
 		st.ST_NUMBER
 		from attend_class ac
 		left outer join stu_task st
@@ -276,14 +294,17 @@
 	</select>
 
 	<select id="taskAllList" resultType="stutaskDTO">
-		select ac.C_NUMBER , ac.ID , AC.NAME, st.ST_SUBMIT, st.T_NUMBER ,
+		select ac.C_NUMBER , ac.ID ,
+		AC.NAME, st.ST_SUBMIT, st.T_NUMBER ,
 		st.ST_NUMBER
 		from attend_class ac
 		left outer join stu_task st
 		on ac.C_NUMBER = st.C_NUMBER
-		and ac.ID = st.ID
+		and ac.ID =
+		st.ID
 		AND (st.T_NUMBER = #{t_number} OR st.T_NUMBER IS null)
-		where ac.C_NUMBER = #{c_number}
+		where
+		ac.C_NUMBER = #{c_number}
 		order by ac.ID;
 	</select>
 
