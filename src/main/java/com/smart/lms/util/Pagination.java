@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class Pagination {
 
-	private int currPageNo = 1;/// 현재 페이지 번호
+	private int currPageNo = 1; // 현재 페이지 번호
 	private int sizePerPage = 10; // 한 페이지당 보여질 리스트 개수
 	private int totalCnt; // 전체 목록 개수
 	private int pageCnt; // 전체 페이지 개수

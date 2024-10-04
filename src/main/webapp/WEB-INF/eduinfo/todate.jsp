@@ -29,7 +29,7 @@
                       </form> 
                 </nav>
                 <section class="contents-container">
-                  <form action="insertAttendance" method="POST">
+                  <form action="/professor/students/todate" method="POST">
                   <input type="number" name="c_number" value="${attendanceList[0].c_number}" style="display:none;"/>
                         <table class="table" id="table">
                                 <tr>

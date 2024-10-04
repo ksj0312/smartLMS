@@ -22,172 +22,188 @@ import com.smart.lms.vo.TodateVO;
 
 @Repository
 public class EduinfoDAO {
-   
-    @Autowired private SqlSessionTemplate mybatis;
 
-   public int attendanceTotalCnt(Pagination pg) {
-      return mybatis.selectOne("eduinfoDAO.attendanceTotalCnt",pg);
-   }
+	@Autowired
+	private SqlSessionTemplate mybatis;
 
-   public List<TodateVO> attendanceList(Pagination pg) {
-      return mybatis.selectList("eduinfoDAO.attendanceList", pg);
-   }
-   
-   public List<AttendClassVO> attSearch(Pagination pg) {
-      return mybatis.selectList("eduinfoDAO.attendanceList", pg);
-   }
+	public int attendanceTotalCnt(Pagination pg) {
+		return mybatis.selectOne("eduinfoDAO.attendanceTotalCnt", pg);
+	}
 
-   public List<ClassVO> classList(ClassVO vo) {
-      return mybatis.selectList("eduinfoDAO.classList", vo);
-   }
+	public List<TodateVO> attendanceList(Pagination pg) {
+		return mybatis.selectList("eduinfoDAO.attendanceList", pg);
+	}
 
-   public void insertAttendanceTx(TodateVO vo) {
-      mybatis.insert("eduinfoDAO.insertAttendanceTx", vo);
-   }
+	public List<AttendClassVO> attSearch(Pagination pg) {
+		return mybatis.selectList("eduinfoDAO.attendanceList", pg);
+	}
 
-   public int updateAttendanceTx(TodateVO vo) {
-      return mybatis.update("eduinfoDAO.updateAttendanceTx", vo);
-   }
+	public List<ClassVO> classList(ClassVO vo) {
+		return mybatis.selectList("eduinfoDAO.classList", vo);
+	}
 
-   public int toCnt(Date date) {
-      return mybatis.selectOne("eduinfoDAO.toCnt", date);
-   }
+	public void insertAttendanceTx(TodateVO vo) {
+		mybatis.insert("eduinfoDAO.insertAttendanceTx", vo);
+	}
 
-   public void classInsertTx(ClassVO vo) {
-      mybatis.insert("eduinfoDAO.classInsertTx", vo);
-   }
+	public int updateAttendanceTx(TodateVO vo) {
+		return mybatis.update("eduinfoDAO.updateAttendanceTx", vo);
+	}
 
-   public int classAllTotalCnt(Pagination pg) {
-      return mybatis.selectOne("eduinfoDAO.classAllTotalCnt",pg);
-   }
+	public int toCnt(Date date) {
+		return mybatis.selectOne("eduinfoDAO.toCnt", date);
+	}
 
-   public List<ClassVO> classAllList(Pagination pg) {
-      return mybatis.selectList("eduinfoDAO.classAllList", pg);
-   }
+	public void classInsertTx(ClassVO vo) {
+		mybatis.insert("eduinfoDAO.classInsertTx", vo);
+	}
 
-   public ClassVO classSelect(int c_number) {
-      return mybatis.selectOne("eduinfoDAO.classSelect",c_number);
-   }
+	public int classAllTotalCnt(Pagination pg) {
+		return mybatis.selectOne("eduinfoDAO.classAllTotalCnt", pg);
+	}
 
-   public int classUpdateTx(ClassVO vo) {
-      return mybatis.update("eduinfoDAO.classUpdateTx", vo);
-   }
+	public List<ClassVO> classAllList(Pagination pg) {
+		return mybatis.selectList("eduinfoDAO.classAllList", pg);
+	}
 
-   public int stuAllCnt(Pagination pg) {
-      return mybatis.selectOne("eduinfoDAO.stuAllCnt",pg);
-   }
+	public ClassVO classSelect(int c_number) {
+		return mybatis.selectOne("eduinfoDAO.classSelect", c_number);
+	}
 
-   public List<StudentVO> studentList(Pagination pg) {
-      return  mybatis.selectList("eduinfoDAO.studentList",pg);
-   }
+	public int classUpdateTx(ClassVO vo) {
+		return mybatis.update("eduinfoDAO.classUpdateTx", vo);
+	}
 
-   public int proAllCnt(Pagination pg) {
-      return  mybatis.selectOne("eduinfoDAO.proAllCnt",pg);
-   }
+	public int stuAllCnt(Pagination pg) {
+		return mybatis.selectOne("eduinfoDAO.stuAllCnt", pg);
+	}
 
-   public List<ProfessorVO> proList(Pagination pg) {
-      return  mybatis.selectList("eduinfoDAO.proList",pg);
-   }
+	public List<StudentVO> studentList(Pagination pg) {
+		return mybatis.selectList("eduinfoDAO.studentList", pg);
+	}
 
-   public StudentVO stuInfo(String id) {
-      return mybatis.selectOne("eduinfoDAO.stuInfo", id);
-   }
+	public int proAllCnt(Pagination pg) {
+		return mybatis.selectOne("eduinfoDAO.proAllCnt", pg);
+	}
 
-   public ProfessorVO proInfo(String id) {
-      return mybatis.selectOne("eduinfoDAO.proInfo", id);
-   }
+	public List<ProfessorVO> proList(Pagination pg) {
+		return mybatis.selectList("eduinfoDAO.proList", pg);
+	}
 
-   public List<AttendClassVO> attInfo(int c_number) {
-      return mybatis.selectList("eduinfoDAO.attInfo", c_number);
-   }
+	public StudentVO stuInfo(String id) {
+		return mybatis.selectOne("eduinfoDAO.stuInfo", id);
+	}
 
-   public List<AttendClassVO> attStuSearch(Pagination pg) {
-      return mybatis.selectList("eduinfoDAO.attStuSearch", pg);
-   }
+	public ProfessorVO proInfo(String id) {
+		return mybatis.selectOne("eduinfoDAO.proInfo", id);
+	}
 
-   public void insertGradeTx(GradeVO gradeVO) {
-      mybatis.insert("eduinfoDAO.insertGradeTx", gradeVO);
-   }
+	public List<AttendClassVO> attInfo(int c_number) {
+		return mybatis.selectList("eduinfoDAO.attInfo", c_number);
+	}
 
-   public List<GradeVO> gradeList(Pagination pg) {
-      return mybatis.selectList("eduinfoDAO.gradeList", pg);
-   }
+	public List<AttendClassVO> attStuSearch(Pagination pg) {
+		return mybatis.selectList("eduinfoDAO.attStuSearch", pg);
+	}
 
-   public int testInsertTx(TestVO vo) {
-      return mybatis.insert("eduinfoDAO.testInsertTx", vo);
-      
-   }
+	public void insertGradeTx(GradeVO gradeVO) {
+		mybatis.insert("eduinfoDAO.insertGradeTx", gradeVO);
+	}
 
-   public List<TestVO> testSelect(TestVO vo) {
-      return mybatis.selectList("eduinfoDAO.testSelect", vo);
-   }
+	public List<GradeVO> gradeList(Pagination pg) {
+		return mybatis.selectList("eduinfoDAO.gradeList", pg);
+	}
 
-   public void updateGradeTx(GradeVO gradeVO) {
-      mybatis.update("eduinfoDAO.updateGradeTx", gradeVO);
-      
-   }
+	public int testInsertTx(TestVO vo) {
+		return mybatis.insert("eduinfoDAO.testInsertTx", vo);
 
-   public void testStatusUpTx(int g_number) {
-      mybatis.update("eduinfoDAO.testStatusUpTx", g_number);
-   }
+	}
 
-   public List<TestVO> testSelectUp(TestVO vo) {
-      return mybatis.selectList("eduinfoDAO.testSelectUp", vo);
-   }
+	public List<TestVO> testSelect(TestVO vo) {
+		return mybatis.selectList("eduinfoDAO.testSelect", vo);
+	}
 
-   public int gradeUpdateTx(GradeVO vo) {
-      return mybatis.update("eduinfoDAO.gradeUpdateTx", vo);
-   }
+	public void updateGradeTx(GradeVO gradeVO) {
+		mybatis.update("eduinfoDAO.updateGradeTx", gradeVO);
 
-   public List<GradeVO> gradeSearch(Pagination pg) {
-      return mybatis.selectList("eduinfoDAO.gradeSearch", pg);
-   }
-   
-   public void taskInsertTx(TaskVO vo) {
-	       mybatis.insert("eduinfoDAO.taskInsertTx", vo);
-	      
-	   }
+	}
 
-   public List<TaskVO> getTaskList(int c_number) {
-	 return mybatis.selectList("eduinfoDAO.getTaskList", c_number);
-   }
+	public void testStatusUpTx(int g_number) {
+		mybatis.update("eduinfoDAO.testStatusUpTx", g_number);
+	}
 
-   public TaskVO getTask(int t_number) {
-     return  mybatis.selectOne("eduinfoDAO.getTask",t_number);
-   }
+	public List<TestVO> testSelectUp(TestVO vo) {
+		return mybatis.selectList("eduinfoDAO.testSelectUp", vo);
+	}
 
-   public StuTaskVO getStuTask(int t_number, String id) {
-	   Map<String, Object>params = new HashMap<>();
+	public int gradeUpdateTx(GradeVO vo) {
+		return mybatis.update("eduinfoDAO.gradeUpdateTx", vo);
+	}
+
+	public List<GradeVO> gradeSearch(Pagination pg) {
+		return mybatis.selectList("eduinfoDAO.gradeSearch", pg);
+	}
+
+	public void taskInsertTx(TaskVO vo) {
+		mybatis.insert("eduinfoDAO.taskInsertTx", vo);
+	}
+
+	public List<TaskVO> getTaskList(int c_number) {
+		return mybatis.selectList("eduinfoDAO.getTaskList", c_number);
+	}
+
+	public TestVO testInfo(String g_number) {
+		return mybatis.selectOne("eduinfoDAO.testInfo", g_number);
+	}
+
+	public int testUpdateTx(TestVO vo) {
+		return mybatis.update("eduinfoDAO.testUpdateTx", vo);
+	}
+
+	public int testAllCnt(Pagination pg) {
+		return mybatis.selectOne("eduinfoDAO.testAllCnt", pg);
+	}
+
+	public List<TestVO> testAllSelect(Pagination pg) {
+		return mybatis.selectList("eduinfoDAO.testAllSelect", pg);
+	}
+
+	public TaskVO getTask(int t_number) {
+		return mybatis.selectOne("eduinfoDAO.getTask", t_number);
+	}
+
+	public StuTaskVO getStuTask(int t_number, String id) {
+		Map<String, Object> params = new HashMap<>();
 		params.put("t_number", t_number);
 		params.put("id", id);
-	   return  mybatis.selectOne("eduinfoDAO.getStuTask", params);  
-   }
+		return mybatis.selectOne("eduinfoDAO.getStuTask", params);
+	}
 
-  public void insertStuTaskTx(StuTaskVO vo) {
-	  	mybatis.insert("eduinfoDAO.insertStuTaskTx", vo);
-  }
+	public void insertStuTaskTx(StuTaskVO vo) {
+		mybatis.insert("eduinfoDAO.insertStuTaskTx", vo);
+	}
 
-  public List<StuTaskVO> taskAllList(int t_number, int c_number) {
-	  Map<String, Object>params = new HashMap<>();
+	public List<StuTaskVO> taskAllList(int t_number, int c_number) {
+		Map<String, Object> params = new HashMap<>();
 		params.put("t_number", t_number);
 		params.put("c_number", c_number);
-	   return mybatis.selectList("eduinfoDAO.taskAllList", t_number);
-}
+		return mybatis.selectList("eduinfoDAO.taskAllList", t_number);
+	}
 
-  public StuTaskVO getThisStuTask(int st_number) {
-	   return mybatis.selectOne("eduinfoDAO.getThisStuTask",st_number);
-  }
+	public StuTaskVO getThisStuTask(int st_number) {
+		return mybatis.selectOne("eduinfoDAO.getThisStuTask", st_number);
+	}
 
-  public void stuTaskUpdateTx(StuTaskVO vo) {
-	  mybatis.update("eduinfoDAO.stuTaskUpdateTx", vo);
-  }
+	public void stuTaskUpdateTx(StuTaskVO vo) {
+		mybatis.update("eduinfoDAO.stuTaskUpdateTx", vo);
+	}
 
-  public List<GradeVO> gradeSelectStu(int c_number, String id) {
-	  Map<String, Object>params = new HashMap<>();
+	public List<GradeVO> gradeSelectStu(int c_number, String id) {
+		Map<String, Object> params = new HashMap<>();
 		params.put("c_number", c_number);
 		params.put("id", id);
-	  
-	  return mybatis.selectList("eduinfoDAO.gradeSelectStu", params);
-	
-  }  
+
+		return mybatis.selectList("eduinfoDAO.gradeSelectStu", params);
+
+	}
 }

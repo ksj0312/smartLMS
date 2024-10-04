@@ -15,7 +15,7 @@
                         <h4>교수 정보</h4>
                 </section>
                 <nav id="searchNav" class="navbar navbar-expand-sm navbar-dark">
-                        <form class="form-inline" action="proList" method="get">
+                        <form class="form-inline" action="/admin/professors" method="get">
                                 <select name="searchType" class="form-control mr-sm-2">
                                         <option value="id">아이디</option>
                                         <option value="name">이름</option>

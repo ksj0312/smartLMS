@@ -20,7 +20,7 @@
                 </section>
 
                 <section class="contents-container">
-                  <form action="insertGrade" method="POST">
+                  <form action="/professor/students/grade" method="POST">
                   		<input type="number" name="g_number" value="<%= request.getParameter("g_number") %>" style="display:none;"/>
                   		<input type="number" name="c_number" value="<%= request.getParameter("c_number") %>" style="display:none;"/>
                         <table class="table" id="table">

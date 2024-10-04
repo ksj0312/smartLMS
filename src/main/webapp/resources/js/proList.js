@@ -1,7 +1,7 @@
 function proInfo(id) {
     var data = {id : id};
   	 $.ajax({
-       url: "proInfo", 
+       url: "/admin/professors/professor", 
        type: "GET", 
        data: data, 
        contentType: "application/json",
@@ -43,7 +43,7 @@ function proInfo(id) {
    }
    
    function getUrl(currPageNo, range, searchType, keyword) {
- 						 return `/proList?currPageNo=${currPageNo}&range=${range}&searchType=${searchType}&keyword=${keyword}`;
+ 						 return `/admin/professors?currPageNo=${currPageNo}&range=${range}&searchType=${searchType}&keyword=${keyword}`;
 						}
 						
                      //이전 버튼

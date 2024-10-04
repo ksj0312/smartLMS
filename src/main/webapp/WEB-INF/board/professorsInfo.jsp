@@ -8,11 +8,9 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/professorsInfo.css">
 </head>
 <body>
-<div class="bcl">
         <div class="divall">
-                <section class="header-container">
-                        <h4>교수진 소개</h4>
-                </section>
+
+                <h4>교수진 소개</h4>
                 <nav id="searchNav" class="navbar navbar-expand-sm navbar-dark">
                         <form class="form-inline" action="professors" method="get">
                                 <select name="searchType" class="form-control mr-sm-2">
@@ -71,6 +69,5 @@
                         <div id="paginationData" data-searchType="${pagination.searchType}" data-keyword="${pagination.keyword}"></div>
                 </section>
         </div>
-</div>
 </body>
 </html>

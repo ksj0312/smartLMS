@@ -17,7 +17,7 @@
 				</section>
 				
 <section class="container-flui">
-  <form class="clInsert" action="classInsert" method="POST" >
+  <form class="clInsert" action="/admin/class" method="POST" >
   <div class="insertForm">
     <div class="input-group mb-3">
       <div class="input-group-prepend">

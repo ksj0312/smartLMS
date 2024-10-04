@@ -3,7 +3,7 @@
                   		var grade = document.getElementById('grade_' + id).value;
                   		 
         		        $.ajax({
-       				  	url : "/gradeUpdate",
+       				  	url : "/professor/students/grade",
         				data :JSON.stringify({  
            					 "g_number": g_number,
            					 "id": id,
@@ -35,7 +35,7 @@
 				    }
 				    
 				        $.ajax({
-       				  	url : "/gradeSearch",
+       				  	url : "/professor/students/grades/students/search",
         				data :{  
            					 "g_number": g_number,
            					 "keyword": keyword,

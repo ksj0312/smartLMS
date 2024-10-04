@@ -17,7 +17,7 @@
                 </section>
 				
                 <section class="contents-container">
-                  <form action="testInsert" method="POST">
+                  <form action="/professor/test/classes/test" method="POST">
                   <div class="insertForm">
                   	<div class="input-group mb-3">
 						<div class="input-group-prepend">
@@ -30,15 +30,15 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text">시험일시</span>
 						</div>
-						<input type="text" class="form-control" name="start_time" id="start_time"
-							value="" placeholder="ex)2024.01.01 15:00">
+						<input type="datetime-local" class="form-control" name="start_time" id="start_time"
+							value="">
 					</div>
                   	<div class="input-group mb-3">
 						<div class="input-group-prepend">
 							<span class="input-group-text">시험종료일시</span>
 						</div>
-						<input type="text" class="form-control" name="end_time" id="end_time"
-							value="" placeholder="ex)2024.01.01 16:00">
+						<input type="datetime-local" class="form-control" name="end_time" id="end_time"
+							value="">
 					</div>
                   	<div class="input-group mb-3">
 						<div class="input-group-prepend">

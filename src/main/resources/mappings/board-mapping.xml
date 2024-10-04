@@ -102,9 +102,15 @@
 			<if test="keyword != null || keyword != ' '">
 			<if test="searchType == 'b_info'"> AND B_INFO like CONCAT('%', #{keyword}, '%') </if>
 			<if test="searchType == 'b_title'"> AND B_TITLE like CONCAT('%', #{keyword}, '%') </if>
+			ORDER BY B_NUMBER
+			LIMIT #{sizePerPage} OFFSET #{startList}
+		</if>
+	</select>
+	
+	<select id="boardMain" resultType="BoardDTO">
+		SELECT * FROM BOARD WHERE B_TYPE = #{b_type}
 			ORDER BY B_NUMBER DESC
-			LIMIT #{sizePerPage} OFFSET #{startList}  
-			</if>
+			LIMIT 5 
 	</select>
 
 	<select id="getBoardListTotalCnt"
