@@ -132,28 +132,28 @@ public class MemberController {
 		return "member/adminPage";  
 	}
 	
-	@GetMapping("/adminMyPageInfo")
+	@GetMapping("/admin/info")
 	public String adminMyPageInfo(HttpSession session, Model model) {
 		String userId = (String) session.getAttribute("userId");
 		model.addAttribute("user", memService.getAdminInfo(userId));
 		return "member/adminMyPageInfo";
 	}
 	
-	@GetMapping("/myPageMain")
+	@GetMapping("/mypage")
 	public String myPage(HttpSession session, Model model) {
 		String userId = (String) session.getAttribute("userId");
 		model.addAttribute("user",memService.getUserInfo(userId));
 		return "member/myPageMain";
 	}
 	
-	@GetMapping("/myPageInfo")
+	@GetMapping("/mypage/info")
 	public String myPageInfo(HttpSession session, Model model) {
 		String userId = (String) session.getAttribute("userId");
 		model.addAttribute("user",memService.getUserInfo(userId));
 	return "member/myPageInfo";
 	}
 	
-	@GetMapping("/getClassList")
+	@GetMapping("/classlist")
 	public String getClassList(@RequestParam("Id") String Id, MyPageVO vo, HttpSession session, Model model) {
 		vo.setId((String) session.getAttribute("userId"));
 		System.out.println(memService.getClassList(vo));

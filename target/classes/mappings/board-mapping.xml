@@ -81,12 +81,25 @@
 		where N_RECIVER = #{userId} and N_RECIVE_DATE is
 		null;
 	</select>
+	
+	
+<!-- board mapping	 -->
+<select id="myPageBoardList" parameterType="com.smart.lms.util.Pagination" resultType="BoardDTO">
+    SELECT * FROM BOARD WHERE B_TYPE = #{b_type} AND b_Id = #{b_id}
+        <if test='keyword != null and keyword != ""'>
+            <if test='searchType == "b_info"'> AND B_INFO LIKE CONCAT('%', #{keyword}, '%') </if>
+            <if test='searchType == "b_title"'> AND B_TITLE LIKE CONCAT('%', #{keyword}, '%') </if>
+        </if>
+    ORDER BY B_NUMBER DESC
+    LIMIT #{sizePerPage} OFFSET #{startList}  
+</select>
 
-	<!-- board mapping -->
-	<select id="getBoardList"
-		parameterType="com.smart.lms.util.Pagination" resultType="BoardDTO">
-		SELECT * FROM BOARD WHERE B_TYPE = #{b_type}
-		<if test="keyword != null || keyword != ' '">
+	<select id="getBoardList" 
+	parameterType="com.smart.lms.util.Pagination" resultType="BoardDTO">
+		SELECT
+			ROW_NUMBER() OVER (ORDER BY B_NUMBER ASC ) AS B_ROWNUM, B.* 
+			FROM BOARD B WHERE B_TYPE = #{b_type}
+			<if test="keyword != null || keyword != ' '">
 			<if test="searchType == 'b_info'"> AND B_INFO like CONCAT('%', #{keyword}, '%') </if>
 			<if test="searchType == 'b_title'"> AND B_TITLE like CONCAT('%', #{keyword}, '%') </if>
 			ORDER BY B_NUMBER
@@ -110,10 +123,10 @@
 	</select>
 
 	<insert id="insertBoard">
-		INSERT INTO BOARD(B_TARGET, B_TITLE, B_INFO,
-		B_WRITER, B_TYPE, B_file1)
-		VALUES(#{b_target}, #{b_title}, #{b_info},
-		#{b_writer}, #{b_type},
+		INSERT INTO BOARD(B_TITLE, B_INFO,
+		B_ID, B_NAME, B_TYPE, B_file1)
+		VALUES(#{b_title}, #{b_info},
+		#{b_id}, #{b_name}, #{b_type},
 		#{b_file1})
 	</insert>
 
@@ -149,11 +162,15 @@
 		VALUES(#{cal_date},
 		#{cal_title}, #{cal_writer}, #{cal_edate}, #{cal_create_date})
 	</insert>
+	
+	<delete id="deleteCal">
+      DELETE FROM CALENDAR WHERE CAL_NUMBER = #{cal_number} 
+   </delete>
 
 
 	<!-- comment mapping -->
-	<insert id="insertComment"> INSERT INTO COMMENT(B_NUMBER, ID, CO_INFO)
-		VALUES(#{b_number}, #{id}, #{co_info})
+	<insert id="insertComment"> INSERT INTO COMMENT(B_NUMBER, ID, NAME, CO_INFO)
+		VALUES(#{b_number}, #{id}, #{name}, #{co_info})
 	</insert>
 	<select id="getCommentList" resultType="commentDTO"> SELECT * FROM COMMENT
 		WHERE B_NUMBER = #{b_number}
@@ -161,5 +178,4 @@
 	<delete id="deleteComment">
 		DELETE FROM COMMENT WHERE CO_NUMBER = #{co_number}
 	</delete>
-
 </mapper>

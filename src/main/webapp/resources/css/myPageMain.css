@@ -1,0 +1,75 @@
+
+#mypage_con {
+    margin: 40px 200px; /* 화면 중앙 정렬 */
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    min-height: 700px;
+}
+
+.mypage_top {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.mypage_title {
+    font-size: 24px;
+    color: #333;
+}
+
+/* Flex container for buttons */
+.mypage_left_con_box {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 20px;
+}
+
+/* Each box styling */
+.mpdiv, .classdiv, .writediv {
+	margin:70px 10px 0px 10px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    width: 400px;
+    height: 500px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* Icon styling */
+.icon {
+    width: 50px;
+    height: auto;
+    margin-bottom: 90px;
+}
+
+/* Link button styling */
+.mypage_link {
+	margin-top:100px;
+    display: block;
+    text-decoration: none;
+    background-color: #042424;
+    color: white !important;
+    padding:10px;
+    border-radius: 8px;
+    font-size: 16px;
+    margin-bottom: 10px;
+    transition: background-color 0.3s;
+}
+
+.mypage_link:hover {
+    background-color: gray;
+}
+
+/* Description text */
+.description {
+	margin-top:20px;
+    font-size: 14px;
+    color: #333;
+}
+
+.svg_mypage {
+    margin-top: 50px;
+}

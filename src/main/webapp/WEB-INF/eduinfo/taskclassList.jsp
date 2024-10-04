@@ -9,10 +9,18 @@
 <title>과제 등록 강의 목록</title>
 </head>
 <body>
+<%	String status = (String)request.getAttribute("status");
+ %>
+ 
 <div class="bcl">
+	
         <div class="divall">
          <input type="hidden" id="msg" value="${msg}" />
-        <h4>시험 등록</h4>
+         <%if(status.equals("insert")){ %>
+        <h4>과제 등록</h4>
+        <%}else if(status.equals("check")){ %>
+        <h4>과제 확인</h4>
+        <%} %>
         <br><br>
          		<c:choose>
 				<c:when test = "${classListcnt > 0}">
@@ -25,7 +33,14 @@
 			        <th>강의시간</th>
 			        </tr>
 					<c:forEach items="${classList}" var="cl">
-					<tr onclick="location.href='testInsertPage?c_number=${cl.c_number}&c_name=${cl.c_name}'" style="cursor:hand">
+					<%
+					if(status.equals("insert")){
+ 						%> 
+					<tr onclick="location.href='/task?c_number=${cl.c_number}&c_name=${cl.c_name}'" style="cursor:hand">
+					<%}else if(status.equals("check")){
+ 						%> 
+					<tr onclick="location.href='/student/task?c_number=${cl.c_number}&c_name=${cl.c_name}'" style="cursor:hand">
+					<% }%>
 					<td>${cl.c_number}</td>
 					<td>${cl.c_name}</td>
 					<td>${cl.c_stu_count}</td>

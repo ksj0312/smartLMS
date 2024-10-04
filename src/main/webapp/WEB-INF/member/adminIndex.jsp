@@ -7,6 +7,16 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/adminIndex.css">
 </head>
 <body>
+<% 
+    if(userId == null) {
+%>
+    <script type="text/javascript">
+        alert("로그인이 필요한 페이지입니다.");
+        window.location.href = '/';
+    </script>
+<% 
+    } else { 
+%>
 <div class="idxbody">
 	<div>
 	<div style="height:35px"></div>
@@ -25,8 +35,8 @@
 	<li class="menu">시험 관리></li>
 	<li><a href="/professor/test/classes" class = "atag">- 시험 등록</a></li>
 	<li><a href="/professor/test/classlist" class = "atag">- 시험 목록</a></li>
-	<li><a href="taskInsertPage" class = "atag">- 과제 등록</a></li>
-	<li><a href="" class = "atag">- 과제 확인</a></li>
+		<li><a href="/task/class?status=insert" class = "atag">- 과제 등록</a></li>
+	<li><a href="/task/class?status=check" class = "atag">- 과제 확인</a></li>
 	<li class="menu">공통 관리></li>
 	<li><a href="/admin/class" class = "atag">- 강의 등록</a></li>
 	<li><a href="/admin/classes" class = "atag">- 강의 목록</a></li>
@@ -38,10 +48,10 @@
 	<li><a href="/excel/students" class = "atag">- 학생용 엑셀 업로드</a></li>
 	<li><a href="/excel/professors" class = "atag">- 교수용 엑셀 업로드</a></li>
 	<li class="menu">게시판 관리></li>
-	<li><a href="getBoardListAdmin?b_type=게시판" class = "atag">- 공지 관리</a></li>
-	<li><a href="getBoardListAdmin?b_type=QNA" class = "atag">- Q&A 관리</a></li>
-	<li><a href="calAdmin" class = "atag">- 학사일정 관리</a></li>
-	<li class="menu">강의 및 수강생 관리></li>
+	<li><a href="/boardadmin?b_type=게시판" class = "atag">- 공지 관리</a></li>
+	<li><a href="/boardadmin?b_type=QNA" class = "atag">- Q&A 관리</a></li>
+	<li><a href="/cal/admin" class = "atag">- 학사일정 관리</a></li>
+	<li class="menu">공통관리></li>
 	<li><a href="/admin/class" class = "atag">- 강의 등록</a></li>
 	<li><a href="/admin/classes" class = "atag">- 강의 목록</a></li>
 	<li><a href="/admin/attendance" class = "atag">- 수강생 목록</a></li>
@@ -53,5 +63,6 @@
 	<% } %>
 	</div>
 </div>
+<%} %>
 </body>
 </html>

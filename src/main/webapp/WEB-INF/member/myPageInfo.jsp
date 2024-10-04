@@ -9,6 +9,16 @@
   <script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/myPageInfo.js"></script>
   <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/myPageInfo.css">
 
+<% 
+    if(userId == null) {
+%>
+    <script type="text/javascript">
+        alert("로그인이 필요한 페이지입니다.");
+        window.location.href = '/';
+    </script>
+<% 
+    } else { 
+%>
 <div id="mypage_con">
     <div class="mypage_con pd_box inner">
         <div class="mypage_top">
@@ -111,7 +121,7 @@
                                     <input class="info_name_input" type="text" id="status" class="status" value="${user.status}" readonly>
                                 </div>
 						<!-- 휴대폰 변경 폼 -->
-                        <form action="updateTel">       
+                        <form action="">       
                                 <div class="info_phone_box myinfo_box">
                                     <div class="existing_phone_box existing_box">
                                         <div class="info_box_title">휴대폰</div>
@@ -134,7 +144,7 @@
                             </form>
                             
            <button type="button" class="change_my_pwd_btn myPageInfoBtn">비밀번호 변경하기</button>
-	        <form action="changePwd">
+	        <form action="">
 	            <div class="change_pwd_box">
 	                <div class="label_name" style="display:none;">현재 비밀번호</div>
 	                <input id="mem_pwd" name="pwd" type="password" placeholder="현재 비밀번호" style="display:none;" required/><span class="pwdchk"></span>
@@ -175,6 +185,6 @@
     </div>
 </div>
                 </div>
-
+<%} %>
 
 

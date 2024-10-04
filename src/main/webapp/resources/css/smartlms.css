@@ -49,6 +49,7 @@ footer {
     align-items: flex-start;
     flex-wrap: wrap;
     margin-top: 70px;
+    margin-left: 40px;
 }
 .mainbo{
 	width: 400px;
@@ -84,8 +85,8 @@ footer {
    color: #e7b37e;
 }
 .nav-link {
-	color: #272727;
-	font-size: medium;
+	color: #272727 !important;
+	font-size: medium !important;
 }
 
 #searchNav {
@@ -379,19 +380,19 @@ button:focus, .form-control:focus, .form-control:active, .btn-primary:focus, .bt
 }
 
 .nav-item {
-   list-style: none;
+   list-style: none !important;
    display: contents;
 }
 
 .navbar-nav {
-   margin: 0;
-   justify-content: center;
-   flex-grow: 1;
-   font-size: large;
+   margin: 0 !important;
+   justify-content: center !important;
+   flex-grow: 1 !important;
+   font-size: large !important;
 }
 
 .navbar-nav li.nav-item {
-   flex-grow: 1;
+   flex-grow: 1 !important;
 }
 
 .navmenu {
@@ -400,7 +401,7 @@ button:focus, .form-control:focus, .form-control:active, .btn-primary:focus, .bt
 
 ul.navbar-nav.navlogo {
    width: 200px !important;
-   text-align: left;
+   text-align: left !important;
 }
 
 .nav-link2 {
@@ -439,14 +440,17 @@ ul.navbar-nav.navlogo {
 
 .log2 .nav-link {
 	padding : 0px !important;
+	font-size: small !important;
 }
 
 .logOut {
-   padding-left: 25px !important;
+	font-size: small !important;
+/*    padding-left: 25px !important; */
+/*     padding: 0px !important; */
 }
 
 .smnav {
-   padding: 0 50px;
+   padding: 0 50px !important;
 }
 .smnav .nav-link {
        font-size: medium !important;

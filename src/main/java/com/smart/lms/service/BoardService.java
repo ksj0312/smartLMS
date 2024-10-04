@@ -17,7 +17,7 @@ public interface BoardService {
 	NoteVO detailNote(String n_number);
 
 	void updateNoteTx(String n_number) throws Exception;
-	
+
 	void boardViewTx(int b_number);
 
 	void deleteNoteTx(String n_number) throws Exception;
@@ -48,7 +48,7 @@ public interface BoardService {
 
 	void insertCalTx(CalendarVO vo);
 
-	//쪽지
+	// 쪽지
 	boolean checkUser(String n_reciver);
 
 	List<CalendarVO> getCalList();
@@ -57,14 +57,18 @@ public interface BoardService {
 
 	void deleteCalTx(int cal_number);
 
+	int noteCount(String userId);
+
+	List<BoardVO> myPageBoardList(Pagination pg);
+
+	// 댓글
 	void insertCommentTx(CommentVO vo);
 
 	List<CommentVO> getCommentList(int b_number);
 
 	void deleteCommentTx(int co_number);
-	
-	int noteCount(String userId);
-	
-	//메인에서 공지사항 
+
+	// 메인에서 공지사항
 	List<BoardVO> boardMain(String b_type);
+
 }

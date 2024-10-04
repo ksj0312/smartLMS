@@ -26,7 +26,7 @@ function telCheckBtn() {
         }
 
         $.ajax({
-            url: "telCheck",
+            url: "/telCheck",
             type: 'GET',
             data: { 
             	tel: tel
@@ -68,7 +68,7 @@ function telPwdCheckBtn() {
         }
 
         $.ajax({
-            url: "telCheck",
+            url: "/telCheck",
             type: 'GET',
             data: { 
             	tel: tel

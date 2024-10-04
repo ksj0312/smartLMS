@@ -8,6 +8,16 @@
 		<param-name>contextConfigLocation</param-name>
 		<param-value>classpath:applicationContext.xml</param-value>
 	</context-param>
+	
+		   <filter>
+    <filter-name>BackButtonFilter</filter-name>
+    <filter-class>com.smart.lms.back.BackButtonFilter</filter-class>
+</filter>
+<filter-mapping>
+    <filter-name>BackButtonFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+</filter-mapping>
+	
 	<filter>
 		<filter-name>characterEncoding</filter-name>
 		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>

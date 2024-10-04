@@ -7,7 +7,7 @@ function logout() {
 $(document).ready(function(){
 	var b = '게시판';
 	$.ajax({
-	   url: "board", 
+	   url: "/board/main", 
        type: "GET", 
        data: {b_type : b}, 
 		success: function(response) { 
@@ -23,7 +23,7 @@ $(document).ready(function(){
 				$.each(values, function(index, value){
 				$(".mainta").append(
 				`
-				<tr onclick="location.href='getBoard?b_number=${value.b_number}'" style="cursor:hand">
+				<tr onclick="location.href='/boarddetail?b_number=${value.b_number}'" style="cursor:hand">
 				<td>-</td>
 				<td> ${value.b_title}</td>
 				<td> ${value.b_writer}</td>

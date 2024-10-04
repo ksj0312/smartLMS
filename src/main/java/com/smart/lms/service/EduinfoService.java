@@ -7,6 +7,7 @@ import com.smart.lms.vo.AttendClassVO;
 import com.smart.lms.vo.ClassVO;
 import com.smart.lms.vo.GradeVO;
 import com.smart.lms.vo.ProfessorVO;
+import com.smart.lms.vo.StuTaskVO;
 import com.smart.lms.vo.StudentVO;
 import com.smart.lms.vo.TaskVO;
 import com.smart.lms.vo.TestVO;
@@ -77,5 +78,20 @@ public interface EduinfoService {
    public int testAllCnt(Pagination pg);
 
    public List<TestVO> testAllSelect(Pagination pg);
+   
+   public TaskVO getTask(int t_number);
+
+   public StuTaskVO getStuTask(int t_number, String id);
+
+   public void insertStuTaskTx(StuTaskVO vo);
+
+   public List<StuTaskVO> taskAllList(int t_number, int c_number);
+
+   public StuTaskVO getThisStuTask(int st_number);
+
+   public void stuTaskUpdateTx(StuTaskVO vo);
+
+   public List<GradeVO> gradeSelectStu(int c_number, String id);
+
 
 }
