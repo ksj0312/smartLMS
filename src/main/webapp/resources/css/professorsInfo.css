@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+.divall {
+	margin: 50px 200px;
+}
+
 .modal-body{
 	margin : 0px 50px 30px 50px;
 	
@@ -11,16 +15,15 @@
 }
 
 .contents-container {
-    width: 1000px;
     margin : auto;
-    
 }
 
 .vibtn{
 	border: none;
-    color: #fff;
-    background-color: #042424;
+    color: #042424;
+    background-color: #ececec;
     width: 100px;
+    padding: 5px;
 }
 
 .vibtn:hover {

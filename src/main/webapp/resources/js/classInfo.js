@@ -14,7 +14,7 @@ $(document).on("click", ".classUpdate", function () {
    let c_status = document.getElementById("c_status").value;
    
   	 $.ajax({
-       url: "classUpdate", 
+       url: "/admin/classinfo", 
        type: "PUT", 
        data: JSON.stringify({
       		      c_number : c_number,

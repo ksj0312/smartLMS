@@ -1,7 +1,7 @@
 function professor(id) {
     var data = {id : id};
   	 $.ajax({
-       url: "professor", 
+       url: "/professor", 
        type: "GET", 
        data: data, 
        contentType: "application/json",

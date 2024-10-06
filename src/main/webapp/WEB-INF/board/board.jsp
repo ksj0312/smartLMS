@@ -8,6 +8,9 @@
 
 </head>
 <body>
+<div class="boarddiv">
+<div class= "divall">
+
 		  <nav id="searchNav" class="navbar navbar-expand-sm navbar-dark">
                         <form class="form-inline" action="/board" method="get">
                                 <select name="searchType" class="form-control mr-sm-2">
@@ -75,6 +78,7 @@
 		
 	
 	<br><br><br><br><br><br><br><br><br>
-	
+	</div>
+	</div>
 </body>
 </html>

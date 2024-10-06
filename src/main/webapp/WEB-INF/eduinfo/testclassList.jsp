@@ -25,12 +25,12 @@
 			        <th>강의시간</th>
 			        </tr>
 					<c:forEach items="${classList}" var="cl">
-					<tr onclick="location.href='testInsertPage?c_number=${cl.c_number}&c_name=${cl.c_name}'" style="cursor:hand">
+					<tr onclick="location.href='/professor/test/classes/test?c_number=${cl.c_number}&c_name=${cl.c_name}'" style="cursor:hand">
 					<td>${cl.c_number}</td>
 					<td>${cl.c_name}</td>
 					<td>${cl.c_stu_count}</td>
-					<td>${cl.c_time}</td>
 					<td>${cl.c_day}</td>
+					<td>${cl.c_time}</td>
 					</tr>
 					</c:forEach>
 					</table>

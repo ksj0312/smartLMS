@@ -1,7 +1,7 @@
 function stuInfo(id) {
     var data = {id : id};
   	 $.ajax({
-       url: "stuInfo", 
+       url: "/admin/students/student", 
        type: "GET", 
        data: data, 
        contentType: "application/json",
@@ -42,7 +42,7 @@ function stuInfo(id) {
    }
    
    function getUrl(currPageNo, range, searchType, keyword) {
- 						 return `/stuList?currPageNo=${currPageNo}&range=${range}&searchType=${searchType}&keyword=${keyword}`;
+ 						 return `/admin/students?currPageNo=${currPageNo}&range=${range}&searchType=${searchType}&keyword=${keyword}`;
 						}
 						
                      //이전 버튼

@@ -1,13 +1,20 @@
 package com.smart.lms.vo;
 
+import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+
 public class TestVO {
 
 	private int g_number;
 	private int c_number;
 	private String id;
 	private String test_type;
-	private String start_time;
-	private String end_time;
+	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+	private Date start_time;
+	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+	private Date end_time;
 	private String test_time;
 	private int status;
 	
@@ -35,16 +42,16 @@ public class TestVO {
 	public void setTest_type(String test_type) {
 		this.test_type = test_type;
 	}
-	public String getStart_time() {
+	public Date getStart_time() {
 		return start_time;
 	}
-	public void setStart_time(String start_time) {
+	public void setStart_time(Date start_time) {
 		this.start_time = start_time;
 	}
-	public String getEnd_time() {
+	public Date getEnd_time() {
 		return end_time;
 	}
-	public void setEnd_time(String end_time) {
+	public void setEnd_time(Date end_time) {
 		this.end_time = end_time;
 	}
 	public String getTest_time() {

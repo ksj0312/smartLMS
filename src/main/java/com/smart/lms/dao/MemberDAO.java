@@ -14,24 +14,25 @@ import com.smart.lms.vo.StudentVO;
 
 @Repository
 public class MemberDAO {
-	
-	 @Autowired private SqlSessionTemplate mybatis;
+
+	@Autowired
+	private SqlSessionTemplate mybatis;
 
 	public StudentVO getStudent(StudentVO vo) {
 		return mybatis.selectOne("memberDAO.getStudent", vo);
 	}
 
 	public ProfessorVO getAdmin(ProfessorVO vo) {
-		return  mybatis.selectOne("memberDAO.getAdmin", vo);
+		return mybatis.selectOne("memberDAO.getAdmin", vo);
 	}
 
 	public void insertStudent(StudentVO users) {
-		 mybatis.insert("memberDAO.insertStudent", users);
+		mybatis.insert("memberDAO.insertStudent", users);
 	}
 
 	public void insertProfessor(ProfessorVO users) {
-		 mybatis.insert("memberDAO.insertProfessor", users);
-		
+		mybatis.insert("memberDAO.insertProfessor", users);
+
 	}
 
 	public StudentVO getUserInfo(String userId) {
@@ -47,12 +48,12 @@ public class MemberDAO {
 
 	public StudentVO changePwd(StudentVO vo) {
 		return mybatis.selectOne("memberDAO.changePwd", vo);
-		
+
 	}
 
 	public void changeNewPwd(StudentVO vo) {
 		mybatis.update("memberDAO.changeNewPwd", vo);
-		
+
 	}
 
 	public void updateMail(String email, String userId) {
@@ -60,18 +61,17 @@ public class MemberDAO {
 		params.put("email", email);
 		params.put("userId", userId);
 		mybatis.update("memberDAO.updateMail", params);
-		
+
 	}
 
 	public StudentVO getId(String email) {
-		return mybatis.selectOne("memberDAO.getId",email);
-		
+		return mybatis.selectOne("memberDAO.getId", email);
+
 	}
 
 	public List<MyPageVO> getClassList(MyPageVO vo) {
 		return mybatis.selectList("memberDAO.getClassList", vo);
 	}
-
 
 	public MyPageVO myPageClassInfo(int c_number, String userId) {
 		Map<String, Object> params = new HashMap<>();
@@ -92,7 +92,5 @@ public class MemberDAO {
 	public ProfessorVO getAdminInfo(String userId) {
 		return mybatis.selectOne("memberDAO.getAdminInfo", userId);
 	}
-
-
 
 }

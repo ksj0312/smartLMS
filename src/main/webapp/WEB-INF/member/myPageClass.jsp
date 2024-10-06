@@ -8,8 +8,6 @@
     String userName = (String) session.getAttribute("userName");	
 %>
 
-
-
 <% 
     if(userId == null) {
 %>
@@ -20,7 +18,7 @@
 <% 
     } else { 
 %>
-    
+    <div class="divall">
 <div id="mypage_con">
     <div class="mypage_con pd_box inner">
         <div class="mypage_top">
@@ -67,7 +65,7 @@
         </div>
         </div>
     </div>
-
+</div>
 <%} %>
 
 

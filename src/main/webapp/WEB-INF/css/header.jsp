@@ -43,19 +43,20 @@ var userId = '<%= userId %>';
    <div class="smnav">
   <ul class="navbar-nav">
     <li class="nav-item">
-      <a class="nav-link" href="/board/list?b_type=게시판">공지사항</a>
+      <a class="nav-link" href="/board?b_type=게시판">공지사항</a>
     </li> &nbsp;
     <li class="nav-item">
-      <a class="nav-link" href="calPage">학사일정</a>
+      <a class="nav-link" href="/calpage">학사일정</a>
     </li>&nbsp;
     <li class="nav-item">
-      <a class="nav-link" href="/board/list?b_type=QNA">Q&A</a>
+      <a class="nav-link" href="/board?b_type=QNA">Q&A</a>
     </li>
   </ul>
 </div>
 <ul class="navbar-nav navuser" style="width:200px !important; font-size:small;">
 <c:choose>
     <c:when test="${userName ne NULL}">
+    <input type="text" id = "uid" value = "${userId}" style="display:none;"/>
       <ul class="navbar-nav log2" style="padding-right: 100px !important; font-size: small;">
             <c:choose>
                 <c:when test="${noteCount > 0}">
@@ -92,7 +93,7 @@ var userId = '<%= userId %>';
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link logOut" href="javascript: logout()" style="font-size: smaller;">logout</a>
+                <a class="nav-link logOut" href="javascript: logout()" style="font-size: small !important;">logout</a>
             </li>
          </c:when>
          <c:when test="${loginChk eq 'pro' }">
@@ -103,12 +104,12 @@ var userId = '<%= userId %>';
                 </a>
             </li>
                <li class="nav-item">
-                <a class="nav-link" href="admin" style="font-size: smaller;"> 
+                <a class="nav-link" href="/admin" style="font-size: smaller;"> 
                     관리자페이지
                 </a>
             </li>    &nbsp;  &nbsp; 
             <li class="nav-item">
-                <a class="nav-link logOut" href="javascript: logout()" style="font-size: smaller;">logout</a>
+                <a class="nav-link logOut" href="javascript: logout()" style="font-size: small !important;">logout</a>
             </li>
          </c:when>
          </c:choose>
@@ -117,7 +118,7 @@ var userId = '<%= userId %>';
     <c:otherwise>
         <ul class="navbar-nav log2" style="padding-right: 100px !important;">
             <li class="nav-item">
-                <a class="nav-link" href="student"><small>login</small></a>
+                <a class="nav-link" href="/student"><small>login</small></a>
             </li>
         </ul>
     </c:otherwise>
@@ -169,6 +170,6 @@ var userId = '<%= userId %>';
     <button type="button" class="openListBtn notebtn">목록으로 돌아가기</button>
     </div>
 </form>
-        
+
 </body>
 </html>

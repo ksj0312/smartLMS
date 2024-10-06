@@ -12,7 +12,7 @@
 				        return;
 				    }
 				        $.ajax({
-       				  	url : "/attendSearch",
+       				  	url : "/professor/students/todate/search",
         				data :{  
            					 "searchType": searchType,
            					 "keyword": keyword,
@@ -83,7 +83,7 @@
     				}
     				}
         		        $.ajax({
-       				  	url : "/updateAttendance",
+       				  	url : "/professor/students/todate",
         				data :JSON.stringify({  
            					 "a_status": a_status,
            					 "id": id,

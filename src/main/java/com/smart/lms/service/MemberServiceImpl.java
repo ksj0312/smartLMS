@@ -105,7 +105,6 @@ public class MemberServiceImpl implements MemberService {
 	      String api_secret = "XN4S35RRONVXBNYLEPFLP0UUPXMMJBPC";
 	    Message coolsms = new Message(api_key, api_secret);
 
-	    // 4 params(to, from, type, text) are mandatory. must be filled
 	    HashMap<String, String> params = new HashMap<String, String>();
 	    params.put("to", tel);    // 수신전화번호
 	    params.put("from", "01083818803");    // 발신전화번호. 테스트시에는 발신,수신 둘다 본인 번호로 하면 됨
@@ -116,10 +115,7 @@ public class MemberServiceImpl implements MemberService {
 
 	    try {
 	        JSONObject obj = (JSONObject) coolsms.send(params);
-//	        System.out.println(obj.toString()+ randomNumber);
 	      } catch (CoolsmsException e) {
-//	        System.out.println(e.getMessage() + "2");
-//	        System.out.println(e.getCode()  + "3");
 	      }
 	    
 	}
@@ -136,13 +132,11 @@ public class MemberServiceImpl implements MemberService {
 		 System.out.println("svo이다" + svo);
 	    if (svo != null) {
 	          isMatch = passwordEncoder.matches(vo.getPwd(), svo.getPwd());
-//	    	isMatch = vo.getPwd().equals(svo.getPwd());
 	         if (isMatch) {
 	            return isMatch;
 	         }
 	         return isMatch;
 	      }
-//		System.out.println(memDAO.changePwd(pwd, userId));
 		return false;
 	}
 	
@@ -152,13 +146,11 @@ public class MemberServiceImpl implements MemberService {
 		 boolean isMatch;
 	    if (svo != null) {
 	          isMatch = passwordEncoder.matches(vo.getPwd(), svo.getPwd());
-//	    	isMatch = vo.getPwd().equals(svo.getPwd());
 	         if (isMatch) {
 	            return isMatch;
 	         }
 	         return isMatch;
 	      }
-//		System.out.println(memDAO.changePwd(pwd, userId));
 		return false;
 	}
 
