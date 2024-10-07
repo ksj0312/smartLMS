@@ -21,7 +21,6 @@
 <% 
     } else { 
 %>
-
 <div class="admindiv">
 <div id="mypage_con">
 	<div class="mypage_con pd_box inner">

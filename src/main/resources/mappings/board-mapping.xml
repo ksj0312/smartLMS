@@ -213,4 +213,8 @@
 	<delete id="deleteComment">
 		DELETE FROM COMMENT WHERE CO_NUMBER = #{co_number}
 	</delete>
+	
+	<select id="getCommentListTotalCnt" resultType="commentDTO">
+		SELECT COUNT(*) FROM COMMENT WHERE B_NUMBER = #{b_number};
+	</select>
 </mapper>

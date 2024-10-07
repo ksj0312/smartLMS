@@ -49,9 +49,7 @@
 		</table>
 		
 	
-		<a href="insertPage?b_type=${pagination.b_type }">추가</a>
-		
-		
+		<a href="/boardpage?b_type=${pagination.b_type }">추가</a>
 		<section class="contents-footer">
                         <div>
                                 <nav aria-label="Page navigation example" style="margin: auto;">

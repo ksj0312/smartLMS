@@ -46,7 +46,14 @@ var userId = '<%= userId %>';
       <a class="nav-link" href="/board?b_type=게시판">공지사항</a>
     </li> &nbsp;
     <li class="nav-item">
-      <a class="nav-link" href="/calpage">학사일정</a>
+    <c:choose>
+    <c:when test="${usertype eq '관리자'}">
+        <a class="nav-link" href="/cal/admin">학사일정</a>
+    </c:when>
+    <c:otherwise>
+        <a class="nav-link" href="/calpage">학사일정</a>
+    </c:otherwise>
+</c:choose>
     </li>&nbsp;
     <li class="nav-item">
       <a class="nav-link" href="/board?b_type=QNA">Q&A</a>
@@ -133,6 +140,7 @@ var userId = '<%= userId %>';
         <span class="close">&times;</span>
         <div class="searchdiv">
             <input type="text" id="searchInput" placeholder="검색어를 입력하세요">
+
             <button id="searchButton" class="notebtn">검색</button><button class="writeBtn notebtn">글쓰기</button><button class="sendList notebtn">보낸쪽지함</button><button class="getList notebtn">받은쪽지함</button>
         </div>
         <ul id="noteList"></ul>

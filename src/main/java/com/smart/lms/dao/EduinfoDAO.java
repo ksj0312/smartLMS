@@ -206,4 +206,11 @@ public class EduinfoDAO {
 		return mybatis.selectList("eduinfoDAO.gradeSelectStu", params);
 
 	}
+
+	public GradeVO getTestGrade(int g_number, String id) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("g_number", g_number);
+		params.put("id", id);
+		return mybatis.selectOne("eduinfoDAO.getTestGrade", params);
+	}
 }
