@@ -1,3 +1,6 @@
+
+
+
 .mypage_link:hover {
     color: white !important;
 }
@@ -11,7 +14,11 @@
 }
 #mypage_con{
 	box-shadow: 0 2px 10px rgba(0, 0, 0, 0);
+<<<<<<< HEAD
 	margin : 40px 100px 40px 230px;
+=======
+	margin: 40 100 40 230;
+>>>>>>> 994965e2801c1f065daaaeb2c9e99d5a5441cfbe
 }
 
 .mpdiv, .classdiv, .writediv{

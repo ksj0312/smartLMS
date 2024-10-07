@@ -27,6 +27,8 @@ public interface BoardService {
 	List<NoteVO> getNotesWithPagination(int start, int size, String userId);
 
 	int getTotalNoteCount(String userId);
+	
+	int getTotalNoteCount2(String userId);
 
 	int getTotalSearchNoteCount(String search, String userId);
 
@@ -70,5 +72,11 @@ public interface BoardService {
 
 	// 메인에서 공지사항
 	List<BoardVO> boardMain(String b_type);
+
+	List<NoteVO> sendList(int start, int size, String userId);
+
+	List<NoteVO> sendListSearch(int start, int size, String userId, String search);
+
+	int getSearchTotalNoteCount2(String search, String userId);
 
 }

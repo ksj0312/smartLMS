@@ -40,25 +40,33 @@ html, body {
  	padding-top: 1em; 
  	padding-left: 1em; 
  	padding-right: 1em; 
+ 	
 }
 
-<<<<<<< HEAD
 .calmodal{
    margin-top : 300px;
+}
+
+.fc-event-main{
+	border-color : 
+}
+
+.fc-button-group{
+/* 	display : none !important; */
 }
 
 .fc-listWeek-button,
 .fc-timeGridDay-button,
 .fc-timeGridWeek-button, 
-.fc-dayGridMonth-button {
-=======
-.fc-button {
->>>>>>> f12087857de4d4b88177037765f0fb3e68204122
+.fc-dayGridMonth-button,
+.fc-today-button, .fc-myCustomButton-button,
+.fc-mySaveButton-button
+{
  	color : #000 !important; 
     display: none !important; 
 }
 
-.fc-daygrid-event {
+.fc-direction-ltr {
     border-color: #fff !important;
 }
 
@@ -66,6 +74,12 @@ html, body {
     width: 80%; /* 너비를 조정, 필요에 따라 변경 */
     height: 400px; /* 높이를 조정, 필요에 따라 변경 */
     margin: 0 auto; /* 중앙 정렬 */
+}
+
+.fc-event {
+    border: none !important; /* 테두리 제거 */
+    background-color : gray;
+    color: white !important; /* 하얀 글자색 */
 }
 </style>
 </head>
@@ -119,6 +133,8 @@ $(function(){
     
     // calendar element 취득
     var calendarEl = $('#calendar')[0];
+    
+    
     
     // full-calendar 생성하기
     var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -187,7 +203,8 @@ $(function(){
         nowIndicator: true,
         dayMaxEvents: true,
         locale: 'ko',
-  
+        
+        
         eventSources: [
             {
                 events: async function(info, successCallback, failureCallback) {
@@ -242,7 +259,8 @@ $(function(){
         eventContent: function(arg) {
             let eventTitle = document.createElement('div');
             eventTitle.innerHTML = arg.event.title;
-
+            
+            
             // cal_number가 있는 경우에만 삭제 버튼을 생성
             if (arg.event.extendedProps.number > 0) {
                 let deleteBtn = document.createElement('span');

@@ -81,7 +81,12 @@
 }
 
 .comment_del_button{
-	margin-left : 70%;
+	margin-left : 90%;
+	cursor : pointer;
+}
+
+.comment_del_button > img {
+	width : 30px;	
 }
 
 .comment_info_box{
@@ -104,6 +109,10 @@
 	background-color : #042424; 
 	float : right;
 	
+}
+
+.comment_form{
+	margin : 35px;
 }
 
 .insert_tdiv{
@@ -135,4 +144,8 @@
 
 .b_file{
 	margin : 10px;
+}
+
+.board_option_button{
+	margin : 30px;
 }
