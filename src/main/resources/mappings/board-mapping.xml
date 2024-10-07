@@ -110,6 +110,10 @@
 		select * from student where id
 		= #{n_reciver}
 	</select>
+	<select id="checkUserAdmin" resultType="professorDTO">
+		select * from professor where id
+		= #{n_reciver}
+	</select>
 
 	<select id="noteCount" resultType="integer">
 		select count(*) from note
@@ -137,7 +141,7 @@
 			<if test="keyword != null || keyword != ' '">
 			<if test="searchType == 'b_info'"> AND B_INFO like CONCAT('%', #{keyword}, '%') </if>
 			<if test="searchType == 'b_title'"> AND B_TITLE like CONCAT('%', #{keyword}, '%') </if>
-			ORDER BY B_NUMBER
+			ORDER BY B_NUMBER desc
 			LIMIT #{sizePerPage} OFFSET #{startList}
 		</if>
 	</select>

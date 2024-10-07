@@ -117,7 +117,7 @@ public class BoardController {
 	@GetMapping("/checkUser")
 	@ResponseBody
 	public boolean checkUser(@RequestParam("n_reciver") String n_reciver) {
-		boolean userExists = boardService.checkUser(n_reciver); // boardService가 boolean 반환
+		boolean userExists = boardService.checkUser(n_reciver) || boardService.checkUserAdmin(n_reciver); // boardService가 boolean 반환
 		System.out.println("User exists: " + userExists);
 		return userExists; // 유저가 존재하면 true, 없으면 false 반환
 	}
