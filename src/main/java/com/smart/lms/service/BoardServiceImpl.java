@@ -66,6 +66,11 @@ public class BoardServiceImpl implements BoardService {
 	public int getTotalNoteCount(String userId) {
 		return boDAO.getTotalNoteCount(userId);
 	}
+	
+	@Override
+	public int getTotalNoteCount2(String userId) {
+		return boDAO.getTotalNoteCount2(userId);
+	}
 
 	@Override
 	public List<NoteVO> getSearchNotesWithPagination(int start, int size, String search, String userId) {
@@ -167,5 +172,21 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public List<BoardVO> boardMain(String b_type) {
 		return boDAO.boardMain(b_type);
+	}
+
+	@Override
+	public List<NoteVO> sendList(int start, int size, String userId) {
+		return boDAO.sendList(start, size, userId);
+	}
+
+	@Override
+	public List<NoteVO> sendListSearch(int start, int size, String userId, String search) {
+		return boDAO.sendListSearch(start, size, search, userId);
+	}
+
+	@Override
+	public int getSearchTotalNoteCount2(String search, String userId) {
+		return boDAO.getTotalSearchNoteCount2(search, userId);
+
 	}
 }
