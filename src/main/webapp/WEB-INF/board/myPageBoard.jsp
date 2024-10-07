@@ -12,11 +12,7 @@
 </head>
 <body>
 		  <nav id="searchNav" class="navbar navbar-expand-sm navbar-dark">
-<<<<<<< HEAD
-                        <form class="form-inline" action="/myPageBoardList" method="get">
-=======
                         <form class="form-inline" action="/mypage/board" method="get">
->>>>>>> 8827f10b23c9437e62f6b3f60d2aabaad761d1d0
                                 <select name="searchType" class="form-control mr-sm-2">
                                         <option value="b_info">내용</option>
                                         <option value="b_title">제목</option>
@@ -27,10 +23,6 @@
                                 <button class="btn btn-success" type="submit">검색</button>
                         </form>
                 </nav>
-<<<<<<< HEAD
-                ${pagination.b_type }
-=======
->>>>>>> 8827f10b23c9437e62f6b3f60d2aabaad761d1d0
 		<table class="table table-hover">
 			<thead class="btn-primary">
 				<tr>
@@ -57,13 +49,7 @@
 		</table>
 		
 	
-<<<<<<< HEAD
 		<a href="/boardpage?b_type=${pagination.b_type }">추가</a>
-=======
-		<a href="insertPage?b_type=${pagination.b_type }">추가</a>
->>>>>>> 8827f10b23c9437e62f6b3f60d2aabaad761d1d0
-		
-		
 		<section class="contents-footer">
                         <div>
                                 <nav aria-label="Page navigation example" style="margin: auto;">

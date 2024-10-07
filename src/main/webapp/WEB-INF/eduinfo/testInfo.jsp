@@ -7,11 +7,7 @@
 		      
 		<div class="modal-header">
 			        
-<<<<<<< HEAD
-			<h4 class="modal-title" id="myModalLabel"  >시험 정보</h4>
-=======
 			<h4 class="modal-title" id="myModalLabel" style="justify-content: center !important;" >시험 정보</h4>
->>>>>>> 8827f10b23c9437e62f6b3f60d2aabaad761d1d0
 		</div>
 		        
 			<div class="modal-body">

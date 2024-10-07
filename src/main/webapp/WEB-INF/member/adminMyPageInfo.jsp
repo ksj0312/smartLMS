@@ -131,15 +131,9 @@
                                         <input class="tel-check-input" type="text" name="" style="display:none;" placeholder="인증번호를 입력"><span id="timer3" ></span>
                                         </div>
                                         </div>
-<<<<<<< HEAD
-                                        <button type="button" class="change_phone">휴대폰번호 변경하기</button>
-                                    <button type="button" id="tel-Check-Btn" class="phone_need_veri_btn" style="display:none;">인증요청</button>
-                                        <button type="button" class="change_btn_tel" style="display:none;">변경하기</button>
-=======
                                         <button type="button" class="change_phone myPageInfoBtn">휴대폰번호 변경하기</button>
                                     <button type="button" id="tel-Check-Btn" class="phone_need_veri_btn myPageInfoBtn" style="display:none;">인증요청</button>
                                         <button type="button" class="change_btn_tel myPageInfoBtn" style="display:none;">변경하기</button>
->>>>>>> 8827f10b23c9437e62f6b3f60d2aabaad761d1d0
                                     </div>
                                     <div class="change_phone_box">
                                        <span id="tel-check-warn" class="identify" style="display:none;">* 휴대폰 인증번호를 입력해주세요</span>	
@@ -148,11 +142,7 @@
                                 </div>
                             </form>
                             
-<<<<<<< HEAD
-           <button type="button" class="change_my_pwd_btn">비밀번호 변경하기</button>
-=======
            <button type="button" class="change_my_pwd_btn myPageInfoBtn">비밀번호 변경하기</button>
->>>>>>> 8827f10b23c9437e62f6b3f60d2aabaad761d1d0
 	        <form action="">
 	            <div class="change_pwd_box">
 	                <div class="label_name" style="display:none;">현재 비밀번호</div>

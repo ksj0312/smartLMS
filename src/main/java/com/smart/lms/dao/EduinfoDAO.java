@@ -206,7 +206,6 @@ public class EduinfoDAO {
 		return mybatis.selectList("eduinfoDAO.gradeSelectStu", params);
 
 	}
-<<<<<<< HEAD
 
 	public GradeVO getTestGrade(int g_number, String id) {
 		Map<String, Object> params = new HashMap<>();
@@ -214,6 +213,4 @@ public class EduinfoDAO {
 		params.put("id", id);
 		return mybatis.selectOne("eduinfoDAO.getTestGrade", params);
 	}
-=======
->>>>>>> 8827f10b23c9437e62f6b3f60d2aabaad761d1d0
 }

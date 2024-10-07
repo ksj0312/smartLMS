@@ -303,13 +303,10 @@ public class EduinfoServiceImpl implements EduinfoService {
 	public List<GradeVO> gradeSelectStu(int c_number, String id) {
 		return eduDAO.gradeSelectStu(c_number, id);
 	}
-<<<<<<< HEAD
 	
 	//학생 해당 시험 성적 조회
 	public GradeVO getTestGrade(int g_number, String id) {
 		return eduDAO.getTestGrade(g_number, id);
 	}
 	
-=======
->>>>>>> 8827f10b23c9437e62f6b3f60d2aabaad761d1d0
 }
