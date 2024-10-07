@@ -4,6 +4,11 @@
     box-sizing: border-box;
 }
 
+.note2{
+	width:700px !important;
+	margin-top:0px !important;
+	height:500px;
+}
 
 /* 검색과 버튼들 정렬 */
 .searchdiv {
@@ -12,6 +17,11 @@
     align-items: center;
     gap: 10px; /* 버튼과 입력창 간격 */
     margin-bottom: 20px;
+}
+
+.close{
+	text-align:right;
+	cursor:pointer;
 }
 
 #searchInput {
@@ -31,7 +41,41 @@
     font-size: 14px;
 }
 
+.responBtn, .deleteBtn, .openListBtn, .sendList, .getList{
+	background-color:#042424;
+	color:white;
+}
+
+.sendList:active, .getList:active{
+	background-color:lightgray;
+}
+
+.divnotesend{
+	min-height:390px;
+	margin:0 30px;
+}
+.notetextarea{
+	height:224px !important;
+}
+
+.detailtextarea{
+	width:698px;
+	height: 300px;
+	border-color: lightgray;
+}
+
+h3{
+	text-align:center;
+	margin-bottom:100px;
+}
+.rdoBtn{
+	margin-top:10px;
+	text-align:center;
+}
+
  .detailBtn1 {
+ 	background-color: #042424;
+ 	color: white;
 	float: right;
 	margin-top: -20px;
 }
@@ -47,8 +91,20 @@
     list-style-type: none;
     padding: 0;
     margin-bottom: 20px;
-    max-height: 200px; /* 최대 높이 설정 */
-    overflow-y: auto; /* 스크롤 가능하게 설정 */
+    min-height: 350px;
+    overflow-y: auto;
+}
+
+#noteList p  {
+	text-align:center;
+}
+
+.notedivBtn {
+	text-align:center;
+}
+
+.input-group{
+	margin-top:10px;
 }
 
 #noteList li {
@@ -65,6 +121,7 @@
     display: flex;
     justify-content: center; /* 페이지네이션 중앙 정렬 */
     gap: 5px;
+    margin-bottom: 5px;
 }
 
 .pagination button {
@@ -86,10 +143,11 @@
     display: block;
     margin-left: -1px;
     line-height: 1.25;
+    text-align:center;
 	        
 }
 
 .page-link{
-	color:#042424;
+	color:#042424 !important;
 	cursor:pointer;
 }
