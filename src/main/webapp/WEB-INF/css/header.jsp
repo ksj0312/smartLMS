@@ -134,12 +134,14 @@ var userId = '<%= userId %>';
    </nav> 
    
    <!-- 모달창 처리 -->
+ 
 <div id="noteModal" class="modal">
-    <div class="modal-content note">
+    <div class="modal-content note2">
         <span class="close">&times;</span>
         <div class="searchdiv">
             <input type="text" id="searchInput" placeholder="검색어를 입력하세요">
-            <button id="searchButton" class="notebtn">검색</button><button class="writeBtn notebtn">글쓰기</button>
+
+            <button id="searchButton" class="notebtn">검색</button><button class="writeBtn notebtn">글쓰기</button><button class="sendList notebtn">보낸쪽지함</button><button class="getList notebtn">받은쪽지함</button>
         </div>
         <ul id="noteList"></ul>
         <div id="pagination" class="pagination"></div>
@@ -148,6 +150,7 @@ var userId = '<%= userId %>';
 
 
 <form id="sendNoteForm" style="display:none;">
+<div class="divnotesend">
    			<div class="input-group mb-3">
                   <div class="input-group-prepend">
                      <span class="input-group-text">받는사람</span>
@@ -164,7 +167,7 @@ var userId = '<%= userId %>';
                   <div class="input-group-prepend">
                      <span class="input-group-text">내용</span>
                   </div>
-                  <textarea class="form-control" name="n_info" id="n_info" row="10" required></textarea>
+                  <textarea class="form-control notetextarea" name="n_info" id="n_info" row="10" required></textarea>
                </div>
                <div class="input-group mb-3">
                   <div class="input-group-prepend">
@@ -172,7 +175,8 @@ var userId = '<%= userId %>';
                   </div>
                   <input type="text" class="form-control" name="n_sender" id="n_sender" value="${sessionScope.userId}" required readonly>
                </div>
-    <div>
+</div>
+    <div class="notedivBtn">
     <button type="button" id="sendBtn" class="sendBtn notebtn">보내기</button>
     <button type="button" class="openListBtn notebtn">목록으로 돌아가기</button>
     </div>

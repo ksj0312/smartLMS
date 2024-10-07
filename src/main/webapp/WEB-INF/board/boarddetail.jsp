@@ -50,6 +50,7 @@
 				<button onclick="board_update(${board.b_number})">수정</button>
 			</c:if>
 
+
 						<c:choose>
 			<c:when test="${board.b_type eq '게시판'}">
 					<a href="/board?b_type=게시판">목록</a>
@@ -60,6 +61,7 @@
 
 			</c:when>				
 		</c:choose>
+
 		<br>
 		</div>
 
@@ -91,6 +93,8 @@
 			
 		</table>
 		
+		
+<!-- 		댓글 페이징 -->
 <!-- 		<section class="contents-footer"> -->
 <!--                         <div> -->
 <!--                                 <nav aria-label="Page navigation example" style="margin: auto;"> -->

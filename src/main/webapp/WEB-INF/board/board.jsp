@@ -53,7 +53,6 @@
 			</tbody>
 		</table>
 		
-		
 		<section class="contents-footer">
                         <div>
                                 <nav aria-label="Page navigation example" style="margin: auto;">

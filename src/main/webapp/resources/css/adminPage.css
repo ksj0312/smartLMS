@@ -11,8 +11,9 @@
 }
 #mypage_con{
 	box-shadow: 0 2px 10px rgba(0, 0, 0, 0);
-}
+	margin : 40px 100px 40px 230px;
 
+}
 .mpdiv, .classdiv, .writediv{
 	margin-top:-5px !important;
 }

@@ -10,7 +10,6 @@
 <div class="maindiv">
 <div class="divall ma">
 
-
 <%@ include file="WEB-INF/board/cal.jsp"%>  
 <div class="mainri"> <!-- 우측 div 전체  -->
 <div class="mainbo">  <!-- 우측 공지사항 div  -->

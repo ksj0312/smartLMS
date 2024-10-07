@@ -336,7 +336,7 @@ $.ajax({
     success: function(data) {
         console.log(data);
         alert("회원 정보가 변경되었습니다. 다시 로그인하세요.");
-        window.location.href = 'studentLoginPage';  // 로그인 페이지로 리디렉션	
+        window.location.href = '/';  // 로그인 페이지로 리디렉션	
 
     },
     error: function(xhr, status, error) {

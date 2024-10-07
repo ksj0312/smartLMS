@@ -14,6 +14,26 @@
 	<select id="receivNote" resultType="noteDTO">
 		select * from note
 	</select>
+	
+	<select id="sendList" parameterType="map" resultType="noteDTO">
+		SELECT * FROM note
+		where N_SENDER = #{userId}
+		ORDER BY
+		n_number DESC
+		LIMIT #{start}, #{size}
+	</select>
+	
+	<select id="sendListSearch" parameterType="map" resultType="noteDTO">
+		SELECT *
+		FROM note
+		WHERE (n_title LIKE CONCAT('%', #{search},
+		'%')
+		OR n_sender LIKE CONCAT('%', #{search}, '%'))
+		AND n_sender =
+		#{userId}
+		ORDER BY n_number DESC
+		LIMIT #{start}, #{size}
+	</select>
 
 	<select id="getSearchNotesWithPagination" parameterType="map"
 		resultType="noteDTO">
@@ -48,6 +68,11 @@
 		SELECT COUNT(*) FROM
 		note where n_reciver = #{userId}
 	</select>
+	
+		<select id="getTotalNoteCount2" resultType="integer">
+		SELECT COUNT(*) FROM
+		note where n_sender = #{userId}
+	</select>
 
 	<select id="getSearchTotalNoteCount" resultType="integer">
 		SELECT COUNT(*)
@@ -56,6 +81,16 @@
 		OR n_sender
 		LIKE CONCAT('%', #{search}, '%'))
 		AND n_reciver = #{userId}
+
+	</select>
+	
+	<select id="getSearchTotalNoteCount2" resultType="integer">
+		SELECT COUNT(*)
+		FROM note
+		WHERE (n_title LIKE CONCAT('%', #{search}, '%')
+		OR n_sender
+		LIKE CONCAT('%', #{search}, '%'))
+		AND n_sender = #{userId}
 
 	</select>
 

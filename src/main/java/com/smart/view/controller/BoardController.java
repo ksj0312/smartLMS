@@ -73,7 +73,42 @@ public class BoardController {
 		boardService.sendNoteTx(n_sender, n_reciver, n_title, n_info);
 
 	}
-
+	
+	@GetMapping("/sendlistsearch")
+	@ResponseBody
+	public Map<String, Object> sendListSearch(@RequestParam("page") int page,@RequestParam("search") String search, @RequestParam("size") int size,@RequestParam("userId") String userId){
+		int start = (page - 1) * size; // 페이징의 시작 인덱스
+		List<NoteVO> sendListSearch = boardService.sendListSearch(start, size, userId, search); // 페이징된 리스트 가져오기
+		int totalCnt = boardService.getSearchTotalNoteCount2(search, userId); // 전체 노트 개수
+		int totalPages = (int) Math.ceil((double) totalCnt / size);
+		
+		Map<String, Object> searchresult = new HashMap<>();
+		searchresult.put("notes", sendListSearch);
+		searchresult.put("prev", page > 1);
+		searchresult.put("next", totalCnt > page * size);
+		searchresult.put("totalCnt", totalCnt);
+		searchresult.put("totalPages", totalPages);
+		return searchresult;
+	}
+	
+	@GetMapping("/sendlist")
+	@ResponseBody
+	public Map<String, Object> sendList(@RequestParam("page") int page, @RequestParam("size") int size,
+			@RequestParam("userId") String userId) {
+		int start = (page - 1) * size; // 페이징의 시작 인덱스
+		List<NoteVO> receivNote = boardService.sendList(start, size, userId); // 페이징된 리스트 가져오기
+		int totalCnt = boardService.getTotalNoteCount2(userId); // 전체 노트 개수
+		int totalPages = (int) Math.ceil((double) totalCnt / size);
+		
+		Map<String, Object> result = new HashMap<>();
+		result.put("notes", receivNote);
+		result.put("prev", page > 1); // 이전 페이지 여부
+		result.put("next", totalCnt > page * size); // 다음 페이지 여부
+		result.put("totalCnt", totalCnt); // 전체 노트 수
+		result.put("totalPages", totalPages);
+		return result;
+	}
+	
 	@GetMapping("/menual")
 	public String menual() {
 		return "board/menual";
@@ -595,7 +630,7 @@ public class BoardController {
 //		
 //		int totalCnt = boardService.getCommentListTotalCnt(pg);
 //		pg.pageInfo(currPageNo,  range,  totalCnt);
-
+		
 		// 조회수 1씩 증가 로직
 		if (viewedBoards == null) {
 			viewedBoards = new ArrayList<>();

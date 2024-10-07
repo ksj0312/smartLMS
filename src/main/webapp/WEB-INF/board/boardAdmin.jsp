@@ -40,7 +40,7 @@
                                 <tr class="tdCenter">
                                                 <td>${board.b_number}</td>
                                                 <td>${board.b_title}</td>
-                                                <td>${board.b_writer}</td>
+                                                <td>${board.b_name}</td>
                                                 <td>${board.b_view}</td>
                                                 <td><button type="button" class="btn classInfo" id="classClick"
 											data-toggle="modal" data-target="#classInfo" value="${board.b_number}">상세보기</button></td>

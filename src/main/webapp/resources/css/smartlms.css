@@ -143,6 +143,21 @@ footer {
     border-bottom-width: thin;
  } */
  
+ .testUpdate{
+	border: none;
+    color: #042424;
+    background-color: #ececec;
+    width: 100px;
+    padding: 5px;
+}
+
+.testUpdate:hover {
+   background-color: #fff;
+   color: #042424;
+   border: 1px solid;
+   border-color: #042424;
+}
+ 
  .mr-sm-2 {
  	border: none;
     border-bottom: solid;

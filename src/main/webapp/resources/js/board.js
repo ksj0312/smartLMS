@@ -16,7 +16,6 @@ currPageNo = (range - 1) * pageSize;
 }
 
 
-
  //마이페이지 이전 버튼
 function fn_prev_myPage(currPageNo, range, pageSize) {
     var searchType = document.getElementById('paginationData').getAttribute('data-searchType');
@@ -36,7 +35,6 @@ currPageNo = (range - 1) * pageSize;
     
     location.href = url;
 }
-
 
  //댓글 이전 버튼
 function fn_prev_comment(currPageNo, range, pageSize) {
@@ -85,9 +83,9 @@ currPageNo = (range - 1) * pageSize;
     }
     
     
-    
     //마이페이지 번호 클릭
         function fn_pagination_myPage(currPageNo, range) {
+    
     
 	var b_type = document.getElementsByName('b_type')[0].value;
 	console.log(b_type);        

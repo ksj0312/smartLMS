@@ -1,9 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%--     <%@ include file="../member/adminIndex.jsp"%> --%>
+
     <%@page import="java.util.Date" %>
     <%@page import="java.text.SimpleDateFormat" %>
-    
 <!DOCTYPE html>
 <html>
 <head>
@@ -51,7 +50,6 @@
 						<td>${tl.test_type}</td>
 						<td><fmt:formatDate value="${tl.start_time}" pattern="yyyy-MM-dd HH:mm"/></td>
 						<td><fmt:formatDate value="${tl.end_time}" pattern="yyyy-MM-dd HH:mm"/></td>
-
 						</tr>
 					</c:forEach>
 					</table>

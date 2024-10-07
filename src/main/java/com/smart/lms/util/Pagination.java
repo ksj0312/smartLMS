@@ -31,6 +31,7 @@ public class Pagination {
 	
 	private String b_type;
 	private String b_id;
+<<<<<<< HEAD
 	
 	
 
@@ -49,6 +50,8 @@ public class Pagination {
 	public void setCo_number(int co_number) {
 		this.co_number = co_number;
 	}
+=======
+>>>>>>> 8827f10b23c9437e62f6b3f60d2aabaad761d1d0
 
 	public String getB_id() {
 		return b_id;
