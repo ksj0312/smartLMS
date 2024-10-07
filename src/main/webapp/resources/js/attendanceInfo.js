@@ -10,7 +10,7 @@ function search() {
    let c_number = document.getElementById("c_number").value;
    
   	 $.ajax({
-       url: "/professor/students/todate/search", 
+       url: "/admin/attendance/student/search", 
        type: "GET", 
        data: {
       		      c_number : c_number,
@@ -20,12 +20,10 @@ function search() {
        contentType: "application/json",
        success: function(response) { 
        		console.log(response);
-         	$('#infoTable').empty(); 
+       		 $('#infoTable').empty(); 
           if(response.length == 0){
-  				$("#searchNo").append(
-  				`
-  				   <h3>검색 결과가 없습니다.</h3>`
-  				   )
+  				 alert(`검색 결과가 없습니다. 다시 입력해주세요.`);
+  				 $('#keyword').empty(); 
             }else {
             values = response.attStuList;
             

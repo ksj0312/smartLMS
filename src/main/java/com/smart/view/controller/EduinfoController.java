@@ -112,12 +112,12 @@ public class EduinfoController {
 				eduinfoService.insertAttendanceTx(toList);
 				redirectAttributes.addFlashAttribute("msg", "success");
 				
-				return "redirect:professor/students/classes";
+				return "redirect:/professor/students/classes";
 				
 			} catch (Exception e) {
 				e.printStackTrace();
 				redirectAttributes.addFlashAttribute("msg", "fail");
-				return "redirect:professor/students/classes";
+				return "redirect:/professor/students/classes";
 			}
 	}
 	
@@ -393,8 +393,8 @@ public class EduinfoController {
 			model.addAttribute("tList", tList);
 			model.addAttribute("testListcnt", tList.size());
 			model.addAttribute("c_name", classvo.getC_name());
-			return "eduinfo/testclassList";
-//			return "eduinfo/testList";
+//			return "eduinfo/testclassList";
+			return "eduinfo/testList";
 		}
 		
 		
@@ -747,7 +747,6 @@ public class EduinfoController {
 			model.addAttribute("c_number", stutask.getC_number());
 			model.addAttribute("c_name", classvo.getC_name());
 			model.addAttribute("id", stutask.getId());
-			
 			
 			return "eduinfo/stuTaskUpdate";
 		}
