@@ -165,8 +165,8 @@ public class BoardDAO {
 		return mybatis.selectList("boardDAO.myPageBoardList", pg);
 	}
 
-	public int getCommentListTotalCnt(Pagination pg) {
-		return mybatis.selectOne("boardDAO.getCommentListTotalCnt", pg);
+	public int getCommentListTotalCnt(int b_number) {
+		return mybatis.selectOne("boardDAO.getCommentListTotalCnt", b_number);
 	}
 
 

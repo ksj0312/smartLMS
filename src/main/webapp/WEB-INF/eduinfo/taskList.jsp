@@ -15,7 +15,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<script src="${pageContext.request.contextPath }/resources/js/testList.js"></script>
+<%-- <script src="${pageContext.request.contextPath }/resources/js/testList.js"></script> --%>
 <title>과제 목록</title>
 </head>
 <body>
@@ -29,7 +29,11 @@
     					<h5>강의명 : <%=c_name %></h5> 
                 </section>
         <br><br>
-        
+      
+        		
+        		
+        	<c:choose>
+				<c:when test="${taskListcnt > 0}">
 				     <table class="table">
 				        <tr>
 				        <th>강의 번호</th>
@@ -61,11 +65,14 @@
 						</tr>
 					</c:forEach>
 					</table>
-				<c:if test="${taskListsize eq 0  }">
-				<div class="nodiv">
-				<h5>진행중인 과제 목록이 없습니다.</h5>
-				</div>
-				</c:if>
+					
+				</c:when>	
+				<c:otherwise>
+					<div class="nodiv">
+						<h5>진행중인 과제 목록이 없습니다.</h5>
+					</div>
+				</c:otherwise>			
+			</c:choose>
 	</div>
 </div>
 

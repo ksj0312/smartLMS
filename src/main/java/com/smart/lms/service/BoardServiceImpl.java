@@ -175,8 +175,8 @@ public class BoardServiceImpl implements BoardService {
 	}
 	
 	@Override
-	public int getCommentListTotalCnt(Pagination pg){
-		return boDAO.getCommentListTotalCnt(pg);
+	public int getCommentListTotalCnt(int b_number){
+		return boDAO.getCommentListTotalCnt(b_number);
 	}
 
 	@Override

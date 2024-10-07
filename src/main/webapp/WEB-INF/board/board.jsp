@@ -15,8 +15,10 @@
 <div class= "divall">
 
 
-<c:if test="${userId ne null }">
+<c:if test="${pagination.b_type eq 'QNA' }">
+	<c:if test="${userId ne null }">
 		<a class="b_insert_btn" href="/boardpage?b_type=${pagination.b_type }">글쓰기</a>
+		</c:if>
 		</c:if>
 		
 		  <nav id="searchNav" class="navbar navbar-expand-sm navbar-dark">

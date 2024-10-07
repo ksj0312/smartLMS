@@ -43,6 +43,9 @@
  </div> <!-- 우측 div 전체  -->
 <%@ include file="WEB-INF/board/cal.jsp"%>  
 
+
+<a href="/excel/professors">엑셀넣기</a>
+
 </div>
 	</div>
 </body>

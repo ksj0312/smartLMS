@@ -70,10 +70,12 @@ public interface BoardService {
 
 	void deleteCommentTx(int co_number);
 
+	int getCommentListTotalCnt(int b_number);
+	
 	// 메인에서 공지사항
 	List<BoardVO> boardMain(String b_type);
 
-	int getCommentListTotalCnt(Pagination pg);
+	
 	List<NoteVO> sendList(int start, int size, String userId);
 
 	List<NoteVO> sendListSearch(int start, int size, String userId, String search);

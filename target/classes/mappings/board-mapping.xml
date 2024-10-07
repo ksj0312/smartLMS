@@ -211,14 +211,17 @@
 	<insert id="insertComment"> INSERT INTO COMMENT(B_NUMBER, ID, NAME, CO_INFO)
 		VALUES(#{b_number}, #{id}, #{name}, #{co_info})
 	</insert>
-	<select id="getCommentList" resultType="commentDTO"> SELECT * FROM COMMENT
+	<select id="getCommentList" resultType="commentDTO"> 
+		SELECT * FROM COMMENT
 		WHERE B_NUMBER = #{b_number}
+		ORDER BY co_create_date DESC
+		LIMIT #{sizePerPage} OFFSET #{startList}  
 	</select>
 	<delete id="deleteComment">
 		DELETE FROM COMMENT WHERE CO_NUMBER = #{co_number}
 	</delete>
 	
-	<select id="getCommentListTotalCnt" resultType="commentDTO">
+	<select id="getCommentListTotalCnt" resultType="integer">
 		SELECT COUNT(*) FROM COMMENT WHERE B_NUMBER = #{b_number};
 	</select>
 </mapper>
