@@ -41,7 +41,7 @@
 	<form action="/board" method="post" id="dataTransferForm" enctype="multipart/form-data">
 	<div class="b_title_div">
 		<label for="b_title" class="b_title_label">제목</label>
-		<input type="text" class="b_title_input" name="b_title" placeholder="공지사항 제목입력">
+		<input type="text" class="b_title_input" name="b_title" placeholder="${b_type } 제목입력">
 	</div>
 		
 		<input type="text" class="board_hide" name="b_type" placeholder="타입 입력" value="${b_type}" readonly>
