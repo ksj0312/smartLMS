@@ -67,8 +67,6 @@ currPageNo = (range - 1) * pageSize;
     var url = "/mypage/board";   //여기에 페이지 이동하는 매핑 url 
     console.log(currPageNo);
         								
-    var currPageNo = (range * pageSize) + 1;
-    var range = parseInt(range) + 1;
         
     url = url + "?currPageNo=" + currPageNo;
     url = url + "&b_type=" + b_type;
