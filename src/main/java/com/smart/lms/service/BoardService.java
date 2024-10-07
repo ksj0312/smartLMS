@@ -79,4 +79,6 @@ public interface BoardService {
 
 	int getSearchTotalNoteCount2(String search, String userId);
 
+	boolean checkUserAdmin(String n_reciver);
+
 }

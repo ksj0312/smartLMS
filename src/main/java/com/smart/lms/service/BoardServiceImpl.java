@@ -189,4 +189,11 @@ public class BoardServiceImpl implements BoardService {
 		return boDAO.getTotalSearchNoteCount2(search, userId);
 
 	}
+
+	@Override
+	public boolean checkUserAdmin(String n_reciver) {
+		boolean vo = boDAO.checkUserAdmin(n_reciver);
+		return vo; // vo가 null이 아니면 true, null이면 false 반환
+	
+	}
 }
