@@ -8,10 +8,17 @@
     String userName = (String) session.getAttribute("userName");	
 %>
 
-
-
-
-    
+<% 
+    if(userId == null) {
+%>
+    <script type="text/javascript">
+        alert("로그인이 필요한 페이지입니다.");
+        window.location.href = '/';
+    </script>
+<% 
+    } else { 
+%>
+    <div class="divall">
 <div id="mypage_con">
     <div class="mypage_con pd_box inner">
         <div class="mypage_top">
@@ -43,7 +50,7 @@
 					data-toggle="modal" data-target="#myPageModal" value="${item.c_number}" 
 					onclick="attInfo(${item.c_number})">상세정보</button></td>
 <!-- 					<td><button type="button" class="btn TaskBtn" onclick="">과제</button> </td> -->
-					<td><a class="btn TaskBtn" href="task/page?c_number=${item.c_number }">과제</a> </td>
+					<td><button class="btn ModalBtn" onClick="location.href='task/page?c_number=${item.c_number }'">과제</button> </td>
 					</tr>
 					</c:forEach>
     </tbody>
@@ -58,8 +65,8 @@
         </div>
         </div>
     </div>
-
-
+</div>
+<%} %>
 
 
 

@@ -16,7 +16,7 @@
                         <h4>전체 강의 목록</h4>
                 </section>
     			 <nav id="searchNav" class="navbar navbar-expand-sm navbar-dark">
-                        <form class="form-inline" action="classAllList" method="get">
+                        <form class="form-inline" action="/admin/classes" method="get">
                                 <select name="searchType" class="form-control mr-sm-2">
                                         <option value="c_name">강의명</option>
                                         <option value="name">교수</option>

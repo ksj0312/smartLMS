@@ -210,10 +210,33 @@
 		START_TIME, END_TIME, TEST_TIME) VALUES (#{c_number}, #{id},
 		#{test_type}, #{start_time}, #{end_time}, #{test_time})
 	</insert>
+	
+	<select id="testAllSelect" parameterType="com.smart.lms.util.Pagination" resultType="testDTO">
+		SELECT * FROM TEST WHERE C_NUMBER = #{c_number} 
+		<if test="keyword != null and keyword != ''">
+			<if test="searchType == 'g_number'"> AND G_NUMBER like CONCAT('%', #{keyword}, '%')</if>
+			<if test="searchType == 'test_type'"> AND TEST_TYPE like CONCAT('%', #{keyword}, '%')</if>
+		</if>
+		ORDER BY G_NUMBER 
+		LIMIT #{sizePerPage} OFFSET #{startList}  
+	</select>
+	
+	<select id="testAllCnt" parameterType="com.smart.lms.util.Pagination" resultType="integer">
+		SELECT COUNT(*) FROM TEST WHERE C_NUMBER = #{c_number} 
+		<if test="keyword != null and keyword != ''">
+			<if test="searchType == 'g_number'"> AND G_NUMBER like CONCAT('%', #{keyword}, '%')</if>
+			<if test="searchType == 'test_type'"> AND TEST_TYPE like CONCAT('%', #{keyword}, '%')</if>
+		</if>
+	</select>
 
 	<select id="testSelect" resultType="testDTO">
 		SELECT * FROM TEST WHERE
 		C_NUMBER = #{c_number} AND STATUS = 0
+	</select>
+	
+	
+	<select id="getTestGrade" resultType="gradeDTO">
+		SELECT * FROM GRADE WHERE G_NUMBER = #{g_number} AND ID = #{id}
 	</select>
 
 	<select id="stuTestSelect" resultType="testDTO">
@@ -230,14 +253,21 @@
 		UPDATE TEST SET STATUS = 1 WHERE G_NUMBER =
 		#{g_number}
 	</update>
-
-	<update id="gradeUpdateTx">
-		UPDATE GRADE SET GRADE = #{grade} WHERE G_NUMBER =
-		#{g_number} AND ID =
-		#{id}
+	
+	<select id="testInfo" resultType="testDTO">
+		SELECT * FROM TEST WHERE G_NUMBER = #{g_number}
+	</select>
+	
+	<update id ="gradeUpdateTx">
+	  UPDATE GRADE SET GRADE = #{grade} WHERE G_NUMBER = #{g_number} AND ID = #{id}
 	</update>
 
-
+	<update id ="testUpdateTx">
+	  UPDATE TEST SET  TEST_TYPE = #{test_type}, START_TIME = #{start_time}, END_TIME = #{end_time}, 
+	  				   TEST_TIME = #{test_time}, STATUS = #{status}  
+	   WHERE G_NUMBER = #{g_number}
+	</update>
+	
 	<select id="gradeSelectStu" resultType="gradeDTO">
 		select g.*, t.TEST_TYPE
 		from grade g
@@ -318,11 +348,6 @@
 		#{st_info}, S_FILE1 = #{s_file1} WHERE ST_NUMBER = #{st_number}
 
 	</update>
-
-
-
-
-
 
 
 

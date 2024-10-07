@@ -84,6 +84,16 @@
 	
 	
 <!-- board mapping	 -->
+<select id="myPageBoardList" parameterType="com.smart.lms.util.Pagination" resultType="BoardDTO">
+    SELECT * FROM BOARD WHERE B_TYPE = #{b_type} AND b_Id = #{b_id}
+        <if test='keyword != null and keyword != ""'>
+            <if test='searchType == "b_info"'> AND B_INFO LIKE CONCAT('%', #{keyword}, '%') </if>
+            <if test='searchType == "b_title"'> AND B_TITLE LIKE CONCAT('%', #{keyword}, '%') </if>
+        </if>
+    ORDER BY B_NUMBER DESC
+    LIMIT #{sizePerPage} OFFSET #{startList}  
+</select>
+
 	<select id="getBoardList" 
 	parameterType="com.smart.lms.util.Pagination" resultType="BoardDTO">
 		SELECT
@@ -92,9 +102,15 @@
 			<if test="keyword != null || keyword != ' '">
 			<if test="searchType == 'b_info'"> AND B_INFO like CONCAT('%', #{keyword}, '%') </if>
 			<if test="searchType == 'b_title'"> AND B_TITLE like CONCAT('%', #{keyword}, '%') </if>
+			ORDER BY B_NUMBER
+			LIMIT #{sizePerPage} OFFSET #{startList}
+		</if>
+	</select>
+	
+	<select id="boardMain" resultType="BoardDTO">
+		SELECT * FROM BOARD WHERE B_TYPE = #{b_type}
 			ORDER BY B_NUMBER DESC
-			LIMIT #{sizePerPage} OFFSET #{startList}  
-			</if>
+			LIMIT 5 
 	</select>
 
 	<select id="getBoardListTotalCnt"
@@ -162,4 +178,8 @@
 	<delete id="deleteComment">
 		DELETE FROM COMMENT WHERE CO_NUMBER = #{co_number}
 	</delete>
+	
+	<select id="getCommentListTotalCnt" resultType="commentDTO">
+		SELECT COUNT(*) FROM COMMENT WHERE B_NUMBER = #{b_number};
+	</select>
 </mapper>

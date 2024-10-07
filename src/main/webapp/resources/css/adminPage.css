@@ -1,0 +1,22 @@
+.mypage_link:hover {
+    color: white !important;
+}
+.mypage_link{
+	background-color:lightgray;
+	color:gray !important;
+}
+.admindiv{
+	margin-right:70px;
+	margin-left:50px;
+}
+#mypage_con{
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0);
+}
+
+.mpdiv, .classdiv, .writediv{
+	margin-top:-5px !important;
+}
+.classdiv{
+	margin-left:10px;
+	margin-right:10px;
+}

@@ -14,7 +14,7 @@
            			 <em>SMARTLMS,<a class= "adminlink" > ◎</a></em>
            		 </c:when>
            		 <c:otherwise>
-          		    <em>SMARTLMS,<a class= "adminlink" href="adminpage" > ◎</a></em>
+          		    <em>SMARTLMS,<a class= "adminlink" href="/adminpage" > ◎</a></em>
            		 </c:otherwise>
             	</c:choose>
          </p>

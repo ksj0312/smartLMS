@@ -41,7 +41,14 @@
         </tr>
     </table>
    
-						<button onclick="board_del(${board.b_number})">삭제</button>
+   
+   <div class="board_option_button">
+   			
+   			
+   			<c:if test="${board.b_id eq userId  }">
+				<button onclick="board_del(${board.b_number})">삭제</button>
+				<button onclick="board_update(${board.b_number})">수정</button>
+			</c:if>
 
 						<c:choose>
 			<c:when test="${board.b_type eq '게시판'}">
@@ -53,24 +60,14 @@
 
 			</c:when>				
 		</c:choose>
-		
-				<a href="/boardpage?b_type=${board.b_type }">추가</a>
-		<button onclick="board_update(${board.b_number})">수정</button>
-		
-		
 		<br>
-						
-					
+		</div>
+
 					
 			<table class="comment_table">
-<!-- 			<thead class="btn-primary"> -->
 				<tr class="comment_bar">
 					<th>댓글</th>
-<!-- 					<th>아이디</th> -->
-<!-- 					<th>내용</th> -->
-<!-- 					<th>버튼</th> -->
 				</tr>
-<!-- 			</thead> -->
 			
 			<tbody>
 					<c:forEach items="${commentList}" var="comment">
@@ -78,20 +75,50 @@
 <%-- 						<td class="">${comment.co_number}</td> --%>
 						<td>
 						<span>${comment.name}</span>&nbsp;<span>${comment.format_create_date }</span>
-						<p>${comment.co_info}</p>
+						<p>${comment.co_info}
+						<c:if test="${comment.id eq userId }">
+						<span><a class="comment_del_button" onclick="board_delComment(${comment.co_number})">
+						<img src="${pageContext.request.contextPath }/resources/img/cancle.png"></a></span>
+						</c:if>
+						
+						</p>
+						
+						
 						</td>
-						<td><button class="comment_del_button" onclick="board_delComment(${comment.co_number})">삭제</button></td>
 					</tr>
 				</c:forEach>
-						
 			</tbody>
+			
 		</table>
 		
+<!-- 		<section class="contents-footer"> -->
+<!--                         <div> -->
+<!--                                 <nav aria-label="Page navigation example" style="margin: auto;"> -->
+<!--                                         <ul class="pagination justify-content-center"> -->
+<%--                                                 <c:if test="${pagination.prev}"> --%>
+<!--                                                         <li class="page-item"><a class="page-link" id="page-btn" href="#" -->
+<%--                                                                 onClick="fn_prev_comment('${pagination.currPageNo}', '${pagination.range}', '${pagination.pageSize}')">이전</a></li> --%>
+<%--                                                 </c:if> --%>
+<%--                                                 <c:forEach begin="${pagination.startPage}" --%>
+<%--                                                         end="${pagination.endPage}" var="idx"> --%>
+<!--                                                         <li class="page-item"> -->
+<%--                                                          <a class="page-link ${pagination.currPageNo == idx ? 'active' : ''}" id="page-btn${idx}" href="#" onClick="fn_pagination_comment('${idx}', '${pagination.range}')"> --%>
+<%--        														 ${idx}  </a> --%>
+<!--                                                         </li> -->
+<%--                                                 </c:forEach> --%>
+<%--                                                 <c:if test="${pagination.next}"> --%>
+<!--                                                         <li class="page-item"><a class="page-link" id="page-btn" href="#" -->
+<%--                                                                 onClick="fn_next_comment('${pagination.currPageNo}', '${pagination.range}', '${pagination.pageSize}')">다음</a></li> --%>
+<%--                                                 </c:if> --%>
+<!--                                         </ul> -->
+                                     
+<!--                                 </nav> -->
+<!--                         </div> -->
+<%--                         <div id="paginationData" data-searchType="${pagination.searchType}" data-keyword="${pagination.keyword}"></div> --%>
+<!--                 </section> -->
 		
-
-		
-				
-				<form action="/comment" method="Post">
+				<c:if test="${userId ne null }">
+				<form action="/comment" method="Post" class="comment_form">
 					<input type="text" name="b_number" class="comment_hide" value="${board.b_number}">
 					
 					<input type="text" name="id" class="comment_hide" value="${userId}">
@@ -106,6 +133,25 @@
 					
 					
 				</form>
+				
+				</c:if>
+				<c:if test="${userId eq null }">
+					<form action="/student" method="Get">
+					<input type="text" name="b_number" class="comment_hide" value="${board.b_number}">
+					
+					<input type="text" name="id" class="comment_hide" value="${userId}">
+					
+					<input type="text" name="name" class="comment_hide" value="${userName}">
+					
+					
+					<div class="comment_info_box">
+						<textarea class="comment_info" cols="30" rows="10" name="co_info" placeholder="로그인 후 이용해주세요" readOnly></textarea>
+						<input class="comment_button" type="submit" value="등록">
+					</div>
+					
+					
+				</form>
+				</c:if>
 		
 		 </div>
 		

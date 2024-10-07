@@ -2,18 +2,7 @@
     pageEncoding="UTF-8"%>
     
     
-    
-    
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<%-- <script src="${pageContext.request.contextPath }/resources/js/testList.js"></script> --%>
-<title>강의 목록</title>
-</head>
-<body>
-
-<% if("교수".equals(usertype) || "관리자".equals(usertype)){ %>
+    <% if("교수".equals(usertype) || "관리자".equals(usertype)){ %>
         <%@ include file="../member/adminIndex.jsp"%>
     <%}else{ %>
    		<%@ include file="../member/taskIndex.jsp"%>
@@ -21,6 +10,15 @@
 <% Integer c_number = (Integer) request.getAttribute("c_number"); %>
 <% String c_name = (String) request.getAttribute("c_name"); %>
 <% String id = (String) request.getAttribute("userId"); %>
+    
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script src="${pageContext.request.contextPath }/resources/js/testList.js"></script>
+<title>과제 목록</title>
+</head>
+<body>
     
 <div class="bcl">
         <div class="divall">
@@ -63,10 +61,12 @@
 						</tr>
 					</c:forEach>
 					</table>
+				<c:if test="${taskListsize eq 0  }">
 				<div class="nodiv">
 				<h5>진행중인 과제 목록이 없습니다.</h5>
 				</div>
-</div>
+				</c:if>
+	</div>
 </div>
 
 <script>

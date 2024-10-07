@@ -2,6 +2,7 @@
   #mypage_con {
     max-width: 1200px;
     margin: 0 auto;
+    margin-top: 50px;
     padding: 20px;
     background-color: #f8f9fa;
     border-radius: 8px;
@@ -71,3 +72,5 @@
     font-weight: bold;
     margin-bottom: 20px;
   }
+  
+

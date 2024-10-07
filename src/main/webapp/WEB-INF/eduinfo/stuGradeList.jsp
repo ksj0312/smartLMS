@@ -31,7 +31,6 @@
     					<h5>강의명 : <%=c_name %></h5> 
                 </section>
         <br><br>
-        
 				     <table class="table">
 				        <tr>
 				        <th>시험 이름</th>
@@ -41,27 +40,18 @@
 				        
 				        </tr>
 					<c:forEach items="${gradestuList}" var="gr">
-					
-<%-- 					<%if("교수".equals(usertype) || "관리자".equals(usertype)){ %> --%>
-<%-- 					<tr onclick="location.href='taskAllList?c_number=${gr.c_number}&t_number=${gr.t_number}'" style="cursor:hand" > --%>
-<%-- 					<% }else{%> --%>
-<%-- 					<tr onclick="location.href='taskBoard?c_number=${gr.c_number}&t_number=${gr.t_number}&id=<%=id %>'" style="cursor:hand" > --%>
-<%-- 					<%} %> --%>
 						<td>${gr.test_type}</td>  
 						<td>${gr.id}</td>  
 						<td>${gr.level}</td>
 						<td>${gr.grade}</td>
-<%-- 						<td><fmt:formatDate value="${tl.deadline}" pattern="yyyy-MM-dd HH:mm"/></td> --%>
-						
-<%-- 						<% if(usertype == null){ %>						 --%>
-<%-- 						<td id="taskStatus_${tl.t_number}"></td> --%>
-<%-- 						<%} %> --%>
-						</tr>
 					</c:forEach>
 					</table>
+				<c:if test="${listsize eq 0}">
 				<div class="nodiv">
 				<h5>등록된 성적이 없습니다.</h5>
 				</div>
+				</c:if>
+			
 </div>
 </div>
 

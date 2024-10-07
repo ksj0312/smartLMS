@@ -1,6 +1,6 @@
 function attInfo(c_number) {
   	 $.ajax({
-       url: "attInfo", 
+       url: "/admin/attendance/student", 
        type: "GET", 
        data: {c_number : c_number}, 
        contentType: "application/json",
@@ -40,7 +40,7 @@ function attInfo(c_number) {
    });
 }   
    function getUrl(currPageNo, range, searchType, keyword) {
- 						 return `/attendance?currPageNo=${currPageNo}&range=${range}&searchType=${searchType}&keyword=${keyword}`;
+ 						 return `/admin/attendance?currPageNo=${currPageNo}&range=${range}&searchType=${searchType}&keyword=${keyword}`;
 						}
 						
                      //이전 버튼

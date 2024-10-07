@@ -8,6 +8,7 @@
 <title>강의 목록</title>
 <script src="${pageContext.request.contextPath }/resources/js/classAllList.js"></script>
 <%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/classAllList.css"> --%>
+
 </head>
 <body>
 <div class="bcl">
@@ -78,6 +79,7 @@
                         </div>
                         <div id="paginationData" data-searchType="${pagination.searchType}" data-keyword="${pagination.keyword}"></div>
                 </section>
+                
         </div>
 </div>
 

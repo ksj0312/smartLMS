@@ -10,7 +10,7 @@ function search() {
    let c_number = document.getElementById("c_number").value;
    
   	 $.ajax({
-       url: "attStuSearch", 
+       url: "/professor/students/todate/search", 
        type: "GET", 
        data: {
       		      c_number : c_number,

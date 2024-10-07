@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class Pagination {
 
-	private int currPageNo = 1;/// 현재 페이지 번호
+	private int currPageNo = 1; // 현재 페이지 번호
 	private int sizePerPage = 10; // 한 페이지당 보여질 리스트 개수
 	private int totalCnt; // 전체 목록 개수
 	private int pageCnt; // 전체 페이지 개수
@@ -25,8 +25,38 @@ public class Pagination {
 	
 	private int c_number;
 	private int g_number;
+	private int b_number;
+	
+	private int co_number;
 	
 	private String b_type;
+	private String b_id;
+	
+	
+
+	public int getB_number() {
+		return b_number;
+	}
+
+	public void setB_number(int b_number) {
+		this.b_number = b_number;
+	}
+
+	public int getCo_number() {
+		return co_number;
+	}
+
+	public void setCo_number(int co_number) {
+		this.co_number = co_number;
+	}
+
+	public String getB_id() {
+		return b_id;
+	}
+
+	public void setB_id(String b_id) {
+		this.b_id = b_id;
+	}
 
 	public int getCurrPageNo() {
 		return currPageNo;

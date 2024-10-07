@@ -43,19 +43,27 @@ var userId = '<%= userId %>';
    <div class="smnav">
   <ul class="navbar-nav">
     <li class="nav-item">
-      <a class="nav-link" href="/board/list?b_type=게시판">공지사항</a>
+      <a class="nav-link" href="/board?b_type=게시판">공지사항</a>
     </li> &nbsp;
     <li class="nav-item">
-      <a class="nav-link" href="calPage">학사일정</a>
+    <c:choose>
+    <c:when test="${usertype eq '관리자'}">
+        <a class="nav-link" href="/cal/admin">학사일정</a>
+    </c:when>
+    <c:otherwise>
+        <a class="nav-link" href="/calpage">학사일정</a>
+    </c:otherwise>
+</c:choose>
     </li>&nbsp;
     <li class="nav-item">
-      <a class="nav-link" href="/board/list?b_type=QNA">Q&A</a>
+      <a class="nav-link" href="/board?b_type=QNA">Q&A</a>
     </li>
   </ul>
 </div>
 <ul class="navbar-nav navuser" style="width:200px !important; font-size:small;">
 <c:choose>
     <c:when test="${userName ne NULL}">
+    <input type="text" id = "uid" value = "${userId}" style="display:none;"/>
       <ul class="navbar-nav log2" style="padding-right: 100px !important; font-size: small;">
             <c:choose>
                 <c:when test="${noteCount > 0}">
@@ -87,28 +95,28 @@ var userId = '<%= userId %>';
          <c:choose>
          <c:when test="${loginChk eq 'stu'}">
                    <li class="nav-item">
-                <a class="nav-link" href="myPageMain">
+                <a class="nav-link" href="/mypage">
                     <span id="name">${userName} 님</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link logOut" href="javascript: logout()" style="font-size: smaller;">logout</a>
+                <a class="nav-link logOut" href="javascript: logout()" style="font-size: small !important;">logout</a>
             </li>
          </c:when>
          <c:when test="${loginChk eq 'pro' }">
             <li class="nav-item">
-                <a class="nav-link" href="adminMyPageInfo"> 
+                <a class="nav-link" href="/admin/info"> 
 <%--                 관리자 마이페이지 추가하기  --%>
                     <span id="name">${userName} 님</span>
                 </a>
             </li>
                <li class="nav-item">
-                <a class="nav-link" href="admin" style="font-size: smaller;"> 
+                <a class="nav-link" href="/admin" style="font-size: smaller;"> 
                     관리자페이지
                 </a>
             </li>    &nbsp;  &nbsp; 
             <li class="nav-item">
-                <a class="nav-link logOut" href="javascript: logout()" style="font-size: smaller;">logout</a>
+                <a class="nav-link logOut" href="javascript: logout()" style="font-size: small !important;">logout</a>
             </li>
          </c:when>
          </c:choose>
@@ -117,7 +125,7 @@ var userId = '<%= userId %>';
     <c:otherwise>
         <ul class="navbar-nav log2" style="padding-right: 100px !important;">
             <li class="nav-item">
-                <a class="nav-link" href="student"><small>login</small></a>
+                <a class="nav-link" href="/student"><small>login</small></a>
             </li>
         </ul>
     </c:otherwise>
@@ -131,7 +139,7 @@ var userId = '<%= userId %>';
         <span class="close">&times;</span>
         <div class="searchdiv">
             <input type="text" id="searchInput" placeholder="검색어를 입력하세요">
-            <button id="searchButton">검색</button><button class="writeBtn">글쓰기</button>
+            <button id="searchButton" class="notebtn">검색</button><button class="writeBtn notebtn">글쓰기</button>
         </div>
         <ul id="noteList"></ul>
         <div id="pagination" class="pagination"></div>
@@ -140,13 +148,35 @@ var userId = '<%= userId %>';
 
 
 <form id="sendNoteForm" style="display:none;">
-    <input type="text" id="n_sender" name="n_sender" value="${sessionScope.userId}" required readonly>
-    <input type="text" id="n_reciver" name="n_reciver" placeholder="받는 사람" required>
-    <input type="text" id="n_title" name="n_title" placeholder="제목" required>
-    <input type="text" id="n_info" name="n_info" placeholder="내용" required>
-    <button type="button" id="sendBtn" class="sendBtn">보내기</button>
-    <button type="button" class="openListBtn">목록으로 돌아가기</button>
+   			<div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                     <span class="input-group-text">받는사람</span>
+                  </div>
+                  <input type="text" class="form-control" name="n_reciver" id="n_reciver" required readonly>
+               </div>
+               <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                     <span class="input-group-text">제목</span>
+                  </div>
+                  <input type="text" class="form-control" name="n_title" id="n_title" required>
+               </div>
+               <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                     <span class="input-group-text">내용</span>
+                  </div>
+                  <textarea class="form-control" name="n_info" id="n_info" row="10" required></textarea>
+               </div>
+               <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                     <span class="input-group-text">보내는 사람</span>
+                  </div>
+                  <input type="text" class="form-control" name="n_sender" id="n_sender" value="${sessionScope.userId}" required readonly>
+               </div>
+    <div>
+    <button type="button" id="sendBtn" class="sendBtn notebtn">보내기</button>
+    <button type="button" class="openListBtn notebtn">목록으로 돌아가기</button>
+    </div>
 </form>
-        
+
 </body>
 </html>

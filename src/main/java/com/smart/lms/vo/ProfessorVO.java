@@ -3,6 +3,8 @@ package com.smart.lms.vo;
 import java.sql.Timestamp;
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class ProfessorVO {
 	private String id;
 	private String pwd;

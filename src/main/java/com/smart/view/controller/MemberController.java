@@ -65,13 +65,19 @@ public class MemberController {
 		response.setDateHeader("Expires", 0); 
 		return "member/adminLogin";  
 	}
+	
+	@GetMapping("/message")
+	public String message(HttpSession session) {
+		String id = (String)session.getAttribute("userId");
+		session.setAttribute("noteCount", boardService.noteCount(id));
+		return "redirect:/";
+	}
 	   
 	// 학생 로그인 
 	@PostMapping("/student")
 		public String studentLogin(StudentVO vo, HttpSession session, HttpServletResponse response) {
 			
 		      vo = memService.studentLogin(vo);
-		    
 		    
 		      if (vo != null) {
 		         response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); 
@@ -109,6 +115,8 @@ public class MemberController {
 		         session.setAttribute("userStatus", memService.getAdmin(vo).getStatus());
 		         session.setAttribute("userType", memService.getAdmin(vo).getType());
 		         session.setAttribute("loginChk", "pro");
+		         String id = (String)session.getAttribute("userId");
+		         session.setAttribute("noteCount", boardService.noteCount(id));
 		         
 		         return "redirect:/admin";
 		         
@@ -124,28 +132,28 @@ public class MemberController {
 		return "member/adminPage";  
 	}
 	
-	@GetMapping("/adminMyPageInfo")
+	@GetMapping("/admin/info")
 	public String adminMyPageInfo(HttpSession session, Model model) {
 		String userId = (String) session.getAttribute("userId");
 		model.addAttribute("user", memService.getAdminInfo(userId));
 		return "member/adminMyPageInfo";
 	}
 	
-	@GetMapping("/myPageMain")
+	@GetMapping("/mypage")
 	public String myPage(HttpSession session, Model model) {
 		String userId = (String) session.getAttribute("userId");
 		model.addAttribute("user",memService.getUserInfo(userId));
 		return "member/myPageMain";
 	}
 	
-	@GetMapping("/myPageInfo")
+	@GetMapping("/mypage/info")
 	public String myPageInfo(HttpSession session, Model model) {
 		String userId = (String) session.getAttribute("userId");
 		model.addAttribute("user",memService.getUserInfo(userId));
 	return "member/myPageInfo";
 	}
 	
-	@GetMapping("/getClassList")
+	@GetMapping("/classlist")
 	public String getClassList(@RequestParam("Id") String Id, MyPageVO vo, HttpSession session, Model model) {
 		vo.setId((String) session.getAttribute("userId"));
 		System.out.println(memService.getClassList(vo));

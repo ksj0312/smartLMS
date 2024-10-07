@@ -40,14 +40,33 @@ html, body {
  	padding-top: 1em; 
  	padding-left: 1em; 
  	padding-right: 1em; 
+ 	
 }
 
-.fc-button {
+.calmodal{
+   margin-top : 300px;
+}
+
+.fc-event-main{
+	border-color : 
+}
+
+.fc-button-group{
+/* 	display : none !important; */
+}
+
+.fc-listWeek-button,
+.fc-timeGridDay-button,
+.fc-timeGridWeek-button, 
+.fc-dayGridMonth-button,
+.fc-today-button, .fc-myCustomButton-button,
+.fc-mySaveButton-button
+{
  	color : #000 !important; 
     display: none !important; 
 }
 
-.fc-daygrid-event {
+.fc-direction-ltr {
     border-color: #fff !important;
 }
 
@@ -55,6 +74,12 @@ html, body {
     width: 80%; /* 너비를 조정, 필요에 따라 변경 */
     height: 400px; /* 높이를 조정, 필요에 따라 변경 */
     margin: 0 auto; /* 중앙 정렬 */
+}
+
+.fc-event {
+    border: none !important; /* 테두리 제거 */
+    background-color : gray;
+    color: white !important; /* 하얀 글자색 */
 }
 </style>
 </head>
@@ -65,10 +90,10 @@ html, body {
 	</div>
 	<!-- 부트스트랩 modal 부분 -->
 	<!-- Modal -->
-	<div class="modal fade" id="exampleModal" tabindex="-1"
+	<div class="modal" id="exampleModal" tabindex="-1"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
-			<div class="modal-content">
+			<div class="modal-content calmodal">
 				<div class="modal-header">
 					<h5 class="modal-title" id="exampleModalLabel">일정 추가하기</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal"
@@ -101,7 +126,6 @@ html, body {
 			</div>
 		</div>
 	</div>
-
 <script>
 $(function(){
     // 현재 시간 값 넣기
@@ -110,10 +134,12 @@ $(function(){
     // calendar element 취득
     var calendarEl = $('#calendar')[0];
     
+    
+    
     // full-calendar 생성하기
     var calendar = new FullCalendar.Calendar(calendarEl, {
     	googleCalendarApiKey: 'AIzaSyCulx2liTBopHvLm2YQUO2hPI8Wm47eB_s',
-        height: '700px', // calendar 높이 설정
+        height: '600px', // calendar 높이 설정
         expandRows: true, // 화면에 맞게 높이 재설정
         slotMinTime: '08:00', // Day 캘린더에서 시작 시간
         slotMaxTime: '20:00', // Day 캘린더에서 종료 시간
@@ -177,7 +203,8 @@ $(function(){
         nowIndicator: true,
         dayMaxEvents: true,
         locale: 'ko',
-  
+        
+        
         eventSources: [
             {
                 events: async function(info, successCallback, failureCallback) {
@@ -232,7 +259,8 @@ $(function(){
         eventContent: function(arg) {
             let eventTitle = document.createElement('div');
             eventTitle.innerHTML = arg.event.title;
-
+            
+            
             // cal_number가 있는 경우에만 삭제 버튼을 생성
             if (arg.event.extendedProps.number > 0) {
                 let deleteBtn = document.createElement('span');

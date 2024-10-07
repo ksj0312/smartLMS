@@ -1,18 +1,66 @@
   //이전 버튼
 function fn_prev(currPageNo, range, pageSize) {
-	var searchType = document.getElementById('paginationData').getAttribute('data-searchType');
-	var keyword = document.getElementById('paginationData').getAttribute('data-keyword');
-	var currPageNo = (range - 1) * pageSize;
-    var range = range - 1;
+    var searchType = document.getElementById('paginationData').getAttribute('data-searchType');
+    var keyword = document.getElementById('paginationData').getAttribute('data-keyword');
+    var b_type = document.getElementsByName('b_type')[0].value;
     
+currPageNo = (range - 1) * pageSize; 
+    range = range - 1;
+
     var url = "/board";    //여기에 페이지 이동하는 매핑 url 
     url = url + "?currPageNo=" + currPageNo;
     url = url + "&range=" + range;
     url = url + "&searchType=" + searchType;
     url = url + "&keyword=" + keyword;
     location.href = url;
-        
-    }
+}
+
+
+
+ //마이페이지 이전 버튼
+function fn_prev_myPage(currPageNo, range, pageSize) {
+    var searchType = document.getElementById('paginationData').getAttribute('data-searchType');
+    var keyword = document.getElementById('paginationData').getAttribute('data-keyword');
+    var b_type = document.getElementsByName('b_type')[0].value;
+    
+currPageNo = (range - 1) * pageSize; 
+    range = range - 1;
+
+    var url = "/mypage/board";    
+    url += "?currPageNo=" + currPageNo;
+    url += "&b_type=" + b_type;
+    url += "&range=" + range;
+    url += "&searchType=" + searchType;
+    url += "&keyword=" + keyword;
+    url += "&b_id=" + b_id;
+    
+    location.href = url;
+}
+
+
+ //댓글 이전 버튼
+function fn_prev_comment(currPageNo, range, pageSize) {
+    var searchType = document.getElementById('paginationData').getAttribute('data-searchType');
+    var keyword = document.getElementById('paginationData').getAttribute('data-keyword');
+    var b_type = document.getElementsByName('b_type')[0].value;
+    
+currPageNo = (range - 1) * pageSize; 
+    range = range - 1;
+
+    var url = "/mypage/board";    
+    url += "?currPageNo=" + currPageNo;
+    url += "&b_type=" + b_type;
+    url += "&range=" + range;
+    url += "&searchType=" + searchType;
+    url += "&keyword=" + keyword;
+    url += "&b_id=" + b_id;
+    
+    location.href = url;
+}
+
+
+
+
 
     //페이지 번호 클릭
     
@@ -36,26 +84,140 @@ function fn_prev(currPageNo, range, pageSize) {
         
     }
     
-    //다음 버튼 이벤트
-    function fn_next(currPageNo, range, pageSize) {
-        
+    
+    
+    //마이페이지 번호 클릭
+        function fn_pagination_myPage(currPageNo, range) {
+    
+	var b_type = document.getElementsByName('b_type')[0].value;
+	console.log(b_type);        
+	
     var searchType = document.getElementById('paginationData').getAttribute('data-searchType');
     var keyword = document.getElementById('paginationData').getAttribute('data-keyword');
     
+    var url = "/mypage/board";   //여기에 페이지 이동하는 매핑 url 
+    console.log(currPageNo);
+        								
     var currPageNo = (range * pageSize) + 1;
     var range = parseInt(range) + 1;
         
-    var url = "/board";  //여기에 페이지 이동하는 매핑 url 
     url = url + "?currPageNo=" + currPageNo;
+    url = url + "&b_type=" + b_type;
     url = url + "&range=" + range;
     url = url + "&searchType=" + searchType;
     url = url + "&keyword=" + keyword;
+    url = url + "&b_id=" + b_id;
     location.href = url;
+        
     }
     
+    
+    //댓글 번호 클릭
+        function fn_pagination_comment(currPageNo, range) {
+    
+	var b_type = document.getElementsByName('b_type')[0].value;
+	console.log(b_type);        
+	
+    var searchType = document.getElementById('paginationData').getAttribute('data-searchType');
+    var keyword = document.getElementById('paginationData').getAttribute('data-keyword');
+    
+    var url = "/mypage/board";   //여기에 페이지 이동하는 매핑 url 
+    console.log(currPageNo);
+        								
+    var currPageNo = (range * pageSize) + 1;
+    var range = parseInt(range) + 1;
+        
+    url = url + "?currPageNo=" + currPageNo;
+    url = url + "&b_type=" + b_type;
+    url = url + "&range=" + range;
+    url = url + "&searchType=" + searchType;
+    url = url + "&keyword=" + keyword;
+    url = url + "&b_id=" + b_id;
+    location.href = url;
+        
+    }
+    
+    
+    
+    
+    //다음 버튼 이벤트
+function fn_next(currPageNo, range, pageSize) {
+    var searchType = document.getElementById('paginationData').getAttribute('data-searchType');
+    var keyword = document.getElementById('paginationData').getAttribute('data-keyword');
+    var b_type = document.getElementsByName('b_type')[0].value;
+    
+     // 다음 페이지 번호 계산: 현재 범위에서 다음 범위로 넘어가므로, 첫 번째 페이지로 설정
+    currPageNo = range * pageSize + 1; 
+    
+    // range 계산: pageSize를 기준으로 현재 페이지 번호에 따른 range를 계산
+    range = Math.ceil(currPageNo / pageSize); 
+    var url = "/getBoardList";  
+    url += "?currPageNo=" + currPageNo;
+    url += "&range=" + range;
+    url += "&b_type=" + b_type;
+    url += "&searchType=" + searchType;
+    url += "&keyword=" + keyword;
+
+    location.href = url;
+    
+}
+	//마이페이지 다음 버튼 클릭
+function fn_next_myPage(currPageNo, range, pageSize) {
+    var searchType = document.getElementById('paginationData').getAttribute('data-searchType');
+    var keyword = document.getElementById('paginationData').getAttribute('data-keyword');
+    var b_type = document.getElementsByName('b_type')[0].value;
+    
+     // 다음 페이지 번호 계산: 현재 범위에서 다음 범위로 넘어가므로, 첫 번째 페이지로 설정
+    currPageNo = range * pageSize + 1; 
+    
+    // range 계산: pageSize를 기준으로 현재 페이지 번호에 따른 range를 계산
+    range = Math.ceil(currPageNo / pageSize); 
+    var url = "/mypage/board";  
+    url += "?currPageNo=" + currPageNo;
+    url += "&range=" + range;
+    url += "&b_type=" + b_type;
+    url += "&searchType=" + searchType;
+    url += "&keyword=" + keyword;
+	url += "&b_id=" + b_id;
+    location.href = url;
+    
+}
+
     function sel_board(val){
 			location.href = "/boarddetail?b_number="+val;
 		}
+		
+		
+		//댓글 다음 버튼 클릭
+function fn_next_comment(currPageNo, range, pageSize) {
+    var searchType = document.getElementById('paginationData').getAttribute('data-searchType');
+    var keyword = document.getElementById('paginationData').getAttribute('data-keyword');
+    var b_type = document.getElementsByName('b_type')[0].value;
+    
+     // 다음 페이지 번호 계산: 현재 범위에서 다음 범위로 넘어가므로, 첫 번째 페이지로 설정
+    currPageNo = range * pageSize + 1; 
+    
+    // range 계산: pageSize를 기준으로 현재 페이지 번호에 따른 range를 계산
+    range = Math.ceil(currPageNo / pageSize); 
+    var url = "/mypage/board";  
+    url += "?currPageNo=" + currPageNo;
+    url += "&range=" + range;
+    url += "&b_type=" + b_type;
+    url += "&searchType=" + searchType;
+    url += "&keyword=" + keyword;
+	url += "&b_id=" + b_id;
+    location.href = url;
+    
+}
+
+    function sel_board(val){
+			location.href = "/boarddetail?b_number="+val;
+		}
+		
+		
+		
+		
+		
     
     
     //게시판 상세보기 스크립트

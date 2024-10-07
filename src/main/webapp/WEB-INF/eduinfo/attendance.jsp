@@ -16,7 +16,7 @@
                         <h4>강의 목록 수강생 확인</h4>
                 </section>
     			 <nav id="searchNav" class="navbar navbar-expand-sm navbar-dark">
-                        <form class="form-inline" action="attendance" method="get">
+                        <form class="form-inline" action="/admin/attendance" method="get">
                                 <select name="searchType" class="form-control mr-sm-2">
                                         <option value="c_name">강의명</option>
                                         <option value="name">교수</option>
@@ -34,7 +34,7 @@
                                         <th>수강생보기</th>
                                      
                                 </tr>
-                                <c:forEach items="${classAllList}" var="cl">
+                                <c:forEach items="${classAllList}" var="cl">	
                                 <tr class="tdCenter">
                                                 <td>${cl.c_number}</td>
                                                 <td>${cl.c_name}</td>

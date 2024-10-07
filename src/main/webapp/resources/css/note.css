@@ -2,50 +2,8 @@
 * {
     font-family: "Noto Sans KR", sans-serif;
     box-sizing: border-box;
-    margin: 0;
-    padding: 0;
 }
 
-/* 모달 창 스타일 */
-
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.6); /* 어두운 배경, 불투명도 60% */
-    display: flex;
-    justify-content: center; /* 수평 중앙 정렬 */
-    align-items: center; /* 수직 중앙 정렬 */
-}
-
-/* 모달 내용 스타일 */
-.modal-content {
-    background-color: #ffffff;
-    padding: 20px;
-    width: 700px; /* 적당한 크기의 너비 */
-    max-width: 90%;
-    border-radius: 10px; /* 모서리 둥글게 */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 약간의 그림자 효과 */
-    text-align: center; /* 내용 중앙 정렬 */
-}
-
-/* 닫기 버튼 */
-.close {
-	text-align: right;
-    color: #666;
-    float: right;
-    font-size: 24px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.close:hover {
-    color: #000;
-}
 
 /* 검색과 버튼들 정렬 */
 .searchdiv {
@@ -63,7 +21,7 @@
     border-radius: 5px;
 }
 
-button {
+.notebtn {
     padding: 10px 15px;
     border: none;
     border-radius: 5px;
@@ -78,11 +36,11 @@ button {
 	margin-top: -20px;
 }
 
-button:hover {
-   background-color: #fff;
-   color: #042424;
-   border-color: #042424; 
-}
+/* button:hover { */
+/*    background-color: #fff; */
+/*    color: #042424; */
+/*    border-color: #042424;  */
+/* } */
 
 /* 리스트 및 페이지네이션 */
 #noteList {
@@ -96,7 +54,7 @@ button:hover {
 #noteList li {
 	color: #042424;
     padding: 10px;
-    background-color: #f9f9f9;
+    background-color: #f9f9f9 !important;
     border: 1px solid #eee;
     margin-bottom: 10px;
     border-radius: 5px;
@@ -111,13 +69,27 @@ button:hover {
 
 .pagination button {
     padding: 5px 10px;
-    background-color: #042424b;
+    background-color: #042424;
     color: white;
-    border-radius: 5px;
+    border-radius: 0px !important;
     border: none;
 }
 
 .pagination .active {
     font-weight: bold;
-    background-color: #e74c3c;
+      background-color: #042424;
+      color: #fff;
+         width: 35px;
+   height: 38px;
+   	  padding: 0.5rem 0.75rem;
+   	      position: relative;
+    display: block;
+    margin-left: -1px;
+    line-height: 1.25;
+	        
+}
+
+.page-link{
+	color:#042424;
+	cursor:pointer;
 }
