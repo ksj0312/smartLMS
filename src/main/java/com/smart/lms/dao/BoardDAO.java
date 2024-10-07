@@ -13,7 +13,7 @@ import com.smart.lms.vo.BoardVO;
 import com.smart.lms.vo.CalendarVO;
 import com.smart.lms.vo.CommentVO;
 import com.smart.lms.vo.NoteVO;
-import com.smart.lms.vo.StuTaskVO;
+import com.smart.lms.vo.ProfessorVO;
 import com.smart.lms.vo.StudentVO;
 
 @Repository
@@ -194,4 +194,9 @@ public class BoardDAO {
 		return mybatis.selectOne("boardDAO.getSearchTotalNoteCount2", params);	
 		}
 
+	public boolean checkUserAdmin(String n_reciver) {
+		ProfessorVO professor = mybatis.selectOne("boardDAO.checkUserAdmin", n_reciver);
+		return professor != null; // 유저가 존재하면 true, 없으면 false 반환	}
+
+}
 }

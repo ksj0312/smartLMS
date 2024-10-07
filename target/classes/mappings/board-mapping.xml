@@ -110,6 +110,10 @@
 		select * from student where id
 		= #{n_reciver}
 	</select>
+	<select id="checkUserAdmin" resultType="professorDTO">
+		select * from professor where id
+		= #{n_reciver}
+	</select>
 
 	<select id="noteCount" resultType="integer">
 		select count(*) from note
