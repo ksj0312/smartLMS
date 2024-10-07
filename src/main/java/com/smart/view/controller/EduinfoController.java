@@ -112,20 +112,12 @@ public class EduinfoController {
 				eduinfoService.insertAttendanceTx(toList);
 				redirectAttributes.addFlashAttribute("msg", "success");
 				
-<<<<<<< HEAD
-				return "redirect:professor/students/classes";
-=======
 				return "redirect:/professor/students/classes";
->>>>>>> 8827f10b23c9437e62f6b3f60d2aabaad761d1d0
 				
 			} catch (Exception e) {
 				e.printStackTrace();
 				redirectAttributes.addFlashAttribute("msg", "fail");
-<<<<<<< HEAD
-				return "redirect:professor/students/classes";
-=======
 				return "redirect:/professor/students/classes";
->>>>>>> 8827f10b23c9437e62f6b3f60d2aabaad761d1d0
 			}
 	}
 	
@@ -401,16 +393,9 @@ public class EduinfoController {
 			model.addAttribute("tList", tList);
 			model.addAttribute("testListcnt", tList.size());
 			model.addAttribute("c_name", classvo.getC_name());
-<<<<<<< HEAD
-			return "eduinfo/testclassList";
-//			return "eduinfo/testList";
-		}
-		
-=======
-//			return "eduinfo/testclassList";
+
 			return "eduinfo/testList";
 		}
->>>>>>> 8827f10b23c9437e62f6b3f60d2aabaad761d1d0
 		
 		
 		//성적 등록 -> 시험 목록 선택 페이지 -> 성적 등록(수강생 목록 불러옴)
