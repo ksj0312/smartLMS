@@ -6,11 +6,19 @@
 <meta charset="UTF-8">
 <title>공지사항</title>
 
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/board.css"></script>
+
+
 </head>
 <body>
 <div class="boarddiv">
 <div class= "divall">
 
+
+<c:if test="${userId ne null }">
+		<a class="b_insert_btn" href="/boardpage?b_type=${pagination.b_type }">글쓰기</a>
+		</c:if>
+		
 		  <nav id="searchNav" class="navbar navbar-expand-sm navbar-dark">
                         <form class="form-inline" action="/board" method="get">
                                 <select name="searchType" class="form-control mr-sm-2">
@@ -44,10 +52,6 @@
 				</c:forEach>
 			</tbody>
 		</table>
-		
-	
-		<a href="/boardpage?b_type=${pagination.b_type }">추가</a>
-		
 		
 		<section class="contents-footer">
                         <div>

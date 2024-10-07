@@ -52,7 +52,7 @@
 					<td>${task.id}</td>
 					<td>${task.title}</td>
 					<td>${task.info}</td>
-					<td>${task.deadline}</td>
+					<td><fmt:formatDate value="${task.deadline}" pattern="yyyy-MM-dd HH:mm"/></td>
 				</tr>
 			</table>
 
@@ -77,11 +77,13 @@
 					<a href="/downloadFile?filePath=${stutask.s_file1}">${stutask.s_file1}</a></td>
 				</tr>
 			</table>
+				<c:if test="${stutask.c_number eq null}">
 				<button onclick="location.href='/student/task/page?c_number=${task.c_number}&t_number=${task.t_number}'"
 					style="cursor: hand">등록</button>
-					
+					</c:if>
+				<c:if test="${stutask.c_number ne null}">
 				<button onclick="location.href='/student/taskpage?st_number=${stutask.st_number}'">수정하기</button>
-
+				</c:if>
 
 
 

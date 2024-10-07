@@ -43,8 +43,13 @@
    
    
    <div class="board_option_button">
-   
-			<button onclick="board_del(${board.b_number})">삭제</button>
+   			
+   			
+   			<c:if test="${board.b_id eq userId  }">
+				<button onclick="board_del(${board.b_number})">삭제</button>
+				<button onclick="board_update(${board.b_number})">수정</button>
+			</c:if>
+
 
 						<c:choose>
 			<c:when test="${board.b_type eq '게시판'}">
@@ -56,7 +61,7 @@
 
 			</c:when>				
 		</c:choose>
-		<button onclick="board_update(${board.b_number})">수정</button>
+
 		<br>
 		</div>
 
@@ -84,9 +89,37 @@
 						</td>
 					</tr>
 				</c:forEach>
-						
 			</tbody>
+			
 		</table>
+		
+		
+<!-- 		댓글 페이징 -->
+<!-- 		<section class="contents-footer"> -->
+<!--                         <div> -->
+<!--                                 <nav aria-label="Page navigation example" style="margin: auto;"> -->
+<!--                                         <ul class="pagination justify-content-center"> -->
+<%--                                                 <c:if test="${pagination.prev}"> --%>
+<!--                                                         <li class="page-item"><a class="page-link" id="page-btn" href="#" -->
+<%--                                                                 onClick="fn_prev_comment('${pagination.currPageNo}', '${pagination.range}', '${pagination.pageSize}')">이전</a></li> --%>
+<%--                                                 </c:if> --%>
+<%--                                                 <c:forEach begin="${pagination.startPage}" --%>
+<%--                                                         end="${pagination.endPage}" var="idx"> --%>
+<!--                                                         <li class="page-item"> -->
+<%--                                                          <a class="page-link ${pagination.currPageNo == idx ? 'active' : ''}" id="page-btn${idx}" href="#" onClick="fn_pagination_comment('${idx}', '${pagination.range}')"> --%>
+<%--        														 ${idx}  </a> --%>
+<!--                                                         </li> -->
+<%--                                                 </c:forEach> --%>
+<%--                                                 <c:if test="${pagination.next}"> --%>
+<!--                                                         <li class="page-item"><a class="page-link" id="page-btn" href="#" -->
+<%--                                                                 onClick="fn_next_comment('${pagination.currPageNo}', '${pagination.range}', '${pagination.pageSize}')">다음</a></li> --%>
+<%--                                                 </c:if> --%>
+<!--                                         </ul> -->
+                                     
+<!--                                 </nav> -->
+<!--                         </div> -->
+<%--                         <div id="paginationData" data-searchType="${pagination.searchType}" data-keyword="${pagination.keyword}"></div> --%>
+<!--                 </section> -->
 		
 				<c:if test="${userId ne null }">
 				<form action="/comment" method="Post" class="comment_form">

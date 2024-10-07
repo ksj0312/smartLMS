@@ -7,7 +7,7 @@
 		      
 		<div class="modal-header">
 			        
-			<h4 class="modal-title" id="myModalLabel"  >시험 정보</h4>
+			<h4 class="modal-title" id="myModalLabel" style="justify-content: center !important;" >시험 정보</h4>
 		</div>
 		        
 			<div class="modal-body">

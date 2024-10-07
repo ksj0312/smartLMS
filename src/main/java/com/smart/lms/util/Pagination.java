@@ -25,9 +25,28 @@ public class Pagination {
 	
 	private int c_number;
 	private int g_number;
+	private int b_number;
+	
+	private int co_number;
 	
 	private String b_type;
 	private String b_id;
+	
+	public int getB_number() {
+		return b_number;
+	}
+
+	public void setB_number(int b_number) {
+		this.b_number = b_number;
+	}
+
+	public int getCo_number() {
+		return co_number;
+	}
+
+	public void setCo_number(int co_number) {
+		this.co_number = co_number;
+	}
 
 	public String getB_id() {
 		return b_id;

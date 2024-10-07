@@ -173,8 +173,8 @@
 		AND AC.ID = T.ID
 		WHERE AC.C_NUMBER = #{c_number}
 		<if test="keyword != null and keyword != ''">
-			<if test="searchType == 'id'"> AND ID like CONCAT('%', #{keyword}, '%') </if>
-			<if test="searchType == 'name'"> AND NAME like CONCAT('%', #{keyword}, '%') </if>
+			<if test="searchType == 'id'"> AND AC.ID like CONCAT('%', #{keyword}, '%') </if>
+			<if test="searchType == 'name'"> AND AC.NAME like CONCAT('%', #{keyword}, '%') </if>
 		</if>
 		GROUP BY AC.C_NUMBER, AC.ID, AC.NAME;
 	</select>
@@ -232,6 +232,11 @@
 	<select id="testSelect" resultType="testDTO">
 		SELECT * FROM TEST WHERE
 		C_NUMBER = #{c_number} AND STATUS = 0
+	</select>
+	
+	
+	<select id="getTestGrade" resultType="gradeDTO">
+		SELECT * FROM GRADE WHERE G_NUMBER = #{g_number} AND ID = #{id}
 	</select>
 
 	<select id="stuTestSelect" resultType="testDTO">

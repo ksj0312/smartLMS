@@ -173,6 +173,11 @@ public class BoardServiceImpl implements BoardService {
 	public List<BoardVO> boardMain(String b_type) {
 		return boDAO.boardMain(b_type);
 	}
+	
+	@Override
+	public int getCommentListTotalCnt(Pagination pg){
+		return boDAO.getCommentListTotalCnt(pg);
+	}
 
 	@Override
 	public List<NoteVO> sendList(int start, int size, String userId) {

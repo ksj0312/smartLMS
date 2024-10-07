@@ -67,6 +67,7 @@ public class BoardDAO {
 	public int getTotalNoteCount(String userId) {
 		return mybatis.selectOne("boardDAO.getTotalNoteCount", userId);
 	}
+	
 	public int getTotalNoteCount2(String userId) {
 		return mybatis.selectOne("boardDAO.getTotalNoteCount2", userId);
 	}
@@ -163,6 +164,11 @@ public class BoardDAO {
 	public List<BoardVO> myPageBoardList(Pagination pg) {
 		return mybatis.selectList("boardDAO.myPageBoardList", pg);
 	}
+
+	public int getCommentListTotalCnt(Pagination pg) {
+		return mybatis.selectOne("boardDAO.getCommentListTotalCnt", pg);
+	}
+
 
 	public List<NoteVO> sendList(int start, int size, String userId) {
 		Map<String, Object> params = new HashMap<>();

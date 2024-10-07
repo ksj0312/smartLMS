@@ -25,11 +25,8 @@
 			        <th>강의시간</th>
 			        </tr>
 					<c:forEach items="${classList}" var="cl">
-<<<<<<< HEAD
+
 					<tr onclick="location.href='/professor/students/grade/test?c_number=${cl.c_number}&c_name=${cl.c_name}'" style="cursor:hand">
-=======
-					<tr onclick="location.href='testSelectGrade?c_number=${cl.c_number}&c_name=${cl.c_name}'" style="cursor:hand">
->>>>>>> f12087857de4d4b88177037765f0fb3e68204122
 					<td>${cl.c_number}</td>
 					<td>${cl.c_name}</td>
 					<td>${cl.c_stu_count}</td>

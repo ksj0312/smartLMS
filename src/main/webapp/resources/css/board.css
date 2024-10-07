@@ -149,3 +149,7 @@
 .board_option_button{
 	margin : 30px;
 }
+
+.b_insert_btn{
+	display : inline-block;
+}

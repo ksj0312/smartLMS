@@ -112,12 +112,12 @@ public class EduinfoController {
 				eduinfoService.insertAttendanceTx(toList);
 				redirectAttributes.addFlashAttribute("msg", "success");
 				
-				return "redirect:professor/students/classes";
+				return "redirect:/professor/students/classes";
 				
 			} catch (Exception e) {
 				e.printStackTrace();
 				redirectAttributes.addFlashAttribute("msg", "fail");
-				return "redirect:professor/students/classes";
+				return "redirect:/professor/students/classes";
 			}
 	}
 	
@@ -393,8 +393,8 @@ public class EduinfoController {
 			model.addAttribute("tList", tList);
 			model.addAttribute("testListcnt", tList.size());
 			model.addAttribute("c_name", classvo.getC_name());
-			return "eduinfo/testclassList";
-//			return "eduinfo/testList";
+
+			return "eduinfo/testList";
 		}
 		
 		
@@ -514,12 +514,27 @@ public class EduinfoController {
 				model.addAttribute("gradestuList", gradestuList);
 				model.addAttribute("c_number" , c_number);
 				model.addAttribute("c_name", classvo.getC_name());
+				model.addAttribute("listsize", gradestuList.size());
 				
 			return "/eduinfo/stuGradeList";
 		}
 		
-		
-		
+		//학생의 나의 시험 성적 조죄
+		@GetMapping("/student/mygrade")
+		public String getTestGrade(int c_number, int g_number, String id, String test_type, Model model) {
+			GradeVO grade = eduinfoService.getTestGrade(g_number, id);
+			ClassVO classvo = eduinfoService.classSelect(c_number);
+
+			
+			System.out.println(grade);
+			model.addAttribute("grade" , grade);
+			model.addAttribute("c_number", c_number);
+			model.addAttribute("c_name", classvo.getC_name());
+			model.addAttribute("test_type", test_type);
+
+			return "/eduinfo/stuTestGrade";
+			
+		}
 		
 		
 //---------------과제 컨트롤러  --------------------
@@ -530,7 +545,7 @@ public class EduinfoController {
 
 			model.addAttribute("c_number" , c_number);
 			model.addAttribute("c_name", classvo.getC_name());
-			return "/member/taskIndex";
+			return "/member/studentPage";
 		}
 		
 		//마감일이 지나지않은 과제 목록
@@ -602,7 +617,7 @@ public class EduinfoController {
 					model.addAttribute("c_name", classvo.getC_name());
 					model.addAttribute("c_number", c_number);
 					
-					return "eduinfo/testList";
+					return "eduinfo/stuTestList";
 				}
 		
 		//과제 목록 선택 페이지
@@ -619,16 +634,6 @@ public class EduinfoController {
 			
 			return "eduinfo/taskList";
 		}
-		
-		
-		//과제를 제출 표시
-//		@GetMapping("/stuTaskList")
-//		public String stuTaskList(@RequestParam ("c_number") int c_number, @RequestParam ("t_number") int t_number, Model model) {
-//			
-//			
-//			return null;
-//			
-//		}
 		
 		//과제 게시판 들어가기
 		@GetMapping("/task/info")
@@ -747,7 +752,6 @@ public class EduinfoController {
 			model.addAttribute("c_number", stutask.getC_number());
 			model.addAttribute("c_name", classvo.getC_name());
 			model.addAttribute("id", stutask.getId());
-			
 			
 			return "eduinfo/stuTaskUpdate";
 		}
