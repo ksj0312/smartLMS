@@ -12,7 +12,7 @@
 </head>
 <body>
 		  <nav id="searchNav" class="navbar navbar-expand-sm navbar-dark">
-                        <form class="form-inline" action="/myPageBoardList" method="get">
+                        <form class="form-inline" action="/mypage/board" method="get">
                                 <select name="searchType" class="form-control mr-sm-2">
                                         <option value="b_info">내용</option>
                                         <option value="b_title">제목</option>
