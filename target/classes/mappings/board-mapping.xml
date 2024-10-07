@@ -137,7 +137,7 @@
 			<if test="keyword != null || keyword != ' '">
 			<if test="searchType == 'b_info'"> AND B_INFO like CONCAT('%', #{keyword}, '%') </if>
 			<if test="searchType == 'b_title'"> AND B_TITLE like CONCAT('%', #{keyword}, '%') </if>
-			ORDER BY B_NUMBER
+			ORDER BY B_NUMBER DESC
 			LIMIT #{sizePerPage} OFFSET #{startList}
 		</if>
 	</select>

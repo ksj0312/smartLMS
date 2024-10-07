@@ -50,7 +50,7 @@
 					data-toggle="modal" data-target="#myPageModal" value="${item.c_number}" 
 					onclick="attInfo(${item.c_number})">상세정보</button></td>
 <!-- 					<td><button type="button" class="btn TaskBtn" onclick="">과제</button> </td> -->
-					<td><button class="btn ModalBtn" onClick="location.href='task/page?c_number=${item.c_number }'">과제</button> </td>
+					<td><button class="btn ModalBtn" onClick="location.href='/task/page?c_number=${item.c_number }'">과제</button> </td>
 					</tr>
 					</c:forEach>
     </tbody>
