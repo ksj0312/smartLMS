@@ -117,7 +117,7 @@ public class BoardController {
 	@GetMapping("/checkUser")
 	@ResponseBody
 	public boolean checkUser(@RequestParam("n_reciver") String n_reciver) {
-		boolean userExists = boardService.checkUser(n_reciver); // boardService가 boolean 반환
+		boolean userExists = boardService.checkUser(n_reciver) || boardService.checkUserAdmin(n_reciver); // boardService가 boolean 반환
 		System.out.println("User exists: " + userExists);
 		return userExists; // 유저가 존재하면 true, 없으면 false 반환
 	}
@@ -618,18 +618,20 @@ public class BoardController {
 
 	// 목록 누를시 상세 내용으로 이동
 	@GetMapping("/boarddetail")
-	public String getBoard(Pagination pg, BoardVO vo, Model model, HttpSession session) {
+	public String getBoard(Pagination pg, BoardVO vo, Model model, HttpSession session, String b_type, String b_id) {
 
 		// 세션에서 조회한 게시물 번호 확인
 		List<Integer> viewedBoards = (List<Integer>) session.getAttribute("viewedBoards");
 		
-//		
-//		int currPageNo = pg.getCurrPageNo();
-//		System.out.println(pg.getKeyword());
-//		int range = pg.getRange();
-//		
-//		int totalCnt = boardService.getCommentListTotalCnt(pg);
-//		pg.pageInfo(currPageNo,  range,  totalCnt);
+		pg.setSizePerPage(5);
+		int currPageNo = pg.getCurrPageNo();
+		int range = pg.getRange();
+		pg.setB_type(b_type);
+		pg.setB_id(b_id);
+		pg.setB_number(vo.getB_number());
+		
+		int totalCnt =  boardService.getCommentListTotalCnt(vo.getB_number());
+		pg.pageInfo(currPageNo,  range,  totalCnt);
 		
 		// 조회수 1씩 증가 로직
 		if (viewedBoards == null) {
@@ -644,7 +646,7 @@ public class BoardController {
 
 		BoardVO board = boardService.getBoard(vo.getB_number());
 		// 댓글 조회
-		List<CommentVO> commentList = boardService.getCommentList(vo.getB_number());
+		List<CommentVO> commentList = boardService.getCommentList(pg);
 
 		// timestamp형식으로 가져오는 값 date형식으로 변환
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // YYYY-MM-DD 형식
@@ -657,7 +659,7 @@ public class BoardController {
 		
 		model.addAttribute("pagination" , pg);
 		model.addAttribute("board", board);
-//		model.addAttribute("getCommentList", boardService.getCommentListTotalCnt(pg));
+		model.addAttribute("getCommentList", boardService.getCommentListTotalCnt(vo.getB_number()));
 		model.addAttribute("commentList", commentList);
 		model.addAttribute("b_create_date", formattedDate);
 
@@ -727,8 +729,10 @@ public class BoardController {
 
 	// 학사 일정 등록
 	@PostMapping(value = "/cal/list")
+	@ResponseBody
 	public String insertCal(@RequestBody List<CalendarVO> voList) throws IllegalStateException, IOException, Exception {
 		// 배열로 받은 각 CalendarVO 객체를 처리
+		
 		for (CalendarVO vo : voList) {
 			boardService.insertCalTx(vo);
 		}

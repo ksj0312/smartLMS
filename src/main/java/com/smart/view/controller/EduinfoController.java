@@ -514,6 +514,7 @@ public class EduinfoController {
 				model.addAttribute("gradestuList", gradestuList);
 				model.addAttribute("c_number" , c_number);
 				model.addAttribute("c_name", classvo.getC_name());
+				model.addAttribute("gradecnt", gradestuList.size());
 				model.addAttribute("listsize", gradestuList.size());
 				
 			return "/eduinfo/stuGradeList";
@@ -632,6 +633,8 @@ public class EduinfoController {
 			model.addAttribute("c_name", classvo.getC_name());
 			model.addAttribute("c_number", c_number);
 			
+			
+			
 			return "eduinfo/taskList";
 		}
 		
@@ -705,6 +708,7 @@ public class EduinfoController {
 		       
 		       
 		       model.addAttribute("t_number", vo.getT_number());
+		       model.addAttribute("id", vo.getId());
 			return "redirect:/task/info";
 		}
 		
@@ -717,7 +721,7 @@ public class EduinfoController {
 			if (stutask == null) {
 		        return "no"; 
 		    }else {
-			return "yes";
+		    	return "yes";
 		    }
 		}
 		
@@ -729,11 +733,12 @@ public class EduinfoController {
 			
 			
 			//강의 정보
-			ClassVO classvo = eduinfoService.classSelect(stutaskList.get(0).getC_number());			
+			ClassVO classvo = eduinfoService.classSelect(c_number);			
 
 			model.addAttribute("stutaskList", stutaskList);
-			model.addAttribute("c_number", stutaskList.get(0).getC_number());
+			model.addAttribute("c_number", c_number);
 			model.addAttribute("c_name", classvo.getC_name());
+			model.addAttribute("t_number", t_number);
 			
 			return "eduinfo/taskAllList";
 		}

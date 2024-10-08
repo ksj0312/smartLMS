@@ -41,7 +41,8 @@
                </div>
 </div>  <!-- 우측 교수소개, 메뉴얼 div  -->
  </div> <!-- 우측 div 전체  -->
-<%@ include file="WEB-INF/board/cal.jsp"%>  
+ 
+<%-- <%@ include file="WEB-INF/board/cal.jsp"%>   --%>
 
 </div>
 	</div>

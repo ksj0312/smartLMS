@@ -40,14 +40,14 @@ currPageNo = (range - 1) * pageSize;
 function fn_prev_comment(currPageNo, range, pageSize) {
     var searchType = document.getElementById('paginationData').getAttribute('data-searchType');
     var keyword = document.getElementById('paginationData').getAttribute('data-keyword');
-    var b_type = document.getElementsByName('b_type')[0].value;
+   // var b_type = document.getElementsByName('b_type')[0].value;
     
 currPageNo = (range - 1) * pageSize; 
     range = range - 1;
 
-    var url = "/mypage/board";    
+    var url = "/boarddetail";    
     url += "?currPageNo=" + currPageNo;
-    url += "&b_type=" + b_type;
+    //url += "&b_type=" + b_type;
     url += "&range=" + range;
     url += "&searchType=" + searchType;
     url += "&keyword=" + keyword;
@@ -111,26 +111,23 @@ currPageNo = (range - 1) * pageSize;
     
     
     //댓글 번호 클릭
-        function fn_pagination_comment(currPageNo, range) {
-    
-	var b_type = document.getElementsByName('b_type')[0].value;
+        function fn_pagination_comment(currPageNo, range, b_number) {
+        
+	var b_type = document.getElementsByClassName('b_type')[0].value;
 	console.log(b_type);        
 	
     var searchType = document.getElementById('paginationData').getAttribute('data-searchType');
     var keyword = document.getElementById('paginationData').getAttribute('data-keyword');
     
-    var url = "/mypage/board";   //여기에 페이지 이동하는 매핑 url 
+    var url = "/boarddetail";   //여기에 페이지 이동하는 매핑 url 
     console.log(currPageNo);
         								
-    var currPageNo = (range * pageSize) + 1;
-    var range = parseInt(range) + 1;
-        
     url = url + "?currPageNo=" + currPageNo;
     url = url + "&b_type=" + b_type;
     url = url + "&range=" + range;
     url = url + "&searchType=" + searchType;
     url = url + "&keyword=" + keyword;
-    url = url + "&b_id=" + b_id;
+    url = url + "&b_number=" + b_number;
     location.href = url;
         
     }
@@ -190,17 +187,17 @@ function fn_next_myPage(currPageNo, range, pageSize) {
 function fn_next_comment(currPageNo, range, pageSize) {
     var searchType = document.getElementById('paginationData').getAttribute('data-searchType');
     var keyword = document.getElementById('paginationData').getAttribute('data-keyword');
-    var b_type = document.getElementsByName('b_type')[0].value;
+    //var b_type = document.getElementsByName('b_type')[0].value;
     
      // 다음 페이지 번호 계산: 현재 범위에서 다음 범위로 넘어가므로, 첫 번째 페이지로 설정
     currPageNo = range * pageSize + 1; 
     
     // range 계산: pageSize를 기준으로 현재 페이지 번호에 따른 range를 계산
     range = Math.ceil(currPageNo / pageSize); 
-    var url = "/mypage/board";  
+    var url = "/boarddetail";  
     url += "?currPageNo=" + currPageNo;
     url += "&range=" + range;
-    url += "&b_type=" + b_type;
+    //url += "&b_type=" + b_type;
     url += "&searchType=" + searchType;
     url += "&keyword=" + keyword;
 	url += "&b_id=" + b_id;
@@ -250,7 +247,7 @@ function fn_next_comment(currPageNo, range, pageSize) {
 		}
 			
 		function board_update(val){
-			location.href = "/board?b_number="+val;
+			location.href = "/board/page?b_number="+val;
 		}
 		
 		

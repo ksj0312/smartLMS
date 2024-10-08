@@ -66,18 +66,22 @@ public interface BoardService {
 	// 댓글
 	void insertCommentTx(CommentVO vo);
 
-	List<CommentVO> getCommentList(int b_number);
+	List<CommentVO> getCommentList(Pagination pg);
 
 	void deleteCommentTx(int co_number);
 
+	int getCommentListTotalCnt(int b_number);
+	
 	// 메인에서 공지사항
 	List<BoardVO> boardMain(String b_type);
 
-	int getCommentListTotalCnt(Pagination pg);
+	
 	List<NoteVO> sendList(int start, int size, String userId);
 
 	List<NoteVO> sendListSearch(int start, int size, String userId, String search);
 
 	int getSearchTotalNoteCount2(String search, String userId);
+
+	boolean checkUserAdmin(String n_reciver);
 
 }

@@ -22,6 +22,10 @@
 <% String c_name = (String) request.getAttribute("c_name"); %>
 <% String id = (String) request.getAttribute("userId"); %>
     
+    
+    
+    
+ 	
 <div class="bcl">
         <div class="divall">
         <h4>학생 본인 성적 조회</h4>
@@ -31,6 +35,10 @@
     					<h5>강의명 : <%=c_name %></h5> 
                 </section>
         <br><br>
+        
+        
+        <c:choose>
+				<c:when test="${gradecnt > 0}">   
 				     <table class="table">
 				        <tr>
 				        <th>시험 이름</th>
@@ -46,12 +54,13 @@
 						<td>${gr.grade}</td>
 					</c:forEach>
 					</table>
-				<c:if test="${listsize eq 0}">
-				<div class="nodiv">
-				<h5>등록된 성적이 없습니다.</h5>
-				</div>
-				</c:if>
-			
+				</c:when>
+				<c:otherwise>
+					<div class="nodiv">
+						<h5>등록된 성적이 없습니다.</h5>
+					</div>
+				</c:otherwise>
+				</c:choose>			
 </div>
 </div>
 

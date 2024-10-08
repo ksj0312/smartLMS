@@ -110,6 +110,10 @@
 		select * from student where id
 		= #{n_reciver}
 	</select>
+	<select id="checkUserAdmin" resultType="professorDTO">
+		select * from professor where id
+		= #{n_reciver}
+	</select>
 
 	<select id="noteCount" resultType="integer">
 		select count(*) from note
@@ -137,7 +141,7 @@
 			<if test="keyword != null || keyword != ' '">
 			<if test="searchType == 'b_info'"> AND B_INFO like CONCAT('%', #{keyword}, '%') </if>
 			<if test="searchType == 'b_title'"> AND B_TITLE like CONCAT('%', #{keyword}, '%') </if>
-			ORDER BY B_NUMBER
+			ORDER BY B_NUMBER desc
 			LIMIT #{sizePerPage} OFFSET #{startList}
 		</if>
 	</select>
@@ -207,14 +211,17 @@
 	<insert id="insertComment"> INSERT INTO COMMENT(B_NUMBER, ID, NAME, CO_INFO)
 		VALUES(#{b_number}, #{id}, #{name}, #{co_info})
 	</insert>
-	<select id="getCommentList" resultType="commentDTO"> SELECT * FROM COMMENT
+	<select id="getCommentList" resultType="commentDTO"> 
+		SELECT * FROM COMMENT
 		WHERE B_NUMBER = #{b_number}
+		LIMIT #{sizePerPage} OFFSET #{startList}
+		
 	</select>
 	<delete id="deleteComment">
 		DELETE FROM COMMENT WHERE CO_NUMBER = #{co_number}
 	</delete>
 	
-	<select id="getCommentListTotalCnt" resultType="commentDTO">
+	<select id="getCommentListTotalCnt" resultType="integer">
 		SELECT COUNT(*) FROM COMMENT WHERE B_NUMBER = #{b_number};
 	</select>
 </mapper>

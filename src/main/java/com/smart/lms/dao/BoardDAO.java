@@ -13,7 +13,7 @@ import com.smart.lms.vo.BoardVO;
 import com.smart.lms.vo.CalendarVO;
 import com.smart.lms.vo.CommentVO;
 import com.smart.lms.vo.NoteVO;
-import com.smart.lms.vo.StuTaskVO;
+import com.smart.lms.vo.ProfessorVO;
 import com.smart.lms.vo.StudentVO;
 
 @Repository
@@ -140,8 +140,8 @@ public class BoardDAO {
 		mybatis.insert("boardDAO.insertComment", vo);
 	}
 
-	public List<CommentVO> getCommentList(int b_number) {
-		return mybatis.selectList("boardDAO.getCommentList", b_number);
+	public List<CommentVO> getCommentList(Pagination pg) {
+		return mybatis.selectList("boardDAO.getCommentList", pg);
 	}
 
 	public void deleteComment(int co_number) {
@@ -165,8 +165,8 @@ public class BoardDAO {
 		return mybatis.selectList("boardDAO.myPageBoardList", pg);
 	}
 
-	public int getCommentListTotalCnt(Pagination pg) {
-		return mybatis.selectOne("boardDAO.getCommentListTotalCnt", pg);
+	public int getCommentListTotalCnt(int b_number) {
+		return mybatis.selectOne("boardDAO.getCommentListTotalCnt", b_number);
 	}
 
 
@@ -194,4 +194,9 @@ public class BoardDAO {
 		return mybatis.selectOne("boardDAO.getSearchTotalNoteCount2", params);	
 		}
 
+	public boolean checkUserAdmin(String n_reciver) {
+		ProfessorVO professor = mybatis.selectOne("boardDAO.checkUserAdmin", n_reciver);
+		return professor != null; // 유저가 존재하면 true, 없으면 false 반환	}
+
+	}
 }

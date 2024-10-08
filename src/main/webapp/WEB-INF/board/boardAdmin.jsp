@@ -7,16 +7,19 @@
 <meta charset="UTF-8">
 <title>강의 목록</title>
 <script src="${pageContext.request.contextPath }/resources/js/classAllList.js"></script>
+
 <%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/classAllList.css"> --%>
 
 </head>
 <body>
 <div class="bcl">
         <div class="divall">
+        
                 <section class="header-container">
                         <h4>공지사항 목록</h4>
                 </section>
-    			 <nav id="searchNav" class="navbar navbar-expand-sm navbar-dark">
+    			 <nav id="searchNav" class="navbar navbar-expand-sm navbar-dark" style="justify-content: space-between;">
+        		<a class="b_insert_btn" href="/boardpage?b_type=${pagination.b_type }">글쓰기</a>
                         <form class="form-inline" action="/boardadmin" method="get">
                                 <select name="searchType" class="form-control mr-sm-2">
                                         <option value="b_info">내용</option>

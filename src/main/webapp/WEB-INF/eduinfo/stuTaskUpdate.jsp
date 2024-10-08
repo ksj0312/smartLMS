@@ -19,8 +19,6 @@
 						<h5>강의명 : <%=c_name%></h5>
     					<br><br>
                 </section>
-                ${t_number }
-                <p>수정하기</p>
                 <section class="contents-container">
                   <form action="/student/task" method="POST" enctype="multipart/form-data">
                   <div class="insertForm">
@@ -54,7 +52,6 @@
 							value="${stutask.st_info }">
 					</div>
                   		<input type="number" name="c_number" value="<%= request.getParameter("c_number") %>" style="display:none;"/>
-                       </div>
                   	<div class="input-group mb-3">
 						<div class="input-group-prepend">
 							<span class="input-group-text">파일</span>
@@ -62,6 +59,7 @@
 						<input type=file class="form-control" name="uploadFile" id=""
 							value="${stutask.s_file1 }">
 					</div>
+                       </div>
                         <button type="submit" class="subtn">수정하기</button>
                         </form>
                 </section>

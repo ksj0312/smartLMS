@@ -160,8 +160,8 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public List<CommentVO> getCommentList(int b_number) {
-		return boDAO.getCommentList(b_number);
+	public List<CommentVO> getCommentList(Pagination pg) {
+		return boDAO.getCommentList(pg);
 	}
 
 	@Override
@@ -175,8 +175,8 @@ public class BoardServiceImpl implements BoardService {
 	}
 	
 	@Override
-	public int getCommentListTotalCnt(Pagination pg){
-		return boDAO.getCommentListTotalCnt(pg);
+	public int getCommentListTotalCnt(int b_number){
+		return boDAO.getCommentListTotalCnt(b_number);
 	}
 
 	@Override
@@ -193,5 +193,12 @@ public class BoardServiceImpl implements BoardService {
 	public int getSearchTotalNoteCount2(String search, String userId) {
 		return boDAO.getTotalSearchNoteCount2(search, userId);
 
+	}
+
+	@Override
+	public boolean checkUserAdmin(String n_reciver) {
+		boolean vo = boDAO.checkUserAdmin(n_reciver);
+		return vo; // vo가 null이 아니면 true, null이면 false 반환
+	
 	}
 }
