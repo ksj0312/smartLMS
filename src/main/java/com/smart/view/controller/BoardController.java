@@ -628,10 +628,7 @@ public class BoardController {
 		int range = pg.getRange();
 		pg.setB_type(b_type);
 		pg.setB_id(b_id);
-<<<<<<< HEAD
 		pg.setB_number(vo.getB_number());
-=======
->>>>>>> c57e9aeaab7a309b1e65a1055bc82643ea41b01d
 		
 		int totalCnt =  boardService.getCommentListTotalCnt(vo.getB_number());
 		pg.pageInfo(currPageNo,  range,  totalCnt);

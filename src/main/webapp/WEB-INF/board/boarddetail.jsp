@@ -113,11 +113,7 @@
                                                 <c:forEach begin="${pagination.startPage}"
                                                     end="${pagination.endPage}" var="idx"> 
                                                         <li class="page-item">
-<<<<<<< HEAD
                                                         <a class="page-link ${pagination.currPageNo == idx ? 'active' : ''}" id="page-btn${idx}" href="#" onClick="fn_pagination_comment('${idx}', '${pagination.range}', '${board.b_number }')"> 
-=======
-                                                        <a class="page-link ${pagination.currPageNo == idx ? 'active' : ''}" id="page-btn${idx}" href="#" onClick="fn_pagination_comment('${idx}', '${pagination.range}')"> 
->>>>>>> c57e9aeaab7a309b1e65a1055bc82643ea41b01d
         														 ${idx}  </a> 
                                                      </li> 
                                              </c:forEach> 

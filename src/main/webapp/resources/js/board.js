@@ -111,13 +111,7 @@ currPageNo = (range - 1) * pageSize;
     
     
     //댓글 번호 클릭
-<<<<<<< HEAD
         function fn_pagination_comment(currPageNo, range, b_number) {
-        
-=======
-        function fn_pagination_comment(currPageNo, range) {
-    
->>>>>>> c57e9aeaab7a309b1e65a1055bc82643ea41b01d
 	var b_type = document.getElementsByClassName('b_type')[0].value;
 	console.log(b_type);        
 	
@@ -127,12 +121,6 @@ currPageNo = (range - 1) * pageSize;
     var url = "/boarddetail";   //여기에 페이지 이동하는 매핑 url 
     console.log(currPageNo);
         								
-<<<<<<< HEAD
-=======
-    //var currPageNo = (range * pageSize) + 1;
-    var range = parseInt(range) + 1;
-        
->>>>>>> c57e9aeaab7a309b1e65a1055bc82643ea41b01d
     url = url + "?currPageNo=" + currPageNo;
     url = url + "&b_type=" + b_type;
     url = url + "&range=" + range;

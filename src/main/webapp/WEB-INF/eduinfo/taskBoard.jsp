@@ -90,11 +90,7 @@
 
 
 
-<<<<<<< HEAD
 			<c:if test="${stutask eq null}">
-=======
-			<c:if test="${stutask.c_number eq 0 }">
->>>>>>> c57e9aeaab7a309b1e65a1055bc82643ea41b01d
 			<div class="nodiv">
 				<h5>작성한 과제가 없습니다.</h5>
 			</div>

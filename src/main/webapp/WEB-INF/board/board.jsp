@@ -15,21 +15,19 @@
 <div class= "divall">
 
 
-<<<<<<< HEAD
 		
-		  <nav id="searchNav" class="navbar navbar-expand-sm navbar-dark" style="justify-content: space-between;">
-=======
->>>>>>> c57e9aeaab7a309b1e65a1055bc82643ea41b01d
-<c:if test="${pagination.b_type eq 'QNA' }">
-	<c:if test="${userId ne null }">
-		<a class="b_insert_btn" href="/boardpage?b_type=${pagination.b_type }">글쓰기</a>
-		</c:if>
-		</c:if>
-<<<<<<< HEAD
-=======
-		
-		  <nav id="searchNav" class="navbar navbar-expand-sm navbar-dark">
->>>>>>> c57e9aeaab7a309b1e65a1055bc82643ea41b01d
+		  <c:choose>
+			<c:when test="${pagination.b_type eq 'QNA' }">
+		 	 <nav id="searchNav" class="navbar navbar-expand-sm navbar-dark" style="justify-content: space-between;" >
+				<c:if test="${userId ne null }">
+					<a class="b_insert_btn" href="/boardpage?b_type=${pagination.b_type }">글쓰기</a>
+				</c:if>
+			</c:when>
+			<c:otherwise>
+		  		<nav id="searchNav" class="navbar navbar-expand-sm navbar-dark" >
+			
+			</c:otherwise>
+			</c:choose>		
                         <form class="form-inline" action="/board" method="get">
                                 <select name="searchType" class="form-control mr-sm-2">
                                         <option value="b_info">내용</option>
