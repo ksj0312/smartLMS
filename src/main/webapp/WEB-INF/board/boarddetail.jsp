@@ -48,10 +48,6 @@
    <div class="board_option_button">
    			
    			
-   			<c:if test="${board.b_id eq userId  }">
-				<button onclick="board_del(${board.b_number})">삭제</button>
-				<button onclick="board_update(${board.b_number})">수정</button>
-			</c:if>
 
 
 		<c:choose>
@@ -69,6 +65,10 @@
 			</c:when>				
 		</c:choose>
 
+   			<c:if test="${board.b_id eq userId  }">
+				<button class="btn b_option_btn" onclick="board_del(${board.b_number})">삭제</button>
+				<button class="btn b_option_btn" onclick="board_update(${board.b_number})">수정</button>
+			</c:if>
 		<br>
 		</div>
 
@@ -84,7 +84,7 @@
 <%-- 						<td class="">${comment.co_number}</td> --%>
 						<td>
 						<span>${comment.name}</span>&nbsp;<span>${comment.format_create_date }</span>
-						<p>${comment.co_info}
+						<p style="width:850px;">${comment.co_info}</p>
 						<c:if test="${comment.id eq userId }">
 						<span><a class="comment_del_button" onclick="board_delComment(${comment.co_number})">
 						<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
@@ -92,7 +92,6 @@
 						</svg></a></span>
 						</c:if>
 						
-						</p>
 						
 						
 						</td>
@@ -101,7 +100,6 @@
 			</tbody>
 			
 		</table>
-		
 		
 <!-- 		댓글 페이징 -->
 		<section class="contents-footer">
@@ -115,7 +113,11 @@
                                                 <c:forEach begin="${pagination.startPage}"
                                                     end="${pagination.endPage}" var="idx"> 
                                                         <li class="page-item">
+<<<<<<< HEAD
+                                                        <a class="page-link ${pagination.currPageNo == idx ? 'active' : ''}" id="page-btn${idx}" href="#" onClick="fn_pagination_comment('${idx}', '${pagination.range}', '${board.b_number }')"> 
+=======
                                                         <a class="page-link ${pagination.currPageNo == idx ? 'active' : ''}" id="page-btn${idx}" href="#" onClick="fn_pagination_comment('${idx}', '${pagination.range}')"> 
+>>>>>>> c57e9aeaab7a309b1e65a1055bc82643ea41b01d
         														 ${idx}  </a> 
                                                      </li> 
                                              </c:forEach> 

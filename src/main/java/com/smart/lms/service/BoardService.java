@@ -66,7 +66,7 @@ public interface BoardService {
 	// 댓글
 	void insertCommentTx(CommentVO vo);
 
-	List<CommentVO> getCommentList(int b_number);
+	List<CommentVO> getCommentList(Pagination pg);
 
 	void deleteCommentTx(int co_number);
 

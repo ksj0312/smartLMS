@@ -3,6 +3,10 @@
 	margin : 80 auto;
 }
 
+.b_table_container{
+	height : 600px;
+}
+
 .btable{
 	width : 100%;
 	padding : 20px;
@@ -96,6 +100,7 @@
 }
 
 .comment_info{
+	height : 100px;
 	border : none;
 	width : 100%;
 	resize: none;
@@ -151,5 +156,17 @@
 }
 
 .b_insert_btn{
+/* 	margin-right : 65%; */
 	display : inline-block;
 }
+
+
+.b_option_btn{
+	background-color : 042424;
+	color : #fff;
+}
+
+.b_option_btn:hover{
+	background-color : #fff;
+}
+

@@ -160,8 +160,8 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public List<CommentVO> getCommentList(int b_number) {
-		return boDAO.getCommentList(b_number);
+	public List<CommentVO> getCommentList(Pagination pg) {
+		return boDAO.getCommentList(pg);
 	}
 
 	@Override

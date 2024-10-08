@@ -98,11 +98,20 @@ $(document).ready(function() {
                 $(statusId).empty(); // 이전 상태 지우기
                 console.log(response);
 
-                // 공백을 제거하고 제출 여부 확인
+             // 공백을 제거하고 제출 여부 확인
                 if (response && response.trim() === 'yes') {
-                    $(statusId).append('<span class="check">✔️</span>'); // 체크 표시
+                    $(statusId).append(`
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-check2-circle" viewBox="0 0 16 16">
+                            <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0"/>
+                            <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z"/>
+                        </svg>
+                    `); // 체크 표시
                 } else if (response && response.trim() === 'no') {
-                    $(statusId).append('<span class="cross">❌</span>'); // X 표시
+                    $(statusId).append(`
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                            <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+                        </svg>
+                    `); // X 표시
                 } else {
                     $(statusId).text('알 수 없는 응답입니다.'); // 예상치 못한 응답 처리
                 }

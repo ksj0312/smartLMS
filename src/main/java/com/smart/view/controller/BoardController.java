@@ -628,6 +628,10 @@ public class BoardController {
 		int range = pg.getRange();
 		pg.setB_type(b_type);
 		pg.setB_id(b_id);
+<<<<<<< HEAD
+		pg.setB_number(vo.getB_number());
+=======
+>>>>>>> c57e9aeaab7a309b1e65a1055bc82643ea41b01d
 		
 		int totalCnt =  boardService.getCommentListTotalCnt(vo.getB_number());
 		pg.pageInfo(currPageNo,  range,  totalCnt);
@@ -645,7 +649,7 @@ public class BoardController {
 
 		BoardVO board = boardService.getBoard(vo.getB_number());
 		// 댓글 조회
-		List<CommentVO> commentList = boardService.getCommentList(vo.getB_number());
+		List<CommentVO> commentList = boardService.getCommentList(pg);
 
 		// timestamp형식으로 가져오는 값 date형식으로 변환
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // YYYY-MM-DD 형식
@@ -728,8 +732,10 @@ public class BoardController {
 
 	// 학사 일정 등록
 	@PostMapping(value = "/cal/list")
+	@ResponseBody
 	public String insertCal(@RequestBody List<CalendarVO> voList) throws IllegalStateException, IOException, Exception {
 		// 배열로 받은 각 CalendarVO 객체를 처리
+		
 		for (CalendarVO vo : voList) {
 			boardService.insertCalTx(vo);
 		}

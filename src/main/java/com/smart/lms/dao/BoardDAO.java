@@ -140,8 +140,8 @@ public class BoardDAO {
 		mybatis.insert("boardDAO.insertComment", vo);
 	}
 
-	public List<CommentVO> getCommentList(int b_number) {
-		return mybatis.selectList("boardDAO.getCommentList", b_number);
+	public List<CommentVO> getCommentList(Pagination pg) {
+		return mybatis.selectList("boardDAO.getCommentList", pg);
 	}
 
 	public void deleteComment(int co_number) {
@@ -198,5 +198,5 @@ public class BoardDAO {
 		ProfessorVO professor = mybatis.selectOne("boardDAO.checkUserAdmin", n_reciver);
 		return professor != null; // 유저가 존재하면 true, 없으면 false 반환	}
 
-}
+	}
 }

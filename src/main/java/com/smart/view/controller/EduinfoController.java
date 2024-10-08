@@ -633,6 +633,8 @@ public class EduinfoController {
 			model.addAttribute("c_name", classvo.getC_name());
 			model.addAttribute("c_number", c_number);
 			
+			
+			
 			return "eduinfo/taskList";
 		}
 		
@@ -719,7 +721,7 @@ public class EduinfoController {
 			if (stutask == null) {
 		        return "no"; 
 		    }else {
-			return "yes";
+		    	return "yes";
 		    }
 		}
 		

@@ -149,7 +149,14 @@ li {
    display: none;
 }
 
+.stutask_btn{
+	background-color : 042424;
+	color : #fff;
+}
 
+.stutask_btn:hover{
+	background-color : #fff;
+}
 
 
 

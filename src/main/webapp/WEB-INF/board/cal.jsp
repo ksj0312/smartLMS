@@ -100,22 +100,21 @@ html, body {
 						aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					일정이름 : <input type="text" id="cal_title" /><br /> 시작시간 : <input
-						type="datetime-local" id="cal_date" /><br /> 종료시간 : <input
-						type="datetime-local" id="cal_edate" /><br /> 작성자 : <input
-						style="display: none;" type="text" id="cal_writer" value="관리자" /><br />
-					생성시간 : <input style="display: none;" type="datetime-local"
-						id="cal_create_date" /><br />
-					            배경색상 :
-					            <select id="cal_color">
-					              <option value="gray">회색</option>
-					              <option value="orange">주황색</option>
-					              <option value="yellow">노랑색</option>
-					              <option value="green">초록색</option>
-					              <option value="blue">파랑색</option>
-					              <option value="indigo">남색</option>
-					              <option value="purple">보라색</option>
-					            </select>
+					일정이름 : <input type="text" id="cal_title" /><br /> 
+					시작시간 : <input type="datetime-local" id="cal_date" /><br /> 
+					종료시간 : <input type="datetime-local" id="cal_edate" /><br />
+					<input style="display: none;" type="text" id="cal_writer" value="관리자" /><br />
+					<input style="display: none;" type="datetime-local" id="cal_create_date" /><br />
+<!-- 					            배경색상 : -->
+<!-- 					            <select id="cal_color"> -->
+<!-- 					              <option value="gray">회색</option> -->
+<!-- 					              <option value="orange">주황색</option> -->
+<!-- 					              <option value="yellow">노랑색</option> -->
+<!-- 					              <option value="green">초록색</option> -->
+<!-- 					              <option value="blue">파랑색</option> -->
+<!-- 					              <option value="indigo">남색</option> -->
+<!-- 					              <option value="purple">보라색</option> -->
+<!-- 					            </select> -->
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary"
@@ -261,35 +260,7 @@ $(function(){
             eventTitle.innerHTML = arg.event.title;
             
             
-            // cal_number가 있는 경우에만 삭제 버튼을 생성
-            if (arg.event.extendedProps.number > 0) {
-                let deleteBtn = document.createElement('span');
-                deleteBtn.innerHTML = ' ❌';
-                deleteBtn.style.cursor = 'pointer';
-                deleteBtn.style.float = 'right';
-//              deleteBtn.style.transform = 'translateY(-18px)';
-
-                deleteBtn.addEventListener('click', async function() {
-                    if (confirm("일정을 삭제하시겠습니까?")) {
-                        const cal_number = arg.event.extendedProps.number;
-
-                        try {
-                            await axios({
-                                method: 'DELETE',
-                                url: '/cal?cal_number=' + cal_number,
-                                responseType: "json"
-                            });
-                            console.log("일정 삭제 완료");
-                            arg.event.remove();
-                        } catch (error) {
-                            console.error("일정 삭제 실패", error);
-                        }
-                    }
-                });
-
-                // 삭제 버튼을 이벤트 제목에 추가
-                eventTitle.appendChild(deleteBtn);
-            }
+            
 
             return { domNodes: [eventTitle] };
         }

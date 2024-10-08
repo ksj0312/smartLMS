@@ -31,6 +31,26 @@
 
 <style>
 
+#stNav{
+	z-index:1;
+}
+.modal-content{
+	margin-top : 300px;
+}
+.event-container {
+  display: flex; /* Flexbox 사용 */
+  justify-content: space-between; /* 양쪽 끝으로 정렬 */
+  align-items: center; /* 수직 중앙 정렬 */
+}
+
+.delete-button {
+  font-size : smaller;
+  float : right; /* 제목과 버튼 사이의 간격 추가 */
+  border-radius : 5px;
+  transform: translateY(-1px); /* 버튼을 1px 위로 이동 */
+  
+}
+
 #calendar{
 	padding-left : 60px;	
 }
@@ -55,8 +75,10 @@ html, body {
     display: none !important; 
 }
 
-.fc-daygrid-event {
-    border-color: #fff !important;
+.fc-event {
+    border: none !important; /* 테두리 제거 */
+    background-color : gray;
+    color: white !important; /* 하얀 글자색 */
 }
 </style>
 </head>
@@ -77,23 +99,21 @@ html, body {
 						aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					일정이름 : <input type="text" id="cal_title" /><br /> 시작시간 : <input
-						type="datetime-local" id="cal_date" /><br /> 종료시간 : <input
-						type="datetime-local" id="cal_edate" /><br /> 작성자 : <input
-						style="display: none;" type="text" id="cal_writer" value="관리자" /><br />
-					생성시간 : <input style="display: none;" type="datetime-local"
-						id="cal_create_date" /><br />
-					            배경색상 :
-					            <select id="cal_color">
-					              <option value="red">빨강색</option>
-					              <option value="orange">주황색</option>
-					              <option value="yellow">노랑색</option>
-					              <option value="green">초록색</option>
-					              <option value="blue">파랑색</option>
-					              <option value="indigo">남색</option>
-					              <option value="purple">보라색</option>
-					              <option value="black">검정색</option>
-					            </select>
+					일정이름 : <input type="text" id="cal_title" /><br /> 
+					시작시간 : <input type="datetime-local" id="cal_date" /><br /> 
+					종료시간 : <input type="datetime-local" id="cal_edate" /><br />
+					<input style="display: none;" type="text" id="cal_writer" value="관리자" /><br />
+					<input style="display: none;" type="datetime-local" id="cal_create_date" /><br />
+<!-- 					            배경색상 : -->
+<!-- 					            <select id="cal_color"> -->
+<!-- 					              <option value="gray">회색</option> -->
+<!-- 					              <option value="orange">주황색</option> -->
+<!-- 					              <option value="yellow">노랑색</option> -->
+<!-- 					              <option value="green">초록색</option> -->
+<!-- 					              <option value="blue">파랑색</option> -->
+<!-- 					              <option value="indigo">남색</option> -->
+<!-- 					              <option value="purple">보라색</option> -->
+<!-- 					            </select> -->
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary"
@@ -132,20 +152,34 @@ $(function(){
                 text: "저장하기",
                 click: async function() {
                     if (confirm("저장하시겠습니까?")) {
+                    	
+                    	
                         var allEvent = calendar.getEvents().map(event => ({
                             cal_title: event.title,
                             cal_date: event.start.toISOString(),
                             cal_edate: event.end ? event.end.toISOString() : null,
                             cal_writer: event.extendedProps.writer || "관리자",
                             cal_create_date: event.extendedProps.create_date || new Date().toISOString(),
-                            cal_color: event.backgroundColor
+                            cal_color: event.backgroundColor,
+                            googleCalendarId: event.source ? event.source.id : null                       
                         }));
                         
+                     // 공휴일(googleCalendarId가 'holidaySource'이거나 null/undefined가 아닌 이벤트) 제외
+					var filteredEvents = allEvent.filter(event => 
+             			   event.googleCalendarId !== 'holidaySource' && cal_writer !== "관리자"
+            			);
+                        
+                        if (filteredEvents.length === 0) {
+                            alert("저장할 이벤트가 없습니다.");
+                            return;
+                        }
+
                         console.log("allEvent", allEvent);
+                        	
                         const saveEvent = await axios({
                             method: "POST",
                             url: "/cal/list",
-                            data: allEvent,
+                            data: filteredEvents,
                         });
                         
                         console.log("데이터 삽입 완료");
@@ -156,7 +190,7 @@ $(function(){
         },
         
         headerToolbar: {
-            left: 'prev,next today,myCustomButton,mySaveButton',
+            left: 'prev,next today,myCustomButton, mySaveButton',
             center: 'title',
             right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
         },
@@ -172,10 +206,11 @@ $(function(){
         dayCellDidMount: function(arg) {
             var day = arg.date.getDay(); // 0: 일요일, 6: 토요일
             
-//             if (day === 0) {
-//                 // 일요일 스타일: 빨간 글씨, 연한 빨강 배경
-//                 arg.el.style.backgroundColor = '#ffe6e6';  // 연한 빨강 배경색
-//             } else if (day === 6) {
+            if (day === 0) {
+                // 일요일 스타일: 빨간 글씨, 연한 빨강 배경
+                arg.el.style.textColor = "red";  // 연한 빨강 배경색
+            }
+//             else if (day === 6) {
 //                 // 토요일 스타일: 연파랑 배경
 //                 arg.el.style.backgroundColor = '#e6f7ff';  // 연파랑 배경색
 //             }
@@ -216,8 +251,10 @@ $(function(){
             },
             {
             	//공휴일 표시
-                googleCalendarId : 'ko.south_korea.official#holiday@group.v.calendar.google.com',
-                backgroundColor: 'red',
+            	googleCalendarId : 'ko.south_korea.official#holiday@group.v.calendar.google.com',
+                backgroundColor: 'transparent',
+                textColor : 'red',
+                id: 'holidaySource'
               }
         ],
 
@@ -228,7 +265,14 @@ $(function(){
             // cal_number가 있는 경우에만 삭제 버튼을 생성
             if (arg.event.extendedProps.number) {
                 let deleteBtn = document.createElement('span');
-                deleteBtn.innerHTML = ' ❌';
+                
+                const cancle = `
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+                    </svg>
+                `;
+                
+                deleteBtn.innerHTML = cancle;
                 deleteBtn.style.cursor = 'pointer';
                 deleteBtn.style.float = 'right';
 //                 deleteBtn.style.transform = 'translateY(-18px)';
@@ -259,7 +303,7 @@ $(function(){
         }
     });
 
-    // 모달창 이벤트
+ // 모달창 이벤트
     $("#saveChanges").on("click", function() {
         var eventData = {
             title: $("#cal_title").val(),
@@ -289,6 +333,7 @@ $(function(){
             $("#cal_color").val();
         }
     });
+
 
     // 캘린더 렌더링
     calendar.render();

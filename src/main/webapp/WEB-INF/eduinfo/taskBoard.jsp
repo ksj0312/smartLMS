@@ -78,7 +78,7 @@
 				</tr>
 			</table>
 				<c:if test="${stutask.c_number eq null}">
-				<button onclick="location.href='/student/task/page?c_number=${task.c_number}&t_number=${task.t_number}'"
+				<button class="btn stutask_btn" onclick="location.href='/student/task/page?c_number=${task.c_number}&t_number=${task.t_number}'"
 					style="cursor: hand">등록</button>
 					</c:if>
 				<c:if test="${stutask.c_number ne null}">
@@ -90,9 +90,13 @@
 
 
 
+<<<<<<< HEAD
+			<c:if test="${stutask eq null}">
+=======
 			<c:if test="${stutask.c_number eq 0 }">
+>>>>>>> c57e9aeaab7a309b1e65a1055bc82643ea41b01d
 			<div class="nodiv">
-				<h5>진행중인 과제 목록이 없습니다.</h5>
+				<h5>작성한 과제가 없습니다.</h5>
 			</div>
 			</c:if>
 			
