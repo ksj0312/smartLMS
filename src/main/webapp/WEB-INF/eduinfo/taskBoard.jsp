@@ -106,30 +106,25 @@
 					</td>
 				</tr>
 			</table>
-			</c:if>
-			
-			
-			
-			<c:if test="${stutask eq null}">
-				<div class="nodiv" style="margin : 100px;">
-					<h5>작성한 과제가 없습니다.</h5>
-				</div>
-			</c:if>
-			<c:if test="${stutask.id eq null}">
-				<button class="btn stutask_btn"
-					onclick="location.href='/student/task/page?c_number=${task.c_number}&t_number=${task.t_number}'"
+				<c:if test="${stutask.c_number eq null}">
+				<button class="btn stutask_btn" onclick="location.href='/student/task/page?c_number=${task.c_number}&t_number=${task.t_number}'"
 					style="cursor: hand">등록</button>
+					</c:if>
+				<c:if test="${stutask.c_number ne null}">
+				<button class="btn stutask_btn" onclick="location.href='/student/taskpage?st_number=${stutask.st_number}'">수정하기</button>
+				</c:if>
 			</c:if>
-			<c:if test="${stutask.id eq userId}">
-				<button class="btn stutask_btn"
-					onclick="location.href='/student/taskpage?st_number=${stutask.st_number}'">수정하기</button>
+
+
+
+
+
+			<c:if test="${stutask eq null}">
+			<div class="nodiv">
+				<h5>작성한 과제가 없습니다.</h5>
+			</div>
 			</c:if>
-
-
-
-
-
-
+			
 			
 
 

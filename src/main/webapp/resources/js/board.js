@@ -109,7 +109,6 @@ currPageNo = (range - 1) * pageSize;
     }
     
     
-    
     //댓글 번호 클릭
         function fn_pagination_comment(currPageNo, range, b_number) {
 	var b_type = document.getElementsByClassName('b_type')[0].value;
