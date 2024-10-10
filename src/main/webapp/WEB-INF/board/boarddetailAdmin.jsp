@@ -3,6 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="java.util.Date" %>
+
+<%@ include file="../member/adminIndex.jsp"%>
+
     
 <!DOCTYPE html>
 <html>
@@ -20,7 +23,7 @@
 
 <input class="b_type" value="${board.b_type }" style="display : none;">
 
-	<div class="tdiv">
+	<div class="tdiv" style="width : 60%;" >
 	<table class="btable">
         <tr class="btr trbar">
             <th class="bth btitle_bar bar">제목</th>
@@ -84,6 +87,7 @@
 			<tbody>
 					<c:forEach items="${commentList}" var="comment">
 				<tr class="comment_tr">
+<%-- 						<td class="">${comment.co_number}</td> --%>
 						<td>
 						<span>${comment.name}</span>&nbsp;<span>${comment.format_create_date }</span>
 						<p style="width:850px;">${comment.co_info}</p>

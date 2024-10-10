@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%--     <%@ include file="../member/adminIndex.jsp"%> --%>
     <%@page import="java.util.Date" %>
     <%@page import="java.text.SimpleDateFormat" %>
     
@@ -8,7 +7,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<%-- <script src="${pageContext.request.contextPath }/resources/js/testList.js"></script> --%>
 <title>시험 목록</title>
 </head>
 <body>

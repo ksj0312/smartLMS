@@ -13,7 +13,6 @@ var telSent = false;
 function telCheckBtn() {
     $('#tel-Check-Btn').click(function() {
         let tel = $('#tel').val()
-        console.log('입력 전화번호 : ' + tel);
         let checkInput = $('.tel-check-input');
         $('.tel-check-input').show();
         if (!validatePhoneNumber(tel)) {
@@ -34,14 +33,11 @@ function telCheckBtn() {
             success: function(code1) {
                 checkInput.prop('disabled', false);
                 code = code1;
-                console.log(code);
-                alert('인증번호가 전송되었습니다.');
                 sendAuthNum1(); // 인증번호 발송 및 타이머 시작 함수 호출
                 telSent = true; // 문자 전송 상태 업데이트
                 $('#tel-check-warn').show();
             },
             error: function(xhr, status, error) {
-                console.error(xhr.responseText);
             }
         });
                 $('#tel-check-Btn').hide();
@@ -55,9 +51,7 @@ function telCheckBtn() {
 function telPwdCheckBtn() {
     $('.chkpwdphone').click(function() {
         let tel = $('.tel').val()
-        console.log('입력 전화번호 : ' + tel);
         let changechk = $('.changechk');
-//         $('.tel-check-input').show();
         // 이미  문자가 전송되었는지 확인
         if (!validatePhoneNumber(tel)) {
             return; // 전화번호가 유효하지 않으면 함수 종료
@@ -76,13 +70,11 @@ function telPwdCheckBtn() {
             success: function(code1) {
             	changechk.prop('disabled', false);
                 code = code1;
-                console.log(code);
                 alert('인증번호가 전송되었습니다.');
                 sendAuthNum2(); // 인증번호 발송 및 타이머 시작 함수 호출
                 telSent = true; // 문자 전송 상태 업데이트
             },
             error: function(xhr, status, error) {
-                console.error(xhr.responseText);
             }
         });
         changechk.prop('disabled', false);
@@ -289,7 +281,6 @@ $(document).ready(function() {
             oncomplete: function(data) {
                  var postcode = data.zonecode;
                 var addr = data.userSelectedType === 'R' ? data.roadAddress : data.jibunAddress;
-                console.log("addr:" + addr);
                 $("#postcode").val(postcode);
                 $("#address").val(addr);
            
@@ -311,7 +302,6 @@ $(document).ready(function() {
                 pasttel: $('.info_phone_past').val()
             };
 
-            console.log("전화번호 입력 값:", dataForm.tel);  // 전화번호 확인
 
             if (!dataForm.tel) {
                 alert("새 전화번호를 입력하세요.");  // 전화번호 입력 확인
@@ -324,15 +314,12 @@ $(document).ready(function() {
                 contentType: 'application/json',
                 data: JSON.stringify(dataForm),
                 success: function(data) {
-                    console.log("전화번호 변경 성공:", dataForm);
                     // 입력 필드를 숨기고 성공 메시지 표시 등 추가 처리
                     $('.info_phone_input').hide();  // 성공 시 입력 필드 숨기기
                     alert("회원 정보가 변경되어 로그아웃되었습니다. 다시 로그인하세요.");
-                    window.location.href = 'studentLoginPage';  // 로그인 페이지로 리디렉션
+                    window.location.href = '/';  // 로그인 페이지로 리디렉션
                 },
                 error: function(xhr, status, error) {
-                    console.error("전화번호 변경 실패:", dataForm);
-                    console.error("서버 응답:", xhr.responseText);
                 }
             });
         }
@@ -357,7 +344,6 @@ $(document).ready(function() {
 	        	var pwd = $('#mem_pwd').val();
 	        	var pwdchk = $('.pwdchk');
 	        	var status = document.getElementById('status').value;
-	        	console.log(status);
 	        	
 	        	if (!validatePassword(pwd)) {
 	                return; // 비밀번호가 유효하지 않으면 함수 종료
@@ -369,8 +355,6 @@ $(document).ready(function() {
 	            	pwd: pwd
 	            },
 	            success: function(data) {
-	            	console.log(pwd);
-	                console.log(data);
 	                if(data == true){
 	                	pwdchk.html('*현재 비밀번호와 일치합니다.');
 	                	pwdchk.css('color', 'green');
@@ -406,7 +390,6 @@ $(document).ready(function() {
         			pwd: pwd,
         			pwdchk: pwdchk2
         	}
-        	console.log(pwdchk, pwdchk2);
         	if(pwd == pwdchk)
         		changeNew = true;
         	else
@@ -423,9 +406,8 @@ $(document).ready(function() {
             contentType: 'application/json',
             data: JSON.stringify(dataForm),
             success: function(data) {
-                console.log(data);
                 alert("회원 정보가 변경되어 로그아웃되었습니다. 다시 로그인하세요.");
-                window.location.href = 'studentLoginPage';  // 로그인 페이지로 리디렉션	
+                window.location.href = '/';  // 로그인 페이지로 리디렉션	
 
             },
             error: function(xhr, status, error) {
@@ -464,7 +446,6 @@ $(document).ready(function() {
                 	 email: email 
                  },
                  success: function(data) {
-                     console.log(data);
                      checkInput.prop('disabled', false);
                      code = data;
                      alert('인증번호가 전송되었습니다.');
@@ -473,7 +454,6 @@ $(document).ready(function() {
                      $('.mail-check-input').show();
                  },
                  error: function(xhr, status, error) {
-                	 console.error(xhr.responseText);
                  }
         	});
         }
@@ -491,7 +471,7 @@ $(document).ready(function() {
                 data: JSON.stringify(dataForm),
         		success: function(data){
         			alert("회원 정보가 변경되어 로그아웃되었습니다. 다시 로그인하세요.");
-        			window.location.href = 'studentLoginPage';
+        			window.location.href = '/';
         		},
         		error: function(xhr, status, error){
         			
@@ -520,7 +500,7 @@ $(document).ready(function() {
                 data: JSON.stringify(dataForm),
         		success: function(data){
         			alert("회원 정보가 변경되어 로그아웃되었습니다. 다시 로그인하세요.");
-        			window.location.href = 'studentLoginPage';
+        			window.location.href = '/';
         		},
         		error: function(xhr, status, error){
         			

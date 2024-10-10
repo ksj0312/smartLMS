@@ -8,7 +8,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<%-- <script src="${pageContext.request.contextPath }/resources/js/testList.js"></script> --%>
 <title>강의 목록</title>
 </head>
 <body>
@@ -31,7 +30,6 @@
     					<h5>강의명 : <%=c_name %></h5> 
                 </section>
         <br><br>
-        
         <c:if test="${not empty stutaskList}">
         
 				     <table class="table">
@@ -40,7 +38,6 @@
 				        <th>학번</th>
 				        <th>이름</th>
 				        <th>과제 제출 현황 </th>
-<!-- 				        <th>완료 여부</th> -->
 				        
 				        </tr>
 					<c:forEach items="${stutaskList}" var="stl">
@@ -52,17 +49,18 @@
 						<td>${stl.name}</td>  
 						
 						<c:if test="${stl.st_submit eq '제출'}">
-							<td><img class="taskcheck" src="${pageContext.request.contextPath}/resources/img/check.png"> </td>
+							<td><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-check2-circle" viewBox="0 0 16 16">
+  <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0"/>
+  <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z"/>
+</svg></td>
 							
 						</c:if>
 						
 						<c:if test="${stl.st_submit ne '제출'}">
-							<td><img class="taskcheck" src="${pageContext.request.contextPath}/resources/img/cancle.png"> </td>
+							<td><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+  						<path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+						</svg> </td>
 						</c:if>
-						
-<%-- 						<td>${stl.s_file1}</td> --%>
-						
-<%-- 						<td id="taskStatus_${tl.t_number}"></td> --%>
 						</tr>
 					</c:forEach>
 					</table>

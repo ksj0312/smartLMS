@@ -114,7 +114,7 @@ var userId = '<%= userId %>';
                 <a class="nav-link" href="/admin" style="font-size: smaller;"> 
                     관리자페이지
                 </a>
-            </li>    &nbsp;  &nbsp; 
+            </li>    &nbsp;  
             <li class="nav-item">
                 <a class="nav-link logOut" href="javascript: logout()" style="font-size: small !important;">logout</a>
             </li>

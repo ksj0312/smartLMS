@@ -20,6 +20,8 @@ $(document).ready(function(){
 				<th></th>
 			</tr>`
 	       	 );
+	       	 
+	       	 
 				$.each(values, function(index, value){
 				$(".mainta").append(
 				`

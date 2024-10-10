@@ -4,7 +4,6 @@
 <script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/myPageClass.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/myPageClass.css">
 <%
-    // 세션에서 mem_id 가져오기
     String userName = (String) session.getAttribute("userName");	
 %>
 
@@ -49,7 +48,6 @@
 					<td> <button type="button" class="btn ModalBtn" id="myPageClassDetail" 
 					data-toggle="modal" data-target="#myPageModal" value="${item.c_number}" 
 					onclick="attInfo(${item.c_number})">상세정보</button></td>
-<!-- 					<td><button type="button" class="btn TaskBtn" onclick="">과제</button> </td> -->
 					<td><button class="btn ModalBtn" onClick="location.href='/task/page?c_number=${item.c_number }'">과제</button> </td>
 					</tr>
 					</c:forEach>

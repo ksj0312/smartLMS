@@ -100,8 +100,8 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public void updateBoardTx(BoardVO vo) {
-		boDAO.updateBoard(vo);
+	public int updateBoardTx(BoardVO vo) {
+		return boDAO.updateBoard(vo);
 	}
 
 	@Override
@@ -160,8 +160,8 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public List<CommentVO> getCommentList(int b_number) {
-		return boDAO.getCommentList(b_number);
+	public List<CommentVO> getCommentList(Pagination pg) {
+		return boDAO.getCommentList(pg);
 	}
 
 	@Override
@@ -175,8 +175,8 @@ public class BoardServiceImpl implements BoardService {
 	}
 	
 	@Override
-	public int getCommentListTotalCnt(Pagination pg){
-		return boDAO.getCommentListTotalCnt(pg);
+	public int getCommentListTotalCnt(int b_number){
+		return boDAO.getCommentListTotalCnt(b_number);
 	}
 
 	@Override
@@ -201,4 +201,8 @@ public class BoardServiceImpl implements BoardService {
 		return vo; // vo가 null이 아니면 true, null이면 false 반환
 	
 	}
+	@Override
+	   public int getBoardListTotalCnt2(Pagination pg) {
+	      return boDAO.getBoardListTotalCnt2(pg);   
+	      }
 }

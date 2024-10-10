@@ -5,7 +5,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<%-- <script src="${pageContext.request.contextPath }/resources/js/gredaUpdatePage.js"></script> --%>
 <title>강의 목록</title>
 </head>
 <body>

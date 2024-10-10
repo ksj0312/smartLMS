@@ -163,10 +163,10 @@
 
 	<insert id="insertBoard">
 		INSERT INTO BOARD(B_TITLE, B_INFO,
-		B_ID, B_NAME, B_TYPE, B_file1)
+		B_ID, B_NAME, B_TYPE, B_file1, B_CREATE_DATE)
 		VALUES(#{b_title}, #{b_info},
 		#{b_id}, #{b_name}, #{b_type},
-		#{b_file1})
+		#{b_file1}, SYSDATE())
 	</insert>
 
 	<select id="getBoard" resultType="BoardDTO">
@@ -208,17 +208,28 @@
 
 
 	<!-- comment mapping -->
-	<insert id="insertComment"> INSERT INTO COMMENT(B_NUMBER, ID, NAME, CO_INFO)
-		VALUES(#{b_number}, #{id}, #{name}, #{co_info})
+	<insert id="insertComment"> INSERT INTO COMMENT(B_NUMBER, ID, NAME, CO_INFO, CO_CREATE_DATE)
+		VALUES(#{b_number}, #{id}, #{name}, #{co_info}, SYSDATE())
 	</insert>
-	<select id="getCommentList" resultType="commentDTO"> SELECT * FROM COMMENT
+	<select id="getCommentList" resultType="commentDTO"> 
+		SELECT * FROM COMMENT
 		WHERE B_NUMBER = #{b_number}
+		LIMIT #{sizePerPage} OFFSET #{startList}
 	</select>
 	<delete id="deleteComment">
 		DELETE FROM COMMENT WHERE CO_NUMBER = #{co_number}
 	</delete>
 	
-	<select id="getCommentListTotalCnt" resultType="commentDTO">
+	<select id="getCommentListTotalCnt" resultType="integer">
 		SELECT COUNT(*) FROM COMMENT WHERE B_NUMBER = #{b_number};
 	</select>
+	
+	<select id="getBoardListTotalCnt2"
+      parameterType="com.smart.lms.util.Pagination" resultType="integer">
+      SELECT COUNT(*) FROM BOARD WHERE B_TYPE = #{b_type} AND B_ID = #{b_id}
+      <if test="keyword != null">
+         <if test="searchType == 'b_info'"> AND B_INFO like CONCAT('%', #{keyword}, '%')</if>
+         <if test="searchType == 'b_title'"> AND B_TITLE like CONCAT('%', #{keyword}, '%')</if>
+      </if>
+   </select>
 </mapper>

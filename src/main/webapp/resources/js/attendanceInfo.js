@@ -20,7 +20,6 @@ function search() {
       		 }, 
        contentType: "application/json",
        success: function(response) { 
-       		console.log(response);
        		 $('#infoTable').empty(); 
           if(response.length == 0){
   				 alert(`검색 결과가 없습니다. 다시 입력해주세요.`);

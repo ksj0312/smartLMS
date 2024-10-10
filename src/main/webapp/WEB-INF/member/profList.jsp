@@ -6,7 +6,6 @@
 <html>
 <head>
 <script src="${pageContext.request.contextPath }/resources/js/proList.js"></script>
-<%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/proList.css"> --%>
 </head>
 <body>
 <div class="bcl">

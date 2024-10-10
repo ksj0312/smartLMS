@@ -15,7 +15,6 @@
 
 <div class="idxbody">
 	<div>
-	<!--  <div class="infodiv"><p class="infoa nick">${userName} 님</p>&nbsp;&nbsp;<a class="infoa" href="logout">로그아웃</a></div>-->
 	<ul>
 	<li><br></li>
 	<li><a href="adminPage" class = "atag2">${userName} 님</a></li>

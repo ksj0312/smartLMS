@@ -27,7 +27,6 @@
 
 <!-- 20240503_ym 스타일추가 시작 -->
 <style type="text/css">
-	body { margin: 10px; }
 	div.se2_input_area.husky_seditor_editing_area_container {width:100vw !important; height: 600px !important;}
 	div#se2_iframe {width:100vw !important;height: 100% !important;}
 	#smart_editor2 {width: 50%  !important;margin: 0 auto;}
@@ -41,7 +40,7 @@
 	<form action="/board" method="post" id="dataTransferForm" enctype="multipart/form-data">
 	<div class="b_title_div">
 		<label for="b_title" class="b_title_label">제목</label>
-		<input type="text" class="b_title_input" name="b_title" placeholder="${b_type } 제목입력">
+		<input type="text" class="b_title_input" name="b_title" placeholder="${b_type } 제목입력" required>
 	</div>
 		
 		<input type="text" class="board_hide" name="b_type" placeholder="타입 입력" value="${b_type}" readonly>
@@ -51,7 +50,7 @@
 		<input type="text" class="board_hide" name="b_name" value="${userName }" placeholder="타입 입력">
 		
 	<div id="se2_sample">
-		<textarea name="b_info" id="ir1" rows="10" cols="100" style="width:766px; height:412px; display:none;"></textarea>
+		<textarea name="b_info" id="ir1" rows="10" cols="100" style="width:766px; height:412px;" required></textarea>
 	</div>
 		<div class="b_bottom_div">
 		  <input class="b_file" type="file" name="uploadFile">

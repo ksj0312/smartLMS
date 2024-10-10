@@ -106,8 +106,8 @@ public class BoardDAO {
 		mybatis.delete("boardDAO.deleteBoard", b_number);
 	}
 
-	public void updateBoard(BoardVO vo) {
-		mybatis.update("boardDAO.updateBoard", vo);
+	public int updateBoard(BoardVO vo) {
+		return mybatis.update("boardDAO.updateBoard", vo);
 	}
 
 	public void boardView(int b_number) {
@@ -140,8 +140,8 @@ public class BoardDAO {
 		mybatis.insert("boardDAO.insertComment", vo);
 	}
 
-	public List<CommentVO> getCommentList(int b_number) {
-		return mybatis.selectList("boardDAO.getCommentList", b_number);
+	public List<CommentVO> getCommentList(Pagination pg) {
+		return mybatis.selectList("boardDAO.getCommentList", pg);
 	}
 
 	public void deleteComment(int co_number) {
@@ -165,8 +165,8 @@ public class BoardDAO {
 		return mybatis.selectList("boardDAO.myPageBoardList", pg);
 	}
 
-	public int getCommentListTotalCnt(Pagination pg) {
-		return mybatis.selectOne("boardDAO.getCommentListTotalCnt", pg);
+	public int getCommentListTotalCnt(int b_number) {
+		return mybatis.selectOne("boardDAO.getCommentListTotalCnt", b_number);
 	}
 
 
@@ -198,5 +198,9 @@ public class BoardDAO {
 		ProfessorVO professor = mybatis.selectOne("boardDAO.checkUserAdmin", n_reciver);
 		return professor != null; // 유저가 존재하면 true, 없으면 false 반환	}
 
-}
+	}
+	
+	public int getBoardListTotalCnt2(Pagination pg) {
+	      return mybatis.selectOne("boardDAO.getBoardListTotalCnt2", pg);
+	   }
 }

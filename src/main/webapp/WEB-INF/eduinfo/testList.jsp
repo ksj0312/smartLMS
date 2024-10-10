@@ -7,7 +7,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<script src="${pageContext.request.contextPath }/resources/js/testList.js"></script>
 <title>시험 목록</title>
 </head>
 <body>

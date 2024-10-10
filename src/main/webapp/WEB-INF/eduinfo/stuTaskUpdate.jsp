@@ -3,14 +3,11 @@
 
 <html>
 <head>
-<script src="${pageContext.request.contextPath }/resources/js/testInsert.js"></script>
-<%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/testInsert.css"> --%>
 </head>
 <body>
 
 	<%@ include file="../member/taskIndex.jsp"%>
 
-	
 	
 <div class="bcl">
         <div class="divall">
@@ -19,10 +16,9 @@
 						<h5>강의명 : <%=c_name%></h5>
     					<br><br>
                 </section>
-                ${t_number }
-                <p>수정하기</p>
                 <section class="contents-container">
-                  <form action="/student/task" method="POST" enctype="multipart/form-data">
+                
+                  <form action="/student/task/chan" method="POST" enctype="multipart/form-data">
                   <div class="insertForm">
                   	<div class="input-group mb-3">
 						<div class="input-group-prepend">
@@ -31,7 +27,7 @@
 						<input type="text" class="form-control" name="c_number" id="c_number"
 							value="${stutask.c_number}" placeholder="">
 					</div>
-					<input type="text" class="form-control" name="t_number" value="${stutask.t_number }" style="display:none;">
+					<input type="text" class="form-control" name="t_number" id="t_number" value="${stutask.t_number }" style="display:none;">
                   	<div class="input-group mb-3">
 						<div class="input-group-prepend">
 							<span class="input-group-text">작성자</span>
@@ -43,24 +39,24 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text">과제 제목</span>
 						</div>
-						<input type="text" class="form-control" name="st_title" id="title"
+						<input type="text" class="form-control" name="st_title" id="st_title"
 							value="${stutask.st_title } " placeholder="">
 					</div>
                   	<div class="input-group mb-3">
 						<div class="input-group-prepend">
 							<span class="input-group-text">과제 내용</span>
 						</div>
-						<input type="text" class="form-control" name="st_info" id="info"
+						<input type="text" class="form-control" name="st_info" id="st_title"
 							value="${stutask.st_info }">
 					</div>
-                  		<input type="number" name="c_number" value="<%= request.getParameter("c_number") %>" style="display:none;"/>
-                       </div>
+                  		<input type="hidden" name="st_number" id="st_number" value="${stutask.st_number }"/>
                   	<div class="input-group mb-3">
 						<div class="input-group-prepend">
 							<span class="input-group-text">파일</span>
 						</div>
-						<input type=file class="form-control" name="uploadFile" id=""
-							value="${stutask.s_file1 }">
+						<input type=file class="form-control" name="uploadFile" id="uploadFile"
+							value="">
+								
 					</div>
                         <button type="submit" class="subtn">수정하기</button>
                         </form>

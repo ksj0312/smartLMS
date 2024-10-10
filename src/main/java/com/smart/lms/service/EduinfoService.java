@@ -95,5 +95,7 @@ public interface EduinfoService {
 
    public GradeVO getTestGrade(int g_number, String id);
 
+   public int taskUpdateTx(TaskVO vo);
+
 
 }
