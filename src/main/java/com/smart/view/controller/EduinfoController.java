@@ -30,7 +30,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.smart.lms.service.EduinfoService;
 import com.smart.lms.util.Pagination;
 import com.smart.lms.vo.AttendClassVO;
-import com.smart.lms.vo.BoardVO;
 import com.smart.lms.vo.ClassVO;
 import com.smart.lms.vo.GradeVO;
 import com.smart.lms.vo.ProfessorVO;
