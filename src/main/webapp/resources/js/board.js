@@ -112,7 +112,6 @@ currPageNo = (range - 1) * pageSize;
     
     //댓글 번호 클릭
         function fn_pagination_comment(currPageNo, range, b_number) {
-        
 	var b_type = document.getElementsByClassName('b_type')[0].value;
 	console.log(b_type);        
 	
@@ -286,5 +285,10 @@ function fn_next_comment(currPageNo, range, pageSize) {
 		        
 
 	  //상세보기 스크립트 끝
+	  
+
+	  
+	  
+	  
 	  
 	 

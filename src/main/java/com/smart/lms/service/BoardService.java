@@ -44,7 +44,7 @@ public interface BoardService {
 
 	void deleteBoardTx(int b_number);
 
-	void updateBoardTx(BoardVO vo);
+	int updateBoardTx(BoardVO vo);
 
 	CalendarVO getCal(CalendarVO vo);
 

@@ -144,8 +144,12 @@ public class EduinfoDAO {
 		return mybatis.selectList("eduinfoDAO.gradeSearch", pg);
 	}
 
-	public void taskInsertTx(TaskVO vo) {
-		mybatis.insert("eduinfoDAO.taskInsertTx", vo);
+	public int taskInsertTx(TaskVO vo) {
+		return mybatis.insert("eduinfoDAO.taskInsertTx", vo);
+	}
+	
+	public int taskUpdateTx(TaskVO vo) {
+		return mybatis.update("eduinfoDAO.taskUpdateTx", vo);
 	}
 
 	public List<TaskVO> getTaskList(int c_number) {

@@ -268,8 +268,6 @@
 	   WHERE G_NUMBER = #{g_number}
 	</update>
 	
-<!-- 	과제 -->
-
 	<select id="gradeSelectStu" resultType="gradeDTO">
 		select g.*, t.TEST_TYPE
 		from grade g
@@ -290,6 +288,11 @@
 		DEADLINE, T_FILE1 ) VALUES (#{c_number}, #{id}, #{title}, #{info},
 		#{deadline}, #{t_file1})
 	</insert>
+	
+	<update id="taskUpdateTx">
+		UPDATE TASK SET TITLE = #{title}, INFO = #{info}, DEADLINE = #{deadline}, T_FILE1 = #{t_file1}
+		WHERE T_NUMBER = #{t_number}
+	</update>
 
 	<select id="getTaskCheck" resultType="stutaskDTO">
 		SELECT * FROM STU_TASK

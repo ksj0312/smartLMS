@@ -100,8 +100,8 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public void updateBoardTx(BoardVO vo) {
-		boDAO.updateBoard(vo);
+	public int updateBoardTx(BoardVO vo) {
+		return boDAO.updateBoard(vo);
 	}
 
 	@Override

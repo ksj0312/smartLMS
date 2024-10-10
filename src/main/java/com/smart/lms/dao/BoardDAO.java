@@ -106,8 +106,8 @@ public class BoardDAO {
 		mybatis.delete("boardDAO.deleteBoard", b_number);
 	}
 
-	public void updateBoard(BoardVO vo) {
-		mybatis.update("boardDAO.updateBoard", vo);
+	public int updateBoard(BoardVO vo) {
+		return mybatis.update("boardDAO.updateBoard", vo);
 	}
 
 	public void boardView(int b_number) {

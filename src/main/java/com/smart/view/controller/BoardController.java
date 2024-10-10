@@ -572,10 +572,10 @@ public class BoardController {
 
 		if (vo.getB_type().equals(btype)) {
 
-			return "redirect:/board/list?b_type=" + URLEncoder.encode(btype, StandardCharsets.UTF_8.toString());
+			return "redirect:/board?b_type=" + URLEncoder.encode(btype, StandardCharsets.UTF_8.toString());
 		} else {
 
-			return "redirect:/board/list?b_type=QNA";
+			return "redirect:/board?b_type=QNA";
 		}
 
 	}
@@ -584,9 +584,11 @@ public class BoardController {
 	@GetMapping("/downloadFile")
 	public void downloadFile(@RequestParam("fileName") String fileName, HttpServletResponse response)
 			throws IOException {
+		System.out.println(fileName);
 		// 파일 저장 경로 설정 (상대 경로)
 		String uploadPath = "/resources/upfile/"; // 파일이 저장된 상대 경로
 		String filePath = uploadPath + fileName; // 전체 파일 경로 생성
+		
 
 		// URL 디코딩 (공백 및 특수문자를 처리하기 위해)
 		String decodedFilePath = java.net.URLDecoder.decode(filePath, "UTF-8");
@@ -692,10 +694,15 @@ public class BoardController {
 	}
 
 	// 선택 목록 수정
-	@PutMapping("/board")
-	public String updateBoard(@ModelAttribute BoardVO vo) throws Exception {
-		boardService.updateBoardTx(vo);
-		return "redirect:/boarddetail?b_number=" + vo.getB_number();
+	@PutMapping("/board/chan")
+	@ResponseBody
+	public String updateBoard(@RequestBody BoardVO vo) throws Exception {
+		int cnt = boardService.updateBoardTx(vo);
+		
+		System.out.println(cnt);
+		System.out.println("b_number VO " + vo.getB_number());
+//		System.out.println("b_number " + b_number);
+		return "/boarddetail?b_number=" + vo.getB_number();
 	}
 
 //   ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ학사 일정ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
