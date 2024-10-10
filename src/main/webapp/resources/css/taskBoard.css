@@ -1,0 +1,10 @@
+.table th{
+	width : 150px !important;
+	vertical-align : middle;
+	
+}
+
+.task_info{
+	vertical-align : middle;
+	height : 200px !important;
+}

@@ -44,7 +44,7 @@ public interface BoardService {
 
 	void deleteBoardTx(int b_number);
 
-	void updateBoardTx(BoardVO vo);
+	int updateBoardTx(BoardVO vo);
 
 	CalendarVO getCal(CalendarVO vo);
 
@@ -66,14 +66,16 @@ public interface BoardService {
 	// 댓글
 	void insertCommentTx(CommentVO vo);
 
-	List<CommentVO> getCommentList(int b_number);
+	List<CommentVO> getCommentList(Pagination pg);
 
 	void deleteCommentTx(int co_number);
 
+	int getCommentListTotalCnt(int b_number);
+	
 	// 메인에서 공지사항
 	List<BoardVO> boardMain(String b_type);
 
-	int getCommentListTotalCnt(Pagination pg);
+	
 	List<NoteVO> sendList(int start, int size, String userId);
 
 	List<NoteVO> sendListSearch(int start, int size, String userId, String search);

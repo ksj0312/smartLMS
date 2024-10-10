@@ -11,7 +11,8 @@
 </script>
 </head>
 <body>
-		  <nav id="searchNav" class="navbar navbar-expand-sm navbar-dark">
+		  <nav id="searchNav" class="navbar navbar-expand-sm navbar-dark" style="justify-content: space-between;">
+		  <a class="b_insert_btn" href="/boardpage?b_type=${pagination.b_type }">글쓰기</a>
                         <form class="form-inline" action="/mypage/board" method="get">
                                 <select name="searchType" class="form-control mr-sm-2">
                                         <option value="b_info">내용</option>
@@ -49,7 +50,6 @@
 		</table>
 		
 	
-		<a href="/boardpage?b_type=${pagination.b_type }">추가</a>
 		<section class="contents-footer">
                         <div>
                                 <nav aria-label="Page navigation example" style="margin: auto;">

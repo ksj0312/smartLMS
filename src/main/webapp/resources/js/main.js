@@ -20,13 +20,15 @@ $(document).ready(function(){
 				<th></th>
 			</tr>`
 	       	 );
+	       	 
+	       	 
 				$.each(values, function(index, value){
 				$(".mainta").append(
 				`
 				<tr onclick="location.href='/boarddetail?b_number=${value.b_number}'" style="cursor:hand">
 				<td>-</td>
 				<td> ${value.b_title}</td>
-				<td> ${value.b_writer}</td>
+				<td> ${value.b_name}</td>
 				</tr>
 				`
 				)

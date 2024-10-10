@@ -23,7 +23,9 @@
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/board.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/board.css">
+
 
 
 <!-- 20240503_ym 스타일추가 시작 -->
@@ -33,16 +35,16 @@
 	div#se2_iframe {width:100vw !important;height: 100% !important;}
 	#smart_editor2 {width: 50%  !important;margin: 0 auto;}
 </style>
+
+
+
 <!-- 20240503_ym 스타일추가 종료 -->
 </head>
 <body>
 
-
-
 <div class="insert_tdiv">
 
-	<form action="/board" method="post" id="dataTransferForm" enctype="multipart/form-data">
-		<input type="hidden" name="_method" value="PUT"/>
+	<form action="/board/chan" method="post" id="dataTransferForm" enctype="multipart/form-data">
 		
 		<input style="display:none;" type="text" name="b_number" value="${board.b_number }" >
 	<div class="b_title_div">
@@ -66,6 +68,12 @@
 	</form>
 
 </div>
+
+<script>
+	
+</script>
+
+
 <script type="text/javascript">
     var contextPath = "${pageContext.request.contextPath}";
 </script>
