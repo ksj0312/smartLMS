@@ -11,7 +11,10 @@
 <title>공지사항 상세보기</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/board.css"></script>
 <script src="${pageContext.request.contextPath }/resources/js/board.js"></script>
-
+<script>
+    var b_number = "${board.b_number}";
+    console.log(b_number);
+</script>
 </head>
 <body>
 

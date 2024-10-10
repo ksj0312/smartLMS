@@ -620,10 +620,12 @@ public class BoardController {
 
 	// 목록 누를시 상세 내용으로 이동
 	@GetMapping("/boarddetail")
-	public String getBoard(Pagination pg, BoardVO vo, Model model, HttpSession session, String b_type, String b_id) {
+	public String getBoard(Pagination pg, BoardVO vo, Model model, HttpSession session, String b_type, String b_id, int b_number) {
 
 		// 세션에서 조회한 게시물 번호 확인
 		List<Integer> viewedBoards = (List<Integer>) session.getAttribute("viewedBoards");
+		
+		vo.setB_number(b_number);
 		
 		pg.setSizePerPage(5);
 		int currPageNo = pg.getCurrPageNo();
@@ -645,6 +647,7 @@ public class BoardController {
 			viewedBoards.add(vo.getB_number());
 			session.setAttribute("viewedBoards", viewedBoards);
 		}
+		
 
 		BoardVO board = boardService.getBoard(vo.getB_number());
 		// 댓글 조회
@@ -694,15 +697,33 @@ public class BoardController {
 	}
 
 	// 선택 목록 수정
-	@PutMapping("/board/chan")
-	@ResponseBody
-	public String updateBoard(@RequestBody BoardVO vo) throws Exception {
+	@PostMapping("/board/chan")
+	public String updateBoard(@ModelAttribute  BoardVO vo) throws Exception {
 		int cnt = boardService.updateBoardTx(vo);
 		
-		System.out.println(cnt);
-		System.out.println("b_number VO " + vo.getB_number());
-//		System.out.println("b_number " + b_number);
-		return "/boarddetail?b_number=" + vo.getB_number();
+		// 파일 처리 로직
+				MultipartFile file = vo.getUploadFile();
+				if (file != null && !file.isEmpty()) {
+					// 파일 저장 경로 설정 (상대 경로)
+					String uploadPath = "/resources/upfile/"; // 상대 경로 설정
+					String fileName = file.getOriginalFilename();
+
+					// 저장할 파일의 전체 경로
+					String fullPath = new File(uploadPath).getAbsolutePath() + File.separator + fileName;
+
+					// 파일을 해당 경로에 저장
+					File dest = new File(fullPath);
+					file.transferTo(dest);
+
+					// BoardVO에 파일 경로 설정 (상대 경로 사용)
+					vo.setB_file1(fileName); // 파일 경로를 BoardVO의 b_file1에 설정
+
+					System.out.println("파일 저장 성공: " + fileName);
+				} else {
+					System.out.println("파일이 업로드되지 않았습니다.");
+				}
+		
+		return "redirect:/boarddetail?b_number=" + vo.getB_number();
 	}
 
 //   ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ학사 일정ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
@@ -750,7 +771,6 @@ public class BoardController {
 	@DeleteMapping("/cal")
 	@ResponseBody
 	public String deleteCal(int cal_number) throws UnsupportedEncodingException, Exception {
-		System.out.println("cal_number " + cal_number);
 		// 일정 삭제
 		boardService.deleteCalTx(cal_number);
 		// 삭제 후 목록으로 리디렉션
@@ -761,7 +781,6 @@ public class BoardController {
 	@PostMapping(value = "/comment")
 	public String insertComment(CommentVO vo) throws IllegalStateException, IOException, Exception {
 		// 배열로 받은 각 CalendarVO 객체를 처리
-		System.out.println("vo " + vo);
 
 		boardService.insertCommentTx(vo);
 		return "redirect:/boarddetail?b_number=" + vo.getB_number();
