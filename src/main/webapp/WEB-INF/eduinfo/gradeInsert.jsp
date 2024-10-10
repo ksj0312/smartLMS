@@ -5,7 +5,6 @@
 <html>
 <head>
 <script src="${pageContext.request.contextPath }/resources/js/gradeInsert.js"></script>
-<%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/gradeInsert.css"> --%>
 </head>
 <body>
 <div class="bcl">

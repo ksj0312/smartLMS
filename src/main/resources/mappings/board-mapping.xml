@@ -141,7 +141,7 @@
 			<if test="keyword != null || keyword != ' '">
 			<if test="searchType == 'b_info'"> AND B_INFO like CONCAT('%', #{keyword}, '%') </if>
 			<if test="searchType == 'b_title'"> AND B_TITLE like CONCAT('%', #{keyword}, '%') </if>
-			ORDER BY B_NUMBER desc
+			ORDER BY B_NUMBER DESC
 			LIMIT #{sizePerPage} OFFSET #{startList}
 		</if>
 	</select>
@@ -223,4 +223,13 @@
 	<select id="getCommentListTotalCnt" resultType="integer">
 		SELECT COUNT(*) FROM COMMENT WHERE B_NUMBER = #{b_number};
 	</select>
+	
+	<select id="getBoardListTotalCnt2"
+      parameterType="com.smart.lms.util.Pagination" resultType="integer">
+      SELECT COUNT(*) FROM BOARD WHERE B_TYPE = #{b_type} AND B_ID = #{b_id}
+      <if test="keyword != null">
+         <if test="searchType == 'b_info'"> AND B_INFO like CONCAT('%', #{keyword}, '%')</if>
+         <if test="searchType == 'b_title'"> AND B_TITLE like CONCAT('%', #{keyword}, '%')</if>
+      </if>
+   </select>
 </mapper>

@@ -15,7 +15,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<%-- <script src="${pageContext.request.contextPath }/resources/js/testList.js"></script> --%>
 <title>과제 목록</title>
 </head>
 <body>

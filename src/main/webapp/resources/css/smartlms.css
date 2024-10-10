@@ -403,7 +403,7 @@ button:focus, .form-control:focus, .form-control:active, .btn-primary:focus, .bt
    margin: 0 !important;
    justify-content: center !important;
    flex-grow: 1 !important;
-   font-size: large !important;
+/*    font-size: large !important; */
 }
 
 .navbar-nav li.nav-item {

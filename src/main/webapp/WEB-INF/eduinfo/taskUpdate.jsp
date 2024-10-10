@@ -4,7 +4,6 @@
 
 <html>
 <head>
-<%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/testInsert.css"> --%>
 </head>
 <title>교수 과제 수정</title>
 <body>

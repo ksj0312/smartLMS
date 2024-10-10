@@ -1,48 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/menual.css">
 
-<style>
-
-.container {
-
-    width: 80%;
-    margin: 0 auto;
-}
-
-h4{
-	margin-top:50px;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 20px 0;
-}
-
-th, td {
-    padding: 15px;
-    text-align: left;
-    border: 1px solid #dddddd;
-}
-
-th {
-    background-color: #f2f2f2;
-}
-
-ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-ul li {
-    padding: 10px 0;
-}
-
-.roles, .features {
-    margin-top: 20px;
-}
-
-</style>
     <div class="container">
         <h4>소개</h4>
         <p>LMS는 수업의 효과적인 운영을 지원하고 교수-학생, 학생-학생간의 자료와 의견을 자유롭게 교환할 수 있는 커뮤니티 공간입니다.</p>

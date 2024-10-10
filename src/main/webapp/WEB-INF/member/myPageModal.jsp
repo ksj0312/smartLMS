@@ -5,8 +5,6 @@
 <head>
 <meta charset="UTF-8">
 <title>강의 상세 정보</title>
-<%-- <script src="${pageContext.request.contextPath }/resources/js/classInfo.js"></script> --%>
-<%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/class.css"> --%>
 </head>
 <body>
 

@@ -3,9 +3,6 @@
 
 <html>
 <head>
-<script src="${pageContext.request.contextPath }/resources/js/testInsert.js"></script>
-<%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/testInsert.css"> --%>
-
 
 <title>학생 과제 등록</title>
 
@@ -19,8 +16,6 @@
 <div class="bcl">
         <div class="divall">
                 <section class="header-container">
-<%--     					<h5>강의번호 : <%= request.getParameter("c_number") %> </h5> --%>
-<%-- 						<h5>강의명 : <%=c_name%></h5> --%>
     					<br><br>
                 </section>
                 <section class="contents-container">

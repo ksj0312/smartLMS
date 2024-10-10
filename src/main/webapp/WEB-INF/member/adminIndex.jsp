@@ -3,7 +3,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script src="${pageContext.request.contextPath }/resources/js/attendance.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/adminIndex.css">
 </head>
 <body>
@@ -20,7 +19,6 @@
 <div class="idxbody">
 	<div>
 	<div style="height:35px"></div>
-<!-- 	<img class="idxlog" src="/resources/img/logo11.png" alt="smartLMS" title="smartLMS" style="height: 155px; cursor:pointer;" onclick="javascript:newin=window.open('about:blank'); newin.location.href='/';" ><br> -->
 	<ul>
 	<li><br></li>
 	<%

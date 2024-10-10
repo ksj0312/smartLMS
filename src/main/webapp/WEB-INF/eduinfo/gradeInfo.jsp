@@ -7,7 +7,6 @@
 <meta charset="UTF-8">
 <title>수강생 확인</title>
 <script src="${pageContext.request.contextPath }/resources/js/attendance.js"></script>
-<%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/attendance.css"> --%>
 </head>
 <body>
 <div class="bcl">

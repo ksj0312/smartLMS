@@ -199,4 +199,8 @@ public class BoardDAO {
 		return professor != null; // 유저가 존재하면 true, 없으면 false 반환	}
 
 	}
+	
+	public int getBoardListTotalCnt2(Pagination pg) {
+	      return mybatis.selectOne("boardDAO.getBoardListTotalCnt2", pg);
+	   }
 }

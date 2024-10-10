@@ -8,7 +8,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<%-- <script src="${pageContext.request.contextPath }/resources/js/testList.js"></script> --%>
 <title>학생 본인 성적 조회 </title>
 </head>
 <body>

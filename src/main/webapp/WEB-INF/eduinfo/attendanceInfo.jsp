@@ -3,7 +3,6 @@
 <html>
 <head>
 <script src="${pageContext.request.contextPath }/resources/js/attendanceInfo.js"></script> 
-<%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/attendanceInfo.css"> --%>
 </head>
 <body>
 

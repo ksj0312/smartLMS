@@ -504,7 +504,6 @@ public class EduinfoController {
 		//학생 성적 조회
 		@GetMapping("/student/grade")
 		public String gradeSelectStu (int c_number, String id, Model model) {
-				System.out.println("c_number " + c_number);
 				List<GradeVO> gradestuList= eduinfoService.gradeSelectStu(c_number ,id);
 				ClassVO classvo = eduinfoService.classSelect(c_number);
 				
@@ -524,7 +523,6 @@ public class EduinfoController {
 			ClassVO classvo = eduinfoService.classSelect(c_number);
 
 			
-			System.out.println(grade);
 			model.addAttribute("grade" , grade);
 			model.addAttribute("c_number", c_number);
 			model.addAttribute("c_name", classvo.getC_name());
@@ -578,11 +576,7 @@ public class EduinfoController {
 		           // StuTaskVO에 파일 경로 설정
 		           vo.setT_file1(uploadPath + fileName); // 파일 경로를 BoardVO의 b_file1에 설정
 
-		           System.out.println("파일 저장 성공: " + fileName);
-		       } else {
-		           System.out.println("파일이 업로드되지 않았습니다.");
-		       }
-			
+		       } 			
 		       	eduinfoService.taskInsertTx(vo);
 			return "redirect:/task/class?status=insert";
 		}
@@ -650,13 +644,11 @@ public class EduinfoController {
 				//해당학생이 제출한 과제 조회
 				StuTaskVO stutask = eduinfoService.getStuTask(t_number, id );
 				model.addAttribute("stutask", stutask);
-//				System.out.println("교수" +stutask);
 
 			}else {
 				//학생이 제출한 과제
 				StuTaskVO stutask = eduinfoService.getStuTask(t_number, (String) session.getAttribute("userId"));
 				model.addAttribute("stutask", stutask);
-//				System.out.println("학생" +stutask);
 
 			}
 			model.addAttribute("task" , task);
@@ -695,10 +687,7 @@ public class EduinfoController {
 		           // StuTaskVO에 파일 경로 설정
 		           vo.setS_file1(fileName); // 파일 경로를 BoardVO의 b_file1에 설정
 
-		           System.out.println("파일 저장 성공: " + fileName);
-		       } else {
-		           System.out.println("파일이 업로드되지 않았습니다.");
-		       }
+		       } 
 			
 		       eduinfoService.insertStuTaskTx(vo);
 		       
@@ -749,7 +738,6 @@ public class EduinfoController {
 			//강의 정보
 			ClassVO classvo = eduinfoService.classSelect(stutask.getC_number());			
 			model.addAttribute("stutask" , stutask);
-//			System.out.println(stutask);
 			model.addAttribute("c_number", stutask.getC_number());
 			model.addAttribute("c_name", classvo.getC_name());
 			model.addAttribute("id", stutask.getId());
@@ -776,10 +764,7 @@ public class EduinfoController {
 		           // StuTaskVO에 파일 경로 설정
 		           vo.setS_file1(fileName); // 파일 경로를 BoardVO의 b_file1에 설정
 
-		           System.out.println("파일 저장 성공: " + fileName);
-		       } else {
-		           System.out.println("파일이 업로드되지 않았습니다.");
-		       }
+		       } 
 			
 			eduinfoService.stuTaskUpdateTx(vo);
 			
@@ -824,10 +809,7 @@ public class EduinfoController {
 		           // StuTaskVO에 파일 경로 설정
 		           vo.setT_file1(fileName); // 파일 경로를 BoardVO의 b_file1에 설정
 
-		           System.out.println("파일 저장 성공: " + fileName);
-		       } else {
-		           System.out.println("파일이 업로드되지 않았습니다.");
-		       }
+		       } 
 			
 			int cnt = eduinfoService.taskUpdateTx(vo);
 			

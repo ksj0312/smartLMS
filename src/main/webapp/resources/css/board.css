@@ -156,11 +156,9 @@
 	margin : 30px;
 }
 
-.b_insert_btn{
-/* 	margin-right : 65%; */
-	display : inline-block;
-}
-
+/* .b_insert_btn{ */
+/* 	display : inline-block; */
+/* } */
 
 .b_option_btn{
 	background-color : 042424;
@@ -169,5 +167,11 @@
 
 .b_option_btn:hover{
 	background-color : #fff;
+}
+.boardser {
+    justify-content: end !important;
+}
+.boardin{
+    text-align: end;
 }
 

@@ -101,14 +101,14 @@
 			<artifactId>log4j-core</artifactId>
 			<version>2.9.1</version>
 		</dependency>
-		
-			<!--본인인증 의존성 추가 -->
-	  <dependency>
-         <groupId>net.nurigo</groupId>
-         <artifactId>javaSDK</artifactId>
-         <version>2.2</version>
-      </dependency>
-		
+
+		<!--본인인증 의존성 추가 -->
+		<dependency>
+			<groupId>net.nurigo</groupId>
+			<artifactId>javaSDK</artifactId>
+			<version>2.2</version>
+		</dependency>
+
 		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -134,11 +134,11 @@
 			<artifactId>aspectjrt</artifactId>
 			<version>${org.aspectj-version}</version>
 		</dependency>
-			<dependency>
-	<groupId>javax.mail</groupId>
-	<artifactId>mail</artifactId>
-	<version>1.4.7</version>
-</dependency>
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.4.7</version>
+		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.aspectj/aspectjweaver -->
 		<dependency>
 			<groupId>org.aspectj</groupId>
@@ -179,9 +179,9 @@
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
-		    <groupId>org.bgee.log4jdbc-log4j2</groupId>
-		    <artifactId>log4jdbc-log4j2-jdbc4</artifactId>
-		    <version>1.16</version>
+			<groupId>org.bgee.log4jdbc-log4j2</groupId>
+			<artifactId>log4jdbc-log4j2-jdbc4</artifactId>
+			<version>1.16</version>
 		</dependency>
 		<dependency>
 			<groupId>log4j</groupId>
@@ -207,8 +207,8 @@
 			</exclusions>
 			<scope>runtime</scope>
 		</dependency>
-		
-		
+
+
 		<!-- @Inject -->
 		<dependency>
 			<groupId>javax.inject</groupId>

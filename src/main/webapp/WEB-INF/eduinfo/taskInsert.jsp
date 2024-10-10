@@ -4,8 +4,6 @@
 
 <html>
 <head>
-<%-- <script src="${pageContext.request.contextPath }/resources/js/testInsert.js"></script> --%>
-<%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/testInsert.css"> --%>
 </head>
 <title>교수 과제 등록</title>
 <body>
