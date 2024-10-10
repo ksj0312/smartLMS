@@ -637,7 +637,6 @@ public class EduinfoController {
 			
 			return "eduinfo/taskList";
 		}
-		
 		//과제 게시판 들어가기
 		@GetMapping("/task/info")
 		public String taskBoard(@RequestParam ("t_number") int t_number, @RequestParam ("id") String id,   HttpSession session, Model model, TaskVO vo, StuTaskVO vo1) {
@@ -746,7 +745,7 @@ public class EduinfoController {
 		
 		//과제 게시글 수정 페이지
 		@GetMapping("/student/taskpage")
-		public String stuTaskUpdatePage(@RequestParam ("st_number") int st_number, Model model) {
+		public String stuTaskUpdatePage(@RequestParam ("st_number") int st_number, StuTaskVO vo,  Model model) {
 			
 			StuTaskVO stutask = eduinfoService.getThisStuTask(st_number);
 			
@@ -763,14 +762,16 @@ public class EduinfoController {
 		
 		//과제 게시글 수정
 		@PutMapping("/student/task")
-		public String stuTaskUpdate(StuTaskVO vo, Model model) {
-			eduinfoService.stuTaskUpdateTx(vo);
+		@ResponseBody
+		public String stuTaskUpdate(@ModelAttribute StuTaskVO vo, @RequestParam("uploadFile") MultipartFile uploadFile, Model model) {
+			System.out.println("StuTaskVO  " + vo);
 			
+			eduinfoService.stuTaskUpdateTx(vo);
 			model.addAttribute("t_number", vo.getT_number());
 			model.addAttribute("id", vo.getId());
 
 			
-			return "redirect:/task/info";
+			return "task/info";
 		}
 	
 }

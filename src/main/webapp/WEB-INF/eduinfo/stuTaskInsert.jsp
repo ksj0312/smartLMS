@@ -21,7 +21,6 @@
 <%-- 						<h5>강의명 : <%=c_name%></h5> --%>
     					<br><br>
                 </section>
-                ${t_number }
                 <section class="contents-container">
                   <form action="/student/task" method="POST" enctype="multipart/form-data">
                   <div class="insertForm">

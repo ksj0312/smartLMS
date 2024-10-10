@@ -286,4 +286,43 @@ function fn_next_comment(currPageNo, range, pageSize) {
 
 	  //상세보기 스크립트 끝
 	  
+	  
+	   //등급 변경
+	   
+	   
+	   
+                 function boardUpdate(event, b_number){
+                 		event.preventDefault();
+                 		
+                  		var b_title = document.getElementById("b_title").value;
+                  		var b_info = document.getElementById("ir1").value;
+                  		
+                  		console.log(b_title);
+                  		console.log(b_info);
+                  		console.log(b_number);
+                  		 
+        		        $.ajax({
+       				  	url : "/board",
+        				data :JSON.stringify({  
+           					 "b_title": b_title,
+           					 "b_info": b_info,
+           					 "b_number" : b_number,
+        				}),
+        				type : "PUT",
+        				contentType: "application/json",
+        				success: function(data){
+        				
+        				 console.log(data);
+        				 window.location.href = data; // 서버에서 반환된 URL로 이동
+        				 alert(`게시글 변경이 완료되었습니다.`);
+        				 
+       					},error: function(){
+           				 alert("게시글 변경이 실패했습니다. 다시 시도해주세요.");
+         				}
+     					 });
+                 }
+	  
+	  
+	  
+	  
 	 

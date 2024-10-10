@@ -572,10 +572,10 @@ public class BoardController {
 
 		if (vo.getB_type().equals(btype)) {
 
-			return "redirect:/board/list?b_type=" + URLEncoder.encode(btype, StandardCharsets.UTF_8.toString());
+			return "redirect:/board?b_type=" + URLEncoder.encode(btype, StandardCharsets.UTF_8.toString());
 		} else {
 
-			return "redirect:/board/list?b_type=QNA";
+			return "redirect:/board?b_type=QNA";
 		}
 
 	}
@@ -693,9 +693,14 @@ public class BoardController {
 
 	// 선택 목록 수정
 	@PutMapping("/board")
-	public String updateBoard(@ModelAttribute BoardVO vo) throws Exception {
-		boardService.updateBoardTx(vo);
-		return "redirect:/boarddetail?b_number=" + vo.getB_number();
+	@ResponseBody
+	public String updateBoard(@RequestBody BoardVO vo) throws Exception {
+		int cnt = boardService.updateBoardTx(vo);
+		
+		System.out.println(cnt);
+		System.out.println("b_number VO " + vo.getB_number());
+//		System.out.println("b_number " + b_number);
+		return "/boarddetail?b_number=" + vo.getB_number();
 	}
 
 //   ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ학사 일정ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ

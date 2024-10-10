@@ -23,7 +23,9 @@
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/board.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/board.css">
+
 
 
 <!-- 20240503_ym 스타일추가 시작 -->
@@ -33,18 +35,19 @@
 	div#se2_iframe {width:100vw !important;height: 100% !important;}
 	#smart_editor2 {width: 50%  !important;margin: 0 auto;}
 </style>
+
+
+
 <!-- 20240503_ym 스타일추가 종료 -->
 </head>
 <body>
 
-
-
 <div class="insert_tdiv">
 
-	<form action="/board" method="post" id="dataTransferForm" enctype="multipart/form-data">
-		<input type="hidden" name="_method" value="PUT"/>
+	<form action="" method="post" id="dataTransferForm" enctype="multipart/form-data">
+<!-- 		<input type="hidden" name="_method" value="PUT"/> -->
 		
-		<input style="display:none;" type="text" name="b_number" value="${board.b_number }" >
+   		<input type="hidden" name="b_number" value="${board.b_number }">
 	<div class="b_title_div">
 		<label for="b_title" class="b_title_label">제목</label>
 		<input type="text" class="b_title_input" name="b_title" id="b_title" value="${board.b_title }" placeholder="공지사항 제목입력">
@@ -57,15 +60,23 @@
 		<input type="text" class="board_hide" name="b_name" id="b_name" value="${userName }" placeholder="타입 입력">
 		
 	<div id="se2_sample">
-		<textarea name="b_info" id="ir1" rows="10" cols="100" style="width:766px; height:412px; display:none;">${board.b_info }</textarea>
+		<textarea name="b_info"	id="ir1"rows="10" cols="100" style="width:766px; height:412px;">${board.b_info }</textarea>
 	</div>
+	
 		<div class="b_bottom_div">
 		  <input class="b_file" type="file" name="uploadFile" id="uplodaFile">
-		<input class="b_insert_button" type="submit" onclick="submitContents(this);" value="수정" />
+		<input class="b_insert_button" type="submit" onclick="boardUpdate(event, ${board.b_number})" value="수정" />
 		</div>
 	</form>
 
 </div>
+
+<script>
+	
+	
+</script>
+
+
 <script type="text/javascript">
     var contextPath = "${pageContext.request.contextPath}";
 </script>
