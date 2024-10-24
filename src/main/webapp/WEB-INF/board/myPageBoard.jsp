@@ -4,13 +4,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>공지사항</title>
+<title>내가 쓴 글</title>
 <script>
     var b_id = "${userId}";
-    console.log(b_id);
 </script>
 </head>
 <body>
+<div class="boarddiv">
+<div class="divall">
 		  <nav id="searchNav" class="navbar navbar-expand-sm navbar-dark" style="justify-content: space-between;">
 		  <a class="b_insert_btn" href="/boardpage?b_type=${pagination.b_type }">글쓰기</a>
                         <form class="form-inline" action="/mypage/board" method="get">
@@ -41,14 +42,12 @@
 						<td class="tdCenter">${board.b_number}</td>
 						<td>${board.b_title}</td>
 						<td class="tdCenter">${board.b_info}</td>
-<%-- 						 <c:out value="${fn:length(board.b_info) > 20 ? board.b_info.substring(0, 20) + '...' : board.b_info}"/> --%>
-<%-- 						<td class="tdCenter">${board.b_type}</td> --%>
 						<td class="tdCenter">${board.b_id}</td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
-		
+		</div>
 	
 		<section class="contents-footer">
                         <div>
@@ -75,10 +74,8 @@
                         </div>
                         <div id="paginationData" data-searchType="${pagination.searchType}" data-keyword="${pagination.keyword}"></div>
                 </section>
+                </div>
 				<script src="${pageContext.request.contextPath }/resources/js/board.js"></script>
-		
-	
-	<br><br><br><br><br><br><br><br><br>
 	
 </body>
 </html>

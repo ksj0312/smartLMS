@@ -8,7 +8,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<%-- <script src="${pageContext.request.contextPath }/resources/js/testList.js"></script> --%>
 <title>학생 본인 성적 조회 </title>
 </head>
 <body>
@@ -33,6 +32,8 @@
     					<h5>강의명 : <%=c_name %></h5> 
                 </section>
         <br><br>
+				    <c:choose>
+				     <c:when test="${grade ne null}">
 				     <table class="table">
 				        <tr>
 				        <th>시험 이름</th>
@@ -41,24 +42,18 @@
 				        <th>등급 </th>
 				        
 				        </tr>
-				    <c:choose>
-				     <c:when test="${grade ne null}">
 				        <tr>
 						<td>${test_type}</td>  
 						<td>${grade.id}</td>  
 						<td>${grade.level}</td>
 						<td>${grade.grade}</td>
 						</tr>
+					</table>
 					</c:when>
 					<c:otherwise>
-						<tr>
-							<td>등록된 값이 없습니다</td>
-						</tr>
+							<h4 style="text-align:center">시험 결과가 아직 나오지 않았습니다</h4>
 					</c:otherwise>
 					</c:choose>
-						
-						
-					</table>
 			
 </div>
 </div>

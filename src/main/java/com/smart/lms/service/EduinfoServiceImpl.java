@@ -237,6 +237,14 @@ public class EduinfoServiceImpl implements EduinfoService {
 	public void taskInsertTx(TaskVO vo) {
 		eduDAO.taskInsertTx(vo);
 	}
+	
+	// 과제 수정
+	@Override
+	public int taskUpdateTx(TaskVO vo) {
+		return eduDAO.taskUpdateTx(vo);
+	}
+	
+	
 
 	// 시험 정보
 	@Override

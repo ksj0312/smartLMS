@@ -10,7 +10,6 @@
         				},
         				type : "GET",
         				success: function(response){
-        					console.log(response);
 				            let date = new Date(response.start_time);
 				            let year = date.getFullYear();
 				            let month = ("0" + (date.getMonth() + 1)).slice(-2); 

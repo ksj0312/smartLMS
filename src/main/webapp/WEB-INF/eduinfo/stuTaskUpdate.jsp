@@ -3,15 +3,12 @@
 
 <html>
 <head>
-<script src="${pageContext.request.contextPath }/resources/js/taskInsert.js"></script>
-<%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/testInsert.css"> --%>
 </head>
 <body>
 
 	<%@ include file="../member/taskIndex.jsp"%>
 
 	
-	${stutask }
 <div class="bcl">
         <div class="divall">
                 <section class="header-container">
@@ -20,7 +17,8 @@
     					<br><br>
                 </section>
                 <section class="contents-container">
-                  <form id="taskForm" enctype="multipart/form-data">
+                
+                  <form action="/student/task/chan" method="POST" enctype="multipart/form-data">
                   <div class="insertForm">
                   	<div class="input-group mb-3">
 						<div class="input-group-prepend">
@@ -57,10 +55,10 @@
 							<span class="input-group-text">파일</span>
 						</div>
 						<input type=file class="form-control" name="uploadFile" id="uploadFile"
-							value="${stutask.s_file1 }">
+							value="">
+								
 					</div>
-                       </div>
-       						 <button type="button" class="subtn" onclick="taskUpdate(event)">수정하기</button>
+                        <button type="submit" class="subtn">수정하기</button>
                         </form>
                 </section>
         </div>

@@ -48,8 +48,9 @@ footer {
     justify-content: space-evenly;
     align-items: flex-start;
     flex-wrap: wrap;
-    margin-top: 70px;
+    margin-top: 150px;
     margin-left: 40px;
+    flex-direction : column;
 }
 .mainbo{
 	width: 400px;
@@ -403,7 +404,7 @@ button:focus, .form-control:focus, .form-control:active, .btn-primary:focus, .bt
    margin: 0 !important;
    justify-content: center !important;
    flex-grow: 1 !important;
-   font-size: large !important;
+/*    font-size: large !important; */
 }
 
 .navbar-nav li.nav-item {

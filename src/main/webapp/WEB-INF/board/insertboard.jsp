@@ -27,7 +27,6 @@
 
 <!-- 20240503_ym 스타일추가 시작 -->
 <style type="text/css">
-	body { margin: 10px; }
 	div.se2_input_area.husky_seditor_editing_area_container {width:100vw !important; height: 600px !important;}
 	div#se2_iframe {width:100vw !important;height: 100% !important;}
 	#smart_editor2 {width: 50%  !important;margin: 0 auto;}

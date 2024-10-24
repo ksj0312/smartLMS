@@ -24,10 +24,7 @@ $(document).ready(function() {
         },
         cache: false,
         success: function(data) {
-            console.log(data);
             noteList.empty();
-            console.log(data.totalPages);
-            console.log(data.notes.length);
 
             $('.searchdiv').show();
             $('#pagination').show();
@@ -76,7 +73,6 @@ $(document).ready(function() {
             $('#noteModal').show();
         },
         error: function(xhr, status, error) {
-            console.error('AJAX Error: ' + status + ' ' + error);
         }
     });
 
@@ -121,7 +117,6 @@ function checkUser(n_reciver, callback) {
             callback(response); // 응답을 콜백 함수로 전달
         },
         error: function(xhr, status, error) {
-            console.error('AJAX Error: ' + status + ' ' + error);
             alert('사용자 확인 중 오류가 발생했습니다.');
         }
     });
@@ -149,13 +144,11 @@ function sendNote() {
                 type: 'POST',
                 data: formData,
                 success: function(response) {
-                    console.log(response);
                     alert('쪽지가 성공적으로 보내졌습니다!');
                     loadNoteList(isSendList);
                     closeModal();
                 },
                 error: function(xhr, status, error) {
-                    console.error('AJAX Error: ' + status + ' ' + error);
                     alert('쪽지 전송 중 오류가 발생했습니다.');
                 }
             });
@@ -181,7 +174,6 @@ function sendNote() {
                                              n_number : number
                                           }, // 데이터를 객체로 전송
                                           success : function(data) {
-                                             console.log(data); // 서버에서 받은 데이터를 출력
                                              $('.searchdiv')
                                                    .hide();
                                              $('#pagination').hide();
@@ -213,11 +205,6 @@ function sendNote() {
                                           },
                                           error : function(xhr,
                                                 status, error) {
-                                             console
-                                                   .error('AJAX Error: '
-                                                         + status
-                                                         + ' '
-                                                         + error);
                                           }
                                        });
                               });
@@ -238,24 +225,16 @@ function sendNote() {
                                              type : 'DELETE',
                                              success : function(
                                                    data) {
-                                                console
-                                                      .log(data); // 서버에서 받은 JSON 데이터를 콘솔에 출력
                                                 loadNoteList(isSendList); // 쪽지 목록 다시 로드
                                              },
                                              error : function(
                                                    xhr,
                                                    status,
                                                    error) {
-                                                console
-                                                      .error('AJAX Error: '
-                                                            + status
-                                                            + ' '
-                                                            + error);
                                              }
                                           });
                                  } else {
                                     // 사용자가 취소를 누르면 아무 일도 일어나지 않음
-                                    console.log("삭제가 취소되었습니다.");
                                  }
                               });
                   // 모달 창 닫기 함수

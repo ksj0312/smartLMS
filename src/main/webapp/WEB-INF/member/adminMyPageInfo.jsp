@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 
 <%
-    // 세션에서 mem_id 가져오기
     String userName = (String) session.getAttribute("userName");	
 %>
   <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>

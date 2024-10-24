@@ -15,7 +15,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<%-- <script src="${pageContext.request.contextPath }/resources/js/testList.js"></script> --%>
 <title>과제 목록</title>
 </head>
 <body>
@@ -36,7 +35,7 @@
 				<c:when test="${taskListcnt > 0}">
 				     <table class="table">
 				        <tr>
-				        <th>강의 번호</th>
+				        <th>과제 번호</th>
 				        <th>작성자</th>
 				        <th>과제 제목</th>
 				        <th>과제 내용 </th>
@@ -53,7 +52,7 @@
 					<% }else{%>
 					<tr onclick="location.href='/task/info?c_number=${tl.c_number}&t_number=${tl.t_number}&id=<%=id %>'" style="cursor:hand" >
 					<%} %>
-						<td>${tl.c_number}</td>  
+						<td>${tl.t_number}</td>  
 						<td>${tl.id}</td>  
 						<td>${tl.title}</td>
 						<td>${tl.info}</td>
@@ -73,6 +72,7 @@
 					</div>
 				</c:otherwise>			
 			</c:choose>
+			
 	</div>
 </div>
 

@@ -70,6 +70,11 @@ html, body {
     border-color: #fff !important;
 }
 
+#calendar-container{
+	margin : 80 0 339 0;
+	
+}
+
 #calendar {
     width: 80%; /* 너비를 조정, 필요에 따라 변경 */
     height: 400px; /* 높이를 조정, 필요에 따라 변경 */

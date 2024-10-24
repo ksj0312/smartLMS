@@ -61,7 +61,6 @@
                         <button class="btnfI" id="findPwdBtn">비밀번호 찾기</button>
                     </div>
                     <div id="formArea">
-                        <!-- 여기서 이메일 입력을 위한 폼이 추가될 예정입니다. -->
                     </div>
                 </div>
                 <div class="modal-footer">

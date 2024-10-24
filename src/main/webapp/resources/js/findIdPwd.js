@@ -60,7 +60,6 @@ $(document).ready(function(){
            	 email: email 
             },
             success: function(response) {
-            	console.log(response);
             	code = response;
                 $('#verificationMessage1').text("인증 이메일이 발송되었습니다.");
                 sendAuthNum();
@@ -195,7 +194,6 @@ function getId(){
 			email: email
 		},
 		   success: function(response) {
-           	console.log(response);
             if (check5 == true) {
             	 $('#formArea').html("<p>아이디는: <strong>" + response.id + "</strong></p>");
             		$('#findIdBtn').hide();
@@ -229,7 +227,6 @@ $(document).ready(function() {
 
 function telPwdCheckBtn() {
         let tel = $('#tel').val();
-        console.log('입력 전화번호 : ' + tel);
         let changechk = $('.changechk');
 //         $('.tel-check-input').show();
  if (!validatePhoneNumber(tel)) {
@@ -250,13 +247,11 @@ function telPwdCheckBtn() {
             success: function(code1) {
             	changechk.prop('disabled', false);
                 code = code1;
-                console.log(code);
                 alert('인증번호가 전송되었습니다.');
                 sendAuthNum2(); // 인증번호 발송 및 타이머 시작 함수 호출
                 telSent = true; // 문자 전송 상태 업데이트
             },
             error: function(xhr, status, error) {
-                console.error(xhr.responseText);
             }
         });
         changechk.prop('disabled', false);
@@ -317,7 +312,6 @@ function changeFindNewPwd(){
 			pwd: pwd,
 			tel: tel
 	}
-	console.log(pwdchk, pwdchk2);
 	if(pwd == pwdchk)
 		changeNew = true;
 	else
@@ -334,7 +328,6 @@ $.ajax({
     contentType: 'application/json',
     data: JSON.stringify(dataForm),
     success: function(data) {
-        console.log(data);
         alert("회원 정보가 변경되었습니다. 다시 로그인하세요.");
         window.location.href = '/';  // 로그인 페이지로 리디렉션	
 

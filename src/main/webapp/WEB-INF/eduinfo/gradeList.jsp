@@ -5,7 +5,6 @@
 <html>
 <head>
 <script src="${pageContext.request.contextPath }/resources/js/gradeList.js"></script>
-<%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/gradeList.css"> --%>
 </head>
 <body>
 <div class="bcl">

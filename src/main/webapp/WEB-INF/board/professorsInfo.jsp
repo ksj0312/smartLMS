@@ -4,6 +4,7 @@
 
 <html>
 <head>
+<title>교수소개</title>
 <script src="${pageContext.request.contextPath }/resources/js/professorsInfo.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/professorsInfo.css">
 </head>
@@ -12,7 +13,7 @@
 
                 <h4>교수진 소개</h4>
                 <nav id="searchNav" class="navbar navbar-expand-sm navbar-dark">
-                        <form class="form-inline" action="professors" method="get">
+                        <form class="form-inline" action="/professors" method="get">
                                 <select name="searchType" class="form-control mr-sm-2">
                                         <option value="name">이름</option>
                                 </select> <input class="form-control mr-sm-2" type="text" name="keyword"

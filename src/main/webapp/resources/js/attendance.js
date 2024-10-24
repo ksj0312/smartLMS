@@ -5,7 +5,6 @@ function attInfo(c_number) {
        data: {c_number : c_number}, 
        contentType: "application/json",
        success: function(response) { 
-       console.log(response);
        		$("#c_number").val(c_number);
 	       values = response.attList;
 	        $('#infoTable').empty(); 

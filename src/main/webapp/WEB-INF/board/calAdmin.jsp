@@ -51,14 +51,19 @@
   
 }
 
-#calendar{
-	padding-left : 60px;	
+#calendar {
+    padding-left: 10px;
+    margin: 30px;
+    margin-top: 50px;
 }
 /* body 스타일 */
 html, body {
 /* 	overflow: hidden; */
 	font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
 	font-size: 14px;
+}
+ol, ul {
+    padding-left: 0px;
 }
 /* 캘린더 위의 해더 스타일(날짜가 있는 부분) */
 .fc-header-toolbar {
@@ -104,16 +109,6 @@ html, body {
 					종료시간 : <input type="datetime-local" id="cal_edate" /><br />
 					<input style="display: none;" type="text" id="cal_writer" value="관리자" /><br />
 					<input style="display: none;" type="datetime-local" id="cal_create_date" /><br />
-<!-- 					            배경색상 : -->
-<!-- 					            <select id="cal_color"> -->
-<!-- 					              <option value="gray">회색</option> -->
-<!-- 					              <option value="orange">주황색</option> -->
-<!-- 					              <option value="yellow">노랑색</option> -->
-<!-- 					              <option value="green">초록색</option> -->
-<!-- 					              <option value="blue">파랑색</option> -->
-<!-- 					              <option value="indigo">남색</option> -->
-<!-- 					              <option value="purple">보라색</option> -->
-<!-- 					            </select> -->
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary"
@@ -210,10 +205,6 @@ $(function(){
                 // 일요일 스타일: 빨간 글씨, 연한 빨강 배경
                 arg.el.style.textColor = "red";  // 연한 빨강 배경색
             }
-//             else if (day === 6) {
-//                 // 토요일 스타일: 연파랑 배경
-//                 arg.el.style.backgroundColor = '#e6f7ff';  // 연파랑 배경색
-//             }
         },
         
         // 데이터 가져오는 이벤트
@@ -275,7 +266,6 @@ $(function(){
                 deleteBtn.innerHTML = cancle;
                 deleteBtn.style.cursor = 'pointer';
                 deleteBtn.style.float = 'right';
-//                 deleteBtn.style.transform = 'translateY(-18px)';
 
                 deleteBtn.addEventListener('click', async function() {
                     if (confirm("일정을 삭제하시겠습니까?")) {

@@ -153,7 +153,7 @@
 	                </div>
 	            </div>
 	             <div>
-	                <input class="change-pwd-phone tel" type="text" name="tel" placeholder="휴대폰 번호를 입력" style="display:none;">
+	                <input class="change-pwd-phone tel" type="text" name="tel" placeholder="비밀번호 변경을 위한 휴대폰 인증입니다. (-없이 숫자만 입력해주세요.)" style="display:none;">
 	             <div>
 	                                        <button type="button" class="chkpwdphone myPageInfoBtn" style="display:none;">인증요청</button>
 	                                        <div>

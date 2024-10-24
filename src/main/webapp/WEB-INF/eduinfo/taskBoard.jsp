@@ -1,26 +1,35 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-
-
-
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <%-- <script src="${pageContext.request.contextPath }/resources/js/testList.js"></script> --%>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/taskBoard.css">
+
 <title>과제 게시판</title>
 </head>
 <body>
 
-	<% if("교수".equals(usertype) || "관리자".equals(usertype)){ %>
-        <%@ include file="../member/adminIndex.jsp"%>
-    <%}else{ %>
-   		<%@ include file="../member/taskIndex.jsp"%>
-    <%} %>
-    
-	<% Integer c_number = (Integer) request.getAttribute("c_number"); %>
-	<%String c_name = (String) request.getAttribute("c_name");%>
+	<%
+	if ("교수".equals(usertype) || "관리자".equals(usertype)) {
+	%>
+	<%@ include file="../member/adminIndex.jsp"%>
+	<%
+	} else {
+	%>
+	<%@ include file="../member/taskIndex.jsp"%>
+	<%
+	}
+	%>
+
+	<%
+	Integer c_number = (Integer) request.getAttribute("c_number");
+	%>
+	<%
+	String c_name = (String) request.getAttribute("c_name");
+	%>
 
 	<div class="bcl">
 		<div class="divall">
@@ -28,75 +37,95 @@
 			<br>
 			<section class="header-container">
 				<h5>
-					강의번호 <%=c_number%>
+					강의번호
+					<%=c_number%>
 				</h5>
 				<h5>
-					강의명 : <%=c_name%></h5>
+					강의명 :
+					<%=c_name%></h5>
 			</section>
-			<br>
-			<br>
+			<br> <br>
 
-			<table class="table">
-				<tr
-					onclick="location.href='/task/info?c_number=${tl.c_number}&t_number=${tl.t_number}'"
-					style="cursor: hand">
-
-					<th>강의 번호</th>
-					<th>작성자</th>
-					<th>과제 제목</th>
-					<th>과제 내용</th>
-					<th>종료 시간</th>
-				</tr>
+			<table class="table task_board_table">
 				<tr>
+					<th>강의 번호</th>
 					<td>${task.c_number}</td>
-					<td>${task.id}</td>
-					<td>${task.title}</td>
-					<td>${task.info}</td>
-					<td><fmt:formatDate value="${task.deadline}" pattern="yyyy-MM-dd HH:mm"/></td>
 				</tr>
+				<tr>
+					<th>강의 교수</th>
+					<td>${pro_name}</td>
+				</tr>
+				<tr>
+					<th>과제 제목</th>
+					<td>${task.title}</td>
+				</tr>
+				<tr class="task_info">
+					<th>과제 내용</th>
+					<td>${task.info}</td>
+				</tr>
+				<tr>
+					<th>종료 시간</th>
+					<td><fmt:formatDate value="${task.deadline}"
+							pattern="yyyy-MM-dd HH:mm" /></td>
+				</tr>
+				
+				<tr>
+					<th>파일</th>
+					<td><a href="/downloadFile?fileName=${task.t_file1}">${task.t_file1}</a></td>
+				</tr>
+				
 			</table>
+			<c:if test="${task.id eq userId}">
+				<button class="btn stutask_btn"
+					onclick="location.href='/task/chan?t_number=${task.t_number}'">수정하기</button>
+			</c:if>
+			
 
 
-
-			<table class="table" style="margin-top : 50px;">
+			<c:if test="${stutask.c_number ne null}">
+			<table class="table task_board_table" style="margin-top: 50px;">
 				<tr>
 					<th>강의 번호</th>
-					<th>작성자</th>
-					<th>과제 번호</th>
-					<th>과제 제목</th>
-					<th>과제 내용</th>
-					<th>파일</th>
+					<td>${stutask.c_number}</td>
 				</tr>
 				<tr>
-					<td>${stutask.c_number}</td>
-					<td>${stutask.id}</td>
-					<td>${stutask.t_number}</td>
-					<td>${stutask.st_title }</td>
-					<td>${stutask.st_info }</td>
-					<td>
-					<a href="/downloadFile?filePath=${stutask.s_file1}">${stutask.s_file1}</a></td>
+					<th>작성자</th>
+					<td>${stu_name}</td>
+				</tr>
+				<tr>
+					<th>과제 제목</th>
+					<td>${stutask.st_title}</td>
+				</tr>
+				<tr>
+					<th class="task_info">과제 내용</th>
+					<td>${stutask.st_info}</td>
+				</tr>
+				<tr>
+					<th>파일</th>
+					<td><a href="/downloadFile?fileName=${stutask.s_file1}">${stutask.s_file1}</a>
+					</td>
 				</tr>
 			</table>
-				<c:if test="${stutask.c_number eq null}">
-				<button class="btn stutask_btn" onclick="location.href='/student/task/page?c_number=${task.c_number}&t_number=${task.t_number}'"
-					style="cursor: hand">등록</button>
-					</c:if>
-				<c:if test="${stutask.c_number ne null}">
+				<c:if test="${stutask.c_number ne null and usertype != '교수'}">
 				<button class="btn stutask_btn" onclick="location.href='/student/taskpage?st_number=${stutask.st_number}'">수정하기</button>
 				</c:if>
+			</c:if>
 
 
 
 
 
-
-			<c:if test="${stutask eq null}">
-			<div class="nodiv">
+			<c:if test="${stutask == null and usertype != '교수'}">
+			<div class="nodiv" style="margin:10%;">
 				<h5>작성한 과제가 없습니다.</h5>
 			</div>
+				<button class="btn stutask_btn" onclick="location.href='/student/task/page?c_number=${task.c_number}&t_number=${task.t_number}'"
+					style="cursor: hand">등록</button>
 			</c:if>
 			
 			
+
+
 		</div>
 	</div>
 </body>

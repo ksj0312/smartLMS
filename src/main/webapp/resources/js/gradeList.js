@@ -58,7 +58,6 @@
         				    );
 					  		       				 
 				            values = data.gradeList;
-				            console.log(values);
 				            $.each(values, function(index, value){
 								$("#table").append(
 								      ` 

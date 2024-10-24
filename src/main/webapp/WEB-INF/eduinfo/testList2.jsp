@@ -46,7 +46,6 @@
 				        </tr>
 					<c:forEach items="${tList}" var="tl">
 					<tr>
-<%-- 					<tr onclick="location.href='test?g_number=${tl.g_number}'" style="cursor:hand" > --%>
 						<td>${tl.c_number}</td>  
 						<td>${tl.g_number}</td>  
 						<td>${tl.test_type}</td>

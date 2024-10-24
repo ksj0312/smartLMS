@@ -89,7 +89,6 @@ public class MemberController {
 		         session.setAttribute("userStatus", memService.getStudent(vo).getStatus());
 		         session.setAttribute("loginChk", "stu");
 		         session.setAttribute("noteCount", boardService.noteCount(id));
-		         System.out.println(boardService.noteCount(id));
 		         
 		         return "redirect:/";
 		         
@@ -156,7 +155,6 @@ public class MemberController {
 	@GetMapping("/classlist")
 	public String getClassList(@RequestParam("Id") String Id, MyPageVO vo, HttpSession session, Model model) {
 		vo.setId((String) session.getAttribute("userId"));
-		System.out.println(memService.getClassList(vo));
 		model.addAttribute("classList",memService.getClassList(vo));
 		return "member/myPageClass";
 	}
@@ -186,9 +184,7 @@ public class MemberController {
 	public boolean changePwd(HttpSession session, StudentVO vo) {
 //		String userId = (String) session.getAttribute("userId");
 		vo.setId((String) session.getAttribute("userId"));
-		System.out.println("vo" + vo);
 		boolean result = memService.changePwd(vo);
-		System.out.println("result" + result);
 		return result;
 	}
 	
@@ -198,9 +194,7 @@ public class MemberController {
 	public boolean changeAdminPwd(HttpSession session, ProfessorVO vo) {
 //		String userId = (String) session.getAttribute("userId");
 		vo.setId((String) session.getAttribute("userId"));
-		System.out.println("vo" + vo);
 		boolean result = memService.changeAdminPwd(vo);
-		System.out.println("result" + result);
 		return result;
 	}
 	
@@ -210,7 +204,6 @@ public class MemberController {
 	public void changeNewPwd(HttpSession session, @RequestBody StudentVO vo)throws Exception {
 //		String userId = (String) session.getAttribute("userId");
 		vo.setId((String) session.getAttribute("userId"));
-		System.out.println(vo);
 	    memService.changeNewPwdTx(vo);
 	    
 	    session.invalidate();
@@ -230,7 +223,6 @@ public class MemberController {
 
 	    String email = requestData.get("email");
 
-	    System.out.println("이메일: " + email);
 
 	    memService.updateMailTx(email, userId);
 	    
@@ -246,7 +238,6 @@ public class MemberController {
 	    String addr = requestData.get("addr");
 	    String detail_addr = requestData.get("detail_addr");
 
-	    System.out.println(zipcode);
 
 	    memService.updatePostTx(zipcode, addr, detail_addr, userId);
 	    
@@ -257,7 +248,6 @@ public class MemberController {
 	@ResponseBody
 	public StudentVO getId(@RequestParam("email") String email) {
 		StudentVO vo = memService.getId(email);
-		System.out.println(vo);
 		return vo;
 	}
 	
@@ -274,7 +264,6 @@ public class MemberController {
 	public MyPageVO myPageClassInfo(HttpSession session, @RequestParam("c_number") int c_number) {
 		String userId = (String) session.getAttribute("userId");
 		MyPageVO vo = memService.myPageClassInfo(c_number, userId);
-		System.out.println(vo);
 		return vo;
 	}
 	

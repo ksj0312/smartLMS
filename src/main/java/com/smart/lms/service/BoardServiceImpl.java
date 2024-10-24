@@ -201,4 +201,8 @@ public class BoardServiceImpl implements BoardService {
 		return vo; // vo가 null이 아니면 true, null이면 false 반환
 	
 	}
+	@Override
+	   public int getBoardListTotalCnt2(Pagination pg) {
+	      return boDAO.getBoardListTotalCnt2(pg);   
+	      }
 }
